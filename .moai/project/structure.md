@@ -2,7 +2,7 @@
 
 ## Overview
 
-Policy-Damoa is a Next.js 14+ App Router application organized around domain-driven feature modules. The directory structure separates concerns cleanly: the `src/app` directory handles routing, `src/features` contains domain logic, `src/components` holds shared UI, and `src/services` abstracts external integrations.
+Policy-Damoa is a Next.js 16.2.2 App Router application organized around domain-driven feature modules. The directory structure separates concerns cleanly: the `src/app` directory handles routing, `src/features` contains domain logic, `src/components` holds shared UI, and `src/services` abstracts external integrations.
 
 ---
 
@@ -15,20 +15,27 @@ policy-damoa/
 │   ├── features/               # Domain feature modules
 │   ├── components/             # Shared UI components
 │   ├── lib/                    # Utilities, helpers, config
-│   ├── services/               # External service integrations
-│   ├── hooks/                  # Shared React hooks
+│   ├── services/               # External service integrations (planned)
+│   ├── hooks/                  # Shared React hooks (planned)
 │   ├── types/                  # Global TypeScript type definitions
-│   └── styles/                 # Global CSS and Tailwind config
+│   ├── styles/                 # Global CSS placeholder (Tailwind v4 config in app/globals.css)
+│   └── middleware.ts           # Next.js middleware
 ├── prisma/                     # Database schema and migrations
+│   ├── schema.prisma           # Prisma schema
+│   └── prisma.config.ts        # Prisma 7.x datasource config (replaces url in schema)
 ├── public/                     # Static assets
-├── scripts/                    # Data collection and maintenance scripts
-├── tests/                      # Test files (unit, integration, e2e)
+├── scripts/                    # Data collection and maintenance scripts (planned)
 ├── .env.example                # Environment variable template
 ├── next.config.ts              # Next.js configuration
-├── tailwind.config.ts          # Tailwind CSS configuration
+├── eslint.config.mjs           # ESLint 9 flat config (replaces .eslintrc)
+├── vitest.config.ts            # Vitest configuration
+├── playwright.config.ts        # Playwright E2E configuration
+├── components.json             # shadcn/ui configuration
 ├── tsconfig.json               # TypeScript configuration
 └── package.json
 ```
+
+> **Note**: Tailwind CSS v4 does not use `tailwind.config.ts`. Design tokens are configured via `@theme` blocks in `src/app/globals.css`. ESLint 9 uses the flat config format (`eslint.config.mjs`) instead of `.eslintrc`.
 
 ---
 
@@ -40,43 +47,26 @@ The `app` directory follows Next.js App Router conventions. Each folder represen
 src/app/
 ├── (auth)/                     # Auth route group (no layout chrome)
 │   ├── login/
-│   │   └── page.tsx
-│   ├── register/
-│   │   └── page.tsx
-│   └── layout.tsx
+│   │   └── page.tsx            # [implemented]
+│   └── layout.tsx              # [implemented]
 ├── (main)/                     # Main app route group (with nav layout)
-│   ├── layout.tsx              # Main layout with header, sidebar
-│   ├── page.tsx                # Home / landing page
+│   ├── layout.tsx              # Main layout with header, sidebar [implemented]
+│   ├── page.tsx                # Home / landing page [implemented]
 │   ├── policies/
-│   │   ├── page.tsx            # Policy search and listing
-│   │   ├── [id]/
-│   │   │   └── page.tsx        # Policy detail page
-│   │   └── loading.tsx
-│   ├── recommendations/
-│   │   └── page.tsx            # AI recommendations page
-│   ├── notifications/
-│   │   └── page.tsx            # Notification settings and history
-│   └── profile/
-│       └── page.tsx            # User profile and saved policies
+│   │   └── loading.tsx         # [implemented; page.tsx planned]
+│   ├── recommendations/        # [planned]
+│   ├── notifications/          # [planned]
+│   └── profile/                # [planned]
 ├── api/                        # API route handlers (Route Handlers)
-│   ├── auth/
-│   │   └── [...nextauth]/
-│   │       └── route.ts        # NextAuth.js handler
-│   ├── policies/
-│   │   ├── route.ts            # GET /api/policies (list, search, filter)
-│   │   └── [id]/
-│   │       └── route.ts        # GET /api/policies/:id
-│   ├── notifications/
-│   │   └── route.ts            # GET/POST /api/notifications
-│   ├── recommendations/
-│   │   └── route.ts            # GET /api/recommendations (AI-powered)
-│   └── webhooks/
-│       └── data-sync/
-│           └── route.ts        # Webhook for data collection jobs
-├── layout.tsx                  # Root layout (HTML, metadata, providers)
-├── not-found.tsx
-└── globals.css
+│   └── auth/
+│       └── [...nextauth]/
+│           └── route.ts        # NextAuth.js v5 handler [implemented]
+├── layout.tsx                  # Root layout (HTML, metadata, providers) [implemented]
+├── not-found.tsx               # [implemented]
+└── globals.css                 # Tailwind v4 CSS-first config (@import 'tailwindcss', @theme)
 ```
+
+> **Implementation status**: The (auth)/register route was not created during SPEC-INFRA-001 (deferred). Most (main) sub-routes and API routes are placeholders pending feature SPECs.
 
 ---
 
@@ -84,9 +74,40 @@ src/app/
 
 Each feature module is self-contained and owns its own components, hooks, actions, and types. This approach follows the vertical slice architecture pattern, keeping related code co-located.
 
+> **SPEC-INFRA-001 status**: All feature directories were created with `.gitkeep` placeholders. Individual components, hooks, actions, and types are populated per feature SPEC.
+
 ```
 src/features/
 ├── policies/
+│   ├── components/             # [.gitkeep — pending feature SPEC]
+│   ├── hooks/                  # [.gitkeep — pending feature SPEC]
+│   ├── actions/                # [.gitkeep — pending feature SPEC]
+│   ├── schemas/                # [.gitkeep — pending feature SPEC]
+│   └── types/                  # [.gitkeep — pending feature SPEC]
+│
+├── notifications/
+│   ├── components/             # [.gitkeep — pending feature SPEC]
+│   ├── hooks/                  # [.gitkeep — pending feature SPEC]
+│   ├── actions/                # [.gitkeep — pending feature SPEC]
+│   └── types/                  # [.gitkeep — pending feature SPEC]
+│
+├── recommendations/
+│   ├── components/             # [.gitkeep — pending feature SPEC]
+│   ├── hooks/                  # [.gitkeep — pending feature SPEC]
+│   ├── actions/                # [.gitkeep — pending feature SPEC]
+│   └── types/                  # [.gitkeep — pending feature SPEC]
+│
+└── user/
+    ├── components/             # [.gitkeep — pending feature SPEC]
+    ├── hooks/                  # [.gitkeep — pending feature SPEC]
+    ├── actions/                # [.gitkeep — pending feature SPEC]
+    └── types/                  # [.gitkeep — pending feature SPEC]
+```
+
+### Planned component structure (per feature SPEC)
+
+```
+src/features/policies/
 │   ├── components/
 │   │   ├── PolicyCard.tsx          # Summary card for policy listing
 │   │   ├── PolicyDetail.tsx        # Full policy detail view
@@ -94,51 +115,15 @@ src/features/
 │   │   ├── PolicySearchBar.tsx     # Search input with suggestions
 │   │   └── PolicyList.tsx          # List with pagination
 │   ├── hooks/
-│   │   ├── usePolicies.ts          # Fetch and filter policies
-│   │   └── usePolicyDetail.ts      # Fetch single policy
+│   │   ├── usePolicies.ts
+│   │   └── usePolicyDetail.ts
 │   ├── actions/
-│   │   ├── searchPolicies.ts       # Server action: search
-│   │   └── getPolicyById.ts        # Server action: detail fetch
+│   │   ├── searchPolicies.ts
+│   │   └── getPolicyById.ts
 │   ├── schemas/
-│   │   └── policy.schema.ts        # Zod validation schemas
+│   │   └── policy.schema.ts
 │   └── types/
-│       └── policy.types.ts         # Policy domain types
-│
-├── notifications/
-│   ├── components/
-│   │   ├── NotificationSettings.tsx
-│   │   ├── NotificationCard.tsx
-│   │   └── NotificationBell.tsx    # Header notification indicator
-│   ├── hooks/
-│   │   └── useNotifications.ts
-│   ├── actions/
-│   │   └── updateNotificationPrefs.ts
-│   └── types/
-│       └── notification.types.ts
-│
-├── recommendations/
-│   ├── components/
-│   │   ├── RecommendationPanel.tsx
-│   │   ├── RecommendationCard.tsx
-│   │   └── AIExplanation.tsx       # AI matching explanation display
-│   ├── hooks/
-│   │   └── useRecommendations.ts
-│   ├── actions/
-│   │   └── getPersonalizedRecs.ts  # Server action: call AI service
-│   └── types/
-│       └── recommendation.types.ts
-│
-└── user/
-    ├── components/
-    │   ├── ProfileForm.tsx          # Profile setup/edit wizard
-    │   ├── SavedPolicies.tsx        # Bookmarked policies list
-    │   └── ProfileSummary.tsx
-    ├── hooks/
-    │   └── useUserProfile.ts
-    ├── actions/
-    │   └── updateProfile.ts        # Server action: profile update
-    └── types/
-        └── user.types.ts
+│       └── policy.types.ts
 ```
 
 ---
@@ -149,28 +134,33 @@ Components used across multiple features. Organized by category, following shadc
 
 ```
 src/components/
-├── ui/                         # shadcn/ui base components (auto-generated)
-│   ├── button.tsx
-│   ├── card.tsx
-│   ├── dialog.tsx
-│   ├── input.tsx
-│   ├── badge.tsx
-│   └── ...
+├── ui/                         # shadcn/ui base components (installed via CLI)
+│   ├── avatar.tsx              # [installed]
+│   ├── badge.tsx               # [installed]
+│   ├── button.tsx              # [installed]
+│   ├── card.tsx                # [installed]
+│   ├── dialog.tsx              # [installed]
+│   ├── dropdown-menu.tsx       # [installed]
+│   ├── input.tsx               # [installed]
+│   ├── separator.tsx           # [installed]
+│   ├── sheet.tsx               # [installed]
+│   ├── skeleton.tsx            # [installed]
+│   └── ...                     # Additional components added per feature SPEC
 ├── layout/
-│   ├── Header.tsx
-│   ├── Footer.tsx
-│   ├── Sidebar.tsx
-│   └── Navigation.tsx
+│   ├── Header.tsx              # [implemented]
+│   ├── Footer.tsx              # [implemented]
+│   ├── Sidebar.tsx             # [implemented]
+│   └── Navigation.tsx          # [implemented]
 ├── common/
-│   ├── LoadingSpinner.tsx
-│   ├── ErrorBoundary.tsx
-│   ├── EmptyState.tsx
-│   ├── Pagination.tsx
-│   └── SearchInput.tsx
+│   ├── LoadingSpinner.tsx      # [implemented]
+│   ├── ErrorBoundary.tsx       # [implemented]
+│   ├── EmptyState.tsx          # [implemented]
+│   ├── Pagination.tsx          # [planned]
+│   └── SearchInput.tsx         # [planned]
 └── providers/
-    ├── AuthProvider.tsx         # NextAuth.js session provider
-    ├── QueryProvider.tsx        # TanStack Query provider
-    └── ThemeProvider.tsx        # next-themes provider
+    ├── AuthProvider.tsx         # NextAuth.js v5 session provider [implemented]
+    ├── QueryProvider.tsx        # TanStack Query provider [implemented]
+    └── ThemeProvider.tsx        # next-themes provider [implemented]
 ```
 
 ---
@@ -179,13 +169,13 @@ src/components/
 
 ```
 src/lib/
-├── db.ts                       # Prisma client singleton
-├── auth.ts                     # NextAuth.js config
-├── redis.ts                    # Redis client (Upstash)
-├── openai.ts                   # OpenAI client
-├── utils.ts                    # General utility functions (cn, formatDate, etc.)
-├── constants.ts                # App-wide constants
-└── validators/
+├── db.ts                       # Prisma client singleton [implemented]
+├── auth.ts                     # NextAuth.js v5 config [implemented]
+├── utils.ts                    # General utility functions (cn, formatDate, etc.) [implemented]
+├── constants.ts                # App-wide constants [implemented]
+├── redis.ts                    # Redis client (Upstash) [planned]
+├── openai.ts                   # OpenAI client [planned]
+└── validators/                 # [planned]
     ├── policy.validator.ts
     └── user.validator.ts
 ```
@@ -226,11 +216,11 @@ src/services/
 
 ```
 prisma/
-├── schema.prisma               # Main Prisma schema
-└── migrations/                 # Auto-generated migration files
-    └── YYYYMMDDHHMMSS_init/
-        └── migration.sql
+├── schema.prisma               # Main Prisma schema [implemented]
+└── prisma.config.ts            # Prisma 7.x datasource config (earlyAccess: true) [implemented]
 ```
+
+> **Prisma 7.x difference**: The `datasource db` block in `schema.prisma` no longer contains the `url` field. Database URL is managed via `prisma/prisma.config.ts` using `defineConfig`. Migrations directory (`prisma/migrations/`) is created on first `prisma migrate dev` run.
 
 ### Key Prisma Models
 
@@ -263,27 +253,24 @@ Scheduled via Vercel Cron Jobs (or an external cron service) configured in `verc
 
 ---
 
-## `tests` — Test Organization
+## Test Organization
+
+Tests are co-located with source using Vitest. The E2E tests use Playwright with a separate config.
 
 ```
-tests/
-├── unit/
-│   ├── services/
-│   │   ├── recommendation.service.test.ts
-│   │   └── matcher.service.test.ts
-│   └── lib/
-│       └── utils.test.ts
-├── integration/
-│   ├── api/
-│   │   ├── policies.test.ts
-│   │   └── recommendations.test.ts
-│   └── db/
-│       └── policy.repository.test.ts
-└── e2e/
-    ├── search.spec.ts
-    ├── notifications.spec.ts
-    └── profile-setup.spec.ts
+src/
+└── **/*.test.ts                # Unit and integration tests (co-located or in __tests__)
+
+playwright/
+└── *.spec.ts                   # E2E test files (Playwright)
 ```
+
+> **SPEC-INFRA-001 status**: 110 tests passing across unit, integration, and E2E suites. Tests cover infrastructure setup (auth configuration, database client, providers, components).
+
+### Test Configuration
+
+- `vitest.config.ts`: jsdom environment, `@testing-library/jest-dom` setup, coverage via v8
+- `playwright.config.ts`: Configured for local dev server at `http://localhost:3000`
 
 ---
 
@@ -382,4 +369,4 @@ BOJO24_API_KEY=                 # 보조금24
 ---
 
 Last Updated: 2026-04-05
-Version: 1.0.0
+Version: 1.1.0 (Updated after SPEC-INFRA-001 implementation)

@@ -6,19 +6,20 @@ Policy-Damoa is built on a modern TypeScript-first full-stack architecture optim
 
 ---
 
-## Framework: Next.js 14+ (App Router)
+## Framework: Next.js 16.2.2 (App Router)
 
-**Choice**: Next.js 14+ with App Router and TypeScript
+**Choice**: Next.js 16.2.2 with App Router and TypeScript
 
 **Rationale**:
 
-Next.js with App Router provides the best unified full-stack TypeScript experience available in 2024-2026. The App Router's React Server Components model is particularly well-suited for this project because:
+Next.js 16 with App Router provides the best unified full-stack TypeScript experience available in 2024-2026. The App Router's React Server Components model is particularly well-suited for this project because:
 
 - **Server-side rendering** delivers fast initial page loads for policy search results, which is critical for SEO and cold-start user acquisition
 - **Route Handlers** replace the need for a separate API server for most endpoints, reducing infrastructure complexity
 - **Server Actions** allow form submissions and mutations without manual API endpoint creation, speeding up development of profile setup and notification preferences
 - **Built-in image optimization** handles policy agency logos and banner images efficiently
 - **Edge Runtime support** allows middleware (e.g., authentication checks) to run at the CDN edge for low-latency responses
+- **Note**: Next.js 16 deprecates middleware-based proxy patterns; the proxy approach is recommended for future auth middleware architecture
 - **Incremental Static Regeneration (ISR)** can be used for policy detail pages that change infrequently, dramatically reducing database load
 
 The single-repository full-stack model reduces context switching between frontend and backend codebases, enabling a small team to move quickly.
@@ -44,6 +45,12 @@ The single-repository full-stack model reduces context switching between fronten
 - Serverless connection pooling (via PgBouncer) is compatible with Vercel's serverless function architecture
 - Branching feature allows safe schema testing in production-like environments
 - Supabase is an equally valid alternative with its own auth and realtime features
+
+**Prisma 7.x** is the installed version. Key behavioral differences from earlier versions:
+
+- Uses `prisma/prisma.config.ts` for datasource configuration (instead of embedding `DATABASE_URL` directly in `schema.prisma`)
+- `earlyAccess: true` is required for certain v7 features still under early access
+- The `schema.prisma` datasource block no longer contains the `url` field; it is managed via `prisma.config.ts`
 
 **Prisma ORM** is chosen because:
 
@@ -74,14 +81,15 @@ Kakao OAuth integration is particularly important for the target demographic (Ko
 
 ## UI: Tailwind CSS + shadcn/ui
 
-**Choice**: Tailwind CSS v3 + shadcn/ui component library
+**Choice**: Tailwind CSS v4.2.2 + shadcn/ui component library
 
 **Rationale**:
 
 **Tailwind CSS**:
 
 - Utility-first approach eliminates CSS naming conflicts and dead CSS
-- Design system via `tailwind.config.ts` enforces consistent spacing, colors, and typography across the entire application
+- **v4 CSS-first configuration**: Design tokens are defined directly in `src/app/globals.css` using `@theme` blocks and CSS custom properties — there is no `tailwind.config.ts` file
+- `@import 'tailwindcss'` in `globals.css` replaces the previous PostCSS plugin approach
 - JIT compilation produces minimal production CSS bundles
 - Strong integration with shadcn/ui and the broader React ecosystem
 
@@ -99,7 +107,7 @@ The combination delivers a professional, accessible UI with high development vel
 
 ## State Management: TanStack Query (React Query)
 
-**Choice**: TanStack Query v5
+**Choice**: TanStack Query v5.96.2
 
 **Rationale**:
 
@@ -189,37 +197,49 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 
 ### Production Dependencies
 
-| Package                 | Purpose                                  |
-| ----------------------- | ---------------------------------------- |
-| `next`                  | Framework                                |
-| `react`, `react-dom`    | UI library                               |
-| `typescript`            | Type safety                              |
-| `@prisma/client`        | Database ORM client                      |
-| `next-auth`             | Authentication                           |
-| `tailwindcss`           | Styling                                  |
-| `@radix-ui/*`           | Accessible UI primitives (via shadcn/ui) |
-| `@tanstack/react-query` | Server state management                  |
-| `openai`                | AI recommendations and embeddings        |
-| `@upstash/redis`        | Redis client (serverless-compatible)     |
-| `zod`                   | Runtime schema validation                |
-| `date-fns`              | Date formatting and manipulation         |
-| `cheerio`               | HTML parsing for static site crawling    |
-| `playwright`            | Browser automation for JS-rendered sites |
-| `resend`                | Transactional email                      |
-| `web-push`              | Web Push notification delivery           |
-| `lucide-react`          | Icon library (shadcn/ui compatible)      |
+| Package                 | Version       | Purpose                                  |
+| ----------------------- | ------------- | ---------------------------------------- |
+| `next`                  | 16.2.2        | Framework                                |
+| `react`, `react-dom`    | 19.2.4        | UI library                               |
+| `@prisma/client`        | ^7.6.0        | Database ORM client                      |
+| `next-auth`             | 5.0.0-beta.30 | Authentication                           |
+| `@auth/prisma-adapter`  | ^2.11.1       | Prisma adapter for NextAuth.js v5        |
+| `tailwindcss`           | ^4            | Styling (CSS-first config via globals.css) |
+| `@radix-ui/*`           | latest        | Accessible UI primitives (via shadcn/ui) |
+| `@tanstack/react-query` | ^5.80.6       | Server state management                  |
+| `next-themes`           | ^0.4.6        | Theme provider for dark mode             |
+| `lucide-react`          | ^0.525.0      | Icon library (shadcn/ui compatible)      |
+| `class-variance-authority` | ^0.7.1   | Variant styling utility                  |
+| `clsx`                  | ^2.1.1        | Class name utility                       |
+| `tailwind-merge`        | ^3.3.0        | Tailwind class merge utility             |
+| `tw-animate-css`        | ^1.3.4        | Animation utilities for Tailwind v4      |
+| `openai`                | (planned)     | AI recommendations and embeddings        |
+| `@upstash/redis`        | (planned)     | Redis client (serverless-compatible)     |
+| `zod`                   | (planned)     | Runtime schema validation                |
+| `date-fns`              | (planned)     | Date formatting and manipulation         |
+| `cheerio`               | (planned)     | HTML parsing for static site crawling    |
+| `playwright`            | (planned)     | Browser automation for JS-rendered sites |
+| `resend`                | (planned)     | Transactional email                      |
+| `web-push`              | (planned)     | Web Push notification delivery           |
 
 ### Development Dependencies
 
-| Package                          | Purpose                          |
-| -------------------------------- | -------------------------------- |
-| `prisma`                         | Database CLI and migration tool  |
-| `vitest`                         | Unit and integration testing     |
-| `@playwright/test`               | End-to-end testing               |
-| `eslint`, `@typescript-eslint/*` | Linting                          |
-| `prettier`                       | Code formatting                  |
-| `husky`                          | Git hooks for pre-commit checks  |
-| `lint-staged`                    | Run linters only on staged files |
+| Package                          | Version   | Purpose                          |
+| -------------------------------- | --------- | -------------------------------- |
+| `typescript`                     | ^5 (5.9.3) | Type safety                     |
+| `prisma`                         | ^7.6.0    | Database CLI and migration tool  |
+| `vitest`                         | ^4.1.2    | Unit and integration testing     |
+| `@playwright/test`               | ^1.59.1   | End-to-end testing               |
+| `eslint`                         | ^9        | Linting (flat config, eslint.config.mjs) |
+| `eslint-config-next`             | 16.2.2    | Next.js ESLint rules             |
+| `prettier`                       | ^3.8.1    | Code formatting                  |
+| `husky`                          | ^9.1.7    | Git hooks for pre-commit checks  |
+| `lint-staged`                    | ^16.4.0   | Run linters only on staged files |
+| `@tailwindcss/postcss`           | ^4        | PostCSS integration for Tailwind v4 |
+| `@vitejs/plugin-react`           | ^6.0.1    | Vite plugin for React in Vitest  |
+| `@testing-library/react`         | ^16.3.2   | React component testing          |
+| `@testing-library/jest-dom`      | ^6.9.1    | DOM matchers for testing         |
+| `jsdom`                          | ^29.0.1   | DOM environment for Vitest       |
 
 ---
 
@@ -227,8 +247,8 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 
 ### Required
 
-- **Node.js**: 20.x LTS or later (required for Next.js 14+)
-- **pnpm**: 8.x or later (preferred package manager; faster and more efficient than npm/yarn)
+- **Node.js**: 20.19.6 (required for Next.js 16; 20.x LTS)
+- **pnpm**: 9.x or later (preferred package manager; faster and more efficient than npm/yarn)
 - **Git**: For version control
 
 ### Recommended
@@ -246,7 +266,7 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 1. Copy `.env.example` to `.env.local`
 2. Start local services: `docker compose up -d`
 3. Install dependencies: `pnpm install`
-4. Run database migrations: `pnpm prisma migrate dev`
+4. Run database migrations: `pnpm prisma migrate dev` (requires `prisma/prisma.config.ts` with `DATABASE_URL`)
 5. Seed development data: `pnpm prisma db seed`
 6. Start development server: `pnpm dev`
 
@@ -315,5 +335,24 @@ Key settings:
 
 ---
 
+---
+
+## Actual Installed Versions (SPEC-INFRA-001)
+
+| Technology       | Planned          | Installed        | Notes                                                       |
+| ---------------- | ---------------- | ---------------- | ----------------------------------------------------------- |
+| Next.js          | 14+              | 16.2.2           | App Router, middleware proxy recommended over legacy pattern |
+| React            | 18.3.0           | 19.2.4           | Server Components, Actions, use() hook                      |
+| TypeScript       | 5.5.0            | 5.9.3            | Stricter type inference improvements                        |
+| Tailwind CSS     | 3.4.0            | 4.2.2            | CSS-first config; no `tailwind.config.ts`                   |
+| Prisma           | 5.15.0           | 7.x (^7.6.0)     | `prisma/prisma.config.ts` for datasource; `earlyAccess: true` |
+| next-auth        | 5.0.0-beta.19    | 5.0.0-beta.30    | v5 App Router native                                        |
+| @tanstack/react-query | 5.x         | 5.96.2 (^5.80.6) | —                                                           |
+| Vitest           | 1.6.0            | 4.1.2            | `@vitejs/plugin-react` ^6                                   |
+| ESLint           | 8.57.0           | 9 (flat config)  | `eslint.config.mjs` flat config format                      |
+| Node.js          | 20.x             | 20.19.6          | —                                                           |
+
+---
+
 Last Updated: 2026-04-05
-Version: 1.0.0
+Version: 1.1.0 (Updated after SPEC-INFRA-001 implementation)

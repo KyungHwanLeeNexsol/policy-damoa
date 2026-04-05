@@ -240,4 +240,4 @@ Monthly subscription (~3,000-5,000 KRW) for:
 ---
 
 Last Updated: 2026-04-05
-Version: 1.0.0
+Version: 1.0.0 (No changes — description matches SPEC-INFRA-001 implementation scope)
