@@ -1,0 +1,2 @@
+export PATH="/c/Users/zuge3/AppData/Local/nvm/v20.19.6:$PATH"
+pnpm exec lint-staged

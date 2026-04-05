@@ -1,0 +1,187 @@
+// Prisma 스키마 - 정책다모아 (Policy-Damoa)
+// 한국 정부 정책 통합 플랫폼의 데이터베이스 스키마
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// 인증 모델 (NextAuth.js 호환)
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  profile       UserProfile?
+  savedPolicies UserSavedPolicy[]
+  notifications NotificationLog[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ============================================
+// 도메인 모델 - 정책
+// ============================================
+
+model Policy {
+  id                   String    @id @default(cuid())
+  externalId           String?   @unique
+  title                String
+  description          String?   @db.Text
+  eligibilityCriteria  Json?     // JSONB - 수급 자격 조건
+  additionalConditions Json?     // JSONB - 추가 조건
+  benefitType          String?   // cash, voucher, service, loan
+  benefitAmount        String?
+  applicationMethod    String?   @db.Text
+  applicationDeadline  DateTime?
+  sourceUrl            String?
+  sourceAgency         String?
+  regionId             String?
+  region               Region?   @relation(fields: [regionId], references: [id])
+  categories           PolicyCategoryRelation[]
+  savedByUsers         UserSavedPolicy[]
+  status               String    @default("active") // active, expired, upcoming
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  @@index([title])
+  @@index([regionId])
+  @@index([applicationDeadline])
+}
+
+model PolicyCategory {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
+  description String?
+  icon        String?
+  policies    PolicyCategoryRelation[]
+  createdAt   DateTime @default(now())
+}
+
+model PolicyCategoryRelation {
+  id         String         @id @default(cuid())
+  policyId   String
+  categoryId String
+  policy     Policy         @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  category   PolicyCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([policyId, categoryId])
+}
+
+// ============================================
+// 도메인 모델 - 지역
+// ============================================
+
+model Region {
+  id       String   @id @default(cuid())
+  name     String
+  code     String   @unique
+  level    Int      // 1=시도, 2=시군구, 3=읍면동
+  parentId String?
+  parent   Region?  @relation("RegionHierarchy", fields: [parentId], references: [id])
+  children Region[] @relation("RegionHierarchy")
+  policies Policy[]
+}
+
+// ============================================
+// 도메인 모델 - 사용자 프로필
+// ============================================
+
+model UserProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  birthYear       Int?
+  gender          String?
+  occupation      String?
+  incomeLevel     String?
+  regionId        String?
+  familyStatus    String?  // single, married, single-parent, multicultural
+  isPregnant      Boolean  @default(false)
+  hasChildren     Boolean  @default(false)
+  childrenCount   Int      @default(0)
+  isDisabled      Boolean  @default(false)
+  isVeteran       Boolean  @default(false)
+  additionalInfo  Json?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ============================================
+// 도메인 모델 - 사용자 저장 정책
+// ============================================
+
+model UserSavedPolicy {
+  id              String   @id @default(cuid())
+  userId          String
+  policyId        String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  policy          Policy   @relation(fields: [policyId], references: [id], onDelete: Cascade)
+  applicationStatus String? // saved, applied, approved, rejected
+  notes           String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, policyId])
+}
+
+// ============================================
+// 도메인 모델 - 알림 로그
+// ============================================
+
+model NotificationLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // push, email
+  title     String
+  body      String?  @db.Text
+  policyId  String?
+  sentAt    DateTime @default(now())
+  readAt    DateTime?
+  status    String   @default("sent") // sent, delivered, read, failed
+}
