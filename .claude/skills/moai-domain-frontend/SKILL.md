@@ -10,18 +10,40 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.1.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-03-28"
-  modularized: "true"
-  tags: "frontend, react, nextjs, vue, ui, components"
-  author: "MoAI-ADK Team"
-  context7-libraries: "/facebook/react, /vercel/next.js, /vuejs/vue"
+  version: '2.1.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-03-28'
+  modularized: 'true'
+  tags: 'frontend, react, nextjs, vue, ui, components'
+  author: 'MoAI-ADK Team'
+  context7-libraries: '/facebook/react, /vercel/next.js, /vuejs/vue'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["frontend", "UI", "component", "React", "Next.js", "Vue", "user interface", "responsive", "TypeScript", "JavaScript", "state management", "hooks", "props", "JSX", "TSX", "client-side", "browser", "DOM", "CSS", "Tailwind"]
+  keywords:
+    [
+      'frontend',
+      'UI',
+      'component',
+      'React',
+      'Next.js',
+      'Vue',
+      'user interface',
+      'responsive',
+      'TypeScript',
+      'JavaScript',
+      'state management',
+      'hooks',
+      'props',
+      'JSX',
+      'TSX',
+      'client-side',
+      'browser',
+      'DOM',
+      'CSS',
+      'Tailwind',
+    ]
 ---
 
 # Frontend Development Specialist

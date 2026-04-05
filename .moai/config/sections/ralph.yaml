@@ -28,7 +28,7 @@ ralph:
     enabled: true
 
     # Path to AST-grep configuration file
-    config_path: ".claude/skills/moai-tool-ast-grep/rules/sgconfig.yml"
+    config_path: '.claude/skills/moai-tool-ast-grep/rules/sgconfig.yml'
 
     # Enable security vulnerability scanning
     security_scan: true
@@ -80,10 +80,10 @@ ralph:
       enabled: true
 
       # Trigger LSP diagnostics after these tools
-      trigger_on: ["Write", "Edit"]
+      trigger_on: ['Write', 'Edit']
 
       # Minimum severity level to report (error, warning, info)
-      severity_threshold: "error"
+      severity_threshold: 'error'
 
     # Loop controller hook
     stop_loop_controller:

@@ -3,10 +3,10 @@
 
 moai:
   # MoAI-ADK version
-  version: "2.9.1"
+  version: '2.9.1'
 
   # Template version (updated by moai update)
-  template_version: "2.9.1"
+  template_version: '2.9.1'
 
   # Version update check frequency (daily, weekly, never)
   update_check_frequency: daily
@@ -48,13 +48,13 @@ document_management:
     strict_separation: true
 
     # Policy description
-    description: "Clear separation between logs (runtime data) and docs (documentation content)"
+    description: 'Clear separation between logs (runtime data) and docs (documentation content)'
 
     # Logs scope: runtime sessions, errors, execution traces, agent transcripts
-    logs_scope: "runtime sessions, errors, execution traces, agent transcripts"
+    logs_scope: 'runtime sessions, errors, execution traces, agent transcripts'
 
     # Docs scope: reports, analysis, validation, sync, inspection, documentation files
-    docs_scope: "reports, analysis, validation, sync, inspection, documentation files"
+    docs_scope: 'reports, analysis, validation, sync, inspection, documentation files'
 
   # Directory Configuration
   directories:

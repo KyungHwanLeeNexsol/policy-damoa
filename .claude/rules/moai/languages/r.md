@@ -1,5 +1,5 @@
 ---
-paths: "**/*.R,**/*.Rmd,**/DESCRIPTION,**/NAMESPACE"
+paths: '**/*.R,**/*.Rmd,**/DESCRIPTION,**/NAMESPACE'
 ---
 
 # R Rules
@@ -34,7 +34,7 @@ Version: R 4.4+
 
 ## File Conventions
 
-- test-*.R for test files in tests/testthat/
+- test-\*.R for test files in tests/testthat/
 - Use snake_case for functions and variables
 - R/ for package source code
 - Use .Rproj for project settings
@@ -42,7 +42,7 @@ Version: R 4.4+
 
 ## Testing
 
-- Use testthat with expect_* assertions
+- Use testthat with expect\_\* assertions
 - Use snapshot tests for complex output
 - Use withr for temporary state changes
 - Test edge cases and NA handling

@@ -25,16 +25,19 @@ Widgets receive constraints from parents, determine their size, then report size
 ## Measurement Tools
 
 **MediaQuery.sizeOf(context)** - Use when you need app window size for top-level layout decisions
+
 - Returns entire app window dimensions
 - Better performance than `MediaQuery.of()` for size queries
 - Rebuilds widget when window size changes
 
 **LayoutBuilder** - Use when you need constraints for specific widget subtree
+
 - Provides parent widget's constraints as `BoxConstraints`
 - Local sizing information, not global window size
 - Returns min/max width and height ranges
 
 Example:
+
 ```dart
 // For app-level decisions
 final width = MediaQuery.sizeOf(context).width;
@@ -53,17 +56,20 @@ LayoutBuilder(
 ## Layout Patterns
 
 **Row/Column**
+
 - `Row` arranges children horizontally
 - `Column` arranges children vertically
 - Control alignment with `mainAxisAlignment` and `crossAxisAlignment`
 - Use `Expanded` to make children fill available space proportionally
 
 **Container**
+
 - Add padding, margins, borders, background
 - Can constrain size with width/height
 - Without child/size, expands to fill constraints
 
 **Expanded/Flexible**
+
 - `Expanded` forces child to use available space
 - `Flexible` allows child to use available space but can be smaller
 - Use `flex` parameter to control proportions
@@ -73,17 +79,20 @@ LayoutBuilder(
 ### Design Principles
 
 **Break down widgets**
+
 - Create small, focused widgets instead of large complex ones
 - Improves performance with `const` widgets
 - Makes testing and refactoring easier
 - Share common components across different layouts
 
 **Design to platform strengths**
+
 - Mobile: Focus on capturing content, quick interactions, location awareness
 - Tablet/Desktop: Focus on organization, manipulation, detailed work
 - Web: Leverage deep linking and easy sharing
 
 **Solve touch first**
+
 - Start with great touch UI
 - Test frequently on real mobile devices
 - Layer on mouse/keyboard as accelerators, not replacements
@@ -91,40 +100,47 @@ LayoutBuilder(
 ### Implementation Guidelines
 
 **Never lock orientation**
+
 - Support both portrait and landscape
 - Multi-window and foldable devices require flexibility
 - Locked screens can be accessibility issues
 
 **Avoid device type checks**
+
 - Don't use `Platform.isIOS`, `Platform.isAndroid` for layout decisions
 - Use window size instead
 - Device type != window size (windows, split screens, PiP)
 
 **Use breakpoints, not orientation**
+
 - Don't use `OrientationBuilder` for layout changes
 - Use `MediaQuery.sizeOf` or `LayoutBuilder` with breakpoints
 - Orientation doesn't indicate available space
 
 **Don't fill entire width**
+
 - On large screens, avoid full-width content
 - Use multi-column layouts with `GridView` or flex patterns
 - Constrain content width for readability
 
 **Support multiple inputs**
+
 - Implement keyboard navigation for accessibility
 - Support mouse hover effects
 - Handle focus properly for custom widgets
 
 ## Capabilities and Policies
 
-Separate what your code *can* do from what it *should* do.
+Separate what your code _can_ do from what it _should_ do.
 
 **Capabilities** (what code can do)
+
 - API availability checks
 - OS-enforced restrictions
 - Hardware requirements (camera, GPS, etc.)
 
 **Policies** (what code should do)
+
 - App store guidelines compliance
 - Design preferences
 - Platform-specific features
@@ -151,6 +167,7 @@ class Policy {
 ```
 
 Benefits:
+
 - Clear separation of concerns
 - Easy to test (mock Capability/Policy independently)
 - Simple to update when platforms evolve

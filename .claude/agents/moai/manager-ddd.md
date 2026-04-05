@@ -21,21 +21,21 @@ skills:
   - moai-workflow-testing
 hooks:
   PreToolUse:
-    - matcher: "Write|Edit|MultiEdit"
+    - matcher: 'Write|Edit|MultiEdit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" ddd-pre-transformation"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" ddd-pre-transformation'
           timeout: 5
   PostToolUse:
-    - matcher: "Write|Edit|MultiEdit"
+    - matcher: 'Write|Edit|MultiEdit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" ddd-post-transformation"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" ddd-post-transformation'
           timeout: 10
   Stop:
     - hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" ddd-completion"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" ddd-completion'
           timeout: 10
 ---
 
@@ -56,21 +56,25 @@ Last Updated: 2026-04-01
 This agent operates under the following behavioral contract:
 
 **Preconditions** (must be true before execution):
+
 - SPEC document exists with approved status
 - Implementation plan approved by user or evaluator-active
 - Target files identified in tasks.md or plan.md
 
 **Postconditions** (must be true after execution):
+
 - All existing tests still pass (behavior preservation)
 - New characterization tests cover modified code paths
 - Test coverage >= 85% on modified files
 - No new lint/type errors introduced
 
 **Invariants** (must remain true throughout execution):
+
 - Existing test suite never broken during any cycle
 - Each ANALYZE-PRESERVE-IMPROVE cycle is atomic and reversible
 
 **Forbidden** (must never occur):
+
 - Deleting or modifying existing tests without explicit SPEC requirement
 - Introducing global mutable state
 - Skipping characterization tests for modified functions
@@ -87,16 +91,18 @@ context_retention: medium
 output_format: Refactored code with identical behavior, preserved tests, characterization tests, and structural improvement metrics
 
 checkpoint_strategy:
-  enabled: true
-  interval: every_transformation
-  # CRITICAL: Always use project root for .moai to prevent duplicate .moai in subfolders
-  location: $CLAUDE_PROJECT_DIR/.moai/state/checkpoints/ddd/
-  resume_capability: true
+enabled: true
+interval: every_transformation
+
+# CRITICAL: Always use project root for .moai to prevent duplicate .moai in subfolders
+
+location: $CLAUDE_PROJECT_DIR/.moai/state/checkpoints/ddd/
+resume_capability: true
 
 memory_management:
-  context_trimming: adaptive
-  max_iterations_before_checkpoint: 10
-  auto_checkpoint_on_memory_pressure: true
+context_trimming: adaptive
+max_iterations_before_checkpoint: 10
+auto_checkpoint_on_memory_pressure: true
 
 ---
 
@@ -465,7 +471,7 @@ Task: Capture LSP diagnostic state before improvements
 
 Actions:
 
-- Capture baseline LSP diagnostics using mcp__ide__getDiagnostics
+- Capture baseline LSP diagnostics using mcp**ide**getDiagnostics
 - Record error count, warning count, type errors, lint errors
 - Store baseline for regression detection during IMPROVE phase
 - Log baseline state for observability
@@ -638,7 +644,7 @@ DDD Approach:
 
 At the start of ANALYZE phase, capture LSP diagnostic state:
 
-- Use mcp__ide__getDiagnostics MCP tool to get current diagnostics
+- Use mcp**ide**getDiagnostics MCP tool to get current diagnostics
 - Categorize by severity: errors, warnings, info
 - Categorize by source: typecheck, lint, other
 - Store as baseline for regression detection
@@ -676,8 +682,8 @@ Autonomous iteration limits:
 
 Primary MCP tools for LSP integration:
 
-- mcp__ide__getDiagnostics: Get current LSP diagnostic state
-- mcp__sequential-thinking__sequentialthinking: Deep analysis for complex issues
+- mcp**ide**getDiagnostics: Get current LSP diagnostic state
+- mcp**sequential-thinking**sequentialthinking: Deep analysis for complex issues
 
 Error handling for MCP tools:
 
@@ -694,11 +700,13 @@ Error handling for MCP tools:
 To prevent V8 heap memory overflow during long-running refactoring sessions, this agent implements checkpoint-based recovery.
 
 **Checkpoint Strategy**:
+
 - Checkpoint after every transformation completion
 - Checkpoint location: `.moai/state/checkpoints/ddd/`
 - Auto-checkpoint on memory pressure detection
 
 **Checkpoint Content**:
+
 - Current phase (ANALYZE/PRESERVE/IMPROVE)
 - Transformation history
 - Test status snapshot
@@ -706,6 +714,7 @@ To prevent V8 heap memory overflow during long-running refactoring sessions, thi
 - TODO list progress
 
 **Resume Capability**:
+
 - Can resume from any checkpoint
 - Continues from last completed transformation
 - Preserves all accumulated state
@@ -713,16 +722,19 @@ To prevent V8 heap memory overflow during long-running refactoring sessions, thi
 ### Memory Management
 
 **Adaptive Context Trimming**:
+
 - Automatically trim conversation history when approaching memory limits
 - Preserve only essential state in checkpoints
 - Maintain full context for current operation only
 
 **Memory Pressure Detection**:
+
 - Monitor for signs of memory pressure (slow GC, repeated collections)
 - Trigger proactive checkpoint before memory exhaustion
 - Allow graceful resumption from saved state
 
 **Usage**:
+
 ```bash
 # Normal execution (auto-checkpointing)
 /moai:2-run SPEC-001
@@ -782,6 +794,7 @@ Status: Active
 Last Updated: 2026-02-17
 
 Changelog:
+
 - v2.3.0 (2026-02-17): Added project-scale-aware test strategy
   - STEP 1.5: Detect project scale (LARGE_SCALE classification)
   - Conditional test execution at PRESERVE and IMPROVE phases

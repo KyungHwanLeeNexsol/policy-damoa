@@ -9,15 +9,15 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Grep Glob Bash(npm:*) Bash(npx:*) Bash(firebase:*) Bash(curl:*) WebFetch WebSearch mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.0.0"
-  category: "platform"
-  status: "active"
-  updated: "2026-02-09"
-  modularized: "false"
-  platforms: "Auth0, Clerk, Firebase Auth"
-  tags: "auth0, clerk, firebase, authentication, authorization, mfa, sso, passkeys, webauthn, social-login, security"
-  context7-libraries: "/auth0/docs, /clerk/clerk-docs, /firebase/firebase-docs"
-  related-skills: "moai-platform-supabase, moai-platform-vercel, moai-lang-typescript, moai-domain-backend, moai-expert-security"
+  version: '2.0.0'
+  category: 'platform'
+  status: 'active'
+  updated: '2026-02-09'
+  modularized: 'false'
+  platforms: 'Auth0, Clerk, Firebase Auth'
+  tags: 'auth0, clerk, firebase, authentication, authorization, mfa, sso, passkeys, webauthn, social-login, security'
+  context7-libraries: '/auth0/docs, /clerk/clerk-docs, /firebase/firebase-docs'
+  related-skills: 'moai-platform-supabase, moai-platform-vercel, moai-lang-typescript, moai-domain-backend, moai-expert-security'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -27,9 +27,29 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["auth0", "clerk", "firebase auth", "authentication", "authorization", "mfa", "sso", "passkeys", "webauthn", "social login", "user management", "attack protection", "auth ui", "passwordless", "oauth", "identity", "jwt", "token security"]
-  agents: ["expert-backend", "expert-security", "expert-frontend"]
-  phases: ["run"]
+  keywords:
+    [
+      'auth0',
+      'clerk',
+      'firebase auth',
+      'authentication',
+      'authorization',
+      'mfa',
+      'sso',
+      'passkeys',
+      'webauthn',
+      'social login',
+      'user management',
+      'attack protection',
+      'auth ui',
+      'passwordless',
+      'oauth',
+      'identity',
+      'jwt',
+      'token security',
+    ]
+  agents: ['expert-backend', 'expert-security', 'expert-frontend']
+  phases: ['run']
 ---
 
 # Authentication Platform Specialist
@@ -77,6 +97,7 @@ Context7 Library: /firebase/firebase-docs
 ## Quick Decision Guide
 
 Choose Auth0 when:
+
 - Enterprise security and compliance requirements are critical
 - Need sophisticated attack protection and security monitoring
 - Implementing sender-constrained tokens (DPoP, mTLS)
@@ -84,6 +105,7 @@ Choose Auth0 when:
 - FAPI, GDPR, HIPAA, or PCI DSS compliance required
 
 Choose Clerk when:
+
 - Building modern Next.js or React applications
 - Developer experience and beautiful UI are priorities
 - Need passwordless or WebAuthn authentication quickly
@@ -91,6 +113,7 @@ Choose Clerk when:
 - Organization management with role-based access
 
 Choose Firebase Auth when:
+
 - Building mobile-first applications
 - Already using Firebase ecosystem (Firestore, Storage, Functions)
 - Need Google Sign-In or Google ecosystem integration
@@ -128,29 +151,34 @@ All platforms issue JWT tokens for API authorization. Auth0 provides access toke
 Applicable to all platforms:
 
 **Token Storage:**
+
 - Never store tokens in localStorage on web (XSS vulnerability)
 - Use httpOnly cookies when possible
 - For SPAs, use memory storage with refresh token rotation
 - Mobile apps use secure storage (Keychain, Keystore)
 
 **HTTPS Enforcement:**
+
 - Always use HTTPS in production
 - Configure secure redirect URIs
 - Enable HSTS headers
 
 **Token Validation:**
+
 - Always validate token signatures
 - Verify token audience (aud claim)
 - Check token expiration (exp claim)
 - Validate issuer (iss claim)
 
 **Password Policies:**
+
 - Enforce strong password requirements
 - Enable breached password detection
 - Implement account lockout after failed attempts
 - Use password strength indicators
 
 **API Security:**
+
 - Require authentication for all protected endpoints
 - Implement rate limiting
 - Use scopes or permissions for authorization
@@ -207,14 +235,17 @@ When working with authentication features:
 Access up-to-date platform documentation using Context7 MCP:
 
 **Auth0:**
+
 - Use resolve-library-id with "auth0" to get library ID
 - Use get-library-docs with topic "attack-protection", "mfa", "tokens", "compliance"
 
 **Clerk:**
+
 - Use resolve-library-id with "clerk" to get library ID
 - Use get-library-docs with topic "nextjs", "react", "authentication"
 
 **Firebase Auth:**
+
 - Use resolve-library-id with "firebase" to get library ID
 - Use get-library-docs with topic "authentication", "security-rules"
 

@@ -1,6 +1,6 @@
 ---
 description: Worktree integration guide with path isolation rules for agents using isolation worktree
-globs: "**/.claude/agents/**,**/.claude/worktrees/**"
+globs: '**/.claude/agents/**,**/.claude/worktrees/**'
 ---
 
 # Worktree Integration Guide
@@ -12,29 +12,31 @@ Integration guide for MoAI Worktree and Claude Code Native Worktree systems.
 MoAI-ADK supports two complementary worktree systems for isolated development:
 
 **Claude Code Native Worktree** (`.claude/worktrees/`):
+
 - Ephemeral, session-scoped isolation
 - Automatic cleanup when session ends
 - Used for subagent isolation via `isolation: worktree` in agent definitions (v2.1.49+)
 - CLI access: `claude --worktree` or `claude -w` (user-level flag)
 
 **MoAI Worktree** (`~/.moai/worktrees/{ProjectName}/`):
+
 - Persistent, SPEC-scoped workspaces in global home directory
 - Managed via `moai worktree` CLI commands
 - Used for multi-session SPEC development and team collaboration
 
 ## Comparison Table
 
-| Feature | Claude Native | MoAI |
-|---------|--------------|------|
-| **Path** | `.claude/worktrees/<name>/` | `~/.moai/worktrees/{Project}/{SPEC}/` |
-| **Lifetime** | Ephemeral (session-scoped) | Persistent (SPEC-scoped) |
-| **Purpose** | Session isolation for subagents | SPEC development, PR creation |
-| **CLI** | `claude -w` (user) or `isolation: worktree` (agent) | `moai worktree new/list/remove` |
-| **Cleanup** | Automatic on session end | Manual via `moai worktree remove` |
-| **Branch Strategy** | Temporary branches | Feature branches linked to SPEC |
-| **Team Use** | Single agent isolation | Multi-developer collaboration |
-| **State Persistence** | None | SPEC state, progress tracking |
-| **Hook Support** | WorktreeCreate/WorktreeRemove hooks | WorktreeCreate/WorktreeRemove hooks |
+| Feature               | Claude Native                                       | MoAI                                  |
+| --------------------- | --------------------------------------------------- | ------------------------------------- |
+| **Path**              | `.claude/worktrees/<name>/`                         | `~/.moai/worktrees/{Project}/{SPEC}/` |
+| **Lifetime**          | Ephemeral (session-scoped)                          | Persistent (SPEC-scoped)              |
+| **Purpose**           | Session isolation for subagents                     | SPEC development, PR creation         |
+| **CLI**               | `claude -w` (user) or `isolation: worktree` (agent) | `moai worktree new/list/remove`       |
+| **Cleanup**           | Automatic on session end                            | Manual via `moai worktree remove`     |
+| **Branch Strategy**   | Temporary branches                                  | Feature branches linked to SPEC       |
+| **Team Use**          | Single agent isolation                              | Multi-developer collaboration         |
+| **State Persistence** | None                                                | SPEC state, progress tracking         |
+| **Hook Support**      | WorktreeCreate/WorktreeRemove hooks                 | WorktreeCreate/WorktreeRemove hooks   |
 
 ## Claude Code 2.1.50+ Worktree Features
 
@@ -54,11 +56,13 @@ claude --worktree --tmux
 ```
 
 Behavior:
+
 - Creates `.claude/worktrees/<name>/` automatically
 - Branches from default remote branch
 - On session end: prompts to keep (with commits) or auto-deletes (no changes)
 
 tmux flag notes:
+
 - Requires tmux or iTerm2
 - NOT supported in VS Code integrated terminal, Windows Terminal, or Ghostty
 - Useful for parallel team mode where viewing multiple teammates' output is beneficial
@@ -70,17 +74,19 @@ For agents that need isolated execution (v2.1.49+):
 ```yaml
 ---
 name: my-implementer
-isolation: worktree   # Agent runs in its own isolated worktree
-background: true      # Agent runs without blocking main conversation
+isolation: worktree # Agent runs in its own isolated worktree
+background: true # Agent runs without blocking main conversation
 ---
 ```
 
 When to use `isolation: worktree`:
+
 - Implementation teammates that write files (role_profiles: implementer, tester, designer)
 - Prevents file conflicts between parallel teammates
 - Each agent gets its own clean worktree at `.claude/worktrees/<auto-name>/`
 
 When NOT to use `isolation: worktree`:
+
 - Read-only teammates (role_profiles: researcher, analyst, reviewer)
 - `permissionMode: plan` already prevents writes; adding isolation adds overhead without benefit
 
@@ -91,7 +97,7 @@ Run agent without blocking the main conversation (v2.1.46+):
 ```yaml
 ---
 name: team-coder
-background: true   # Returns immediately; results delivered on next turn
+background: true # Returns immediately; results delivered on next turn
 ---
 ```
 
@@ -176,8 +182,8 @@ SYNC PHASE
 ```yaml
 # Implementation teammates (role_profiles: implementer, tester, designer)
 # Spawned via: Agent(subagent_type: "general-purpose", mode: "acceptEdits", isolation: "worktree")
-isolation: worktree   # Isolated worktree per agent
-background: true      # Non-blocking parallel execution
+isolation: worktree # Isolated worktree per agent
+background: true # Non-blocking parallel execution
 permissionMode: acceptEdits
 ```
 
@@ -187,19 +193,20 @@ permissionMode: acceptEdits
 # Read-only teammates (role_profiles: researcher, analyst, reviewer)
 # Spawned via: Agent(subagent_type: "general-purpose", mode: "plan")
 # No isolation: worktree (read-only, mode: plan prevents writes)
-permissionMode: plan  # Read-only mode already provides safety
+permissionMode: plan # Read-only mode already provides safety
 ```
 
 ## WorktreeCreate and WorktreeRemove Hooks
 
 MoAI-ADK implements hook handlers for worktree lifecycle events:
 
-| Hook Event | Triggered When | MoAI Handler |
-|-----------|---------------|--------------|
-| WorktreeCreate | Agent with isolation: worktree spawns | `moai hook worktree-create` |
+| Hook Event     | Triggered When                            | MoAI Handler                |
+| -------------- | ----------------------------------------- | --------------------------- |
+| WorktreeCreate | Agent with isolation: worktree spawns     | `moai hook worktree-create` |
 | WorktreeRemove | Agent with isolation: worktree terminates | `moai hook worktree-remove` |
 
 Hook scripts are located at:
+
 - `.claude/hooks/moai/handle-worktree-create.sh`
 - `.claude/hooks/moai/handle-worktree-remove.sh`
 
@@ -218,16 +225,17 @@ When the orchestrator generates prompts for agents spawned with `isolation: "wor
 
 ### Path Categories
 
-| Category | Example | Absolute Path OK? | Reason |
-|----------|---------|-------------------|--------|
-| Write-target files | Source code, tests | NO — use relative | Agent CWD is worktree root; relative paths resolve correctly |
-| Read-only references | Skills, configs via `${CLAUDE_SKILL_DIR}` | YES | Content is identical in main repo; read-only access is safe |
-| SPEC documents | `.moai/specs/SPEC-XXX/spec.md` | Relative preferred | SPEC files are copied to worktree during checkout |
-| Bash commands | `go test ./...` | NO `cd` prefix | Agent CWD is already set to worktree root |
+| Category             | Example                                   | Absolute Path OK?  | Reason                                                       |
+| -------------------- | ----------------------------------------- | ------------------ | ------------------------------------------------------------ |
+| Write-target files   | Source code, tests                        | NO — use relative  | Agent CWD is worktree root; relative paths resolve correctly |
+| Read-only references | Skills, configs via `${CLAUDE_SKILL_DIR}` | YES                | Content is identical in main repo; read-only access is safe  |
+| SPEC documents       | `.moai/specs/SPEC-XXX/spec.md`            | Relative preferred | SPEC files are copied to worktree during checkout            |
+| Bash commands        | `go test ./...`                           | NO `cd` prefix     | Agent CWD is already set to worktree root                    |
 
 ### How It Works
 
 When `isolation: "worktree"` is set, Claude Code:
+
 1. Creates a temporary worktree from the current branch
 2. Sets the agent's CWD to the worktree root
 3. The agent constructs absolute paths from its own CWD
@@ -257,21 +265,21 @@ Both share the same project structure. `src/auth/handler.go` resolves correctly 
 
 ## Troubleshooting
 
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Worktree not found | Removed manually | Run `moai worktree list` to verify |
-| Agent worktree conflicts | Multiple agents same file | Check file ownership in team config |
-| Stale worktree branches | Incomplete cleanup | Run `git worktree prune` |
-| Hooks not firing | Missing wrapper script | Check `.claude/hooks/moai/` directory |
-| `--tmux` not working | Unsupported terminal | Use tmux or iTerm2 (not VS Code, Ghostty) |
+| Issue                    | Cause                     | Solution                                  |
+| ------------------------ | ------------------------- | ----------------------------------------- |
+| Worktree not found       | Removed manually          | Run `moai worktree list` to verify        |
+| Agent worktree conflicts | Multiple agents same file | Check file ownership in team config       |
+| Stale worktree branches  | Incomplete cleanup        | Run `git worktree prune`                  |
+| Hooks not firing         | Missing wrapper script    | Check `.claude/hooks/moai/` directory     |
+| `--tmux` not working     | Unsupported terminal      | Use tmux or iTerm2 (not VS Code, Ghostty) |
 
 ## SPEC-to-Worktree Mapping
 
-| SPEC Phase | Worktree Type | Location |
-|------------|--------------|----------|
-| Plan | Claude Native | `.claude/worktrees/` (ephemeral) |
-| Run | MoAI | `~/.moai/worktrees/{Project}/{SPEC}/` |
-| Sync | MoAI | Same as Run phase |
+| SPEC Phase | Worktree Type | Location                              |
+| ---------- | ------------- | ------------------------------------- |
+| Plan       | Claude Native | `.claude/worktrees/` (ephemeral)      |
+| Run        | MoAI          | `~/.moai/worktrees/{Project}/{SPEC}/` |
+| Sync       | MoAI          | Same as Run phase                     |
 
 ---
 

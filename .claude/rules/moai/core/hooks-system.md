@@ -1,5 +1,5 @@
 ---
-paths: "**/.claude/hooks/**,**/.claude/settings.json,**/.claude/settings.local.json"
+paths: '**/.claude/hooks/**,**/.claude/settings.json,**/.claude/settings.local.json'
 ---
 
 # Hooks System
@@ -10,40 +10,40 @@ Claude Code hooks for extending functionality with custom scripts.
 
 26 hook event types (+ 1 special event, 27 total):
 
-| Event | Matcher | Can Block | Description |
-|-------|---------|-----------|-------------|
-| SessionStart | No | No | Runs when a new session begins |
-| SessionEnd | Reason | No | Runs when session terminates |
-| PreToolUse | Tool name | Yes | Runs before a tool executes |
-| PostToolUse | Tool name | No | Runs after a tool completes successfully |
-| PostToolUseFailure | Tool name | No | Runs after a tool execution fails |
-| PreCompact | No | No | Runs before context compaction |
-| PostCompact | No | No | Runs after context compaction completes (v2.1.76+) |
-| Stop | No | No | Runs when conversation stops |
-| StopFailure | No | No | Runs when a turn ends due to an API error (v2.1.78+) |
-| SubagentStart | Agent type | No | Runs when a subagent spawns |
-| SubagentStop | No | No | Runs when a subagent terminates |
-| Notification | Type | No | Runs when Claude Code sends notifications |
-| UserPromptSubmit | No | Yes | Runs when user submits a prompt, before processing |
-| PermissionRequest | Tool name | Yes | Runs when permission dialog appears |
-| TeammateIdle | No | Yes | Runs when agent team teammate is about to go idle |
-| TaskCompleted | No | Yes | Runs when a task is being marked complete |
-| TaskCreated | No | No | Runs when a task is created via TaskCreate (v2.1.84+) |
-| WorktreeCreate | No | No | Runs when a worktree is created for agent isolation (v2.1.49+) |
-| WorktreeRemove | No | No | Runs when a worktree is removed after agent terminates (v2.1.49+) |
-| ConfigChange | No | No | Runs when settings.json is modified (v2.1.49+) |
-| CwdChanged | No | No | Runs when working directory changes (v2.1.83+) |
-| FileChanged | No | No | Runs when a file is changed externally (v2.1.83+) |
-| InstructionsLoaded | No | No | Runs when CLAUDE.md or .claude/rules/*.md files are loaded (v2.1.69+) |
-| Elicitation | No | No | Runs when an elicitation dialog is presented to the user (v2.1.84+) |
-| ElicitationResult | No | No | Runs when the user responds to an elicitation dialog (v2.1.84+) |
-| PermissionDenied | No | No | Runs after auto mode classifier denies a tool call; return {retry: true} to retry (v2.1.89+) |
+| Event              | Matcher    | Can Block | Description                                                                                  |
+| ------------------ | ---------- | --------- | -------------------------------------------------------------------------------------------- |
+| SessionStart       | No         | No        | Runs when a new session begins                                                               |
+| SessionEnd         | Reason     | No        | Runs when session terminates                                                                 |
+| PreToolUse         | Tool name  | Yes       | Runs before a tool executes                                                                  |
+| PostToolUse        | Tool name  | No        | Runs after a tool completes successfully                                                     |
+| PostToolUseFailure | Tool name  | No        | Runs after a tool execution fails                                                            |
+| PreCompact         | No         | No        | Runs before context compaction                                                               |
+| PostCompact        | No         | No        | Runs after context compaction completes (v2.1.76+)                                           |
+| Stop               | No         | No        | Runs when conversation stops                                                                 |
+| StopFailure        | No         | No        | Runs when a turn ends due to an API error (v2.1.78+)                                         |
+| SubagentStart      | Agent type | No        | Runs when a subagent spawns                                                                  |
+| SubagentStop       | No         | No        | Runs when a subagent terminates                                                              |
+| Notification       | Type       | No        | Runs when Claude Code sends notifications                                                    |
+| UserPromptSubmit   | No         | Yes       | Runs when user submits a prompt, before processing                                           |
+| PermissionRequest  | Tool name  | Yes       | Runs when permission dialog appears                                                          |
+| TeammateIdle       | No         | Yes       | Runs when agent team teammate is about to go idle                                            |
+| TaskCompleted      | No         | Yes       | Runs when a task is being marked complete                                                    |
+| TaskCreated        | No         | No        | Runs when a task is created via TaskCreate (v2.1.84+)                                        |
+| WorktreeCreate     | No         | No        | Runs when a worktree is created for agent isolation (v2.1.49+)                               |
+| WorktreeRemove     | No         | No        | Runs when a worktree is removed after agent terminates (v2.1.49+)                            |
+| ConfigChange       | No         | No        | Runs when settings.json is modified (v2.1.49+)                                               |
+| CwdChanged         | No         | No        | Runs when working directory changes (v2.1.83+)                                               |
+| FileChanged        | No         | No        | Runs when a file is changed externally (v2.1.83+)                                            |
+| InstructionsLoaded | No         | No        | Runs when CLAUDE.md or .claude/rules/\*.md files are loaded (v2.1.69+)                       |
+| Elicitation        | No         | No        | Runs when an elicitation dialog is presented to the user (v2.1.84+)                          |
+| ElicitationResult  | No         | No        | Runs when the user responds to an elicitation dialog (v2.1.84+)                              |
+| PermissionDenied   | No         | No        | Runs after auto mode classifier denies a tool call; return {retry: true} to retry (v2.1.89+) |
 
 **Special Event:**
 
-| Event | Matcher | Can Block | Description |
-|-------|---------|-----------|-------------|
-| Setup | No | No | Runs via --init, --init-only, or --maintenance flags (v2.1.10+) |
+| Event | Matcher | Can Block | Description                                                     |
+| ----- | ------- | --------- | --------------------------------------------------------------- |
+| Setup | No      | No        | Runs via --init, --init-only, or --maintenance flags (v2.1.10+) |
 
 ### Event Categories
 
@@ -61,22 +61,22 @@ Claude Code hooks for extending functionality with custom scripts.
 
 ## Hook Event stdin/stdout Reference
 
-| Event | stdin | stdout | Notes |
-|-------|-------|--------|-------|
-| UserPromptSubmit | `prompt` | `additionalContext`, `reason` | Exit 2 blocks prompt |
-| PermissionRequest | `toolName`, `toolInput` | `reason` | Exit 0 = allow, exit 2 = deny |
-| PermissionDenied | `toolName`, `toolInput` | `{retry: true}` | Return retry to allow model to retry (v2.1.89+) |
-| PostToolUseFailure | `toolName`, `toolInput`, `error`, `is_interrupt` | `systemMessage` | Non-blocking |
-| Notification | `type`, `message` | - | Types: permission_prompt, idle_prompt, auth_success, elicitation_dialog |
-| Setup | `trigger` | `systemMessage` | trigger: init, init-only, or maintenance (v2.1.10+) |
-| InstructionsLoaded | `files`, `source` | - | Lists loaded instruction files (v2.1.69+) |
-| SubagentStart | `agentType`, `agentName`, `agent_id` | `additionalContext` | Inject context into subagent. `agent_id` added in v2.1.69 |
-| TeammateIdle | `agentType`, `agentName`, `tasksSummary`, `agent_id` | `systemMessage` or JSON | Exit 2 = keep working. Also accepts JSON: `{"continue": false, "stopReason": "..."}` to stop teammate (v2.1.69+) |
-| TaskCompleted | `taskId`, `taskSummary`, `agentName`, `agent_id` | `reason` or JSON | Exit 2 = reject completion. Also accepts JSON: `{"continue": false, "stopReason": "..."}` to reject (v2.1.69+) |
-| SessionEnd | `reason`, `sessionId` | - | Reasons: clear, logout, prompt_input_exit, bypass_permissions_disabled, other |
-| Stop | `last_assistant_message` | `systemMessage` | Includes last assistant message (v2.1.49+) |
-| SubagentStop | `agentType`, `agentName`, `last_assistant_message`, `agent_id`, `agent_transcript_path` | `systemMessage` | `agent_id` and `agent_transcript_path` added in v2.1.42/v2.1.69 |
-| ConfigChange | `configPath`, `changes` | - | Triggered on settings.json modification (v2.1.49+) |
+| Event              | stdin                                                                                   | stdout                        | Notes                                                                                                            |
+| ------------------ | --------------------------------------------------------------------------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| UserPromptSubmit   | `prompt`                                                                                | `additionalContext`, `reason` | Exit 2 blocks prompt                                                                                             |
+| PermissionRequest  | `toolName`, `toolInput`                                                                 | `reason`                      | Exit 0 = allow, exit 2 = deny                                                                                    |
+| PermissionDenied   | `toolName`, `toolInput`                                                                 | `{retry: true}`               | Return retry to allow model to retry (v2.1.89+)                                                                  |
+| PostToolUseFailure | `toolName`, `toolInput`, `error`, `is_interrupt`                                        | `systemMessage`               | Non-blocking                                                                                                     |
+| Notification       | `type`, `message`                                                                       | -                             | Types: permission_prompt, idle_prompt, auth_success, elicitation_dialog                                          |
+| Setup              | `trigger`                                                                               | `systemMessage`               | trigger: init, init-only, or maintenance (v2.1.10+)                                                              |
+| InstructionsLoaded | `files`, `source`                                                                       | -                             | Lists loaded instruction files (v2.1.69+)                                                                        |
+| SubagentStart      | `agentType`, `agentName`, `agent_id`                                                    | `additionalContext`           | Inject context into subagent. `agent_id` added in v2.1.69                                                        |
+| TeammateIdle       | `agentType`, `agentName`, `tasksSummary`, `agent_id`                                    | `systemMessage` or JSON       | Exit 2 = keep working. Also accepts JSON: `{"continue": false, "stopReason": "..."}` to stop teammate (v2.1.69+) |
+| TaskCompleted      | `taskId`, `taskSummary`, `agentName`, `agent_id`                                        | `reason` or JSON              | Exit 2 = reject completion. Also accepts JSON: `{"continue": false, "stopReason": "..."}` to reject (v2.1.69+)   |
+| SessionEnd         | `reason`, `sessionId`                                                                   | -                             | Reasons: clear, logout, prompt_input_exit, bypass_permissions_disabled, other                                    |
+| Stop               | `last_assistant_message`                                                                | `systemMessage`               | Includes last assistant message (v2.1.49+)                                                                       |
+| SubagentStop       | `agentType`, `agentName`, `last_assistant_message`, `agent_id`, `agent_transcript_path` | `systemMessage`               | `agent_id` and `agent_transcript_path` added in v2.1.42/v2.1.69                                                  |
+| ConfigChange       | `configPath`, `changes`                                                                 | -                             | Triggered on settings.json modification (v2.1.49+)                                                               |
 
 All hook events include `agent_id` and `agent_type` fields when triggered from a subagent context (v2.1.69+).
 
@@ -148,6 +148,7 @@ Filter when hooks run using permission rule syntax (v2.1.84+).
 The `if` field accepts permission rule patterns to prevent unnecessary hook execution and reduce process spawning overhead. Use tool patterns like `Bash(git *)` for git commands, `Write|Edit` for write operations, or `Bash(npm *)` for npm commands.
 
 Example configurations:
+
 - `"if": "Bash(git *)"` - Only run for git bash commands
 - `"if": "Write|Edit"` - Only run for write/edit operations
 - `"if": "Bash(npm *)"` - Only run for npm commands
@@ -173,43 +174,61 @@ Define hooks in `.claude/settings.json`:
 ```json
 {
   "hooks": {
-    "SessionStart": [{
-      "type": "command",
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-session-start.sh\"",
-      "timeout": 5
-    }],
-    "PreCompact": [{
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-compact.sh\"",
-      "timeout": 5
-    }],
-    "PreToolUse": [{
-      "matcher": "Write|Edit|Bash",
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-pre-tool.sh\"",
-      "timeout": 5
-    }],
-    "PostToolUse": [{
-      "matcher": "Write|Edit",
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-post-tool.sh\"",
-      "timeout": 60
-    }],
-    "Stop": [{
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-stop.sh\"",
-      "timeout": 5
-    }],
-    "TeammateIdle": [{
-      "hooks": [{
+    "SessionStart": [
+      {
         "type": "command",
-        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\"",
-        "timeout": 10
-      }]
-    }],
-    "TaskCompleted": [{
-      "hooks": [{
-        "type": "command",
-        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\"",
-        "timeout": 10
-      }]
-    }]
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-session-start.sh\"",
+        "timeout": 5
+      }
+    ],
+    "PreCompact": [
+      {
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-compact.sh\"",
+        "timeout": 5
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-pre-tool.sh\"",
+        "timeout": 5
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-post-tool.sh\"",
+        "timeout": 60
+      }
+    ],
+    "Stop": [
+      {
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-stop.sh\"",
+        "timeout": 5
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }
 ```
@@ -225,6 +244,7 @@ Hooks support `$CLAUDE_PROJECT_DIR` and `$HOME` environment variables:
 ```
 
 **Important**: Quote the entire path to handle project folders with spaces:
+
 - Correct: `"\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/hook.sh\""`
 - Wrong: `"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/hook.sh"`
 
@@ -242,6 +262,7 @@ MoAI-ADK generates hook wrapper scripts during `moai init` that:
    - Default `~/go/bin/moai`
 
 Wrapper scripts are located at:
+
 - `.claude/hooks/moai/handle-session-start.sh`
 - `.claude/hooks/moai/handle-compact.sh`
 - `.claude/hooks/moai/handle-pre-tool.sh`
@@ -281,17 +302,20 @@ Wrapper scripts are located at:
 PostToolUse hooks can trigger MX tag validation after code modifications:
 
 **Trigger Conditions:**
+
 - Write or Edit tool used on source files (`.go`, `.py`, `.ts`, etc.)
 - New functions or classes added
 - Function signatures changed
 
 **PostToolUse MX Check Flow:**
+
 1. Detect if modified file is a source code file
 2. Check if file has `.moai/config/sections/mx.yaml` exclusion
 3. If new exported function added without @MX tag, log warning
 4. If function with @MX:ANCHOR modified, flag for review
 
 **Hook Wrapper Enhancement:**
+
 ```bash
 # handle-post-tool.sh MX check
 if [[ "$TOOL_NAME" =~ ^(Write|Edit)$ ]] && is_source_file "$FILE_PATH"; then
@@ -301,6 +325,7 @@ fi
 ```
 
 **Non-Blocking Behavior:**
+
 - MX checks are informational only during hook execution
 - Actual tag insertion happens during workflow phases (run, sync)
 - Use `/moai mx --dry` to preview tag recommendations

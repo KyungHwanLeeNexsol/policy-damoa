@@ -6,7 +6,7 @@ description: >
   feedback, review, clean, codemaps, coverage, e2e) to specialized
   agents.
 allowed-tools: Agent, AskUserQuestion, TaskCreate, TaskUpdate, TaskList, TaskGet, Bash, Read, Write, Edit, Glob, Grep
-argument-hint: "[subcommand] [args] | \"natural language task\""
+argument-hint: '[subcommand] [args] | "natural language task"'
 ---
 
 ## Pre-execution Context
@@ -71,7 +71,6 @@ When no flag is provided, the system evaluates task complexity and automatically
 - **context** (aliases: ctx, memory): Extract and display git-based context memory
 - **gate** (aliases: check, pre-commit): Lightweight pre-commit quality gate (lint+format+type-check+test)
 - **security** (aliases: audit, sec): Dedicated OWASP security audit with dependency scanning
-
 
 ### Priority 2: SPEC-ID Detection
 
@@ -232,6 +231,7 @@ Step 1 - Parse Arguments:
 Extract subcommand keywords and flags from the Raw User Input. Recognized global flags: --resume [ID], --seq, --deepthink, --team, --solo. Also detect `ultrathink` keyword in the input text.
 
 **CRITICAL: Two distinct deep analysis modes:**
+
 - `--deepthink` flag detected → Invoke Sequential Thinking MCP (`mcp__sequential-thinking__sequentialthinking`) for structured step-by-step analysis. This is an MCP tool call.
 - `ultrathink` keyword detected → Activate Claude's native extended reasoning (high effort mode). Do NOT invoke Sequential Thinking MCP. This is native Claude behavior with no MCP dependency.
 - Both can coexist: `ultrathink --deepthink` activates BOTH independently.
@@ -244,6 +244,7 @@ Before executing plan, run, sync, fix, loop, or default workflows, verify projec
 
 Question: Project documentation not found. Would you like to create it first?
 Options:
+
 - Create project documentation (Recommended): Generates product.md, structure.md, tech.md through a guided interview. This helps MoAI understand your project context for better results in all subsequent workflows.
 - Skip and continue: Proceed without project documentation. MoAI will have less context about your project.
 
@@ -251,6 +252,7 @@ This check does NOT apply to: project, feedback subcommands.
 
 [HARD] Beginner-Friendly Option Design:
 All AskUserQuestion calls throughout MoAI workflows MUST follow these rules:
+
 - The first option MUST always be the recommended choice, clearly marked with "(Recommended)" suffix
 - Every option MUST include a detailed description explaining what it does and its implications
 

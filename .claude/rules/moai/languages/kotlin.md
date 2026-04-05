@@ -1,5 +1,5 @@
 ---
-paths: "**/*.kt,**/*.kts,**/build.gradle.kts"
+paths: '**/*.kt,**/*.kts,**/build.gradle.kts'
 ---
 
 # Kotlin Rules
@@ -33,7 +33,7 @@ Version: Kotlin 2.0+
 
 ## File Conventions
 
-- *Test.kt for test files
+- \*Test.kt for test files
 - Multiple classes allowed per file if related
 - Use PascalCase for classes
 - Use camelCase for functions and properties

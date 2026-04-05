@@ -9,19 +9,29 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(sg:*) Bash(ast-grep:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.2.0"
-  category: "tool"
-  modularized: "true"
-  status: "active"
-  updated: "2026-01-11"
-  tags: "ast, refactoring, code-search, lint, structural-search, security, codemod"
-  related-skills: "moai-workflow-testing, moai-foundation-quality, moai-domain-backend, moai-domain-frontend"
-  context: "fork"
-  agent: "Explore"
+  version: '1.2.0'
+  category: 'tool'
+  modularized: 'true'
+  status: 'active'
+  updated: '2026-01-11'
+  tags: 'ast, refactoring, code-search, lint, structural-search, security, codemod'
+  related-skills: 'moai-workflow-testing, moai-foundation-quality, moai-domain-backend, moai-domain-frontend'
+  context: 'fork'
+  agent: 'Explore'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["ast", "refactoring", "code search", "lint", "structural search", "security", "codemod", "ast-grep"]
+  keywords:
+    [
+      'ast',
+      'refactoring',
+      'code search',
+      'lint',
+      'structural search',
+      'security',
+      'codemod',
+      'ast-grep',
+    ]
 ---
 
 # AST-Grep Integration
@@ -91,6 +101,7 @@ To find React useState hooks, run sg with pattern useState($INIT) and lang tsx.
 AST-Grep provides significant performance benefits for codebase exploration compared to text-based search:
 
 **Why AST-Grep is Faster for Exploration**
+
 - Structural understanding eliminates false positives (50-80% reduction in irrelevant results)
 - Syntax-aware matching reduces full file scans
 - Single pass through AST vs multiple regex passes
@@ -98,36 +109,43 @@ AST-Grep provides significant performance benefits for codebase exploration comp
 **Common Exploration Patterns**
 
 Find all function calls matching a pattern:
+
 ```bash
 sg -p 'authenticate($$$)' --lang python -r src/
 ```
 
 Find all classes inheriting from a base class:
+
 ```bash
 sg -p 'class $A extends BaseService' --lang python -r src/
 ```
 
 Find specific import patterns:
+
 ```bash
 sg -p 'import fastapi' --lang python -r src/
 ```
 
 Find React hooks usage:
+
 ```bash
 sg -p 'useState($$)' --lang tsx -r src/
 ```
 
 Find async function declarations:
+
 ```bash
 sg -p 'async def $NAME($$$ARGS):' --lang python -r src/
 ```
 
 **Performance Comparison**
+
 - `grep -r "class.*Service" src/` - scans all files textually (~10s for large codebase)
 - `sg -p 'class $X extends Service' --lang python -r src/` - structural match (~2s)
 
 **Integration with Explore Agent**
 When using the Explore agent, AST-Grep is automatically prioritized for:
+
 - Class hierarchy analysis
 - Function signature matching
 - Import dependency mapping
@@ -141,7 +159,7 @@ Single node capture uses $NAME syntax. For example, pattern const $NAME = requir
 
 Variadic capture uses $$$ARGS syntax. For example, pattern function $NAME($$$ARGS) captures function name and all arguments.
 
-Anonymous single capture uses $$_ syntax when you need to match but not reference the value.
+Anonymous single capture uses $$\_ syntax when you need to match but not reference the value.
 
 ### Code Transformation
 
@@ -203,13 +221,13 @@ Language-specific patterns are detailed in modules/language-specific.md.
 
 For latest AST-Grep documentation, follow this two-step process.
 
-Step 1: Use mcp__context7__resolve-library-id with query ast-grep to resolve the library identifier.
+Step 1: Use mcp**context7**resolve-library-id with query ast-grep to resolve the library identifier.
 
-Step 2: Use mcp__context7__get-library-docs with the resolved library ID to fetch current documentation.
+Step 2: Use mcp**context7**get-library-docs with the resolved library ID to fetch current documentation.
 
 ### MoAI-ADK Integration
 
-AST-Grep is integrated into MoAI-ADK through the Tool Registry as AST_ANALYZER type in internal/hook/registry.go, PostToolUse Hook for automatic security scanning after Write/Edit operations, and Permissions with Bash(sg:*) and Bash(ast-grep:*) auto-allowed.
+AST-Grep is integrated into MoAI-ADK through the Tool Registry as AST*ANALYZER type in internal/hook/registry.go, PostToolUse Hook for automatic security scanning after Write/Edit operations, and Permissions with Bash(sg:*) and Bash(ast-grep:\_) auto-allowed.
 
 ### Running Scans
 

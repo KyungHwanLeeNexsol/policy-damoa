@@ -1,5 +1,5 @@
 ---
-paths: "**/.moai/specs/**,**/.moai/config/sections/quality.yaml"
+paths: '**/.moai/specs/**,**/.moai/config/sections/quality.yaml'
 ---
 
 # SPEC Workflow
@@ -8,28 +8,31 @@ MoAI's three-phase development workflow with token budget management.
 
 ## Phase Overview
 
-| Phase | Command | Agent | Token Budget | Purpose |
-|-------|---------|-------|--------------|---------|
-| Plan | /moai plan | manager-spec | 30K | Create SPEC document |
-| Run | /moai run | manager-ddd/tdd (per quality.yaml) | 180K | DDD/TDD implementation |
-| Sync | /moai sync | manager-docs | 40K | Documentation sync |
+| Phase | Command    | Agent                              | Token Budget | Purpose                |
+| ----- | ---------- | ---------------------------------- | ------------ | ---------------------- |
+| Plan  | /moai plan | manager-spec                       | 30K          | Create SPEC document   |
+| Run   | /moai run  | manager-ddd/tdd (per quality.yaml) | 180K         | DDD/TDD implementation |
+| Sync  | /moai sync | manager-docs                       | 40K          | Documentation sync     |
 
 ## Plan Phase
 
 Create comprehensive specification using EARS format.
 
 Sub-phases:
+
 1. Research: Deep codebase analysis producing research.md artifact
 2. Planning: SPEC document creation with EARS format requirements
 3. Annotation: Iterative plan review cycle (1-6 iterations) before implementation approval
 
 Token Strategy:
+
 - Allocation: 30,000 tokens
 - Load requirements only
 - Execute /clear after completion
 - Saves 45-50K tokens for implementation
 
 Output:
+
 - Research document at `.moai/specs/SPEC-XXX/research.md` (deep codebase analysis)
 - SPEC document at `.moai/specs/SPEC-XXX/spec.md`
 - EARS format requirements
@@ -41,15 +44,18 @@ Output:
 Implement specification using configured development methodology.
 
 Token Strategy:
+
 - Allocation: 180,000 tokens
 - Selective file loading
 - Enables 70% larger implementations
 
 Development Methodology:
+
 - Configured in quality.yaml (development_mode: ddd or tdd)
 - See @workflow-modes.md for detailed methodology cycles
 
 Success Criteria:
+
 - All SPEC requirements implemented
 - Methodology-specific tests passing
 - 85%+ code coverage
@@ -61,12 +67,14 @@ Success Criteria:
 Detect when implementation is stuck or diverging from SPEC and trigger re-assessment.
 
 Triggers:
+
 - 3+ iterations with no new SPEC acceptance criteria met
 - Test coverage dropping instead of increasing across iterations
 - New errors introduced exceed errors fixed in a cycle
 - Agent explicitly reports inability to meet a SPEC requirement
 
 Communication path:
+
 - Implementation agent (manager-ddd/tdd) detects trigger condition
 - Agent returns structured stagnation report to MoAI (agents cannot call AskUserQuestion)
 - MoAI presents gap analysis to user via AskUserQuestion with options:
@@ -76,6 +84,7 @@ Communication path:
   - Pause for manual intervention (user takes over)
 
 Detection method:
+
 - Append acceptance criteria completion count and error count delta to `.moai/specs/SPEC-{ID}/progress.md` at the end of each iteration
 - Compare against previous entry to detect stagnation
 - Flag stagnation when acceptance criteria completion rate is zero for 3+ consecutive entries
@@ -87,11 +96,13 @@ Integration: Referenced by run.md Phase 2.7 and loop.md iteration checks
 Generate documentation and prepare for deployment.
 
 Token Strategy:
+
 - Allocation: 40,000 tokens
 - Result caching
 - 60% fewer redundant file reads
 
 Output:
+
 - API documentation
 - Updated README
 - CHANGELOG entry
@@ -100,17 +111,20 @@ Output:
 ## Completion Markers
 
 AI uses markers to signal task completion:
+
 - `<moai>DONE</moai>` - Task complete
 - `<moai>COMPLETE</moai>` - Full completion
 
 ## Context Management
 
 /clear Strategy:
+
 - After /moai plan completion (mandatory)
 - When context exceeds 150K tokens
 - Before major phase transitions
 
 Progressive Disclosure:
+
 - Level 1: Metadata only (~100 tokens)
 - Level 2: Skill body when triggered (~5000 tokens)
 - Level 3: Bundled files on-demand
@@ -118,10 +132,12 @@ Progressive Disclosure:
 ## Phase Transitions
 
 Plan to Run:
+
 - Trigger: SPEC document approved (annotation cycle completed, user confirmed "Proceed")
 - Action: Execute /clear, then /moai run SPEC-XXX
 
 Run to Sync:
+
 - Trigger: Implementation complete, tests passing
 - Action: Execute /moai sync SPEC-XXX
 
@@ -131,15 +147,16 @@ When team mode is enabled (workflow.team.enabled and AGENT_TEAMS env), phases ca
 
 ### Team Mode Phase Overview
 
-| Phase | Sub-agent Mode | Team Mode | Condition |
-|-------|---------------|-----------|-----------|
-| Plan | manager-spec (single) | Dynamic teammates: researcher + analyst + architect (parallel, general-purpose) | Complexity >= threshold |
-| Run | manager-ddd/tdd (sequential) | Dynamic teammates: backend-dev + frontend-dev + tester (parallel, general-purpose) | Domains >= 3 or files >= 10 |
-| Sync | manager-docs (single) | manager-docs (always sub-agent) | N/A |
+| Phase | Sub-agent Mode               | Team Mode                                                                          | Condition                   |
+| ----- | ---------------------------- | ---------------------------------------------------------------------------------- | --------------------------- |
+| Plan  | manager-spec (single)        | Dynamic teammates: researcher + analyst + architect (parallel, general-purpose)    | Complexity >= threshold     |
+| Run   | manager-ddd/tdd (sequential) | Dynamic teammates: backend-dev + frontend-dev + tester (parallel, general-purpose) | Domains >= 3 or files >= 10 |
+| Sync  | manager-docs (single)        | manager-docs (always sub-agent)                                                    | N/A                         |
 
 All teammates are spawned dynamically via `Agent(subagent_type: "general-purpose")` with runtime overrides from `workflow.yaml` role profiles. No static team agent definitions are used. See `.claude/skills/moai/team/run.md` for complete orchestration.
 
 ### Team Mode Plan Phase
+
 - TeamCreate for parallel research team
 - Spawn general-purpose teammates with mode: "plan" (read-only)
 - researcher teammate produces research.md with deep codebase analysis
@@ -150,6 +167,7 @@ All teammates are spawned dynamically via `Agent(subagent_type: "general-purpose
 - Shutdown team, /clear before Run phase
 
 ### Team Mode Run Phase
+
 - TeamCreate for implementation team
 - Task decomposition with file ownership boundaries
 - [HARD] Implementation teammates (role_profiles: implementer, tester) MUST use `isolation: "worktree"` for parallel file safety
@@ -164,6 +182,7 @@ All teammates are spawned dynamically via `Agent(subagent_type: "general-purpose
 Agent teams use significantly more tokens than a single session. Each teammate has its own independent context window, so token usage scales linearly with the number of active teammates.
 
 Estimated token multipliers by team pattern:
+
 - plan_research (3 teammates): ~3x plan phase tokens
 - implementation (3 teammates): ~3x run phase tokens
 - design_implementation (4 teammates): ~4x run phase tokens
@@ -171,12 +190,14 @@ Estimated token multipliers by team pattern:
 - review (3 teammates): ~2x (read-only, shorter sessions)
 
 When to prefer team mode over sub-agent mode:
+
 - Research and review tasks where parallel exploration adds real value
 - Cross-layer features (frontend + backend + tests)
 - Complex debugging with multiple potential root causes
 - Tasks where teammates need to communicate and coordinate
 
 When to prefer sub-agent mode:
+
 - Sequential tasks with heavy dependencies
 - Same-file edits or tightly coupled changes
 - Routine tasks with clear single-domain scope
@@ -198,19 +219,23 @@ For complete limitations list, see CLAUDE.md Section 15.
 ### Prerequisites
 
 Both conditions must be met:
+
 - `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in settings.json env
 - `workflow.team.enabled: true` in `.moai/config/sections/workflow.yaml`
 
 See @CLAUDE.md Section 15 for details.
 
 ### Mode Selection
+
 - --team flag: Force team mode
 - --solo flag: Force sub-agent mode
 - No flag (default): Complexity-based selection
 - See workflow.yaml team.auto_selection for thresholds
 
 ### Fallback
+
 If team mode fails or prerequisites are not met:
+
 - Graceful fallback to sub-agent mode
 - Continue from last completed task
 - No data loss or state corruption

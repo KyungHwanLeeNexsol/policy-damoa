@@ -59,6 +59,7 @@ Use context.go for declarative navigation with path. Use context.canPop to check
 ### Reusable Widgets
 
 Create small, focused widgets instead of large complex ones:
+
 - Improves performance with `const` widgets
 - Makes testing and refactoring easier
 - Share common components across different layouts
@@ -66,6 +67,7 @@ Create small, focused widgets instead of large complex ones:
 ### Const Optimization
 
 Use const constructors wherever possible:
+
 - Reduces widget rebuilds
 - Improves performance
 - Allows widget tree optimizations
@@ -73,6 +75,7 @@ Use const constructors wherever possible:
 ### Keys
 
 Implement proper keys for lists:
+
 - Use ValueKey for items with unique IDs
 - Use ObjectKey for complex objects
 - Use UniqueKey for forcing rebuilds
@@ -95,6 +98,7 @@ Define class with MethodChannel and EventChannel constants using channel name st
 ### Compute for Heavy Operations
 
 Use compute() for CPU-intensive tasks:
+
 - Runs code in separate isolate
 - Prevents UI jank
 - Returns result to main thread
@@ -115,6 +119,7 @@ In test main function, create ProviderContainer with overrides for mock provider
 ### Integration Tests
 
 Use integration_test for:
+
 - End-to-end workflows
 - Multi-screen interactions
 - Performance testing

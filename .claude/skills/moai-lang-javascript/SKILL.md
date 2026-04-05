@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(node:*) Bash(npm:*) Bash(npx:*) Bash(yarn:*) Bash(pnpm:*) Bash(bun:*) Bash(deno:*) Bash(jest:*) Bash(vitest:*) Bash(eslint:*) Bash(prettier:*) Bash(biome:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.2.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "language, javascript, nodejs, bun, deno, vitest, eslint, express"
+  version: '1.2.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'language, javascript, nodejs, bun, deno, vitest, eslint, express'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,22 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["JavaScript", "Node.js", "Bun", "Deno", "Express", "Fastify", "Hono", "Vitest", "Jest", "ESLint", ".js", "package.json"]
-  languages: ["javascript", "js"]
+  keywords:
+    [
+      'JavaScript',
+      'Node.js',
+      'Bun',
+      'Deno',
+      'Express',
+      'Fastify',
+      'Hono',
+      'Vitest',
+      'Jest',
+      'ESLint',
+      '.js',
+      'package.json',
+    ]
+  languages: ['javascript', 'js']
 ---
 
 ## Quick Reference (30 seconds)

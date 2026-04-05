@@ -302,6 +302,7 @@ Plugin-specific settings can be defined in settings.json at the plugin root (v2.
 ```
 
 Plugin settings are merged with project and user settings, allowing plugins to:
+
 - Define required environment variables
 - Set default tool permissions
 - Provide configuration defaults that users can override

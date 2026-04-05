@@ -15,12 +15,14 @@ Navigate to Firebase Console at console.firebase.google.com. Click Add Project. 
 ### Add Application
 
 Select platform:
+
 - Web: Register web app with app nickname
 - iOS: Register iOS bundle ID
 - Android: Register Android package name
 - Flutter: Follow Flutter setup guide
 
 Download configuration files:
+
 - Web: Copy firebaseConfig object
 - iOS: Download GoogleService-Info.plist
 - Android: Download google-services.json
@@ -35,6 +37,7 @@ Navigate to Console > Authentication > Sign-in method. Click Add new provider. S
 ### Web SDK
 
 **Installation:**
+
 ```bash
 npm install firebase
 ```
@@ -44,6 +47,7 @@ npm install firebase
 Import initializeApp from firebase/app module. Import getAuth and onAuthStateChanged from firebase/auth module. Create firebaseConfig object with apiKey, authDomain, projectId, storageBucket, messagingSenderId, and appId. Call initializeApp with config to get app instance. Call getAuth with app to get auth instance. Set up auth state listener with onAuthStateChanged. Listener callback receives user object when signed in or null when signed out.
 
 **Configuration Object:**
+
 - apiKey: Web API key from Firebase Console
 - authDomain: Auth domain (project-id.firebaseapp.com)
 - projectId: Firebase project ID
@@ -124,6 +128,7 @@ Native integration with Google accounts and Google ecosystem.
 ### Web Implementation
 
 **Installation:**
+
 ```bash
 npm install firebase
 ```
@@ -135,12 +140,14 @@ Import GoogleAuthProvider and signInWithPopup from firebase/auth. Create provide
 **Popup vs Redirect:**
 
 signInWithPopup:
+
 - Opens popup window for authentication
 - Better user experience on desktop
 - May be blocked by popup blockers
 - Returns promise with user credential
 
 signInWithRedirect:
+
 - Redirects entire page to Google
 - Better for mobile browsers
 - No popup blocker issues
@@ -299,11 +306,13 @@ Add SHA-1 fingerprint to Firebase Console. Enable SafetyNet in Google Cloud Cons
 ### Rate Limiting
 
 Firebase enforces rate limits on phone authentication:
+
 - 10 SMS per phone number per hour
 - 100 SMS per IP address per day
 - Exceeded quota returns auth/quota-exceeded
 
 **Best Practices:**
+
 - Implement client-side throttling
 - Show clear error messages
 - Provide alternative authentication methods
@@ -439,7 +448,7 @@ Match public path. Allow read for all. Allow write only if request.auth exists. 
 
 **File Size Limits:**
 
-Check request.resource.size for upload size. Example: request.resource.size less than 5 * 1024 * 1024 for 5MB limit. Prevents large uploads.
+Check request.resource.size for upload size. Example: request.resource.size less than 5 _ 1024 _ 1024 for 5MB limit. Prevents large uploads.
 
 ### Realtime Database Rules
 
@@ -466,6 +475,7 @@ Triggered when new user created. Receives UserRecord object with user data. Use 
 Import functions from firebase-functions. Import admin for Firestore access. Define onCreate function with functions.auth.user().onCreate(). Async handler receives UserRecord. Access user.uid, user.email, user.displayName. Perform setup tasks. Return promise.
 
 **Use Cases:**
+
 - Create Firestore user document
 - Send welcome email
 - Initialize user profile
@@ -481,6 +491,7 @@ Triggered when user deleted. Receives UserRecord object. Use for cleanup tasks, 
 Define onDelete function with functions.auth.user().onDelete(). Handler receives UserRecord. Delete user's Firestore documents. Remove user files from Storage. Clean up external integrations. Return promise.
 
 **Use Cases:**
+
 - Delete user data (GDPR compliance)
 - Remove user files
 - Revoke API keys
@@ -502,6 +513,7 @@ Server-side Firebase operations with elevated privileges.
 ### Node.js Setup
 
 **Installation:**
+
 ```bash
 npm install firebase-admin
 ```
@@ -517,6 +529,7 @@ Download from Firebase Console > Project Settings > Service Accounts. Store secu
 ### Python Setup
 
 **Installation:**
+
 ```bash
 pip install firebase-admin
 ```
@@ -528,6 +541,7 @@ Import firebase_admin and credentials. Create certificate credential with creden
 ### Go Setup
 
 **Installation:**
+
 ```bash
 go get firebase.google.com/go/v4
 ```
@@ -605,16 +619,19 @@ Control session persistence and security.
 **Persistence Types:**
 
 browserLocalPersistence:
+
 - Session persists across browser tabs and restarts
 - Default behavior
 - Use for most applications
 
 browserSessionPersistence:
+
 - Session persists only in current tab
 - Cleared when tab closed
 - Use for shared computers
 
 inMemoryPersistence:
+
 - Session cleared on page refresh
 - Not persisted
 - Use for maximum security
@@ -628,6 +645,7 @@ Import setPersistence and persistence types. Call setPersistence(auth, persisten
 Create session cookie for server-side sessions. Call admin.auth().createSessionCookie(idToken, options). Set expiresIn duration (5 minutes to 2 weeks). Return cookie to client. Client includes cookie in requests. Server verifies cookie with admin.auth().verifySessionCookie().
 
 **Use Cases:**
+
 - Server-side rendering
 - Traditional session-based apps
 - Progressive web apps with offline support
@@ -649,6 +667,7 @@ Install Firebase CLI globally. Run firebase init emulators. Select Authenticatio
 Import connectAuthEmulator. Call connectAuthEmulator(auth, 'http://localhost:9099'). Must be called before any auth operations. All auth requests now go to emulator.
 
 **Benefits:**
+
 - No SMS costs during development
 - No rate limiting
 - Fast iteration
@@ -694,6 +713,7 @@ Wrap auth calls in try-catch. Check error code with error.code. Provide user-fri
 ## Resources
 
 **Official Documentation:**
+
 - Firebase Auth Docs: https://firebase.google.com/docs/auth
 - Web Guide: https://firebase.google.com/docs/auth/web/start
 - Flutter Guide: https://firebase.google.com/docs/auth/flutter/start
@@ -701,6 +721,7 @@ Wrap auth calls in try-catch. Check error code with error.code. Provide user-fri
 - Android Guide: https://firebase.google.com/docs/auth/android/start
 
 **Firebase SDKs:**
+
 - Web: firebase/auth
 - Flutter: firebase_auth
 - iOS: FirebaseAuth (Swift)
@@ -708,11 +729,13 @@ Wrap auth calls in try-catch. Check error code with error.code. Provide user-fri
 - React Native: @react-native-firebase/auth
 
 **Tools:**
+
 - Firebase Console: console.firebase.google.com
 - Firebase CLI: firebase.google.com/docs/cli
 - Emulator Suite: firebase.google.com/docs/emulator-suite
 
 **Community:**
+
 - Stack Overflow: stackoverflow.com/questions/tagged/firebase-authentication
 - Firebase Community: firebase.google.com/community
 - GitHub: github.com/firebase

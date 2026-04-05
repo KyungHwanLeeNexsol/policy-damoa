@@ -4,9 +4,9 @@ description: Moai Design Systems - Professional implementation guide
 version: 1.0.0
 modularized: false
 tags:
- - enterprise
- - systems
- - development
+  - enterprise
+  - systems
+  - development
 updated: 2025-11-24
 status: active
 ---
@@ -18,6 +18,7 @@ status: active
 Enterprise design system implementation using W3C DTCG 2025.10 token standards, WCAG 2.2 accessibility compliance, and Pencil MCP automation workflows.
 
 Core Capabilities:
+
 - W3C DTCG 2025.10 design token architecture
 - WCAG 2.2 AA/AAA accessibility compliance
 - Pencil MCP integration for design-to-code workflows
@@ -25,6 +26,7 @@ Core Capabilities:
 - Storybook documentation and visual regression testing
 
 When to Use:
+
 - Setting up design token architecture for multi-platform projects
 - Implementing accessible component libraries
 - Automating design-to-code workflows with Pencil MCP
@@ -32,11 +34,13 @@ When to Use:
 - Ensuring color contrast compliance and semantic token naming
 
 Module Organization:
+
 - Core Concepts: This file (design tokens, DTCG standards, tool ecosystem)
 - Components: [Component Architecture](component-architecture.md) (Atomic Design, component patterns, props APIs)
 - Accessibility: [Accessibility WCAG](accessibility-wcag.md) (WCAG 2.2, testing, keyboard navigation)
 
 Latest Standards (November 2025):
+
 - DTCG Specification: 2025.10 (first stable version)
 - WCAG Guidelines: 2.2 (AA: 4.5:1 text, AAA: 7:1 text)
 - Pencil MCP: .pen files with MCP auto-start
@@ -50,18 +54,21 @@ Latest Standards (November 2025):
 ### Design System Foundation - Three Pillars
 
 1. Design Tokens (Single Source of Truth):
+
 - Color, typography, spacing, borders, shadows
 - Semantic naming: `color.primary.500`, `spacing.md`, `font.heading.lg`
 - Multi-theme support (light/dark modes)
 - Format: W3C DTCG 2025.10 JSON or Style Dictionary 4.0
 
 2. Component Library (Atomic Design Pattern):
+
 - Atoms → Molecules → Organisms → Templates → Pages
 - Props API for reusability and composition
 - Variant states: default, hover, active, disabled, error, loading
 - Documentation: Storybook with auto-generated props/usage
 
 3. Accessibility Standards (WCAG 2.2 Compliance):
+
 - Color contrast: 4.5:1 (AA), 7:1 (AAA) for text
 - Keyboard navigation: Tab order, focus management
 - Screen readers: ARIA roles, labels, live regions
@@ -69,14 +76,14 @@ Latest Standards (November 2025):
 
 ### Tool Ecosystem
 
-| Tool | Version | Purpose | Official Link |
-|------|---------|---------|---------------|
-| W3C DTCG | 2025.10 | Design token specification | https://designtokens.org |
-| Style Dictionary | 4.0+ | Token transformation engine | https://styledictionary.com |
-| Pencil MCP | Latest | Design-to-code automation | https://docs.pencil.dev |
-| Storybook | 8.x | Component documentation | https://storybook.js.org |
-| axe DevTools | Latest | Accessibility testing | https://www.deque.com/axe/devtools/ |
-| Chromatic | Latest | Visual regression testing | https://chromatic.com |
+| Tool             | Version | Purpose                     | Official Link                       |
+| ---------------- | ------- | --------------------------- | ----------------------------------- |
+| W3C DTCG         | 2025.10 | Design token specification  | https://designtokens.org            |
+| Style Dictionary | 4.0+    | Token transformation engine | https://styledictionary.com         |
+| Pencil MCP       | Latest  | Design-to-code automation   | https://docs.pencil.dev             |
+| Storybook        | 8.x     | Component documentation     | https://storybook.js.org            |
+| axe DevTools     | Latest  | Accessibility testing       | https://www.deque.com/axe/devtools/ |
+| Chromatic        | Latest  | Visual regression testing   | https://chromatic.com               |
 
 ---
 
@@ -86,49 +93,49 @@ Latest Standards (November 2025):
 
 ```json
 {
- "$schema": "https://tr.designtokens.org/format/",
- "$tokens": {
- "color": {
- "$type": "color",
- "primary": {
- "50": { "$value": "#eff6ff" },
- "100": { "$value": "#dbeafe" },
- "500": { "$value": "#3b82f6" },
- "900": { "$value": "#1e3a8a" }
- },
- "semantic": {
- "text": {
- "primary": { "$value": "{color.gray.900}" },
- "secondary": { "$value": "{color.gray.600}" },
- "disabled": { "$value": "{color.gray.400}" }
- },
- "background": {
- "default": { "$value": "{color.white}" },
- "elevated": { "$value": "{color.gray.50}" }
- }
- }
- },
- "spacing": {
- "$type": "dimension",
- "xs": { "$value": "0.25rem" },
- "sm": { "$value": "0.5rem" },
- "md": { "$value": "1rem" },
- "lg": { "$value": "1.5rem" },
- "xl": { "$value": "2rem" }
- },
- "typography": {
- "$type": "fontFamily",
- "sans": { "$value": ["Inter", "system-ui", "sans-serif"] },
- "mono": { "$value": ["JetBrains Mono", "monospace"] }
- },
- "fontSize": {
- "$type": "dimension",
- "sm": { "$value": "0.875rem" },
- "base": { "$value": "1rem" },
- "lg": { "$value": "1.125rem" },
- "xl": { "$value": "1.25rem" }
- }
- }
+  "$schema": "https://tr.designtokens.org/format/",
+  "$tokens": {
+    "color": {
+      "$type": "color",
+      "primary": {
+        "50": { "$value": "#eff6ff" },
+        "100": { "$value": "#dbeafe" },
+        "500": { "$value": "#3b82f6" },
+        "900": { "$value": "#1e3a8a" }
+      },
+      "semantic": {
+        "text": {
+          "primary": { "$value": "{color.gray.900}" },
+          "secondary": { "$value": "{color.gray.600}" },
+          "disabled": { "$value": "{color.gray.400}" }
+        },
+        "background": {
+          "default": { "$value": "{color.white}" },
+          "elevated": { "$value": "{color.gray.50}" }
+        }
+      }
+    },
+    "spacing": {
+      "$type": "dimension",
+      "xs": { "$value": "0.25rem" },
+      "sm": { "$value": "0.5rem" },
+      "md": { "$value": "1rem" },
+      "lg": { "$value": "1.5rem" },
+      "xl": { "$value": "2rem" }
+    },
+    "typography": {
+      "$type": "fontFamily",
+      "sans": { "$value": ["Inter", "system-ui", "sans-serif"] },
+      "mono": { "$value": ["JetBrains Mono", "monospace"] }
+    },
+    "fontSize": {
+      "$type": "dimension",
+      "sm": { "$value": "0.875rem" },
+      "base": { "$value": "1rem" },
+      "lg": { "$value": "1.125rem" },
+      "xl": { "$value": "1.25rem" }
+    }
+  }
 }
 ```
 
@@ -136,21 +143,21 @@ Latest Standards (November 2025):
 
 ```json
 {
- "color": {
- "semantic": {
- "background": {
- "$type": "color",
- "default": {
- "$value": "{color.white}",
- "$extensions": {
- "mode": {
- "dark": "{color.gray.900}"
- }
- }
- }
- }
- }
- }
+  "color": {
+    "semantic": {
+      "background": {
+        "$type": "color",
+        "default": {
+          "$value": "{color.white}",
+          "$extensions": {
+            "mode": {
+              "dark": "{color.gray.900}"
+            }
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -159,33 +166,39 @@ Latest Standards (November 2025):
 ```javascript
 // style-dictionary.config.js
 export default {
- source: ['tokens//*.json'],
- platforms: {
- css: {
- transformGroup: 'css',
- buildPath: 'build/css/',
- files: [{
- destination: 'variables.css',
- format: 'css/variables'
- }]
- },
- js: {
- transformGroup: 'js',
- buildPath: 'build/js/',
- files: [{
- destination: 'tokens.js',
- format: 'javascript/es6'
- }]
- },
- typescript: {
- transformGroup: 'js',
- buildPath: 'build/ts/',
- files: [{
- destination: 'tokens.ts',
- format: 'typescript/es6-declarations'
- }]
- }
- }
+  source: ['tokens//*.json'],
+  platforms: {
+    css: {
+      transformGroup: 'css',
+      buildPath: 'build/css/',
+      files: [
+        {
+          destination: 'variables.css',
+          format: 'css/variables',
+        },
+      ],
+    },
+    js: {
+      transformGroup: 'js',
+      buildPath: 'build/js/',
+      files: [
+        {
+          destination: 'tokens.js',
+          format: 'javascript/es6',
+        },
+      ],
+    },
+    typescript: {
+      transformGroup: 'js',
+      buildPath: 'build/ts/',
+      files: [
+        {
+          destination: 'tokens.ts',
+          format: 'typescript/es6-declarations',
+        },
+      ],
+    },
+  },
 };
 ```
 
@@ -194,6 +207,7 @@ export default {
 ## Pencil MCP Integration
 
 For Pencil MCP integration workflow, design token extraction, and .pen file handling, see:
+
 - Skill: moai-design-tools (reference/pencil-renderer.md)
 - Skill: moai-design-tools (reference/pencil-code.md)
 
@@ -202,6 +216,7 @@ For Pencil MCP integration workflow, design token extraction, and .pen file hand
 ## Best Practices
 
 Design Token Architecture:
+
 - Use semantic naming (`color.primary.500` not `color.blue`)
 - Implement aliasing for themes (`{color.white}` references)
 - Validate DTCG 2025.10 spec compliance
@@ -209,6 +224,7 @@ Design Token Architecture:
 - Document token usage in Storybook
 
 Component Development:
+
 - Follow Atomic Design hierarchy (Atoms → Molecules → Organisms)
 - Create variant-based props APIs (not separate components)
 - Document all props with TypeScript types
@@ -216,6 +232,7 @@ Component Development:
 - Test component accessibility with jest-axe
 
 Accessibility:
+
 - Verify 4.5:1 contrast for all text (WCAG AA)
 - Implement keyboard navigation for all interactive elements
 - Add ARIA labels to form fields and buttons
@@ -233,24 +250,24 @@ Accessibility:
 import { readFileSync, writeFileSync } from 'fs';
 
 interface DTCGToken {
- $value: string | number | string[];
- $type?: string;
- [key: string]: any;
+  $value: string | number | string[];
+  $type?: string;
+  [key: string]: any;
 }
 
 function generateTypes(tokens: Record<string, any>, prefix = ''): string {
- let types = '';
- 
- for (const [key, value] of Object.entries(tokens)) {
- if (value.$value !== undefined) {
- const tokenPath = `${prefix}${key}`.replace(/\./g, '-');
- types += `export const ${tokenPath} = '${value.$value}';\n`;
- } else {
- types += generateTypes(value, `${prefix}${key}.`);
- }
- }
- 
- return types;
+  let types = '';
+
+  for (const [key, value] of Object.entries(tokens)) {
+    if (value.$value !== undefined) {
+      const tokenPath = `${prefix}${key}`.replace(/\./g, '-');
+      types += `export const ${tokenPath} = '${value.$value}';\n`;
+    } else {
+      types += generateTypes(value, `${prefix}${key}.`);
+    }
+  }
+
+  return types;
 }
 
 const colorTokens = JSON.parse(readFileSync('tokens/color.json', 'utf-8'));
@@ -266,6 +283,7 @@ npm install --save-dev chromatic
 ```
 
 CI/CD Integration:
+
 ```yaml
 # .github/workflows/chromatic.yml
 name: Chromatic
@@ -279,14 +297,14 @@ jobs:
  - uses: actions/checkout@v4
  with:
  fetch-depth: 0
- 
+
  - uses: actions/setup-node@v4
  with:
  node-version: 20
- 
+
  - name: Install dependencies
  run: npm ci
- 
+
  - name: Run Chromatic
  uses: chromaui/action@v1
  with:
@@ -303,6 +321,7 @@ jobs:
 - Non-web platforms: This skill focuses on web (React/Vue/TypeScript)
 
 For these cases, consider:
+
 - Plain CSS/Tailwind for static sites
 - Component libraries (Material-UI, shadcn/ui) for rapid development
 - Platform-specific design systems (iOS HIG, Material Design for Android)

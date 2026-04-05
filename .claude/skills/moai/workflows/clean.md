@@ -7,11 +7,11 @@ description: >
   Use when removing unused code, cleaning up dead imports, or reducing codebase size.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "clean, dead-code, unused, refactoring, static-analysis"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'clean, dead-code, unused, refactoring, static-analysis'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["clean", "dead code", "unused code", "dead-code", "remove unused"]
-  agents: ["expert-refactoring", "expert-testing"]
-  phases: ["clean"]
+  keywords: ['clean', 'dead code', 'unused code', 'dead-code', 'remove unused']
+  agents: ['expert-refactoring', 'expert-testing']
+  phases: ['clean']
 ---
 
 # Workflow: Clean - Dead Code Removal
@@ -85,6 +85,7 @@ Classification Results:
 MX Tag Cross-Check (Pre-Removal Safety):
 
 After classification, cross-check all candidates against existing @MX tags:
+
 - @MX:ANCHOR candidates: Reclassify from "Confirmed Dead" to "False Positive" (ANCHOR indicates high fan_in; dynamic or cross-module usage is likely)
 - @MX:WARN candidates: Flag for manual review even if classified as "Confirmed Dead" (warned code may have hidden dependencies)
 - @MX:NOTE candidates: Include the NOTE context in the removal plan for informed user decision
@@ -103,17 +104,21 @@ Present removal plan via AskUserQuestion (unless --dry flag):
 ## Dead Code Analysis Results
 
 ### Confirmed Dead (safe to remove)
+
 - file.go: UnusedFunction (0 references)
 - file.go: unusedVariable (0 references)
 - unused_file.go: Entire file (0 imports)
 
 ### Test-Only Usage
+
 - file.go: TestHelper (used in 2 test files only)
 
 ### Likely Dead (uncertain)
+
 - file.go: MaybeUsed (1 reference in dead code chain)
 
 ### Summary
+
 - Total candidates: N
 - Safe to remove: N
 - Lines to be removed: N
@@ -140,6 +145,7 @@ Decision:
 - If condition is not met: Continue to standard sequential Phase 4 below.
 
 Batch execution instructions when triggered:
+
 1. Group confirmed dead items by package/module (minimize cross-package dependencies per batch unit)
 2. Each batch agent receives: its assigned removal list, the removal order (leaf nodes first), safety measures defined in Phase 4 below
 3. Each agent must run tests after removal and report pass/fail per item
@@ -169,12 +175,14 @@ Safety Measures:
 [HARD] Delegate test verification to the expert-testing subagent.
 
 After removals:
+
 - Run full test suite: `go test -race ./...` (Go) or equivalent
 - Verify no test failures
 - Check that no new linting errors were introduced
 - Confirm build succeeds
 
 If tests fail:
+
 - Identify which removal caused the failure
 - Rollback that specific removal
 - Mark the item as "False Positive" in the report
@@ -183,6 +191,7 @@ If tests fail:
 ## Phase 5.5: MX Tag Cleanup
 
 After verified removals:
+
 - Remove @MX tags from deleted code
 - Update @MX:ANCHOR fan_in counts if callers were removed
 - Demote @MX:ANCHOR to @MX:NOTE if fan_in drops below 3
@@ -196,16 +205,19 @@ Display removal report in user's conversation_language:
 ## Dead Code Removal Report
 
 ### Removed: N items (M lines)
+
 - file.go: UnusedFunction (15 lines)
 - file.go: unusedVariable (1 line)
 - unused_file.go: Entire file deleted (120 lines)
 
 ### Kept (false positives): N items
+
 - file.go: DynamicHandler (used via reflection)
 
 ### Test Results: PASS (all tests green)
 
 ### Codebase Reduction
+
 - Files removed: N
 - Lines removed: M
 - Dependencies removed: K
@@ -220,6 +232,7 @@ Next Steps (AskUserQuestion):
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - Each dead code candidate tracked as a pending task via TaskCreate
 - Before removal: change to in_progress via TaskUpdate
 - After verified removal: change to completed via TaskUpdate

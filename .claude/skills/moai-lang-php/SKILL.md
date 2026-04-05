@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(php:*) Bash(composer:*) Bash(phpunit:*) Bash(phpstan:*) Bash(phpcs:*) Bash(artisan:*) Bash(laravel:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, php, laravel, symfony, eloquent, doctrine, phpunit"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, php, laravel, symfony, eloquent, doctrine, phpunit'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,20 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["PHP", "Laravel", "Symfony", "Eloquent", "Doctrine", "PHPUnit", "Pest", ".php", "composer.json", "artisan"]
-  languages: ["php"]
+  keywords:
+    [
+      'PHP',
+      'Laravel',
+      'Symfony',
+      'Eloquent',
+      'Doctrine',
+      'PHPUnit',
+      'Pest',
+      '.php',
+      'composer.json',
+      'artisan',
+    ]
+  languages: ['php']
 ---
 
 ## Quick Reference (30 seconds)

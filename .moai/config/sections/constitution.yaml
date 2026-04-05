@@ -22,11 +22,11 @@ constitution:
 
   # Naming conventions
   naming_conventions:
-    packages: ""
+    packages: ''
     # Example: "lowercase, single word"
-    exported: ""
+    exported: ''
     # Example: "PascalCase"
-    files: ""
+    files: ''
     # Example: "snake_case"
 
   # Architecture constraints

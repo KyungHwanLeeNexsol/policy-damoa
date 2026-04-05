@@ -23,6 +23,7 @@ Shared protocol for all MoAI Agent Teams teammates. This supplements role-specif
 ## Task Management
 
 After completing each task:
+
 - Mark task as completed via TaskUpdate (MANDATORY - prevents infinite waiting)
 - Check TaskList for available unblocked tasks
 - Claim the next available unblocked task (prefer lowest ID first) or wait for team lead instructions
@@ -37,6 +38,7 @@ After completing each task:
 ## Shutdown Handling
 
 When you receive a shutdown_request JSON message:
+
 - If all work is complete: SendMessage(type: "shutdown_response", request_id: "<from message>", approve: true)
 - If work is in progress: SendMessage(type: "shutdown_response", request_id: "<from message>", approve: false, content: "Still working on [task]")
 

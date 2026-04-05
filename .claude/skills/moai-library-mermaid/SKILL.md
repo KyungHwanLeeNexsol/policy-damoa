@@ -8,16 +8,26 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(npx:*) Bash(mmdc:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "7.1.0"
-  category: "library"
-  modularized: "true"
-  status: "active"
-  updated: "2026-01-11"
-  tags: "library, mermaid, diagrams, flowchart, sequence, visualization, documentation"
+  version: '7.1.0'
+  category: 'library'
+  modularized: 'true'
+  status: 'active'
+  updated: '2026-01-11'
+  tags: 'library, mermaid, diagrams, flowchart, sequence, visualization, documentation'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["diagram", "flowchart", "sequence", "architecture", "mermaid", "visualization", "chart", "graph"]
+  keywords:
+    [
+      'diagram',
+      'flowchart',
+      'sequence',
+      'architecture',
+      'mermaid',
+      'visualization',
+      'chart',
+      'graph',
+    ]
 ---
 
 ## Quick Reference

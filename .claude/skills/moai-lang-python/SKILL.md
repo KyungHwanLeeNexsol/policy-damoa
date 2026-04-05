@@ -7,12 +7,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(python:*) Bash(python3:*) Bash(pytest:*) Bash(ruff:*) Bash(pip:*) Bash(uv:*) Bash(mypy:*) Bash(pyright:*) Bash(black:*) Bash(poetry:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "language, python, fastapi, django, pytest, async, data-science"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'language, python, fastapi, django, pytest, async, data-science'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,8 +22,19 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Python", "Django", "FastAPI", "Flask", "asyncio", "pytest", "pyproject.toml", "requirements.txt", ".py"]
-  languages: ["python"]
+  keywords:
+    [
+      'Python',
+      'Django',
+      'FastAPI',
+      'Flask',
+      'asyncio',
+      'pytest',
+      'pyproject.toml',
+      'requirements.txt',
+      '.py',
+    ]
+  languages: ['python']
 ---
 
 ## Quick Reference (30 seconds)
@@ -126,7 +137,7 @@ Create a BaseSchema model with model_config set to ConfigDict. Set from_attribut
 
 Engine and Session Setup:
 
-Import create_async_engine, async_sessionmaker, and AsyncSession from sqlalchemy.ext.asyncio. Create engine using create_async_engine with the postgresql+asyncpg connection string, pool_pre_ping set to True, and echo set to True. Create async_session using async_sessionmaker with the engine, class_ set to AsyncSession, and expire_on_commit set to False to prevent detached instance errors.
+Import create*async_engine, async_sessionmaker, and AsyncSession from sqlalchemy.ext.asyncio. Create engine using create_async_engine with the postgresql+asyncpg connection string, pool_pre_ping set to True, and echo set to True. Create async_session using async_sessionmaker with the engine, class* set to AsyncSession, and expire_on_commit set to False to prevent detached instance errors.
 
 Repository Pattern:
 

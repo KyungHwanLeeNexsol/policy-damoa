@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(R:*) Bash(Rscript:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, r, tidyverse, ggplot2, shiny, dplyr, data-science"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, r, tidyverse, ggplot2, shiny, dplyr, data-science'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,21 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["R", "tidyverse", "ggplot2", "Shiny", "dplyr", "data science", ".R", ".Rmd", ".qmd", "DESCRIPTION", "renv.lock"]
-  languages: ["r"]
+  keywords:
+    [
+      'R',
+      'tidyverse',
+      'ggplot2',
+      'Shiny',
+      'dplyr',
+      'data science',
+      '.R',
+      '.Rmd',
+      '.qmd',
+      'DESCRIPTION',
+      'renv.lock',
+    ]
+  languages: ['r']
 ---
 
 ## Quick Reference (30 seconds)

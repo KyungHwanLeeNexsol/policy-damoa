@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob, Bash, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "agency"
-  status: "active"
-  updated: "2026-04-02"
-  evolution_count: "0"
-  confidence_score: "0.00"
-  base_context: "tech-preferences.md"
-  dependencies: "agency-evaluation-criteria"
-  tags: "frontend, react, nextjs, tailwind, components, architecture, code-patterns"
-  related-skills: "agency-design-system, agency-evaluation-criteria"
+  version: '1.0.0'
+  category: 'agency'
+  status: 'active'
+  updated: '2026-04-02'
+  evolution_count: '0'
+  confidence_score: '0.00'
+  base_context: 'tech-preferences.md'
+  dependencies: 'agency-evaluation-criteria'
+  tags: 'frontend, react, nextjs, tailwind, components, architecture, code-patterns'
+  related-skills: 'agency-design-system, agency-evaluation-criteria'
 
 progressive_disclosure:
   enabled: true
@@ -26,9 +26,10 @@ progressive_disclosure:
   level2_tokens: 5000
 
 triggers:
-  keywords: ["frontend", "react", "next.js", "component", "tailwind", "code", "implementation", "build"]
-  agents: ["builder"]
-  phases: ["run"]
+  keywords:
+    ['frontend', 'react', 'next.js', 'component', 'tailwind', 'code', 'implementation', 'build']
+  agents: ['builder']
+  phases: ['run']
 ---
 
 # Agency Frontend Patterns Skill
@@ -44,11 +45,13 @@ Governs all code implementation decisions for AI Agency projects. Ensures consis
 **Purpose**: Define and enforce frontend development patterns, file structure conventions, and code quality standards for agency project implementation.
 
 **Input Contract**:
+
 - Design specification (from designer output: `design-spec.md`)
 - Copy document (from copywriter output: `copy.md`)
 - Tech preferences (from `.agency/context/tech-preferences.md`)
 
 **Output Contract**:
+
 - Production-ready code files following design system
 - Component architecture with proper separation of concerns
 - Responsive implementation with mobile-first approach

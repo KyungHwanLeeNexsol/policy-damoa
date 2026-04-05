@@ -27,10 +27,10 @@ Add OAuth configuration to your `.mcp.json`:
 
 ## OAuth Fields
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `clientId` | Yes | OAuth client ID from the service provider |
-| `callbackPort` | No | Local port for OAuth callback (default: auto-assigned) |
+| Field          | Required | Description                                            |
+| -------------- | -------- | ------------------------------------------------------ |
+| `clientId`     | Yes      | OAuth client ID from the service provider              |
+| `callbackPort` | No       | Local port for OAuth callback (default: auto-assigned) |
 
 ## Client Secret Storage
 
@@ -41,6 +41,7 @@ Client secrets are **never** stored in `.mcp.json`. Instead:
 3. Subsequent runs: Secret is retrieved automatically
 
 **Keychain locations by platform:**
+
 - macOS: Keychain Access
 - Linux: Secret Service API (GNOME Keyring, KWallet)
 - Windows: Windows Credential Manager
@@ -65,6 +66,7 @@ Client secrets are **never** stored in `.mcp.json`. Instead:
 ```
 
 **Setup Steps:**
+
 1. Create a Slack App at api.slack.com/apps
 2. Add OAuth redirect URL: `http://localhost:3000/callback`
 3. Request scopes: `chat:write`, `channels:read`, `users:read`
@@ -89,6 +91,7 @@ Client secrets are **never** stored in `.mcp.json`. Instead:
 ```
 
 **Setup Steps:**
+
 1. Create a GitHub OAuth App at github.com/settings/developers
 2. Set Authorization callback URL: `http://localhost:8080/callback`
 3. Request scopes: `repo`, `read:org`, `write:org`
@@ -113,6 +116,7 @@ Client secrets are **never** stored in `.mcp.json`. Instead:
 ```
 
 **Setup Steps:**
+
 1. Create an integration in Sentry Settings
 2. Add Redirect URL: `http://localhost:9000/callback`
 3. Request scopes: `project:read`, `event:read`, `issue:write`
@@ -149,6 +153,7 @@ Client secrets are **never** stored in `.mcp.json`. Instead:
 ### Token expired
 
 Most OAuth tokens expire after a period. Claude Code will automatically refresh tokens when possible. If refresh fails:
+
 1. Clear the stored secret
 2. Re-authenticate when prompted
 

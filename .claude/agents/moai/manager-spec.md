@@ -23,7 +23,7 @@ hooks:
   Stop:
     - hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" spec-completion"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" spec-completion'
           timeout: 10
 ---
 
@@ -413,6 +413,7 @@ UI/UX Expert Consultation Triggers:
   - These belong to manager-ddd/tdd and evaluator-active negotiation during the Run phase
 
 Rules:
+
 - Do NOT specify function names, class structures, or API schemas in spec.md
 - Do NOT dictate technology choices beyond project-level constraints (defined in tech.md)
 - DO specify observable behaviors and acceptance criteria
@@ -424,6 +425,7 @@ Rules:
 [HARD] Every spec.md MUST include an `## Exclusions (What NOT to Build)` section with at least one exclusion.
 
 Format:
+
 - Shall NOT support [feature X] (reason: [rationale])
 - Shall NOT implement [pattern Y] (reason: [rationale])
 - Will NOT be optimized for [use case Z]

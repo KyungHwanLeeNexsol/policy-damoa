@@ -9,6 +9,7 @@ Comprehensive guide to Railway container deployment platform.
 ### Multi-Stage Dockerfile Patterns
 
 **Node.js with TypeScript**:
+
 ```dockerfile
 # Builder stage
 FROM node:20-alpine AS builder
@@ -51,6 +52,7 @@ CMD ["node", "dist/main.js"]
 ```
 
 **Python FastAPI**:
+
 ```dockerfile
 # Builder stage
 FROM python:3.11-slim AS builder
@@ -84,6 +86,7 @@ CMD ["./.venv/bin/uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
 **Go Service**:
+
 ```dockerfile
 # Builder stage
 FROM golang:1.21-alpine AS builder
@@ -122,12 +125,14 @@ CMD ["./main"]
 ### Build Optimization
 
 **Layer Caching Strategy**:
+
 1. Copy dependency files first (package.json, go.mod, etc.)
 2. Install dependencies (cached if files unchanged)
 3. Copy source code
 4. Build application
 
 **Image Size Reduction**:
+
 - Use Alpine base images
 - Multi-stage builds (separate builder and runner)
 - .dockerignore to exclude unnecessary files
@@ -141,6 +146,7 @@ CMD ["./main"]
 ### railway.toml Configuration
 
 **Complete Configuration**:
+
 ```toml
 [build]
 builder = "DOCKERFILE"
@@ -179,19 +185,21 @@ size = "10GB"
 ### Service Communication
 
 **Private Networking**:
+
 ```typescript
 // Helper function for internal service URLs
 function getInternalUrl(serviceName: string, port = 3000): string {
-  const privateHost = process.env[`${serviceName.toUpperCase()}_RAILWAY_PRIVATE_DOMAIN`]
-  return privateHost ? `http://${privateHost}:${port}` : `http://localhost:${port}`
+  const privateHost = process.env[`${serviceName.toUpperCase()}_RAILWAY_PRIVATE_DOMAIN`];
+  return privateHost ? `http://${privateHost}:${port}` : `http://localhost:${port}`;
 }
 
 // Usage
-const apiUrl = getInternalUrl("api")
-const authUrl = getInternalUrl("auth", 4000)
+const apiUrl = getInternalUrl('api');
+const authUrl = getInternalUrl('auth', 4000);
 ```
 
 **Variable References**:
+
 ```yaml
 # Backend service
 DATABASE_URL: ${{Postgres.DATABASE_URL}}
@@ -204,6 +212,7 @@ API_URL: ${{backend.RAILWAY_PRIVATE_DOMAIN}}
 ### Monorepo Deployment
 
 **Turborepo with Railway**:
+
 ```toml
 [build]
 builder = "NIXPACKS"
@@ -220,6 +229,7 @@ startCommand = "turbo run start --filter=api"
 ### Persistent Volumes
 
 **Configuration**:
+
 ```toml
 [[volumes]]
 mountPath = "/app/data"
@@ -228,67 +238,61 @@ size = "10GB"
 ```
 
 **Usage in Application**:
-```typescript
-import fs from "fs/promises"
-import path from "path"
 
-const dataDir = process.env.RAILWAY_VOLUME_MOUNT_PATH || "./data"
+```typescript
+import fs from 'fs/promises';
+import path from 'path';
+
+const dataDir = process.env.RAILWAY_VOLUME_MOUNT_PATH || './data';
 
 // Write file
-await fs.writeFile(
-  path.join(dataDir, "file.txt"),
-  "content",
-  "utf-8"
-)
+await fs.writeFile(path.join(dataDir, 'file.txt'), 'content', 'utf-8');
 
 // Read file
-const content = await fs.readFile(
-  path.join(dataDir, "file.txt"),
-  "utf-8"
-)
+const content = await fs.readFile(path.join(dataDir, 'file.txt'), 'utf-8');
 ```
 
 ### SQLite on Volumes
 
 **Configuration**:
+
 ```typescript
-import Database from "better-sqlite3"
-import path from "path"
+import Database from 'better-sqlite3';
+import path from 'path';
 
-const volumePath = process.env.RAILWAY_VOLUME_MOUNT_PATH || "./data"
-const dbPath = path.join(volumePath, "app.db")
+const volumePath = process.env.RAILWAY_VOLUME_MOUNT_PATH || './data';
+const dbPath = path.join(volumePath, 'app.db');
 
-const db = new Database(dbPath)
+const db = new Database(dbPath);
 
 // Optimize for SSD volumes
-db.pragma("journal_mode = WAL")
-db.pragma("synchronous = NORMAL")
+db.pragma('journal_mode = WAL');
+db.pragma('synchronous = NORMAL');
 ```
 
 ### Backup Patterns
 
 **Automated Backups**:
+
 ```typescript
-import { execSync } from "child_process"
-import path from "path"
+import { execSync } from 'child_process';
+import path from 'path';
 
 async function backupVolume() {
-  const volumePath = process.env.RAILWAY_VOLUME_MOUNT_PATH
-  const backupPath = path.join(volumePath, "backups")
-  const timestamp = new Date().toISOString()
+  const volumePath = process.env.RAILWAY_VOLUME_MOUNT_PATH;
+  const backupPath = path.join(volumePath, 'backups');
+  const timestamp = new Date().toISOString();
 
   // Create backup directory
-  await fs.mkdir(backupPath, { recursive: true })
+  await fs.mkdir(backupPath, { recursive: true });
 
   // Backup database
-  execSync(
-    `sqlite3 ${volumePath}/app.db ".backup '${backupPath}/backup-${timestamp}.db'"`
-  )
+  execSync(`sqlite3 ${volumePath}/app.db ".backup '${backupPath}/backup-${timestamp}.db'"`);
 }
 
 // Schedule backups
-import cron from "node-cron"
-cron.schedule("0 2 * * *", backupVolume) // Daily at 2 AM
+import cron from 'node-cron';
+cron.schedule('0 2 * * *', backupVolume); // Daily at 2 AM
 ```
 
 ---
@@ -298,6 +302,7 @@ cron.schedule("0 2 * * *", backupVolume) // Daily at 2 AM
 ### Custom Domains with SSL
 
 **Setup via CLI**:
+
 ```bash
 # Add custom domain
 railway domain add example.com
@@ -310,6 +315,7 @@ railway domain remove example.com
 ```
 
 **DNS Configuration**:
+
 ```
 # CNAME record
 example.com → <your-service>.railway.app
@@ -321,32 +327,34 @@ example.com → <railway-ip-address>
 ### WebSocket Support
 
 **Express WebSocket Server**:
+
 ```typescript
-import express from "express"
-import { WebSocketServer } from "ws"
+import express from 'express';
+import { WebSocketServer } from 'ws';
 
-const app = express()
-const server = app.listen(process.env.PORT || 3000)
+const app = express();
+const server = app.listen(process.env.PORT || 3000);
 
-const wss = new WebSocketServer({ server })
+const wss = new WebSocketServer({ server });
 
-wss.on("connection", (ws) => {
-  console.log("Client connected")
+wss.on('connection', (ws) => {
+  console.log('Client connected');
 
-  ws.on("message", (data) => {
-    console.log("Received:", data)
-    ws.send(`Echo: ${data}`)
-  })
+  ws.on('message', (data) => {
+    console.log('Received:', data);
+    ws.send(`Echo: ${data}`);
+  });
 
-  ws.on("close", () => {
-    console.log("Client disconnected")
-  })
-})
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
 ```
 
 ### Auto-Scaling Configuration
 
 **CPU-Based Scaling**:
+
 ```toml
 [deploy.scaling]
 minReplicas = 1
@@ -355,6 +363,7 @@ targetCPUUtilization = 80
 ```
 
 **Memory-Based Scaling**:
+
 ```toml
 [deploy.scaling]
 minReplicas = 2
@@ -489,12 +498,14 @@ deploy:
 ### Resource Allocation
 
 **Memory Guidelines**:
+
 - Lightweight API: 512MB - 1GB
 - Standard web app: 1GB - 2GB
 - Data-intensive: 2GB - 4GB
 - ML inference: 4GB+
 
 **CPU Guidelines**:
+
 - Background jobs: 0.5 - 1.0 CPU
 - API servers: 1.0 - 2.0 CPU
 - Compute-heavy: 2.0+ CPU
@@ -502,13 +513,14 @@ deploy:
 ### Health Checks
 
 Always implement health checks:
+
 ```typescript
-app.get("/health", (req, res) => {
+app.get('/health', (req, res) => {
   // Check database connection
   // Check external services
   // Return 200 if healthy, 503 if unhealthy
-  res.status(200).json({ status: "healthy" })
-})
+  res.status(200).json({ status: 'healthy' });
+});
 ```
 
 ---
@@ -518,18 +530,21 @@ app.get("/health", (req, res) => {
 ### Common Issues
 
 **Build Failures**:
+
 - Check Dockerfile syntax
 - Verify base image availability
 - Review build logs in Railway dashboard
 - Test build locally: `docker build .`
 
 **Deployment Crashes**:
+
 - Check application logs: `railway logs`
 - Verify health check endpoint
 - Review resource allocation (memory/CPU)
 - Check environment variables
 
 **Connection Issues**:
+
 - Verify private networking configuration
 - Check service variable references
 - Test with Railway's internal DNS
@@ -543,16 +558,16 @@ For latest Railway documentation:
 ```typescript
 // Step 1: Resolve library
 const libraries = await mcp__context7__resolve_library_id({
-  libraryName: "railway",
-  query: "docker deployment multi-service"
-})
+  libraryName: 'railway',
+  query: 'docker deployment multi-service',
+});
 
 // Step 2: Get documentation
 const docs = await mcp__context7__get_library_docs({
   libraryId: libraries[0].id,
-  topic: "docker-deployment",
-  maxTokens: 8000
-})
+  topic: 'docker-deployment',
+  maxTokens: 8000,
+});
 ```
 
 ---

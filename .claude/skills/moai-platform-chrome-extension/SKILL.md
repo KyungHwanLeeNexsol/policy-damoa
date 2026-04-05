@@ -9,15 +9,15 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(npm:*) Bash(npx:*) Bash(node:*) WebFetch WebSearch mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "platform"
-  status: "active"
-  updated: "2026-02-01"
-  modularized: "true"
-  tags: "chrome-extension, manifest-v3, service-worker, content-script, messaging, chrome-api, browser-extension, web-store, side-panel, declarative-net-request"
-  context7-libraries: "/nicedoc/chrome-extension-doc"
-  related-skills: "moai-lang-typescript, moai-lang-javascript, moai-domain-frontend"
-  aliases: "chrome-ext, browser-extension, crx"
+  version: '1.0.0'
+  category: 'platform'
+  status: 'active'
+  updated: '2026-02-01'
+  modularized: 'true'
+  tags: 'chrome-extension, manifest-v3, service-worker, content-script, messaging, chrome-api, browser-extension, web-store, side-panel, declarative-net-request'
+  context7-libraries: '/nicedoc/chrome-extension-doc'
+  related-skills: 'moai-lang-typescript, moai-lang-javascript, moai-domain-frontend'
+  aliases: 'chrome-ext, browser-extension, crx'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -27,9 +27,29 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["chrome extension", "manifest v3", "service worker", "content script", "chrome api", "browser extension", "popup", "side panel", "background script", "web store", "declarativeNetRequest", "chrome.runtime", "chrome.tabs", "chrome.storage", "chrome.scripting", "chrome.action", "manifest.json", "crx"]
-  agents: ["expert-frontend", "expert-backend"]
-  phases: ["plan", "run"]
+  keywords:
+    [
+      'chrome extension',
+      'manifest v3',
+      'service worker',
+      'content script',
+      'chrome api',
+      'browser extension',
+      'popup',
+      'side panel',
+      'background script',
+      'web store',
+      'declarativeNetRequest',
+      'chrome.runtime',
+      'chrome.tabs',
+      'chrome.storage',
+      'chrome.scripting',
+      'chrome.action',
+      'manifest.json',
+      'crx',
+    ]
+  agents: ['expert-frontend', 'expert-backend']
+  phases: ['plan', 'run']
 ---
 
 # Chrome Extension Manifest V3 Development
@@ -47,7 +67,7 @@ Manifest V3 Platform:
 - Service workers replace persistent background pages for event-driven architecture
 - Remote code execution removed for enhanced security
 - declarativeNetRequest replaces blocking webRequest for network filtering
-- Promise-based API methods across all chrome.* APIs
+- Promise-based API methods across all chrome.\* APIs
 - action API unifies browserAction and pageAction into single surface
 - Supported in Chrome 88 and later
 
@@ -78,9 +98,9 @@ Security Model:
 
 For latest Chrome Extension API documentation, use the Context7 MCP tools:
 
-Step 1 - Resolve library ID: Use mcp__context7__resolve-library-id with query "chrome extension" to get the Context7-compatible library ID.
+Step 1 - Resolve library ID: Use mcp**context7**resolve-library-id with query "chrome extension" to get the Context7-compatible library ID.
 
-Step 2 - Fetch documentation: Use mcp__context7__get-library-docs with the resolved library ID, specifying topic and token allocation.
+Step 2 - Fetch documentation: Use mcp**context7**get-library-docs with the resolved library ID, specifying topic and token allocation.
 
 Example topics include "manifest v3 configuration", "service worker lifecycle", "content scripts injection", "message passing patterns", "chrome.storage API", "side panel API", and "declarativeNetRequest rules".
 
@@ -100,7 +120,7 @@ content-scripts-guide covers content script injection methods, isolated worlds, 
 
 messaging-patterns covers message passing between extension components. Topics include one-time messages with sendMessage, long-lived connections with connect and ports, async response patterns, cross-extension messaging, web page messaging, and error handling strategies.
 
-apis-quick-reference covers the major chrome.* APIs with method signatures and permission requirements. Topics include chrome.runtime, chrome.tabs, chrome.storage, chrome.action, chrome.scripting, chrome.alarms, chrome.notifications, chrome.contextMenus, chrome.sidePanel, chrome.declarativeNetRequest, chrome.offscreen, chrome.identity, and chrome.commands.
+apis-quick-reference covers the major chrome.\* APIs with method signatures and permission requirements. Topics include chrome.runtime, chrome.tabs, chrome.storage, chrome.action, chrome.scripting, chrome.alarms, chrome.notifications, chrome.contextMenus, chrome.sidePanel, chrome.declarativeNetRequest, chrome.offscreen, chrome.identity, and chrome.commands.
 
 ui-components covers popup, side panel, options page, DevTools panel, and content script UI. Topics include popup HTML and lifecycle, side panel configuration and API, options page patterns, DevTools extension integration, and injected UI from content scripts.
 
@@ -186,7 +206,7 @@ For detailed UI implementation patterns, see modules/ui-components.md.
 
 Permissions fall into four categories. Standard permissions declare API access requirements such as storage, tabs, activeTab, contextMenus, notifications, scripting, alarms, sidePanel, declarativeNetRequest, identity, and offscreen. These are granted at install time.
 
-Host permissions specify URL patterns for web page access using patterns like https://*.example.com/*. Optional permissions and optional host permissions allow runtime requests through chrome.permissions.request, reducing the install-time permission prompt.
+Host permissions specify URL patterns for web page access using patterns like https://_.example.com/_. Optional permissions and optional host permissions allow runtime requests through chrome.permissions.request, reducing the install-time permission prompt.
 
 Prefer activeTab over broad host permissions to minimize permission warnings. Request only the minimum permissions necessary for extension functionality.
 
@@ -293,7 +313,7 @@ For detailed implementation patterns, see the modules directory:
 - modules/service-worker-patterns.md covers service worker lifecycle and patterns
 - modules/content-scripts-guide.md covers content script injection and communication
 - modules/messaging-patterns.md covers all message passing patterns
-- modules/apis-quick-reference.md covers chrome.* API method signatures
+- modules/apis-quick-reference.md covers chrome.\* API method signatures
 - modules/ui-components.md covers popup, side panel, options, and DevTools UI
 - modules/security-csp.md covers CSP, permissions, and secure coding
 - modules/publishing-guide.md covers Chrome Web Store publishing workflow

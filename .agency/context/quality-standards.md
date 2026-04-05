@@ -1,11 +1,11 @@
-<!-- 
+<!--
   Agency Brand Context: Quality Standards
-  
+
   This file is part of the Agency Brand Context (constitution).
   It is NOT auto-modified by the learner agent.
   Changes require manual editing by the user.
   It serves as the foundation for all agency skill evolution.
-  
+
   Fill this file during the first `/agency brief` run via client interview.
 -->
 
@@ -16,45 +16,57 @@
 ### Core Web Vitals
 
 LCP (Largest Contentful Paint): _TBD_
+
 <!-- Example: < 2.5s -->
 
 INP (Interaction to Next Paint): _TBD_
+
 <!-- Example: < 200ms -->
 
 CLS (Cumulative Layout Shift): _TBD_
+
 <!-- Example: < 0.1 -->
 
 ### Lighthouse Scores
 
 Performance: _TBD_
+
 <!-- Example: >= 90 -->
 
 Accessibility: _TBD_
+
 <!-- Example: >= 95 -->
 
 Best Practices: _TBD_
+
 <!-- Example: >= 90 -->
 
 SEO: _TBD_
+
 <!-- Example: >= 95 -->
 
 ### Bundle Size Budgets
 
 Initial JS: _TBD_
+
 <!-- Example: < 150KB gzipped -->
 
 Per-Route JS: _TBD_
+
 <!-- Example: < 50KB gzipped -->
 
 Total CSS: _TBD_
+
 <!-- Example: < 30KB gzipped -->
 
 ## Accessibility Requirements
 
 WCAG Level: _TBD_
+
 <!-- Example: WCAG 2.2 AA -->
 
 Key Requirements:
+
 - _TBD_
 - _TBD_
 - _TBD_
@@ -72,21 +84,27 @@ Key Requirements:
 ## SEO Requirements
 
 Meta Tags: _TBD_
+
 <!-- Example: title, description, og:image required on every page -->
 
 Structured Data: _TBD_
+
 <!-- Example: JSON-LD for Organization, Product, FAQ schemas -->
 
 Sitemap: _TBD_
+
 <!-- Example: auto-generated sitemap.xml, submitted to Google Search Console -->
 
 Robots: _TBD_
+
 <!-- Example: allow all public pages, block /admin/ and /api/ -->
 
 Canonical URLs: _TBD_
+
 <!-- Example: self-referencing canonical on every page -->
 
 Page Speed: _TBD_
+
 <!-- Example: all pages must load in under 3s on 3G connection -->
 
 ## Browser and Device Support
@@ -135,34 +153,43 @@ Page Speed: _TBD_
 ### Linting and Formatting
 
 Linter: _TBD_
+
 <!-- Example: ESLint 9 with strict TypeScript rules -->
 
 Formatter: _TBD_
+
 <!-- Example: Prettier with 2-space indent, single quotes, trailing commas -->
 
 Pre-commit Hooks: _TBD_
+
 <!-- Example: Husky + lint-staged for auto-formatting on commit -->
 
 ### Code Review
 
 Review Required: _TBD_
+
 <!-- Example: 1 approval required for all PRs to main -->
 
 Auto-merge: _TBD_
+
 <!-- Example: allowed for dependency updates (Dependabot/Renovate) -->
 
 ### Naming Conventions
 
 Components: _TBD_
+
 <!-- Example: PascalCase (UserProfile.tsx) -->
 
 Utilities: _TBD_
+
 <!-- Example: camelCase (formatDate.ts) -->
 
 Constants: _TBD_
+
 <!-- Example: UPPER_SNAKE_CASE (MAX_RETRY_COUNT) -->
 
 CSS Classes: _TBD_
+
 <!-- Example: Tailwind utilities, no custom BEM -->
 
 ## Testing Requirements
@@ -170,23 +197,29 @@ CSS Classes: _TBD_
 ### Coverage Targets
 
 Unit Tests: _TBD_
+
 <!-- Example: >= 80% line coverage -->
 
 Integration Tests: _TBD_
+
 <!-- Example: critical user flows covered -->
 
 E2E Tests: _TBD_
+
 <!-- Example: top 5 user journeys covered with Playwright -->
 
 ### Testing Tools
 
 Unit/Integration: _TBD_
+
 <!-- Example: Vitest with React Testing Library -->
 
 E2E: _TBD_
+
 <!-- Example: Playwright -->
 
 Visual Regression: _TBD_
+
 <!-- Example: Chromatic (Storybook) or Percy -->
 
 ### Testing Rules

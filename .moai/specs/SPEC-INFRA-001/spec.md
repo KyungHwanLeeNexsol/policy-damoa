@@ -1,10 +1,10 @@
 ---
 id: SPEC-INFRA-001
-title: "Project Foundation"
-version: "1.0.0"
+title: 'Project Foundation'
+version: '1.0.0'
 status: draft
-created: "2026-04-05"
-updated: "2026-04-05"
+created: '2026-04-05'
+updated: '2026-04-05'
 author: zuge3
 priority: P0
 issue_number: 0
@@ -16,9 +16,9 @@ dependencies: []
 
 ## HISTORY
 
-| 버전 | 날짜 | 작성자 | 변경 내용 |
-|------|------|--------|-----------|
-| 1.0.0 | 2026-04-05 | zuge3 | 초기 SPEC 작성 |
+| 버전  | 날짜       | 작성자 | 변경 내용      |
+| ----- | ---------- | ------ | -------------- |
+| 1.0.0 | 2026-04-05 | zuge3  | 초기 SPEC 작성 |
 
 ---
 
@@ -61,6 +61,7 @@ dependencies: []
 - **NotificationLog**: id, userId, policyId, channel, sentAt, readAt
 
 **관계:**
+
 - User 1:1 UserProfile
 - User 1:N UserSavedPolicy
 - User 1:N NotificationLog
@@ -70,6 +71,7 @@ dependencies: []
 - Region self-referencing (parent-child 계층)
 
 **인덱스:**
+
 - Policy: title, region, applicationDeadline에 인덱스
 - Policy: externalId에 unique 인덱스
 - UserProfile: userId에 unique 인덱스

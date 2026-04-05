@@ -1,5 +1,5 @@
 ---
-paths: "**/*.js,**/*.mjs,**/*.cjs,**/package.json"
+paths: '**/*.js,**/*.mjs,**/*.cjs,**/package.json'
 ---
 
 # JavaScript Rules
@@ -33,7 +33,7 @@ Version: ES2024+ / Node.js 22 LTS
 
 ## File Conventions
 
-- *.test.js or *.spec.js for test files
+- _.test.js or _.spec.js for test files
 - index.js for barrel exports
 - Use camelCase for functions and variables
 - Use PascalCase for classes

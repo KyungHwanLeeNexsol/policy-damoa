@@ -7,11 +7,11 @@ description: >
   Use when resuming work, checking previous decisions, or loading SPEC history.
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-25"
-  tags: "context, memory, git, session, resume, history"
+  version: '1.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-25'
+  tags: 'context, memory, git, session, resume, history'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["context", "memory", "resume", "history", "previous session", "what happened"]
-  agents: ["manager-git"]
-  phases: ["context"]
+  keywords: ['context', 'memory', 'resume', 'history', 'previous session', 'what happened']
+  agents: ['manager-git']
+  phases: ['context']
 ---
 
 # Workflow: Context - Git-Based Context Memory
@@ -45,11 +45,13 @@ Flow: Parse Arguments -> Extract Commits -> Parse Context -> Categorize -> Injec
 Extract commits with structured context from git log:
 
 Git Query Strategy:
+
 - If --spec flag: `git log --grep="SPEC: SPEC-XXX" --format="%H%n%s%n%b" --since="N days ago"`
 - If on feature branch: Auto-detect SPEC from branch name (feature/SPEC-XXX)
 - If no SPEC detected: Extract from all recent commits with Context sections
 
 Commit Filtering:
+
 - Include only commits with `## Context` section in body
 - Parse SPEC, Phase, and Session metadata fields
 - Sort by date (newest first)
@@ -59,6 +61,7 @@ Commit Filtering:
 Parse structured context from each commit message body:
 
 Parsing Rules:
+
 - Extract lines starting with `- Decision:`, `- Constraint:`, `- Gotcha:`, `- Pattern:`, `- Risk:`, `- UserPref:`
 - Extract `## MX Tags Changed` section for tag history
 - Extract `SPEC:` and `Phase:` metadata
@@ -71,6 +74,7 @@ Output: Structured context map per category.
 Organize extracted context:
 
 Categories:
+
 - **Decisions**: Technical choices with rationale (most recent takes precedence if conflicting)
 - **Constraints**: Active constraints (accumulate, do not deduplicate)
 - **Gotchas**: Pitfalls and warnings (accumulate with deduplication)
@@ -79,6 +83,7 @@ Categories:
 - **UserPrefs**: User preferences captured during sessions (most recent takes precedence)
 
 Deduplication:
+
 - Compare new items against existing items using string similarity
 - If similarity > 80%: Keep the most recent version
 - Track item evolution across commits (first seen -> last updated)
@@ -88,10 +93,12 @@ Deduplication:
 Compress context to fit within token budget:
 
 Budget Allocation (from context.yaml):
+
 - max_injection_tokens: 5000 (default)
 - skip_if_usage_above: 150000
 
 Compression Strategy:
+
 - Priority 1: Decisions and Constraints (most critical for continuity)
 - Priority 2: Gotchas and Risks (prevent repeated mistakes)
 - Priority 3: Patterns and UserPrefs (nice to have)
@@ -100,11 +107,13 @@ Compression Strategy:
 ## Phase 5: Display or Inject
 
 If --inject flag:
+
 - Format context as structured markdown
 - Present to user for confirmation before injection
 - Inject approved context into session via AskUserQuestion
 
 If display mode (default):
+
 - Show formatted context report in user's conversation_language
 
 Display Format:
@@ -113,36 +122,44 @@ Display Format:
 ## Context Memory Report - SPEC-XXX
 
 ### Session Timeline
+
 - 2026-02-20: Plan phase completed (3 decisions, 2 constraints)
 - 2026-02-21: Run phase RED-GREEN (5 decisions, 3 gotchas)
 - 2026-02-22: Run phase REFACTOR (2 patterns applied)
 
 ### Active Decisions (N)
-| # | Decision | Rationale | Commit | Date |
-|---|----------|-----------|--------|------|
-| 1 | EdDSA over RSA256 | Performance priority (user request) | abc123 | 2026-02-21 |
+
+| #   | Decision          | Rationale                           | Commit | Date       |
+| --- | ----------------- | ----------------------------------- | ------ | ---------- |
+| 1   | EdDSA over RSA256 | Performance priority (user request) | abc123 | 2026-02-21 |
 
 ### Active Constraints (N)
+
 - API v1 backward compatibility required
 - PostgreSQL 15+ only (no MySQL support)
 
 ### Known Gotchas (N)
+
 - Redis TTL unreliable for RefreshToken storage
 - Concurrent map access in Go requires sync.Mutex
 
 ### Applied Patterns (N)
+
 - middleware chain pattern (auth.go:45)
 - table-driven tests (auth_test.go)
 
 ### Open Risks (N)
+
 - Token rotation deferred to Phase 2
 - Rate limiting not yet implemented
 
 ### User Preferences
+
 - Prefers functional style over OOP
 - Wants verbose error messages
 
 ### MX Tag History
+
 - 3 ANCHOR tags added, 2 TODO tags resolved
 ```
 
@@ -153,6 +170,7 @@ When used with /moai sync or phase transitions, create git tags for session boun
 Tag Format: `moai/SPEC-{ID}/{phase}-complete`
 
 Tag Message:
+
 ```
 {Phase} phase completed
 Decisions: N, Constraints: N, Risks: N

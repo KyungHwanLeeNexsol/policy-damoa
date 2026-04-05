@@ -6,12 +6,12 @@ description: >
   deployment, or managing serverless infrastructure.
 license: Apache-2.0
 metadata:
-  version: "2.0.0"
-  category: "platform"
-  status: "active"
-  updated: "2026-02-09"
-  platforms: "Vercel, Railway, Convex"
-  tags: "deployment, hosting, vercel, railway, convex, edge, containers, serverless, real-time"
+  version: '2.0.0'
+  category: 'platform'
+  status: 'active'
+  updated: '2026-02-09'
+  platforms: 'Vercel, Railway, Convex'
+  tags: 'deployment, hosting, vercel, railway, convex, edge, containers, serverless, real-time'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,24 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["deploy", "deployment", "hosting", "vercel", "railway", "convex", "edge functions", "containers", "docker", "serverless", "real-time", "preview deployment", "continuous deployment"]
-  agents: ["expert-devops", "expert-backend", "expert-frontend"]
-  phases: ["run", "sync"]
+  keywords:
+    [
+      'deploy',
+      'deployment',
+      'hosting',
+      'vercel',
+      'railway',
+      'convex',
+      'edge functions',
+      'containers',
+      'docker',
+      'serverless',
+      'real-time',
+      'preview deployment',
+      'continuous deployment',
+    ]
+  agents: ['expert-devops', 'expert-backend', 'expert-frontend']
+  phases: ['run', 'sync']
 
 user-invocable: false
 allowed-tools: Read, Write, Edit, Grep, Glob, Bash(npm:*), Bash(npx:*), Bash(docker:*), Bash(git:*), WebFetch, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
@@ -40,6 +55,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 ### When to Use Each Platform
 
 **Vercel** - Edge-First Deployment:
+
 - Next.js applications with SSR/SSG
 - Global CDN distribution required
 - Sub-50ms edge latency critical
@@ -47,6 +63,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 - Managed storage needs (KV, Blob, Postgres)
 
 **Railway** - Container-First Deployment:
+
 - Full-stack containerized applications
 - Custom runtime environments
 - Multi-service architectures
@@ -54,6 +71,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 - WebSocket/gRPC long-lived connections
 
 **Convex** - Real-Time Backend:
+
 - Collaborative real-time applications
 - Reactive data synchronization
 - TypeScript-first backend needs
@@ -67,16 +85,19 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 ### By Application Type
 
 **Web Applications (Frontend + API)**:
+
 - Next.js → Vercel (optimal integration)
 - React/Vue with custom API → Railway (flexible)
 - Real-time collaborative → Convex + Vercel
 
 **Mobile Backends**:
+
 - REST/GraphQL → Railway (stable connections)
 - Real-time sync → Convex (reactive queries)
 - Edge API → Vercel (global latency)
 
 **Full-Stack Monoliths**:
+
 - Containerized → Railway (Docker support)
 - Serverless → Vercel (Next.js API routes)
 - Real-time → Convex (built-in reactivity)
@@ -84,17 +105,20 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 ### By Infrastructure Needs
 
 **Compute Requirements**:
+
 - Edge compute → Vercel (30+ edge locations)
 - Custom runtimes → Railway (Docker flexibility)
 - Serverless TypeScript → Convex (managed runtime)
 
 **Storage Requirements**:
+
 - Redis/KV → Vercel KV or Railway
 - PostgreSQL → Vercel Postgres or Railway
 - File storage → Vercel Blob or Railway volumes
 - Document DB → Convex (built-in)
 
 **Networking Requirements**:
+
 - CDN distribution → Vercel (built-in)
 - Private networking → Railway (service mesh)
 - Real-time WebSocket → Convex (built-in) or Railway
@@ -108,6 +132,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 **Stack**: Vercel + Vercel Postgres/KV
 
 **Setup**:
+
 1. Deploy Next.js app to Vercel
 2. Provision Vercel Postgres for database
 3. Use Vercel KV for session/cache
@@ -121,6 +146,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 **Stack**: Railway + Docker
 
 **Setup**:
+
 1. Create multi-stage Dockerfile
 2. Configure railway.toml for services
 3. Set up private networking
@@ -134,6 +160,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 **Stack**: Convex + Vercel/Railway (frontend)
 
 **Setup**:
+
 1. Initialize Convex backend
 2. Define schema and server functions
 3. Deploy frontend to Vercel/Railway
@@ -147,6 +174,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 **Stack**: Vercel (frontend/edge) + Railway (backend services)
 
 **Setup**:
+
 1. Deploy Next.js frontend to Vercel
 2. Deploy backend services to Railway
 3. Configure CORS and API endpoints
@@ -160,6 +188,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 **Stack**: Vercel (frontend + API routes) + Convex (backend)
 
 **Setup**:
+
 1. Build Next.js app with API routes
 2. Initialize Convex for data layer
 3. Configure authentication (Clerk/Auth0)
@@ -175,6 +204,7 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 ### Vercel Quick Start
 
 **vercel.json**:
+
 ```json
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
@@ -190,19 +220,21 @@ Comprehensive deployment platform guide covering Vercel (edge-first), Railway (c
 ```
 
 **Edge Function**:
+
 ```typescript
-export const runtime = "edge"
-export const preferredRegion = ["iad1", "sfo1"]
+export const runtime = 'edge';
+export const preferredRegion = ['iad1', 'sfo1'];
 
 export async function GET(request: Request) {
-  const country = request.geo?.country || "Unknown"
-  return Response.json({ country })
+  const country = request.geo?.country || 'Unknown';
+  return Response.json({ country });
 }
 ```
 
 ### Railway Quick Start
 
 **railway.toml**:
+
 ```toml
 [build]
 builder = "DOCKERFILE"
@@ -220,6 +252,7 @@ cpu = "2.0"
 ```
 
 **Multi-Stage Dockerfile**:
+
 ```dockerfile
 # Builder stage
 FROM node:20-alpine AS builder
@@ -244,25 +277,27 @@ CMD ["node", "dist/main.js"]
 ### Convex Quick Start
 
 **convex/schema.ts**:
+
 ```typescript
-import { defineSchema, defineTable } from "convex/server"
-import { v } from "convex/values"
+import { defineSchema, defineTable } from 'convex/server';
+import { v } from 'convex/values';
 
 export default defineSchema({
   messages: defineTable({
     text: v.string(),
-    userId: v.id("users"),
+    userId: v.id('users'),
     timestamp: v.number(),
   })
-    .index("by_timestamp", ["timestamp"])
-    .searchIndex("search_text", {
-      searchField: "text",
-      filterFields: ["userId"],
+    .index('by_timestamp', ['timestamp'])
+    .searchIndex('search_text', {
+      searchField: 'text',
+      filterFields: ['userId'],
     }),
-})
+});
 ```
 
 **React Integration**:
+
 ```typescript
 import { useQuery, useMutation } from "convex/react"
 import { api } from "../convex/_generated/api"
@@ -357,6 +392,7 @@ Deploy new version, test on preview URL, then switch production alias using Verc
 ### Multi-Region (Railway)
 
 Configure deployment regions in railway.toml:
+
 ```toml
 [deploy.regions]
 name = "us-west"
@@ -370,13 +406,13 @@ replicas = 1
 ### Optimistic Updates (Convex)
 
 ```typescript
-const sendMessage = useMutation(api.messages.send)
+const sendMessage = useMutation(api.messages.send);
 
 const handleSend = (text: string) => {
   sendMessage({ text })
-    .then(() => console.log("Sent"))
-    .catch(() => console.log("Failed, rolled back"))
-}
+    .then(() => console.log('Sent'))
+    .catch(() => console.log('Failed, rolled back'));
+};
 ```
 
 ---

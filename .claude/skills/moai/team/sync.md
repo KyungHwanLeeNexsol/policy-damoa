@@ -7,11 +7,11 @@ description: >
   Reference document explaining why sync skips team mode.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "sync, team, documentation, rationale"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'sync, team, documentation, rationale'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,10 +21,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["team sync", "sync team mode"]
-  agents: ["manager-docs"]
-  phases: ["sync"]
+  keywords: ['team sync', 'sync team mode']
+  agents: ['manager-docs']
+  phases: ['sync']
 ---
+
 # Workflow: Team Sync - Documentation Phase
 
 Purpose: Explain why sync phase always uses sub-agent mode and document the rationale.
@@ -43,6 +44,7 @@ The sync phase always uses sub-agent mode (manager-docs) because:
 ## When Team Mode Might Help
 
 Future consideration for team mode if:
+
 - Documentation spans multiple languages (i18n)
 - API docs and user docs need simultaneous generation
 - Documentation site has 10+ pages requiring parallel rendering
@@ -50,6 +52,7 @@ Future consideration for team mode if:
 ## Current Behavior
 
 When /moai sync is invoked with --team flag:
+
 - Log informational message: "Sync phase uses sub-agent mode for optimal coherence"
 - Execute standard sync workflow via manager-docs subagent
 - --team flag is acknowledged but not applied for this phase

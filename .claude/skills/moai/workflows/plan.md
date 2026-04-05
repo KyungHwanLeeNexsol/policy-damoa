@@ -7,11 +7,11 @@ description: >
   or branch creation. Use when planning features or creating specifications.
 user-invocable: false
 metadata:
-  version: "2.6.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-23"
-  tags: "plan, spec, ears, requirements, specification, design"
+  version: '2.6.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-23'
+  tags: 'plan, spec, ears, requirements, specification, design'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["plan", "spec", "design", "architect", "requirements", "feature request"]
-  agents: ["manager-spec", "Explore", "manager-git"]
-  phases: ["plan"]
+  keywords: ['plan', 'spec', 'design', 'architect', 'requirements', 'feature request']
+  agents: ['manager-spec', 'Explore', 'manager-git']
+  phases: ['plan']
 ---
 
 # Plan Workflow Orchestration
@@ -81,15 +81,18 @@ Pre-execution commands: git status, git branch, git log, git diff, find .moai/sp
 Agent: Explore subagent (read-only codebase analysis)
 
 When to run:
+
 - User provides vague or unstructured request
 - Need to discover existing files and patterns
 - Unclear about current project state
 
 When to skip:
+
 - User provides clear SPEC title (e.g., "Add authentication module")
 - Resume scenario with existing SPEC context
 
 Tasks for the Explore subagent:
+
 - If .moai/project/codemaps/ exists: Use as architecture baseline to accelerate exploration
 - Find relevant files by keywords from user request
 - Locate existing SPEC documents in .moai/specs/
@@ -105,22 +108,26 @@ Tasks for the Explore subagent:
 Purpose: Automatically activate deep analysis mode for complex SPECs that benefit from structured reasoning.
 
 **Activation condition**: Evaluate task complexity from Phase 1A exploration results or user request:
+
 - Complexity score >= 7 (multi-domain, cross-cutting concerns)
 - Request involves architectural decisions (new module, system redesign, migration)
 - Request touches security-critical areas (auth, payment, data isolation)
 - User explicitly includes `ultrathink` keyword in request
 
 **UltraThink vs --deepthink distinction**:
+
 - `ultrathink`: Claude Code native deep analysis mode — activates extended reasoning within the current agent context. Triggered by keyword detection in user input.
 - `--deepthink`: Sequential Thinking MCP tool invocation — programmatic step-by-step analysis via `mcp__sequential-thinking__sequentialthinking`. Triggered by explicit flag.
 
 When UltraThink auto-activates:
+
 - Log: "UltraThink mode activated: [reason]"
 - Apply extended reasoning to Phase 0.5 research and Phase 1B SPEC creation
 - Produce deeper analysis in research.md with trade-off comparisons and risk assessments
 - Consider alternative approaches and document rejection rationale
 
 When --deepthink flag is present (can combine with UltraThink):
+
 - Invoke Sequential Thinking MCP for structured step-by-step analysis
 - Each thinking step documented in research.md
 
@@ -133,15 +140,18 @@ Agent: Explore subagent (deep codebase analysis)
 Purpose: Produce a persistent research.md artifact documenting deep codebase understanding. This document serves as a verification surface — MoAI and the user can review it and correct misunderstandings before planning begins.
 
 When to run:
+
 - Feature involves modifying existing code
 - Feature has cross-module dependencies
 - User explicitly requests research phase
 
 When to skip:
+
 - Simple, isolated additions (new file with no dependencies)
 - User provides explicit "skip research" instruction
 
 Tasks for the Explore subagent:
+
 - Read target code areas in depth — understand how they work deeply, their intricacies and specificities
 - Study related systems in great detail — trace data flow, identify implicit contracts and side effects
 - Discover reference implementations in the existing codebase — find similar patterns that can guide the new implementation
@@ -149,11 +159,13 @@ Tasks for the Explore subagent:
 - Document all findings in a structured research.md file
 
 Research directives (Deep Reading patterns):
+
 - Use language that demands thoroughness: "read deeply", "study in great detail", "understand the intricacies"
 - Avoid surface-level scanning — agent must trace through actual execution paths
 - Every finding must include specific file paths and line references
 
 Output: `.moai/specs/SPEC-{ID}/research.md` containing:
+
 - Architecture analysis with file paths and dependency maps
 - Existing patterns and conventions discovered
 - Reference implementations found (internal codebase or documented patterns)
@@ -165,10 +177,12 @@ Output: `.moai/specs/SPEC-{ID}/research.md` containing:
 Purpose: Establish design intent and direction for UI/UX-related SPECs before SPEC planning begins. Based on the Intent-First design philosophy from the interface-design methodology.
 
 When to run:
+
 - SPEC description contains 2+ UI/UX keywords: ui, frontend, interface, design, component, page, screen, layout, form, dashboard, button, modal, view, sidebar, navigation, widget, chart, table
 - User explicitly requests design direction
 
 When to skip:
+
 - No UI/UX keywords detected in SPEC description
 - User explicitly requests "skip design" or uses --prototype flag
 - Backend-only, infrastructure, or documentation SPECs
@@ -176,6 +190,7 @@ When to skip:
 Agent: expert-frontend subagent (with moai-design-craft skill)
 
 Tasks:
+
 1. Check if `.moai/design/system.md` exists and has content
 2. If system.md exists: Load as design context, skip Intent-First process
 3. If system.md is empty or missing: Execute Intent-First process:
@@ -185,6 +200,7 @@ Tasks:
 4. Generate design direction artifact
 
 Output: `.moai/specs/SPEC-{ID}/design-direction.md` containing:
+
 - Intent statement (who, what, feel)
 - Domain concepts and vocabulary
 - Color world exploration
@@ -203,6 +219,7 @@ Agent: manager-spec subagent
 Input: User request plus Phase 1A results (if executed), plus design-direction.md (if Phase 1.25 executed)
 
 Tasks for manager-spec:
+
 - Analyze project documents (product.md, structure.md, tech.md)
 - Propose 1-3 SPEC candidates with proper naming
 - Check for duplicate SPECs in .moai/specs/
@@ -221,6 +238,7 @@ Implementation guard: [HARD] During Phases 0.5, 1A, and 1B, all agent prompts MU
 Tool: AskUserQuestion (at orchestrator level only)
 
 Options:
+
 - Proceed with SPEC Creation (Recommended): Plan is approved, continue to Phase 1.5 then Phase 2
 - Annotate Plan: Add inline notes to plan.md for revision (starts annotation cycle)
 - Save as Draft: Save plan.md with status draft, create commit, print resume command, exit
@@ -236,6 +254,7 @@ If "Cancel": Discard plan, exit with no files created.
 Purpose: Allow users to iteratively refine the plan through inline notes before any code is written. This prevents expensive failures by catching architectural misunderstandings, missed conventions, and scope issues early.
 
 Process:
+
 1. User reviews plan.md (and research.md if available) in their editor
 2. User adds inline notes directly into the document (e.g., "NOTE: use drizzle:generate for migrations, not raw SQL")
 3. User signals completion via AskUserQuestion
@@ -244,6 +263,7 @@ Process:
 6. MoAI presents updated plan to user for another review cycle
 
 Iteration limits:
+
 - Maximum 6 annotation cycles per plan
 - After each cycle, present options: Proceed / Annotate Again / Save Draft / Cancel
 - Track iteration count and display: "Annotation cycle {N}/6"
@@ -255,11 +275,13 @@ Guard rule: [HARD] During annotation cycles, the explicit instruction "DO NOT im
 Purpose: Prevent common SPEC creation errors before file generation.
 
 Step 1 - Document Type Classification:
+
 - Detect keywords to classify as SPEC, Report, or Documentation
 - Reports route to .moai/reports/, Documentation to .moai/docs/
 - Only SPEC-type content proceeds to Phase 2
 
 Step 2 - SPEC ID Validation (all checks must pass):
+
 - ID Format: Must match SPEC-{DOMAIN}-{NUMBER} pattern (e.g., SPEC-AUTH-001)
 - Domain Name: Must be from the approved domain list (AUTH, API, UI, DB, REFACTOR, FIX, UPDATE, PERF, TEST, DOCS, INFRA, DEVOPS, SECURITY, and others)
 - ID Uniqueness: Search .moai/specs/ to confirm no duplicates exist
@@ -311,6 +333,7 @@ Delta markers are OPTIONAL and only suggested for brownfield projects. Greenfiel
 After all SPEC files are created, auto-generate `.moai/specs/SPEC-{ID}/spec-compact.md`:
 
 Extract from spec.md:
+
 - All REQ-XXX requirements (EARS format entries)
 - All acceptance criteria (Given/When/Then scenarios)
 - Files to modify list
@@ -322,6 +345,7 @@ Purpose: Run phase loads spec-compact.md (~30% token savings) instead of full sp
 Fallback: If generation fails, Run phase uses full spec.md.
 
 Quality constraints:
+
 - Requirement modules limited to 5 or fewer per SPEC
 - Acceptance criteria minimum 2 Given/When/Then scenarios
 - Technical terms and function names remain in English
@@ -332,11 +356,13 @@ Quality constraints:
 Purpose: Create a GitHub Issue linked to the SPEC document for bidirectional traceability between planning artifacts and issue tracker.
 
 Execution conditions:
+
 - `--no-issue` flag is NOT set
 - GitHub CLI (`gh`) is available
 - Repository has a remote origin
 
 Skip conditions:
+
 - `--no-issue` flag is set
 - `gh` CLI not available (log warning and continue)
 - No remote origin configured
@@ -386,6 +412,7 @@ After Issue creation, update the SPEC frontmatter with the issue number:
 #### Step 2.5.3: Bidirectional Reference
 
 The SPEC ↔ Issue link enables:
+
 - SPEC spec.md frontmatter contains `issue_number: {N}` for downstream workflows
 - GitHub Issue body contains SPEC-ID and file path for human navigation
 - run.md Phase 3 uses `issue_number` to include `Fixes #{N}` in commits/PRs
@@ -394,6 +421,7 @@ The SPEC ↔ Issue link enables:
 ### Phase 3: Git Environment Setup (Conditional)
 
 Execution conditions: Phase 2 completed successfully AND one of the following:
+
 - --worktree flag provided
 - --branch flag provided or user chose branch creation
 - Configuration permits branch creation (git_strategy settings)
@@ -403,6 +431,7 @@ Skipped when: develop_direct workflow, no flags and user chooses "Use current br
 #### Worktree Path (--worktree flag)
 
 Prerequisite: SPEC files MUST be committed before worktree creation.
+
 - Stage SPEC files: git add .moai/specs/SPEC-{ID}/
 - Create commit: feat(spec): Add SPEC-{ID} - {title}
 - Create worktree: `moai worktree new SPEC-{ID}`
@@ -411,6 +440,7 @@ Prerequisite: SPEC files MUST be committed before worktree creation.
 #### Branch Path (--branch flag or user choice)
 
 Agent: manager-git subagent
+
 - Create branch: feature/SPEC-{ID}-{description}
 - Set tracking upstream if remote exists
 - Switch to new branch
@@ -426,10 +456,12 @@ Agent: manager-git subagent
 Purpose: Identify code locations that will need @MX annotations during implementation. This information is passed to run workflow agents as context constraints.
 
 Execution conditions: Always executed. Depth varies by scope:
+
 - **Full scan**: SPEC involves modifying existing code OR creating new public APIs
 - **Lightweight scan**: New feature with no existing code interaction (scan public API surface only)
 
 Tasks:
+
 - Scan target files for high fan_in functions (potential @MX:ANCHOR)
 - Identify dangerous patterns (goroutines, complexity) for @MX:WARN
 - List magic constants and business rules for @MX:NOTE
@@ -441,18 +473,21 @@ Tasks:
 Purpose: Verify SPEC document quality before proceeding to implementation. Catches incomplete or inconsistent specs early.
 
 Tasks:
+
 - Verify all EARS-format requirements have corresponding acceptance criteria
 - Check that affected files list is complete (cross-reference with codebase)
 - Validate that MX tag plan covers all high-risk areas (fan_in >= 3, goroutines)
 - Run lightweight security check on SPEC scope (flag if auth/crypto/input-validation areas are touched)
 
 Gate decision:
+
 - **PASS**: All checks satisfied. Proceed to Decision Point 2.
 - **WARNING**: Minor gaps found (e.g., missing acceptance criteria for edge cases). Present findings and offer fix or continue.
 - **FAIL**: Critical gaps (e.g., no acceptance criteria, security-sensitive scope without security considerations). Must fix before proceeding.
 
 Tool: AskUserQuestion (when WARNING or FAIL)
 Options:
+
 - Fix SPEC issues (Recommended): Return to SPEC editing with specific gaps highlighted
 - Continue with warnings: Proceed knowing gaps exist (WARNING only, not available for FAIL)
 - Abort: Exit plan workflow
@@ -462,6 +497,7 @@ Options:
 Tool: AskUserQuestion (when prompt_always config is true and auto_branch is true)
 
 Options:
+
 - Create Worktree (recommended for parallel SPEC development)
 - Create Branch (traditional workflow)
 - Use current branch
@@ -471,6 +507,7 @@ Options:
 Tool: AskUserQuestion (after SPEC creation completes)
 
 Options:
+
 - Start Implementation (execute /moai run SPEC-{ID})
 - Modify Plan
 - Add New Feature (create additional SPEC)
@@ -483,6 +520,7 @@ Purpose: After SPEC creation, detect execution environment and present optimal i
 
 **Step 1: Detect active LLM mode**
 Read `.moai/config/sections/llm.yaml` → `llm.team_mode` field:
+
 - `""` (empty) or `"cc"`: CC mode (Claude-only)
 - `"glm"`: GLM mode (GLM-only)
 - `"cg"`: CG mode (Claude Leader + GLM Workers)
@@ -493,6 +531,7 @@ Check `$TMUX` environment variable via Bash: `test -n "$TMUX" && echo "tmux" || 
 **Step 3: Present options based on detection**
 
 When tmux IS available: AskUserQuestion with 3 options (descriptions adapt to active_mode):
+
 - Option 1 (Recommended): Worktree + {active_mode}
   - CC: "Create MoAI worktree with tmux session. All agents use Claude. Highest quality."
   - GLM: "Create MoAI worktree with tmux session. All agents use GLM. Cost optimized."
@@ -501,10 +540,12 @@ When tmux IS available: AskUserQuestion with 3 options (descriptions adapt to ac
 - Option 3: Sub-agent Mode (sequential): Use sequential sub-agents. Best for simple, single-domain tasks.
 
 When tmux is NOT available: AskUserQuestion with 2 options:
+
 - Option 1 (Recommended): Sub-agent Mode: Use sequential sub-agents for implementation. Tmux is not available for session isolation.
 - Option 2: Team Mode (in-process): Use Agent Teams for parallel implementation within current session.
 
 **Step 4: Execute selected mode**
+
 - **Worktree mode**: Execute `moai worktree new SPEC-{ID} --tmux` to create worktree with tmux session. The tmux session will:
   - CC mode: Create session, cd to worktree, run `/moai run SPEC-{ID}`
   - GLM mode: Create session, inject GLM env, cd to worktree, run `/moai run SPEC-{ID}`
@@ -514,6 +555,7 @@ When tmux is NOT available: AskUserQuestion with 2 options:
 - **Sub-agent mode**: Proceed to `/moai run SPEC-{ID} --solo`
 
 **Step 5: Gate result passing**
+
 - Pass the selected execution mode to the run workflow
 - If worktree mode: Run workflow executes in the tmux session (no further action needed from plan)
 - If team/sub-agent mode: Continue to run workflow in current session
@@ -557,8 +599,10 @@ All of the following must be verified:
 ## Test Scenarios
 
 ### Normal Flow
+
 **Prompt**: "/moai plan JWT authentication with refresh token rotation"
 **Expected Result**:
+
 - Phase 1A: Explore discovers existing auth files if any
 - Phase 1B: manager-spec designs EARS requirements for JWT auth
 - Annotation cycle: 1-3 iterations refining requirements
@@ -567,16 +611,20 @@ All of the following must be verified:
 - Phase 3: Feature branch feat/SPEC-AUTH-001-jwt-auth created (if --branch)
 
 ### Existing Assets Flow
+
 **Prompt**: "/moai plan add payment gateway" (existing e-commerce codebase)
 **Expected Result**:
+
 - Explore discovers existing order, product, user models
 - SPEC references existing models as dependencies
 - plan.md identifies extension points in existing architecture
 - No duplicate functionality proposed
 
 ### Error Flow
+
 **Prompt**: "/moai plan" (no description provided)
 **Expected Result**:
+
 - AskUserQuestion prompts user for feature description
 - After user provides description, normal flow continues
 - If user cancels, graceful exit with no files created

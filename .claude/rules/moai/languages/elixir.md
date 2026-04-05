@@ -1,5 +1,5 @@
 ---
-paths: "**/*.ex,**/*.exs,**/mix.exs"
+paths: '**/*.ex,**/*.exs,**/mix.exs'
 ---
 
 # Elixir Rules
@@ -34,7 +34,7 @@ Version: Elixir 1.17+
 
 ## File Conventions
 
-- *_test.exs for test files
+- \*\_test.exs for test files
 - Use snake_case for modules and functions
 - Use PascalCase for module names
 - lib/ for application code

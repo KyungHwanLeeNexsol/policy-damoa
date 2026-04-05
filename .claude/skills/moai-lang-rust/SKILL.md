@@ -7,12 +7,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.2.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "language, rust, axum, tokio, sqlx, serde, wasm, cargo"
+  version: '1.2.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'language, rust, axum, tokio, sqlx, serde, wasm, cargo'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,8 +22,27 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Rust", "Axum", "Tokio", "SQLx", "serde", ".rs", "Cargo.toml", "async", "await", "lifetime", "trait", "ownership", "borrowing", "performance", "optimization", "clippy", "memory safety"]
-  languages: ["rust"]
+  keywords:
+    [
+      'Rust',
+      'Axum',
+      'Tokio',
+      'SQLx',
+      'serde',
+      '.rs',
+      'Cargo.toml',
+      'async',
+      'await',
+      'lifetime',
+      'trait',
+      'ownership',
+      'borrowing',
+      'performance',
+      'optimization',
+      'clippy',
+      'memory safety',
+    ]
+  languages: ['rust']
 ---
 
 ## Quick Reference (30 seconds)

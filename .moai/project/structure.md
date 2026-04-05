@@ -336,18 +336,18 @@ Local Gov Sites  ──┘    (scripts/sync)       (Prisma)     (app/api)     (a
 
 ## File Naming Conventions
 
-| Type | Convention | Example |
-|---|---|---|
-| React components | PascalCase | `PolicyCard.tsx` |
-| Hooks | camelCase with `use` prefix | `usePolicies.ts` |
-| Server actions | camelCase, verb-first | `searchPolicies.ts` |
-| Service files | camelCase with `.service.ts` suffix | `recommendation.service.ts` |
-| Type definition files | camelCase with `.types.ts` suffix | `policy.types.ts` |
-| Schema files | camelCase with `.schema.ts` suffix | `policy.schema.ts` |
-| Test files | same as source with `.test.ts` or `.spec.ts` suffix | `policies.test.ts` |
-| Route handlers | `route.ts` (App Router convention) | `route.ts` |
-| Constants | SCREAMING_SNAKE_CASE for values | `MAX_RESULTS_PER_PAGE` |
-| Environment variables | SCREAMING_SNAKE_CASE | `DATABASE_URL` |
+| Type                  | Convention                                          | Example                     |
+| --------------------- | --------------------------------------------------- | --------------------------- |
+| React components      | PascalCase                                          | `PolicyCard.tsx`            |
+| Hooks                 | camelCase with `use` prefix                         | `usePolicies.ts`            |
+| Server actions        | camelCase, verb-first                               | `searchPolicies.ts`         |
+| Service files         | camelCase with `.service.ts` suffix                 | `recommendation.service.ts` |
+| Type definition files | camelCase with `.types.ts` suffix                   | `policy.types.ts`           |
+| Schema files          | camelCase with `.schema.ts` suffix                  | `policy.schema.ts`          |
+| Test files            | same as source with `.test.ts` or `.spec.ts` suffix | `policies.test.ts`          |
+| Route handlers        | `route.ts` (App Router convention)                  | `route.ts`                  |
+| Constants             | SCREAMING_SNAKE_CASE for values                     | `MAX_RESULTS_PER_PAGE`      |
+| Environment variables | SCREAMING_SNAKE_CASE                                | `DATABASE_URL`              |
 
 ---
 

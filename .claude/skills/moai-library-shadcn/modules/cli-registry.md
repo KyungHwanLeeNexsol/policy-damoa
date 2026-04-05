@@ -25,9 +25,9 @@ info: Display project configuration including framework, Tailwind version, CSS v
 
 ### Migration Commands
 
-migrate radix: Convert individual @radix-ui/react-* package imports to the unified radix-ui package. Rewrites imports from `import * as DialogPrimitive from "@radix-ui/react-dialog"` to `import { Dialog } from "radix-ui"`.
+migrate radix: Convert individual @radix-ui/react-_ package imports to the unified radix-ui package. Rewrites imports from `import _ as DialogPrimitive from "@radix-ui/react-dialog"`to`import { Dialog } from "radix-ui"`.
 
-migrate rtl: Convert physical CSS positioning classes to logical equivalents for RTL support. Transforms left-*/right-* to start-*/end-*, ml-*/mr-* to ms-*/me-*, pl-*/pr-* to ps-*/pe-*, text-left/text-right to text-start/text-end. Also handles animation classes and icon flip directives.
+migrate rtl: Convert physical CSS positioning classes to logical equivalents for RTL support. Transforms left-_/right-_ to start-_/end-_, ml-_/mr-_ to ms-_/me-_, pl-_/pr-_ to ps-_/pe-_, text-left/text-right to text-start/text-end. Also handles animation classes and icon flip directives.
 
 ### Build and Distribution
 
@@ -46,9 +46,10 @@ Presets are AI-aware and work across Claude, Codex, v0, and Replit for consisten
 shadcn/ui provides first-class right-to-left support for Arabic, Hebrew, Persian, and other RTL languages. The CLI transforms CSS classes at install-time (not runtime), converting physical properties to logical equivalents.
 
 Key transformations:
-- Positioning: left-* becomes start-*, right-* becomes end-*
-- Margin: ml-* becomes ms-*, mr-* becomes me-*
-- Padding: pl-* becomes ps-*, pr-* becomes pe-*
+
+- Positioning: left-_ becomes start-_, right-_ becomes end-_
+- Margin: ml-_ becomes ms-_, mr-_ becomes me-_
+- Padding: pl-_ becomes ps-_, pr-_ becomes pe-_
 - Text alignment: text-left becomes text-start, text-right becomes text-end
 - Icons: Auto-flipped with rtl:rotate-180 utility
 - Animations: slide-in-from-left becomes slide-in-from-start
@@ -59,7 +60,7 @@ Use the migrate rtl command to convert existing projects to logical CSS properti
 
 ## Unified Radix UI Package
 
-Individual @radix-ui/react-* packages are replaced by a single radix-ui package. Import components directly: `import { Dialog } from "radix-ui"` instead of `import * as DialogPrimitive from "@radix-ui/react-dialog"`.
+Individual @radix-ui/react-_ packages are replaced by a single radix-ui package. Import components directly: `import { Dialog } from "radix-ui"` instead of `import _ as DialogPrimitive from "@radix-ui/react-dialog"`.
 
 Benefits: Cleaner package.json, simpler imports, unified versioning.
 

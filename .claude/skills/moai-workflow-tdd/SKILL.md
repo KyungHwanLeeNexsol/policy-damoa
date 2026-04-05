@@ -10,16 +10,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Bash(pytest:*) Bash(ruff:*) Bash(npm:*) Bash(npx:*) Bash(node:*) Bash(jest:*) Bash(vitest:*) Bash(go:*) Bash(cargo:*) Bash(mix:*) Bash(uv:*) Bash(bundle:*) Bash(php:*) Bash(phpunit:*) Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-03"
-  modularized: "true"
-  tags: "workflow, tdd, test-driven, red-green-refactor, test-first"
-  author: "MoAI-ADK Team"
-  context: "fork"
-  agent: "manager-tdd"
-  related-skills: "moai-workflow-ddd, moai-workflow-testing, moai-foundation-quality"
+  version: '1.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-03'
+  modularized: 'true'
+  tags: 'workflow, tdd, test-driven, red-green-refactor, test-first'
+  author: 'MoAI-ADK Team'
+  context: 'fork'
+  agent: 'manager-tdd'
+  related-skills: 'moai-workflow-ddd, moai-workflow-testing, moai-foundation-quality'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -29,9 +29,17 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["TDD", "test-driven development", "red-green-refactor", "test-first", "new feature", "greenfield"]
-  phases: ["run"]
-  agents: ["manager-tdd", "expert-backend", "expert-frontend", "expert-testing"]
+  keywords:
+    [
+      'TDD',
+      'test-driven development',
+      'red-green-refactor',
+      'test-first',
+      'new feature',
+      'greenfield',
+    ]
+  phases: ['run']
+  agents: ['manager-tdd', 'expert-backend', 'expert-frontend', 'expert-testing']
 ---
 
 # Test-Driven Development (TDD) Workflow
@@ -42,14 +50,16 @@ triggers:
 
 ```yaml
 constitution:
-  development_mode: tdd    # or ddd
+  development_mode: tdd # or ddd
 ```
 
 **When to use this workflow**:
+
 - `development_mode: tdd` → Use TDD (this workflow, default)
 - `development_mode: ddd` → Use DDD instead (moai-workflow-ddd)
 
 **Key distinction**:
+
 - **TDD** (default): Test-first development for all work, including brownfield projects with pre-RED analysis
 - **DDD**: Characterization-test-first for existing codebases with minimal test coverage
 

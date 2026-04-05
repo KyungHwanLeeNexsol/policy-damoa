@@ -5,19 +5,20 @@
 **What's the bottleneck, and is optimization worth it?**
 
 Before optimizing:
+
 - Have you measured? (Don't guess)
 - What's the acceptable performance?
 - Will optimization add complexity?
 
 ## Performance Decision → Implementation
 
-| Goal | Design Choice | Implementation |
-|------|---------------|----------------|
+| Goal               | Design Choice       | Implementation                     |
+| ------------------ | ------------------- | ---------------------------------- |
 | Reduce allocations | Pre-allocate, reuse | `Vec::with_capacity`, object pools |
-| Improve cache | Contiguous data | `Vec`, `SmallVec` |
-| Parallelize | Data parallelism | `rayon`, threads |
-| Avoid copies | Zero-copy | References, `Cow<T>` |
-| Reduce indirection | Inline data | `smallvec`, arrays |
+| Improve cache      | Contiguous data     | `Vec`, `SmallVec`                  |
+| Parallelize        | Data parallelism    | `rayon`, threads                   |
+| Avoid copies       | Zero-copy           | References, `Cow<T>`               |
+| Reduce indirection | Inline data         | `smallvec`, arrays                 |
 
 ## Thinking Prompt
 
@@ -51,42 +52,42 @@ Before optimizing:
 
 ## Common Techniques
 
-| Technique | When | How |
-|-----------|------|-----|
-| Pre-allocation | Known size | `Vec::with_capacity(n)` |
-| Avoid cloning | Hot paths | Use references or `Cow<T>` |
-| Batch operations | Many small ops | Collect then process |
-| SmallVec | Usually small | `smallvec::SmallVec<[T; N]>` |
-| Inline buffers | Fixed-size data | Arrays over Vec |
+| Technique        | When            | How                          |
+| ---------------- | --------------- | ---------------------------- |
+| Pre-allocation   | Known size      | `Vec::with_capacity(n)`      |
+| Avoid cloning    | Hot paths       | Use references or `Cow<T>`   |
+| Batch operations | Many small ops  | Collect then process         |
+| SmallVec         | Usually small   | `smallvec::SmallVec<[T; N]>` |
+| Inline buffers   | Fixed-size data | Arrays over Vec              |
 
 ## Quick Reference
 
-| Tool | Purpose |
-|------|---------|
-| `cargo bench` | Micro-benchmarks |
-| `criterion` | Statistical benchmarks |
-| `perf` / `flamegraph` | CPU profiling |
-| `heaptrack` | Allocation tracking |
-| `valgrind` / `cachegrind` | Cache analysis |
+| Tool                      | Purpose                |
+| ------------------------- | ---------------------- |
+| `cargo bench`             | Micro-benchmarks       |
+| `criterion`               | Statistical benchmarks |
+| `perf` / `flamegraph`     | CPU profiling          |
+| `heaptrack`               | Allocation tracking    |
+| `valgrind` / `cachegrind` | Cache analysis         |
 
 ## Common Mistakes
 
-| Mistake | Why Wrong | Better |
-|---------|-----------|--------|
-| Optimize without profiling | Wrong target | Profile first |
-| Benchmark in debug mode | Meaningless | Always `--release` |
-| Use LinkedList | Cache unfriendly | `Vec` or `VecDeque` |
-| Hidden `.clone()` | Unnecessary allocs | Use references |
-| Premature optimization | Wasted effort | Make it work first |
+| Mistake                    | Why Wrong          | Better              |
+| -------------------------- | ------------------ | ------------------- |
+| Optimize without profiling | Wrong target       | Profile first       |
+| Benchmark in debug mode    | Meaningless        | Always `--release`  |
+| Use LinkedList             | Cache unfriendly   | `Vec` or `VecDeque` |
+| Hidden `.clone()`          | Unnecessary allocs | Use references      |
+| Premature optimization     | Wasted effort      | Make it work first  |
 
 ## Anti-Patterns
 
-| Anti-Pattern | Why Bad | Better |
-|--------------|---------|--------|
-| Clone to avoid lifetimes | Performance cost | Proper ownership |
-| Box everything | Indirection cost | Stack when possible |
-| HashMap for small sets | Overhead | Vec with linear search |
-| String concat in loop | O(n^2) | `String::with_capacity` or `format!` |
+| Anti-Pattern             | Why Bad          | Better                               |
+| ------------------------ | ---------------- | ------------------------------------ |
+| Clone to avoid lifetimes | Performance cost | Proper ownership                     |
+| Box everything           | Indirection cost | Stack when possible                  |
+| HashMap for small sets   | Overhead         | Vec with linear search               |
+| String concat in loop    | O(n^2)           | `String::with_capacity` or `format!` |
 
 ## Release Build Optimization
 
@@ -320,12 +321,12 @@ firefox flamegraph.svg
 
 ## Profiling Tools
 
-| Tool | Use Case |
-|------|----------|
-| `valgrind` | Memory profiling, cache analysis |
-| `perf` | CPU profiling on Linux |
-| `flamegraph` | Visualize call stacks |
-| `heaptrack` | Memory allocation tracking |
-| `dhat` | Heap profiling |
+| Tool         | Use Case                         |
+| ------------ | -------------------------------- |
+| `valgrind`   | Memory profiling, cache analysis |
+| `perf`       | CPU profiling on Linux           |
+| `flamegraph` | Visualize call stacks            |
+| `heaptrack`  | Memory allocation tracking       |
+| `dhat`       | Heap profiling                   |
 
 Remember: Always measure before optimizing. Profile to find actual bottlenecks, not assumed ones.

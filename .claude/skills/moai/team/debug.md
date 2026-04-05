@@ -7,11 +7,11 @@ description: >
   Use when debugging issues with multiple potential root causes.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "debug, team, hypothesis, investigation, parallel"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'debug, team, hypothesis, investigation, parallel'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,10 +21,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["debug team", "hypothesis", "investigation", "parallel debug"]
-  agents: ["expert-debug"]
-  phases: ["fix"]
+  keywords: ['debug team', 'hypothesis', 'investigation', 'parallel debug']
+  agents: ['expert-debug']
+  phases: ['fix']
 ---
+
 # Workflow: Team Debug - Investigation Team
 
 Purpose: Debug complex issues through parallel competing hypothesis investigation. Each teammate explores a different theory independently.
@@ -58,29 +59,35 @@ Flow: TeamCreate -> Hypothesis Assignment -> Parallel Investigation -> Evidence 
 Use the investigation team pattern:
 
 Teammate 1 - hypothesis-1 (team-reader agent, haiku model):
+
 - Prompt: "Investigate whether the issue is caused by {hypothesis_1}. Look for evidence supporting or contradicting this theory. Report your findings with confidence level."
 
 Teammate 2 - hypothesis-2 (team-reader agent, haiku model):
+
 - Prompt: "Investigate whether the issue is caused by {hypothesis_2}. Look for evidence supporting or contradicting this theory. Report your findings with confidence level."
 
 Teammate 3 - hypothesis-3 (team-reader agent, haiku model):
+
 - Prompt: "Investigate whether the issue is caused by {hypothesis_3}. Look for evidence supporting or contradicting this theory. Report your findings with confidence level."
 
 ## Phase 2: Parallel Investigation
 
 Teammates work independently (all haiku, fast and cheap):
+
 - Each explores their hypothesis
 - Searches codebase for evidence
 - Checks logs, tests, configuration
 - Reports findings with confidence level (high/medium/low)
 
 MoAI monitors:
+
 - Receive findings as teammates complete
 - If one hypothesis gets high confidence early, may redirect others
 
 ## Phase 3: Evidence Synthesis
 
 After all investigations complete:
+
 1. Compare evidence across hypotheses
 2. Identify the most likely root cause
 3. Delegate fix to expert-debug subagent (NOT a teammate) with:
@@ -104,6 +111,7 @@ After all investigations complete:
 ## Fallback
 
 If team creation fails:
+
 - Fall back to sub-agent fix workflow (workflows/fix.md)
 - Use sequential hypothesis investigation instead
 

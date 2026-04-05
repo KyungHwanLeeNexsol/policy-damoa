@@ -13,7 +13,7 @@ forks:
     current_generation: 0
     divergence_score: 0.0
     sync_policy: auto-propose
-    forked_at: "2026-04-02"
+    forked_at: '2026-04-02'
 
   builder:
     type: agent
@@ -24,7 +24,7 @@ forks:
     current_generation: 0
     divergence_score: 0.0
     sync_policy: manual
-    forked_at: "2026-04-02"
+    forked_at: '2026-04-02'
 
   evaluator:
     type: agent
@@ -35,7 +35,7 @@ forks:
     current_generation: 0
     divergence_score: 0.0
     sync_policy: auto-propose
-    forked_at: "2026-04-02"
+    forked_at: '2026-04-02'
 
   # Skill forks
   agency-frontend-patterns:
@@ -47,7 +47,7 @@ forks:
     current_generation: 0
     divergence_score: 0.0
     sync_policy: auto-propose
-    forked_at: "2026-04-02"
+    forked_at: '2026-04-02'
 
   # New agents (no upstream)
   copywriter:

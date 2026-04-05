@@ -317,6 +317,7 @@ class DDDManager:
 ## Phase-Specific Guidelines
 
 ### ANALYZE Phase
+
 - Understand existing code structure and patterns
 - Identify current behavior through code reading
 - Document dependencies and side effects
@@ -324,6 +325,7 @@ class DDDManager:
 - Note existing design patterns
 
 ### PRESERVE Phase
+
 - Write characterization tests for existing behavior
 - Capture current behavior as the "golden standard"
 - Ensure tests pass with current implementation
@@ -331,6 +333,7 @@ class DDDManager:
 - Create behavior snapshots for complex outputs
 
 ### IMPROVE Phase
+
 - Refactor code while keeping tests green
 - Make small, incremental changes
 - Run tests after each change
@@ -338,6 +341,7 @@ class DDDManager:
 - Apply design patterns appropriately
 
 ### REVIEW Phase
+
 - Verify all characterization tests still pass
 - Review code quality and documentation
 - Check for any behavior changes

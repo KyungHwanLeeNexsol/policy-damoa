@@ -1,5 +1,5 @@
 ---
-paths: "**/*.go,**/go.mod,**/go.sum"
+paths: '**/*.go,**/go.mod,**/go.sum'
 ---
 
 # Go Rules
@@ -24,7 +24,7 @@ Version: Go 1.23+
 
 ## MUST NOT
 
-- Ignore errors with blank identifier (_)
+- Ignore errors with blank identifier (\_)
 - Use panic for normal error handling
 - Use init() for complex initialization logic
 - Import packages without alias when names conflict
@@ -33,7 +33,7 @@ Version: Go 1.23+
 
 ## File Conventions
 
-- *_test.go for test files
+- \*\_test.go for test files
 - internal/ for private packages
 - cmd/ for main entry points
 - pkg/ for public reusable libraries

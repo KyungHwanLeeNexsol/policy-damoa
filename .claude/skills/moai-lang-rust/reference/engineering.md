@@ -91,6 +91,7 @@ Create small, focused traits with single responsibility. Use associated types fo
 ### Derive Macros
 
 Use derive macros for common trait implementations:
+
 - `Clone` - Duplicate value
 - `Copy` - Bitwise copy (for types without Drop)
 - `Debug` - Debug formatting
@@ -240,7 +241,7 @@ fn test_integration() {
 
 Include examples in documentation that run as tests:
 
-```rust
+````rust
 /// Adds two numbers together.
 ///
 /// # Examples
@@ -252,7 +253,7 @@ Include examples in documentation that run as tests:
 pub fn add(a: i32, b: i32) -> i32 {
     a + b
 }
-```
+````
 
 ## Performance Optimization
 

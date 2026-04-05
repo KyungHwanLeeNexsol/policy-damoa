@@ -20,15 +20,15 @@ skills:
   - moai-workflow-project
 hooks:
   PostToolUse:
-    - matcher: "Write|Edit"
+    - matcher: 'Write|Edit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" devops-verification"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" devops-verification'
           timeout: 15
   Stop:
     - hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" devops-completion"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" devops-completion'
           timeout: 10
 ---
 

@@ -13,6 +13,7 @@ Tracked in git. Shared across the team. Not ignored by `.gitignore`.
 ## When to Read
 
 Read `.moai/design/system.md` before:
+
 - Starting any new UI-adjacent SPEC
 - Reviewing existing UI components for design compliance
 - Making copy or label decisions
@@ -21,6 +22,7 @@ Read `.moai/design/system.md` before:
 ## When to Write
 
 Write to `.moai/design/system.md` after:
+
 - Completing a Design Direction phase (new domain vocabulary, design intent)
 - Discovering a persistent design principle during a critique
 - Extracting patterns from existing code that should be preserved
@@ -31,19 +33,25 @@ Write to `.moai/design/system.md` after:
 # Design System
 
 ## Design Intent
+
 [1–3 sentence statement of the overall product design intent]
 
 ## Domain Vocabulary
+
 [Table or list of canonical domain terms with brief definitions]
 
 ## Craft Principles
+
 [Numbered list of non-negotiable quality constraints]
 
 ## Per-Feature Direction
+
 ### [SPEC-ID or Feature Name]
+
 [Design Direction statement specific to this feature]
 
 ## Anti-Patterns
+
 [What NOT to do — patterns that were tried and failed]
 ```
 
@@ -64,9 +72,9 @@ When `.moai/design/system.md` does not exist, create it with the stub from `inte
 
 ## Design Memory vs SPEC Documents
 
-| | `.moai/design/system.md` | `.moai/specs/SPEC-*/spec.md` |
-|---|---|---|
-| Scope | Project-wide, persistent | SPEC-specific, time-bounded |
-| Content | Vocabulary, intent, principles | Requirements, acceptance criteria |
-| Authors | Any design-aware agent | manager-spec |
-| Lifecycle | Grows over time | Completed when SPEC closes |
+|           | `.moai/design/system.md`       | `.moai/specs/SPEC-*/spec.md`      |
+| --------- | ------------------------------ | --------------------------------- |
+| Scope     | Project-wide, persistent       | SPEC-specific, time-bounded       |
+| Content   | Vocabulary, intent, principles | Requirements, acceptance criteria |
+| Authors   | Any design-aware agent         | manager-spec                      |
+| Lifecycle | Grows over time                | Completed when SPEC closes        |

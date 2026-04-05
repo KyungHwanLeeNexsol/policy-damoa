@@ -65,8 +65,8 @@ ralph:
   hooks:
     post_tool_lsp:
       enabled: true
-      trigger_on: ["Write", "Edit"]
-      severity_threshold: "error"
+      trigger_on: ['Write', 'Edit']
+      severity_threshold: 'error'
 
     stop_loop_controller:
       enabled: true
@@ -566,8 +566,8 @@ Controlled by `ralph.hooks.post_tool_lsp` in ralph.yaml:
 hooks:
   post_tool_lsp:
     enabled: true
-    trigger_on: ["Write", "Edit"]
-    severity_threshold: "error" # error, warning, info
+    trigger_on: ['Write', 'Edit']
+    severity_threshold: 'error' # error, warning, info
 ```
 
 #### Disable Hook
@@ -812,7 +812,7 @@ rules:
     message: Unused import statement
     severity: warning
     pattern: import $MODULE
-    fix: ""
+    fix: ''
 ```
 
 #### Field Descriptions
@@ -1193,7 +1193,7 @@ Only report errors, not warnings:
 ralph:
   hooks:
     post_tool_lsp:
-      severity_threshold: "error"
+      severity_threshold: 'error'
 ```
 
 ---
@@ -1220,7 +1220,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.13"
+          python-version: '3.13'
 
       - name: Install dependencies
         run: |
@@ -1328,14 +1328,14 @@ rules:
     message: Use of eval() is dangerous
     severity: error
     pattern: eval($EXPR)
-    fix: "ast.literal_eval($EXPR)"
+    fix: 'ast.literal_eval($EXPR)'
 
   - id: pickle-load
     language: python
     message: Pickle deserialization vulnerability
     severity: error
     pattern: pickle.load($FILE)
-    note: "Use safer serialization formats like JSON"
+    note: 'Use safer serialization formats like JSON'
 
   - id: hardcoded-password
     language: python
@@ -1345,7 +1345,7 @@ rules:
     constraints:
       VALUE:
         kind: string
-        matches: ".{8,}"
+        matches: '.{8,}'
 ```
 
 TypeScript security rules:

@@ -6,11 +6,11 @@ description: >
   format, and edge case handling. Used by manager-ddd and manager-tdd agents.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-22"
-  tags: "mx, annotation, tag, context, invariant, danger, todo"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-22'
+  tags: 'mx, annotation, tag, context, invariant, danger, todo'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -20,9 +20,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["mx", "tag", "annotation", "anchor", "invariant", "context"]
-  agents: ["manager-ddd", "manager-tdd", "manager-quality"]
-  phases: ["run"]
+  keywords: ['mx', 'tag', 'annotation', 'anchor', 'invariant', 'context']
+  agents: ['manager-ddd', 'manager-tdd', 'manager-quality']
+  phases: ['run']
 ---
 
 # @MX TAG Reference -- Supplementary Details
@@ -70,16 +70,20 @@ This is intentionally approximate. AST-level precision is not required for taggi
 ## @MX Tag Report -- [Phase] -- [Timestamp]
 
 ### Tags Added (N new)
+
 - FILE:LINE @MX:ANCHOR reason_summary [fan_in=N]
 - FILE:LINE @MX:WARN reason_summary [concurrency]
 
 ### Tags Removed (N removed)
+
 - FILE:LINE @MX:TODO -> resolved by [TestName]
 
 ### Tags Updated (N updated)
+
 - FILE:LINE @MX:NOTE -> updated after signature change
 
 ### Attention Required
+
 - FILE:LINE @MX:ANCHOR + @MX:TODO coexistence -> review needed
 ```
 

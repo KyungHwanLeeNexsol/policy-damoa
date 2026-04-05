@@ -9,6 +9,7 @@ Detailed guide for the 7-step critical evaluation framework.
 Before evaluating, demonstrate understanding by restating the claim or proposal.
 
 Restatement Techniques:
+
 - Paraphrase in simpler language
 - Identify the core assertion
 - Separate facts from opinions
@@ -21,6 +22,7 @@ Quality Check: If the original author would not recognize your restatement, you 
 Evaluate the quality and relevance of supporting evidence.
 
 Evidence Categories:
+
 - Empirical Data: Measured, repeatable, verifiable (strongest)
 - Case Studies: Specific examples with documented outcomes
 - Expert Opinion: Authority-based but potentially biased
@@ -28,6 +30,7 @@ Evidence Categories:
 - Theoretical: Logically derived but untested
 
 Assessment Questions:
+
 - Is the evidence current or outdated?
 - Is the sample size sufficient?
 - Are there selection biases in the data?
@@ -63,11 +66,13 @@ Hidden Assumption Discovery Technique:
 Reverse the conclusion: "If we did NOT adopt this approach, what would we lose?"
 
 Challenge each "obvious" premise:
+
 - "Users will prefer this interface" (Have we tested this?)
 - "Performance will improve with caching" (What access patterns support this?)
 - "The team can learn this technology quickly" (What is the actual learning curve?)
 
 Assumption Risk Matrix:
+
 - High Confidence + Low Impact: Accept and move on
 - High Confidence + High Impact: Verify with data
 - Low Confidence + Low Impact: Monitor casually
@@ -78,6 +83,7 @@ Assumption Risk Matrix:
 For every conclusion, generate at least two alternatives:
 
 Alternative Generation Prompts:
+
 - What would a skeptic suggest instead?
 - What if the opposite approach is better?
 - What would a different industry do?
@@ -91,12 +97,14 @@ Null Hypothesis: What happens if we do nothing? This establishes the baseline fo
 Internal Consistency Analysis:
 
 Common contradiction patterns:
+
 - Claiming simplicity while proposing complex architecture
 - Promising speed while adding abstraction layers
 - Emphasizing maintainability while using unfamiliar technology
 - Stating scalability while using stateful design
 
 Cross-Reference Checks:
+
 - Do performance claims match architectural choices?
 - Do timeline estimates match scope of work?
 - Do team capabilities match technology requirements?
@@ -106,6 +114,7 @@ Cross-Reference Checks:
 Proportionality Principle: The strength of evidence should match the magnitude of the claim.
 
 Evidence Levels for Technical Claims:
+
 - Trivial claim (renaming a variable): No evidence needed
 - Minor claim (using a utility library): Brief rationale sufficient
 - Moderate claim (adopting a new pattern): Documented comparison required
@@ -121,25 +130,31 @@ Claim Under Evaluation: [Clear statement]
 Restatement: [Your understanding of the claim]
 
 Evidence Assessment:
+
 - Quality: [Strong / Moderate / Weak / Insufficient]
 - Key Evidence: [List supporting data points]
 - Missing Evidence: [What would strengthen the case]
 
 Fallacies Detected:
+
 - [Fallacy type]: [Specific instance]
 
 Hidden Assumptions:
+
 - [Assumption]: [Risk level] - [Validation status]
 
 Alternatives Considered:
+
 - [Alternative 1]: [Brief assessment]
 - [Alternative 2]: [Brief assessment]
 
 Contradictions Found:
+
 - [Contradiction]: [Impact assessment]
 
 Overall Verdict: [Strong / Moderate / Weak / Flawed]
 
 Recommended Actions:
+
 - [Action 1]
 - [Action 2]

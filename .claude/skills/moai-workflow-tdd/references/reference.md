@@ -47,11 +47,11 @@ Test names should document behavior:
 
 ## Coverage Guidelines
 
-| Code Type | Minimum Coverage |
-|-----------|-----------------|
-| New feature code | 90% |
-| Per commit | 80% |
-| Critical paths | 100% |
+| Code Type        | Minimum Coverage |
+| ---------------- | ---------------- |
+| New feature code | 90%              |
+| Per commit       | 80%              |
+| Critical paths   | 100%             |
 
 ## Integration with Hybrid Mode
 

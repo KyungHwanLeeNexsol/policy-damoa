@@ -1,11 +1,11 @@
-<!-- 
+<!--
   Agency Brand Context: Target Audience
-  
+
   This file is part of the Agency Brand Context (constitution).
   It is NOT auto-modified by the learner agent.
   Changes require manual editing by the user.
   It serves as the foundation for all agency skill evolution.
-  
+
   Fill this file during the first `/agency brief` run via client interview.
 -->
 
@@ -14,18 +14,23 @@
 ## Primary Persona
 
 Name: _TBD_
+
 <!-- Give the persona a realistic name for reference. Example: "Tech-Savvy Tina" -->
 
 Age Range: _TBD_
+
 <!-- Example: 28-42 -->
 
 Occupation: _TBD_
+
 <!-- Example: Product manager at a mid-size SaaS company -->
 
 Income Level: _TBD_
+
 <!-- Example: $80K-$130K annually -->
 
 Goals:
+
 - _TBD_
 - _TBD_
 - _TBD_
@@ -33,9 +38,10 @@ Goals:
 - Ship features faster without sacrificing quality
 - Reduce time spent on repetitive tooling decisions
 - Impress stakeholders with polished deliverables
--->
+  -->
 
 Pain Points:
+
 - _TBD_
 - _TBD_
 - _TBD_
@@ -43,9 +49,10 @@ Pain Points:
 - Too many tools, not enough integration
 - Decision fatigue when choosing tech stacks
 - Inconsistent design across team output
--->
+  -->
 
 Tech Savviness: _TBD_
+
 <!-- Example: high, comfortable with CLI tools and modern frameworks -->
 
 ## Secondary Persona (Optional)
@@ -57,9 +64,11 @@ Age Range: _TBD_
 Occupation: _TBD_
 
 Goals:
+
 - _TBD_
 
 Pain Points:
+
 - _TBD_
 
 Tech Savviness: _TBD_
@@ -120,13 +129,17 @@ Tech Savviness: _TBD_
 <!-- Where does this audience spend time and consume content? -->
 
 Social Media: _TBD_
+
 <!-- Example: Twitter/X, LinkedIn, Reddit (r/webdev) -->
 
 Content Format: _TBD_
+
 <!-- Example: short-form video, technical blog posts, interactive demos -->
 
 Communication: _TBD_
+
 <!-- Example: email for updates, Discord for community, in-app for support -->
 
 Purchase Behavior: _TBD_
+
 <!-- Example: prefers monthly billing, needs free tier to evaluate -->

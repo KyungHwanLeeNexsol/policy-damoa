@@ -30,17 +30,18 @@ Compare observations against `.moai/design/system.md` Design Direction:
 - Does the interaction contract match what was specified?
 
 Classify each finding:
+
 - **Cosmetic drift**: Visual deviation that does not affect user comprehension or task completion
 - **Structural drift**: Layout or interaction pattern that conflicts with the mental model
 - **Intent drift**: Feature does something different from the stated design intent
 
 ### Step 3: Decide (Patch or Rebuild?)
 
-| Finding Type | Default Decision | Override Condition |
-|-------------|-----------------|-------------------|
-| Cosmetic drift | Patch | Multiple cosmetic issues converge into structural drift |
-| Structural drift | Rebuild affected component | If isolated to one component with clear fix |
-| Intent drift | Rebuild the flow | Never patch intent drift |
+| Finding Type     | Default Decision           | Override Condition                                      |
+| ---------------- | -------------------------- | ------------------------------------------------------- |
+| Cosmetic drift   | Patch                      | Multiple cosmetic issues converge into structural drift |
+| Structural drift | Rebuild affected component | If isolated to one component with clear fix             |
+| Intent drift     | Rebuild the flow           | Never patch intent drift                                |
 
 **Patch**: Minimal change to correct the specific violation. Do not touch adjacent code.
 
@@ -52,18 +53,22 @@ Classify each finding:
 ## Design Critique: [SPEC-ID or Feature Name]
 
 ### Observations
+
 - [Factual observation 1]
 - [Factual observation 2]
 
 ### Drift Analysis
+
 - [COSMETIC] [Description] — Patch: [specific fix]
 - [STRUCTURAL] [Description] — Rebuild: [component name]
 - [INTENT] [Description] — Rebuild: [flow name]
 
 ### Decision
+
 [Patch / Rebuild] — [one sentence justification]
 
 ### Design Direction Reminder
+
 [Quote the relevant Design Direction from system.md]
 ```
 
@@ -87,6 +92,7 @@ Design quality gates that apply to all frontend output:
 ### Hero Budget
 
 The first viewport should contain only:
+
 - The brand (hero-level signal)
 - One headline
 - One short supporting sentence
@@ -98,6 +104,7 @@ If a sticky/fixed header exists, it counts against the hero. Combined header + h
 ### App UI Defaults
 
 For dashboards, admin tools, and operational workspaces:
+
 - Default to Linear-style restraint: calm surface hierarchy, strong typography, few colors
 - Dense but readable information, minimal chrome
 - Cards only when the card IS the interaction

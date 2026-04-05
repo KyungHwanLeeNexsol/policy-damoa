@@ -4,47 +4,51 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 
 ## Feature Comparison Matrix
 
-| Feature | Figma MCP | Pencil MCP | Pencil-to-Code |
-|---------|-----------|------------|----------------|
-| **Primary Use** | Fetch/create designs, write to canvas | Create visual designs | Generate implementation code |
-| **Input** | Figma file key + node IDs or URLs | Natural language / batch_design ops | .pen frame data (pure JSON) |
-| **Output** | Design context, tokens, screenshots, canvas edits | Visual .pen frames | React/Tailwind code |
-| **Design Creation** | Yes (use_figma, generate_figma_design) | Yes (text-to-design) | No (code generation only) |
-| **Design Editing** | Yes (use_figma: write-to-canvas, beta free) | Yes (batch_design) | No |
-| **Code Generation** | Yes (get_design_context: React+Tailwind default) | No | Yes (prompt-based workflow) |
-| **Design System Search** | Yes (search_design_system) | Yes (get_style_guide, batch_get) | No |
-| **Version Control** | Limited (snapshots, Code Connect) | Excellent (.pen files are pure JSON) | Excellent (code) |
-| **Collaboration** | Figma comments, FigJam boards | .pen frame sharing | Code review |
-| **Property Bulk Edit** | Yes (use_figma) | Yes (replace_all_matching_properties) | No |
-| **Learning Curve** | Low | Medium | Low |
-| **Setup Complexity** | Low (plugin install + auth) | Low (auto-configures) | Low |
-| **Cost** | Free tier (6 calls/mo), paid plans per-minute | Paid | Paid |
-| **Tools Count** | 16 tools | 14 tools | Prompt-based workflow |
-| **Integration** | Figma files via official remote MCP | Pencil platform | React/Tailwind projects |
+| Feature                  | Figma MCP                                         | Pencil MCP                            | Pencil-to-Code               |
+| ------------------------ | ------------------------------------------------- | ------------------------------------- | ---------------------------- |
+| **Primary Use**          | Fetch/create designs, write to canvas             | Create visual designs                 | Generate implementation code |
+| **Input**                | Figma file key + node IDs or URLs                 | Natural language / batch_design ops   | .pen frame data (pure JSON)  |
+| **Output**               | Design context, tokens, screenshots, canvas edits | Visual .pen frames                    | React/Tailwind code          |
+| **Design Creation**      | Yes (use_figma, generate_figma_design)            | Yes (text-to-design)                  | No (code generation only)    |
+| **Design Editing**       | Yes (use_figma: write-to-canvas, beta free)       | Yes (batch_design)                    | No                           |
+| **Code Generation**      | Yes (get_design_context: React+Tailwind default)  | No                                    | Yes (prompt-based workflow)  |
+| **Design System Search** | Yes (search_design_system)                        | Yes (get_style_guide, batch_get)      | No                           |
+| **Version Control**      | Limited (snapshots, Code Connect)                 | Excellent (.pen files are pure JSON)  | Excellent (code)             |
+| **Collaboration**        | Figma comments, FigJam boards                     | .pen frame sharing                    | Code review                  |
+| **Property Bulk Edit**   | Yes (use_figma)                                   | Yes (replace_all_matching_properties) | No                           |
+| **Learning Curve**       | Low                                               | Medium                                | Low                          |
+| **Setup Complexity**     | Low (plugin install + auth)                       | Low (auto-configures)                 | Low                          |
+| **Cost**                 | Free tier (6 calls/mo), paid plans per-minute     | Paid                                  | Paid                         |
+| **Tools Count**          | 16 tools                                          | 14 tools                              | Prompt-based workflow        |
+| **Integration**          | Figma files via official remote MCP               | Pencil platform                       | React/Tailwind projects      |
 
 ## Use Case Decision Matrix
 
 ### Choose Figma MCP When:
 
 **Scenario 1: Existing Design System**
+
 - Team uses Figma for design work
 - Need to extract design tokens and specifications
 - Documenting existing component library
 - Syncing design system with code
 
 **Scenario 2: Designer Collaboration**
+
 - Working with professional designers
 - Design reviews happen in Figma
 - Need to reference design files
 - Maintaining design source of truth
 
 **Scenario 3: Design Documentation**
+
 - Creating component documentation
 - Extracting style guides
 - Generating design token documentation
 - Cataloging design assets
 
 **Key Advantages:**
+
 - Access to professional design tools
 - Rich design metadata and token extraction
 - Write-to-canvas: create and modify designs directly (beta, free)
@@ -54,6 +58,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 - Established designer workflows
 
 **Limitations:**
+
 - Rate-limited for free/starter plans (6 calls/month)
 - Write-to-canvas will become paid feature
 - Dependent on Figma availability
@@ -62,24 +67,28 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Choose Pencil MCP When:
 
 **Scenario 1: Rapid Prototyping**
+
 - Need quick visual iterations
 - Text-based design workflow preferred
 - Collaborative design discussions
 - Exploring multiple design directions
 
 **Scenario 2: Version-Controlled Designs**
+
 - Design changes tracked in git
 - Team comfortable with code workflows
 - Need design history and diffs
 - Automated design updates
 
 **Scenario 3: Developer-Led Design**
+
 - Developers creating UI designs
 - Minimal design tool overhead
 - Integrated with development workflow
 - Fast feedback cycles
 
 **Key Advantages:**
+
 - Text-to-design conversion
 - Version-controlled designs (.pen files are pure JSON)
 - Fast iteration cycles
@@ -88,6 +97,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 - CLI support for batch processing and export
 
 **Limitations:**
+
 - Less refined than professional tools
 - Limited design features
 - Smaller design community
@@ -96,30 +106,35 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Choose Pencil-to-Code Export When:
 
 **Scenario 1: Implementation Phase**
+
 - Design is finalized and approved
 - Ready to build production components
 - Need consistent code generation
 - Maintaining design fidelity in code
 
 **Scenario 2: Rapid Development**
+
 - Converting designs to code quickly
 - Boilerplate component creation
 - Standardizing component structure
 - Accelerating frontend work
 
 **Scenario 3: Design System Implementation**
+
 - Implementing design system in code
 - Generating component library
 - Creating Storybook documentation
 - Establishing code patterns
 
 **Key Advantages:**
+
 - Automated code generation
 - Consistent component structure
 - Design fidelity maintained
 - Integrated with React/Tailwind
 
 **Limitations:**
+
 - Requires .pen design files
 - Generated code needs review
 - Limited customization
@@ -140,6 +155,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ```
 
 **Best Practices:**
+
 - Extract design tokens early
 - Document component specifications
 - Maintain design token synchronization
@@ -161,6 +177,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ```
 
 **Best Practices:**
+
 - Start with simple designs
 - Iterate on DNA codes
 - Review generated code carefully
@@ -181,6 +198,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ```
 
 **Best Practices:**
+
 - Leverage each tool's strengths
 - Maintain design token consistency
 - Document workflow decisions
@@ -193,18 +211,21 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Setup Complexity
 
 **Figma MCP** (Low)
+
 - Requires Figma account
 - Plugin install: `claude plugin install figma@claude-plugins-official`
 - Authenticate via Figma account (OAuth)
 - No manual mcpServers configuration required
 
 **Pencil MCP** (Low)
+
 - Pencil account setup
 - Pencil MCP auto-configures (no manual mcpServers setup)
 - .pen files are pure JSON — no special decryption needed
 - Multiple UI kit options: Shadcn UI, Halo, Lunaris, Nitro
 
 **Pencil-to-Code** (Low)
+
 - Pencil account (if using MCP)
 - Export configuration
 - Project setup
@@ -213,18 +234,21 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Learning Curve
 
 **Figma MCP** (Low)
+
 - Familiar Figma interface
 - Simple API calls
 - Well-documented
 - Large community
 
 **Pencil MCP** (Medium)
+
 - DNA code syntax
 - Text-to-design prompts
 - New workflow concepts
 - Smaller community
 
 **Pencil-to-Code** (Low)
+
 - Standard React/Tailwind
 - Code review skills
 - Component patterns
@@ -233,18 +257,21 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Maintenance Overhead
 
 **Figma MCP** (Low)
+
 - Designs maintained in Figma
 - Token sync automation
 - Minimal code maintenance
 - Designer handles updates
 
 **Pencil MCP** (Medium)
+
 - DNA code versioning
 - Design iterations tracked
 - Review process needed
 - Developer handles updates
 
 **Pencil-to-Code** (Medium)
+
 - Generated code review
 - Custom wrapper components
 - Update integration
@@ -257,6 +284,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 **Scenario:** Transitioning from designer-led to developer-led design
 
 **Steps:**
+
 1. Document existing Figma designs
 2. Extract design tokens from Figma
 3. Recreate key designs in Pencil
@@ -265,6 +293,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 6. Archive Figma reference files
 
 **Considerations:**
+
 - Team design skills
 - Design complexity
 - Timeline constraints
@@ -275,6 +304,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 **Scenario:** Automating component implementation
 
 **Steps:**
+
 1. Document existing component patterns
 2. Create .pen designs for components
 3. Generate code from designs
@@ -283,6 +313,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 6. Establish new workflow
 
 **Considerations:**
+
 - Code consistency
 - Custom component needs
 - Team adoption
@@ -295,12 +326,14 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 **Recommended:** Pencil MCP + Pencil-to-Code
 
 **Rationale:**
+
 - Minimal design overhead
 - Fast iteration cycles
 - Version-controlled designs
 - Integrated workflow
 
 **Workflow:**
+
 - Design in Pencil MCP
 - Iterate quickly
 - Export to code
@@ -311,12 +344,14 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 **Recommended:** Hybrid Approach
 
 **Rationale:**
+
 - Designer for complex visuals
 - Developers for UI layouts
 - Figma for design system
 - Pencil for component implementation
 
 **Workflow:**
+
 - Designer creates in Figma
 - Developers use Pencil for components
 - Extract tokens from Figma
@@ -327,12 +362,14 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 **Recommended:** Figma MCP + Design System Team
 
 **Rationale:**
+
 - Professional design resources
 - Centralized design system
 - Scalable documentation
 - Clear ownership
 
 **Workflow:**
+
 - Design team owns Figma
 - Design system team maintains tokens
 - Product teams implement components
@@ -343,16 +380,19 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Framework Support
 
 **Figma MCP:**
+
 - Framework agnostic (design metadata only)
 - Works with any frontend framework
 - Universal design token format
 
 **Pencil MCP:**
+
 - Framework agnostic (design format)
 - Export to multiple frameworks
 - Design system integration
 
 **Pencil-to-Code:**
+
 - React specific
 - Tailwind CSS specific
 - TypeScript support
@@ -360,18 +400,21 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 ### Tool Integration
 
 **Figma MCP Integrations:**
+
 - Storybook (design docs)
 - Zeroheight (specifications)
 - Chromatic (visual testing)
 - Design token tools
 
 **Pencil MCP Integrations:**
+
 - Git (version control)
 - GitHub (code review)
 - VS Code (editing)
 - CI/CD pipelines
 
 **Pencil-to-Code Integrations:**
+
 - React ecosystem
 - Tailwind CSS
 - TypeScript
@@ -382,6 +425,7 @@ Comprehensive comparison of Figma MCP, Pencil MCP, and Pencil-to-Code export for
 Use this checklist to determine the best tool for your needs:
 
 **Choose Figma MCP if:**
+
 - [ ] Working with designers who use Figma
 - [ ] Need to extract existing designs
 - [ ] Design documentation is priority
@@ -389,6 +433,7 @@ Use this checklist to determine the best tool for your needs:
 - [ ] Design source of truth is Figma
 
 **Choose Pencil MCP if:**
+
 - [ ] Creating new designs from scratch
 - [ ] Rapid prototyping needed
 - [ ] Version-controlled designs preferred
@@ -396,6 +441,7 @@ Use this checklist to determine the best tool for your needs:
 - [ ] Fast iteration cycles required
 
 **Choose Pencil-to-Code if:**
+
 - [ ] Designs are finalized in .pen format
 - [ ] Ready to implement components
 - [ ] Code automation is priority
@@ -403,6 +449,7 @@ Use this checklist to determine the best tool for your needs:
 - [ ] Design fidelity is critical
 
 **Choose Hybrid Approach if:**
+
 - [ ] Multiple use cases above apply
 - [ ] Complex design needs
 - [ ] Mixed team skills
@@ -412,6 +459,7 @@ Use this checklist to determine the best tool for your needs:
 ## Resources
 
 ### Tool Documentation
+
 - Figma MCP Developer Docs: https://developers.figma.com/docs/figma-mcp-server/
 - Figma MCP Tools & Prompts: https://developers.figma.com/docs/figma-mcp-server/tools-and-prompts/
 - Figma MCP GitHub Guide: https://github.com/figma/mcp-server-guide
@@ -422,11 +470,13 @@ Use this checklist to determine the best tool for your needs:
 - Pencil CLI: https://docs.pencil.dev/for-developers/pencil-cli
 
 ### Community
+
 - Figma Community: https://www.figma.com/community
 - Pencil Discord: https://discord.gg/pencil
 - Model Context Protocol: https://modelcontextprotocol.io
 
 ### Learning Resources
+
 - Design Systems: https://www.designsystems.com
 - Design Tokens: https://designtokens.org
 - React Patterns: https://reactpatterns.com

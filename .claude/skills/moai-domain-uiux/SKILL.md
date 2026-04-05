@@ -9,16 +9,42 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "3.1.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-03-28"
-  modularized: "true"
-  tags: "domain, uiux, design-systems, accessibility, components, icons, theming"
+  version: '3.1.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-03-28'
+  modularized: 'true'
+  tags: 'domain, uiux, design-systems, accessibility, components, icons, theming'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["UI/UX", "design system", "accessibility", "WCAG", "ARIA", "icon", "theming", "dark mode", "design tokens", "component library", "Radix UI", "shadcn", "Storybook", "Pencil", "design tokens", "Style Dictionary", "Lucide", "Iconify", "Hugeicons", "responsive design", "user experience", "Anti-AI Slop", "design direction", "AI slop prevention"]
+  keywords:
+    [
+      'UI/UX',
+      'design system',
+      'accessibility',
+      'WCAG',
+      'ARIA',
+      'icon',
+      'theming',
+      'dark mode',
+      'design tokens',
+      'component library',
+      'Radix UI',
+      'shadcn',
+      'Storybook',
+      'Pencil',
+      'design tokens',
+      'Style Dictionary',
+      'Lucide',
+      'Iconify',
+      'Hugeicons',
+      'responsive design',
+      'user experience',
+      'Anti-AI Slop',
+      'design direction',
+      'AI slop prevention',
+    ]
 ---
 
 ## Quick Reference

@@ -20,15 +20,15 @@ skills:
   - moai-workflow-jit-docs
 hooks:
   PostToolUse:
-    - matcher: "Write|Edit"
+    - matcher: 'Write|Edit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" docs-verification"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" docs-verification'
           timeout: 10
   Stop:
     - hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" docs-completion"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" docs-completion'
           timeout: 10
 ---
 
@@ -48,16 +48,18 @@ context_retention: low
 output_format: Professional documentation with Nextra framework setup, MDX content, Mermaid diagrams, and markdown linting reports
 
 checkpoint_strategy:
-  enabled: true
-  interval: every_phase
-  # CRITICAL: Always use project root for .moai to prevent duplicate .moai in subfolders
-  location: $CLAUDE_PROJECT_DIR/.moai/state/checkpoints/docs/
-  resume_capability: true
+enabled: true
+interval: every_phase
+
+# CRITICAL: Always use project root for .moai to prevent duplicate .moai in subfolders
+
+location: $CLAUDE_PROJECT_DIR/.moai/state/checkpoints/docs/
+resume_capability: true
 
 memory_management:
-  context_trimming: aggressive
-  max_files_before_checkpoint: 20
-  auto_checkpoint_on_memory_pressure: true
+context_trimming: aggressive
+max_files_before_checkpoint: 20
+auto_checkpoint_on_memory_pressure: true
 
 ---
 
@@ -191,11 +193,13 @@ Run all validation phases and generate comprehensive validation report covering:
 To prevent V8 heap memory overflow during large documentation generation sessions, this agent implements checkpoint-based recovery.
 
 **Checkpoint Strategy**:
+
 - Checkpoint after each phase completion (Source Analysis, Architecture Design, Content Generation, Quality Assurance)
 - Checkpoint location: `.moai/state/checkpoints/docs/`
 - Auto-checkpoint on memory pressure detection
 
 **Checkpoint Content**:
+
 - Current phase and progress
 - Generated documentation structure
 - Mermaid diagrams created
@@ -203,6 +207,7 @@ To prevent V8 heap memory overflow during large documentation generation session
 - File generation queue
 
 **Resume Capability**:
+
 - Can resume from any phase checkpoint
 - Continues from last completed phase
 - Preserves partial documentation progress
@@ -210,16 +215,19 @@ To prevent V8 heap memory overflow during large documentation generation session
 ### Memory Management
 
 **Aggressive Context Trimming**:
+
 - Automatically trim conversation history after each phase
 - Preserve only essential state in checkpoints
 - Maintain full context only for current operation
 
 **Memory Pressure Detection**:
+
 - Monitor for signs of memory pressure (slow GC, repeated collections)
 - Trigger proactive checkpoint before memory exhaustion
 - Allow graceful resumption from saved state
 
 **Usage**:
+
 ```bash
 # Normal execution (auto-checkpointing)
 /moai sync SPEC-AUTH-001

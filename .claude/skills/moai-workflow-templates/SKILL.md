@@ -9,14 +9,14 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "3.1.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "workflow, templates, boilerplate, scaffolding, optimization, feedback"
-  aliases: "moai-workflow-templates"
-  replaces: "moai-core-code-templates, moai-core-feedback-templates, moai-project-template-optimizer"
+  version: '3.1.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'workflow, templates, boilerplate, scaffolding, optimization, feedback'
+  aliases: 'moai-workflow-templates'
+  replaces: 'moai-core-code-templates, moai-core-feedback-templates, moai-project-template-optimizer'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -26,9 +26,19 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["template", "boilerplate", "scaffolding", "code template", "project template", "feedback template", "GitHub issue", "template optimization"]
-  phases: ["plan"]
-  agents: ["manager-project", "builder-skill"]
+  keywords:
+    [
+      'template',
+      'boilerplate',
+      'scaffolding',
+      'code template',
+      'project template',
+      'feedback template',
+      'GitHub issue',
+      'template optimization',
+    ]
+  phases: ['plan']
+  agents: ['manager-project', 'builder-skill']
 ---
 
 # Enterprise Template Management

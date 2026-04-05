@@ -223,6 +223,7 @@ Use cases: Long-running research, iterative improvements, multi-step workflows s
 - With `--moai` flag: `.claude/agents/moai/<agent-name>.md` (MoAI-ADK official agents)
 
 The `.claude/agents/moai/` namespace is reserved for MoAI-ADK system agents. Only create agents in `moai/` subdirectory when:
+
 - The `--moai` flag is present in the user request
 - The user explicitly requests "admin mode", "system agent", or "MoAI-ADK development"
 

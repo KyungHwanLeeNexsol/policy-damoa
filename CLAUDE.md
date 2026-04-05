@@ -164,6 +164,7 @@ All phases include @MX code annotation management:
 - **sync**: Validate MX tags, add missing annotations
 
 MX Tag Types:
+
 - `@MX:NOTE` - Context and intent delivery
 - `@MX:WARN` - Danger zone (requires @MX:REASON)
 - `@MX:ANCHOR` - Invariant contract (high fan_in functions)
@@ -196,6 +197,7 @@ Harness level is auto-determined by the Complexity Estimator based on SPEC scope
 MoAI-ADK implements LSP-based quality gates:
 
 **Phase-Specific Thresholds:**
+
 - **plan**: Capture LSP baseline at phase start
 - **run**: Zero errors, zero type errors, zero lint errors required
 - **sync**: Zero errors, max 10 warnings, clean LSP required
@@ -213,6 +215,7 @@ These rules ensure code quality and prevent regressions in the project codebase.
 **Rule 1: Approach-First Development**
 
 Before writing any non-trivial code:
+
 - Explain the implementation approach clearly
 - Describe which files will be modified and why
 - Get user approval before proceeding
@@ -221,6 +224,7 @@ Before writing any non-trivial code:
 **Rule 2: Multi-File Change Decomposition**
 
 When modifying 3 or more files:
+
 - Split work into logical units using TodoList
 - Execute changes file-by-file or by logical grouping
 - Analyze file dependencies before parallel execution
@@ -229,6 +233,7 @@ When modifying 3 or more files:
 **Rule 3: Post-Implementation Review**
 
 After writing code, always provide:
+
 - List of potential issues (edge cases, error scenarios, concurrency)
 - Suggested test cases to verify the implementation
 - Known limitations or assumptions made
@@ -237,6 +242,7 @@ After writing code, always provide:
 **Rule 4: Reproduction-First Bug Fixing**
 
 When fixing bugs:
+
 - Write a failing test that reproduces the bug first
 - Confirm the test fails before making changes
 - Fix the bug with minimal code changes
@@ -245,6 +251,7 @@ When fixing bugs:
 ### Go-Specific Guidelines
 
 For Go development:
+
 - Run `go test -race ./...` for concurrency safety
 - Use table-driven tests for comprehensive coverage
 - Maintain 85%+ test coverage per package
@@ -461,12 +468,14 @@ MoAI-ADK supports CG Mode for 60-70% cost reduction on implementation-heavy task
 **Activation**: `moai cg` (requires tmux). Uses tmux session-level env isolation.
 
 **When to use**:
+
 - Implementation-heavy SPECs (run phase)
 - Code generation tasks
 - Test writing
 - Documentation generation
 
 **When NOT to use**:
+
 - Planning/architecture decisions (needs Opus reasoning)
 - Security reviews (needs Claude's security training)
 - Complex debugging (needs advanced reasoning)
@@ -480,6 +489,7 @@ MoAI searches previous Claude Code sessions when context is needed to continue w
 ### When to Search
 
 Search previous sessions when:
+
 - User references past work without sufficient context in current session
 - User mentions a SPEC-ID that is not loaded in current context
 - User asks to continue previous work or resume interrupted tasks
@@ -488,6 +498,7 @@ Search previous sessions when:
 ### When NOT to Search
 
 Skip context search when:
+
 - Relevant SPEC document is already loaded in current context
 - Related documents or code are already present in conversation
 - User references content that exists in current session
@@ -541,12 +552,12 @@ Or use the `/debug` command inside a session to inspect current session state, h
 
 ### Common Issues
 
-| Symptom | Cause | Solution |
-|---------|-------|---------|
-| TeammateIdle hook blocks teammate | LSP errors exceed threshold | Fix errors, or set `enforce_quality: false` in quality.yaml |
-| Agent Teams messages not delivered | Session was resumed after interrupt | Spawn new teammates; old teammates are orphaned |
-| `moai hook subagent-stop` fails | Binary not in PATH | Run `which moai` to verify installation |
-| settings.json not updated after `moai update` | Conflict with user modifications | Run `moai update -t` for template-only sync |
+| Symptom                                       | Cause                               | Solution                                                    |
+| --------------------------------------------- | ----------------------------------- | ----------------------------------------------------------- |
+| TeammateIdle hook blocks teammate             | LSP errors exceed threshold         | Fix errors, or set `enforce_quality: false` in quality.yaml |
+| Agent Teams messages not delivered            | Session was resumed after interrupt | Spawn new teammates; old teammates are orphaned             |
+| `moai hook subagent-stop` fails               | Binary not in PATH                  | Run `which moai` to verify installation                     |
+| settings.json not updated after `moai update` | Conflict with user modifications    | Run `moai update -t` for template-only sync                 |
 
 ### Reading Large PDFs
 

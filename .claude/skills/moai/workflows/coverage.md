@@ -7,11 +7,11 @@ description: >
   Use when improving test coverage, identifying gaps, or generating tests.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "coverage, testing, test-generation, gaps, quality"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'coverage, testing, test-generation, gaps, quality'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["coverage", "test coverage", "coverage gap", "missing tests", "coverage target"]
-  agents: ["expert-testing"]
-  phases: ["coverage"]
+  keywords: ['coverage', 'test coverage', 'coverage gap', 'missing tests', 'coverage target']
+  agents: ['expert-testing']
+  phases: ['coverage']
 ---
 
 # Workflow: Coverage - Test Coverage Analysis
@@ -69,6 +69,7 @@ Expected Output:
 Pre-Analysis MX Tag Scan:
 
 Before prioritizing gaps, scan analyzed files for existing @MX tags:
+
 - @MX:ANCHOR: Auto-promote any uncovered @MX:ANCHOR function to P1 (Critical) regardless of other factors
 - @MX:TODO with @MX:TEST sub-line: Identify functions already flagged as needing tests
 - @MX:WARN: Prioritize coverage for dangerous code paths (promote to P1 or P2)
@@ -97,15 +98,19 @@ Gap Report Structure:
 ### Current Coverage: XX.X% (target: YY%)
 
 ### Critical Gaps (P1)
+
 - file.go:FunctionName (0% covered, fan_in: 5, @MX:ANCHOR)
 
 ### High Priority Gaps (P2)
+
 - file.go:BusinessLogic (30% covered, complex error handling)
 
 ### Medium Priority Gaps (P3)
+
 - file.go:HelperFunc (0% covered, internal utility)
 
 ### Low Priority Gaps (P4)
+
 - file_generated.go (excluded from target)
 ```
 
@@ -121,6 +126,7 @@ Decision:
 - If condition is not met: Continue to standard sequential Phase 3 below.
 
 Batch execution instructions when triggered:
+
 1. Group gaps by file (one batch unit = one file with its gaps)
 2. Each batch agent receives: its assigned file path, gap list (functions to cover), development_mode from quality.yaml, existing test patterns from nearby test files, coverage target
 3. Each agent must write tests, run them, and confirm they pass before completing
@@ -134,29 +140,34 @@ If --report flag: Skip this phase. Display gap report and exit.
 Test Generation Strategy (based on quality.yaml development_mode):
 
 If TDD mode: Generate tests following RED-GREEN-REFACTOR pattern
+
 - Write failing test first (RED)
 - Verify test fails
 - Note: Implementation already exists, so GREEN phase is verification
 
 If DDD mode: Generate characterization tests
+
 - Capture existing behavior as test assertions
 - Create behavior snapshots for regression detection
 
 Test Generation Order:
+
 1. P1 critical gaps first (public API, high fan_in)
 2. P2 high priority gaps (business logic, error handling)
 3. P3 medium priority gaps (if target not yet met)
 4. Skip P4 low priority gaps
 
 For each gap:
+
 - Generate table-driven tests (Go) or parameterized tests (Python/TS)
 - Include edge cases and error scenarios
 - Follow existing test patterns in the codebase
-- Respect file naming conventions (*_test.go, *.test.ts, test_*.py)
+- Respect file naming conventions (_\_test.go, _.test.ts, test\_\*.py)
 
 ## Phase 4: Verification
 
 After test generation:
+
 - Run the full test suite to ensure no regressions
 - Re-measure coverage to confirm improvement
 - Compare before/after coverage percentages
@@ -170,19 +181,23 @@ Display coverage report in user's conversation_language:
 ## Coverage Report
 
 ### Before: XX.X% -> After: YY.Y%
+
 ### Target: ZZ% - ACHIEVED/REMAINING: N.N%
 
 ### Tests Generated: N
+
 - file_test.go: TestFunctionA (covers P1 gap)
 - file_test.go: TestFunctionB (covers P2 gap)
 
 ### Coverage by Package
-| Package | Before | After | Target | Status |
-|---------|--------|-------|--------|--------|
-| pkg/api | 70% | 88% | 85% | PASS |
-| pkg/core | 45% | 82% | 85% | FAIL |
+
+| Package  | Before | After | Target | Status |
+| -------- | ------ | ----- | ------ | ------ |
+| pkg/api  | 70%    | 88%   | 85%    | PASS   |
+| pkg/core | 45%    | 82%   | 85%    | FAIL   |
 
 ### Remaining Gaps
+
 - pkg/core: 3% remaining (2 functions uncovered)
 ```
 
@@ -195,6 +210,7 @@ Next Steps (AskUserQuestion):
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - Each coverage gap tracked as a pending task via TaskCreate
 - Before test generation: change to in_progress via TaskUpdate
 - After test passes: change to completed via TaskUpdate

@@ -1,5 +1,5 @@
 ---
-paths: "**/.claude/agents/**,**/.claude/hooks/**"
+paths: '**/.claude/agents/**,**/.claude/hooks/**'
 ---
 
 # Agent Hooks
@@ -21,21 +21,21 @@ Configuration pattern per agent:
 ```yaml
 hooks:
   PreToolUse:
-    - matcher: "Write|Edit|MultiEdit"
+    - matcher: 'Write|Edit|MultiEdit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" {action}"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" {action}'
           timeout: 5
   PostToolUse:
-    - matcher: "Write|Edit|MultiEdit"
+    - matcher: 'Write|Edit|MultiEdit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" {action}"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" {action}'
           timeout: 10
   SubagentStop:
     hooks:
       - type: command
-        command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" {action}"
+        command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" {action}'
         timeout: 10
 ```
 
@@ -43,18 +43,18 @@ hooks:
 
 Actions follow the naming pattern `{agent}-{phase}`:
 
-| Agent | PreToolUse | PostToolUse | SubagentStop |
-|-------|-----------|------------|-------------|
-| manager-ddd | ddd-pre-transformation | ddd-post-transformation | ddd-completion |
-| manager-tdd | tdd-pre-implementation | tdd-post-implementation | tdd-completion |
-| expert-backend | backend-validation | backend-verification | - |
-| expert-frontend | frontend-validation | frontend-verification | - |
-| expert-testing | - | testing-verification | testing-completion |
-| expert-debug | - | debug-verification | debug-completion |
-| expert-devops | - | devops-verification | devops-completion |
-| manager-quality | - | - | quality-completion |
-| manager-spec | - | - | spec-completion |
-| manager-docs | - | docs-verification | docs-completion |
+| Agent           | PreToolUse             | PostToolUse             | SubagentStop       |
+| --------------- | ---------------------- | ----------------------- | ------------------ |
+| manager-ddd     | ddd-pre-transformation | ddd-post-transformation | ddd-completion     |
+| manager-tdd     | tdd-pre-implementation | tdd-post-implementation | tdd-completion     |
+| expert-backend  | backend-validation     | backend-verification    | -                  |
+| expert-frontend | frontend-validation    | frontend-verification   | -                  |
+| expert-testing  | -                      | testing-verification    | testing-completion |
+| expert-debug    | -                      | debug-verification      | debug-completion   |
+| expert-devops   | -                      | devops-verification     | devops-completion  |
+| manager-quality | -                      | -                       | quality-completion |
+| manager-spec    | -                      | -                       | spec-completion    |
+| manager-docs    | -                      | docs-verification       | docs-completion    |
 
 Note: Dynamic team teammates (spawned via `Agent(subagent_type: "general-purpose")`) do not use agent-scoped hooks. Quality enforcement for teammates uses global TeammateIdle and TaskCompleted hooks in settings.json.
 

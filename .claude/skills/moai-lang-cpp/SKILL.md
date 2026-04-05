@@ -7,12 +7,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(g++:*) Bash(gcc:*) Bash(clang:*) Bash(clang++:*) Bash(cmake:*) Bash(make:*) Bash(ctest:*) Bash(valgrind:*) Bash(gdb:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, cpp, c++23, c++20, cmake, raii, smart-pointers, concepts"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, cpp, c++23, c++20, cmake, raii, smart-pointers, concepts'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,8 +22,22 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["C++", "cpp", "CMake", "RAII", "smart pointer", "concept", "range", ".cpp", ".hpp", "CMakeLists.txt", "vcpkg", "conan"]
-  languages: ["cpp", "c++"]
+  keywords:
+    [
+      'C++',
+      'cpp',
+      'CMake',
+      'RAII',
+      'smart pointer',
+      'concept',
+      'range',
+      '.cpp',
+      '.hpp',
+      'CMakeLists.txt',
+      'vcpkg',
+      'conan',
+    ]
+  languages: ['cpp', 'c++']
 ---
 
 ## Quick Reference (30 seconds)
@@ -61,7 +75,7 @@ std::expected for Error Handling: Create an enum class ParseError with InvalidFo
 
 std::print for Type-Safe Output: Include the print header and use std::println for formatted output with curly brace placeholders. Supports format specifiers like colon followed by hash x for hexadecimal or colon followed by .2f for floating point precision.
 
-Deducing This (Explicit Object Parameter): Define a Builder class with a data_ member string. Create a template method append with template parameter Self that takes this Self and and a string_view parameter. Forward self with std::forward and return Self and and. This enables chaining on both lvalue and rvalue objects.
+Deducing This (Explicit Object Parameter): Define a Builder class with a data\_ member string. Create a template method append with template parameter Self that takes this Self and and a string_view parameter. Forward self with std::forward and return Self and and. This enables chaining on both lvalue and rvalue objects.
 
 ### C++20 Features
 

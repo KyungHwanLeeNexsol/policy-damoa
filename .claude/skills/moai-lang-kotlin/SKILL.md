@@ -8,14 +8,14 @@ license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "kotlin, ktor, coroutines, compose, android, multiplatform"
-  context7-libraries: "/ktorio/ktor, /jetbrains/compose-multiplatform, /jetbrains/exposed"
-  related-skills: "moai-lang-java, moai-lang-swift"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'kotlin, ktor, coroutines, compose, android, multiplatform'
+  context7-libraries: '/ktorio/ktor, /jetbrains/compose-multiplatform, /jetbrains/exposed'
+  related-skills: 'moai-lang-java, moai-lang-swift'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,8 +25,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Kotlin", "Ktor", "coroutine", "Flow", "Compose", "Android", ".kt", ".kts", "build.gradle.kts"]
-  languages: ["kotlin"]
+  keywords:
+    ['Kotlin', 'Ktor', 'coroutine', 'Flow', 'Compose', 'Android', '.kt', '.kts', 'build.gradle.kts']
+  languages: ['kotlin']
 ---
 
 ## Quick Reference (30 seconds)
@@ -105,7 +106,7 @@ Library mappings for latest documentation:
 - `/jetbrains/compose-multiplatform` - Compose Multiplatform
 - `/arrow-kt/arrow` - Arrow functional programming
 
-Usage: Call mcp__context7__get_library_docs with context7CompatibleLibraryID, topic string for specific areas, and tokens parameter for response size.
+Usage: Call mcp**context7**get_library_docs with context7CompatibleLibraryID, topic string for specific areas, and tokens parameter for response size.
 
 ---
 

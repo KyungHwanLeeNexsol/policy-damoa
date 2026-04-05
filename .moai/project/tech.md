@@ -189,37 +189,37 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 
 ### Production Dependencies
 
-| Package | Purpose |
-|---|---|
-| `next` | Framework |
-| `react`, `react-dom` | UI library |
-| `typescript` | Type safety |
-| `@prisma/client` | Database ORM client |
-| `next-auth` | Authentication |
-| `tailwindcss` | Styling |
-| `@radix-ui/*` | Accessible UI primitives (via shadcn/ui) |
-| `@tanstack/react-query` | Server state management |
-| `openai` | AI recommendations and embeddings |
-| `@upstash/redis` | Redis client (serverless-compatible) |
-| `zod` | Runtime schema validation |
-| `date-fns` | Date formatting and manipulation |
-| `cheerio` | HTML parsing for static site crawling |
-| `playwright` | Browser automation for JS-rendered sites |
-| `resend` | Transactional email |
-| `web-push` | Web Push notification delivery |
-| `lucide-react` | Icon library (shadcn/ui compatible) |
+| Package                 | Purpose                                  |
+| ----------------------- | ---------------------------------------- |
+| `next`                  | Framework                                |
+| `react`, `react-dom`    | UI library                               |
+| `typescript`            | Type safety                              |
+| `@prisma/client`        | Database ORM client                      |
+| `next-auth`             | Authentication                           |
+| `tailwindcss`           | Styling                                  |
+| `@radix-ui/*`           | Accessible UI primitives (via shadcn/ui) |
+| `@tanstack/react-query` | Server state management                  |
+| `openai`                | AI recommendations and embeddings        |
+| `@upstash/redis`        | Redis client (serverless-compatible)     |
+| `zod`                   | Runtime schema validation                |
+| `date-fns`              | Date formatting and manipulation         |
+| `cheerio`               | HTML parsing for static site crawling    |
+| `playwright`            | Browser automation for JS-rendered sites |
+| `resend`                | Transactional email                      |
+| `web-push`              | Web Push notification delivery           |
+| `lucide-react`          | Icon library (shadcn/ui compatible)      |
 
 ### Development Dependencies
 
-| Package | Purpose |
-|---|---|
-| `prisma` | Database CLI and migration tool |
-| `vitest` | Unit and integration testing |
-| `@playwright/test` | End-to-end testing |
-| `eslint`, `@typescript-eslint/*` | Linting |
-| `prettier` | Code formatting |
-| `husky` | Git hooks for pre-commit checks |
-| `lint-staged` | Run linters only on staged files |
+| Package                          | Purpose                          |
+| -------------------------------- | -------------------------------- |
+| `prisma`                         | Database CLI and migration tool  |
+| `vitest`                         | Unit and integration testing     |
+| `@playwright/test`               | End-to-end testing               |
+| `eslint`, `@typescript-eslint/*` | Linting                          |
+| `prettier`                       | Code formatting                  |
+| `husky`                          | Git hooks for pre-commit checks  |
+| `lint-staged`                    | Run linters only on staged files |
 
 ---
 

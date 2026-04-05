@@ -7,11 +7,11 @@ description: >
   Use when needing execution patterns, flag details, or configuration reference.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-02-22"
-  tags: "reference, patterns, flags, configuration, legacy, resume, context"
+  version: '2.5.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-02-22'
+  tags: 'reference, patterns, flags, configuration, legacy, resume, context'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,10 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["reference", "pattern", "flag", "config", "resume", "legacy", "mapping"]
-  agents: ["manager-spec", "manager-ddd", "manager-tdd", "manager-docs", "manager-quality", "manager-git"]
-  phases: ["plan", "run", "sync"]
+  keywords: ['reference', 'pattern', 'flag', 'config', 'resume', 'legacy', 'mapping']
+  agents:
+    ['manager-spec', 'manager-ddd', 'manager-tdd', 'manager-docs', 'manager-quality', 'manager-git']
+  phases: ['plan', 'run', 'sync']
 ---
 
 # MoAI Skill Reference

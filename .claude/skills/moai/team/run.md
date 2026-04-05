@@ -8,11 +8,11 @@ description: >
   Agent Teams Mode (all same API, parallel teammates).
 user-invocable: false
 metadata:
-  version: "4.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-03-31"
-  tags: "run, team, glm, tmux, implementation, parallel, agent-teams, dynamic"
+  version: '4.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-03-31'
+  tags: 'run, team, glm, tmux, implementation, parallel, agent-teams, dynamic'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,10 +22,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["team run", "glm worker", "parallel implementation"]
+  keywords: ['team run', 'glm worker', 'parallel implementation']
   agents: []
-  phases: ["run"]
+  phases: ['run']
 ---
+
 # Workflow: Team Run - Dynamic Team Generation
 
 Purpose: Implement SPEC requirements using dynamically generated teammates.
@@ -38,40 +39,40 @@ Flow: Mode Detection -> Plan (Leader) -> Run (Dynamic Teams) -> Quality (Leader)
 
 Teammates are spawned using the Agent tool with runtime overrides:
 
-| Parameter | Source | Purpose |
-|-----------|--------|---------|
-| subagent_type | Always "general-purpose" | Full tool access |
-| team_name | TeamCreate result | Team coordination |
-| name | Pattern role name | Addressable via SendMessage |
-| model | workflow.yaml role_profiles | Cost optimization |
-| mode | workflow.yaml role_profiles | Permission control |
-| isolation | workflow.yaml role_profiles | File safety |
-| prompt | Orchestrator-generated | Role, context, instructions |
+| Parameter     | Source                      | Purpose                     |
+| ------------- | --------------------------- | --------------------------- |
+| subagent_type | Always "general-purpose"    | Full tool access            |
+| team_name     | TeamCreate result           | Team coordination           |
+| name          | Pattern role name           | Addressable via SendMessage |
+| model         | workflow.yaml role_profiles | Cost optimization           |
+| mode          | workflow.yaml role_profiles | Permission control          |
+| isolation     | workflow.yaml role_profiles | File safety                 |
+| prompt        | Orchestrator-generated      | Role, context, instructions |
 
 ### Role Profile Reference
 
 From `.moai/config/sections/workflow.yaml` → `team.role_profiles`:
 
-| Profile | mode | model | isolation | Use For |
-|---------|------|-------|-----------|---------|
-| researcher | plan | haiku | none | Codebase exploration, read-only analysis |
-| analyst | plan | sonnet | none | Requirements analysis, validation |
-| architect | plan | sonnet | none | Solution design, architecture |
-| implementer | acceptEdits | sonnet | worktree | Backend, frontend, full-stack code |
-| tester | acceptEdits | sonnet | worktree | Test creation, coverage validation |
-| designer | acceptEdits | sonnet | worktree | UI/UX with MCP design tools |
-| reviewer | plan | haiku | none | Code review, quality validation |
+| Profile     | mode        | model  | isolation | Use For                                  |
+| ----------- | ----------- | ------ | --------- | ---------------------------------------- |
+| researcher  | plan        | haiku  | none      | Codebase exploration, read-only analysis |
+| analyst     | plan        | sonnet | none      | Requirements analysis, validation        |
+| architect   | plan        | sonnet | none      | Solution design, architecture            |
+| implementer | acceptEdits | sonnet | worktree  | Backend, frontend, full-stack code       |
+| tester      | acceptEdits | sonnet | worktree  | Test creation, coverage validation       |
+| designer    | acceptEdits | sonnet | worktree  | UI/UX with MCP design tools              |
+| reviewer    | plan        | haiku  | none      | Code review, quality validation          |
 
 ## Mode Selection
 
 Before executing, check `.moai/config/sections/llm.yaml`:
 
-| team_mode | Execution Mode | Agent Teams? | Description |
-|-----------|---------------|-------------|-------------|
-| (empty) | Sub-agent | N/A | Single session, Agent() subagents |
-| glm | GLM Mode | **Supported** | All GLM, credentials in settings.local.json |
-| cg | CG Mode | **Sub-agent only** | Claude Leader + GLM Teammates via tmux session env |
-| agent-teams | Agent Teams | **Supported** | All same API, parallel teammates |
+| team_mode   | Execution Mode | Agent Teams?       | Description                                        |
+| ----------- | -------------- | ------------------ | -------------------------------------------------- |
+| (empty)     | Sub-agent      | N/A                | Single session, Agent() subagents                  |
+| glm         | GLM Mode       | **Supported**      | All GLM, credentials in settings.local.json        |
+| cg          | CG Mode        | **Sub-agent only** | Claude Leader + GLM Teammates via tmux session env |
+| agent-teams | Agent Teams    | **Supported**      | All same API, parallel teammates                   |
 
 ---
 
@@ -80,6 +81,7 @@ Before executing, check `.moai/config/sections/llm.yaml`:
 ### Overview
 
 CG mode uses tmux pane-level environment isolation:
+
 - **Leader (Claude)**: Runs in the original tmux pane with no GLM env vars
 - **Teammates (GLM)**: Spawn in new tmux panes that inherit GLM env from tmux session
 
@@ -89,10 +91,12 @@ the tmux session has GLM env vars injected by `moai cg`.
 ### Env Isolation Mechanism (Verified)
 
 `moai cg` executes two complementary steps:
+
 1. `injectTmuxSessionEnv()` → `tmux set-environment` (session-scoped, no -g) injects GLM env vars
 2. `removeGLMEnv()` → removes GLM env from `settings.local.json` so leader uses Claude API
 
 When Claude Code Agent Teams spawns teammates via `tmux split-window`:
+
 - New panes inherit tmux session env → teammates get GLM vars → Z.AI API
 - Leader process already running → not affected by session env changes → Claude API
 - Result: Leader on Claude, Teammates on GLM, within the same tmux session
@@ -108,6 +112,7 @@ When Claude Code Agent Teams spawns teammates via `tmux split-window`:
 The Leader creates the SPEC document using Claude's reasoning capabilities.
 
 1. **Delegate to manager-spec subagent**:
+
    ```
    Agent(
      subagent_type: "manager-spec",
@@ -126,6 +131,7 @@ The Leader creates the SPEC document using Claude's reasoning capabilities.
 #### 2.1 Team Setup
 
 1. Create team:
+
    ```
    TeamCreate(team_name: "moai-run-SPEC-XXX")
    ```
@@ -144,6 +150,7 @@ The Leader creates the SPEC document using Claude's reasoning capabilities.
 Spawn teammates using `Agent(subagent_type: "general-purpose")` with role profile overrides.
 
 **Path Rules for Worktree Teammates:**
+
 - All file references in teammate prompts MUST use project-root-relative paths
 - Do NOT include absolute paths to the main project directory
 - See `.claude/rules/moai/workflow/worktree-integration.md` Prompt Path Rules section
@@ -241,6 +248,7 @@ MoAI monitors teammate progress:
 #### 2.4 Teammate Completion
 
 When teammates complete:
+
 - All tasks marked completed in shared TaskList
 - Tests passing within each teammate's scope
 - Changes committed (teammates with `isolation: worktree` commit to their branches)
@@ -268,6 +276,7 @@ Agent(
 #### 4.2 Team Shutdown
 
 1. Shutdown all teammates:
+
    ```
    SendMessage(type: "shutdown_request", recipient: "backend-dev", content: "Phase complete")
    SendMessage(type: "shutdown_request", recipient: "frontend-dev", content: "Phase complete")
@@ -277,6 +286,7 @@ Agent(
 2. Wait for shutdown_response from each teammate
 
 3. Clean up GLM env (CG mode only):
+
    ```bash
    moai cc
    ```
@@ -292,6 +302,7 @@ When `team_mode == "agent-teams"` in llm.yaml, use parallel teammates all on the
 ### Phase 1: Team Setup
 
 1. Create team:
+
    ```
    TeamCreate(team_name: "moai-run-SPEC-XXX")
    ```
@@ -335,19 +346,20 @@ When teammates submit plans, respond immediately with plan_approval_response.
 
 ## Comparison
 
-| Aspect | CG Mode | Agent Teams Mode | Sub-agent Mode |
-|--------|---------|------------------|----------------|
-| APIs | Claude + GLM | Single (all same) | Single |
-| Cost | Lowest | Highest | Medium |
-| Parallelism | Parallel (tmux panes) | Parallel (in-process/tmux) | Sequential |
-| Quality | Highest (Claude reviews) | High | High |
-| Requires tmux | Yes | No (optional) | No |
-| Isolation | tmux env + worktree (HARD) | File ownership + worktree (HARD) | None |
-| Agent definitions | None (dynamic) | None (dynamic) | Static (.claude/agents/) |
+| Aspect            | CG Mode                    | Agent Teams Mode                 | Sub-agent Mode           |
+| ----------------- | -------------------------- | -------------------------------- | ------------------------ |
+| APIs              | Claude + GLM               | Single (all same)                | Single                   |
+| Cost              | Lowest                     | Highest                          | Medium                   |
+| Parallelism       | Parallel (tmux panes)      | Parallel (in-process/tmux)       | Sequential               |
+| Quality           | Highest (Claude reviews)   | High                             | High                     |
+| Requires tmux     | Yes                        | No (optional)                    | No                       |
+| Isolation         | tmux env + worktree (HARD) | File ownership + worktree (HARD) | None                     |
+| Agent definitions | None (dynamic)             | None (dynamic)                   | Static (.claude/agents/) |
 
 ## Fallback
 
 If team mode fails at any point:
+
 1. Log error details
 2. Clean up team (TeamDelete) if created
 3. Fall back to sub-agent mode (workflows/run.md)

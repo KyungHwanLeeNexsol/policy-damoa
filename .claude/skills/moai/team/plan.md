@@ -7,11 +7,11 @@ description: >
   Use when plan phase benefits from parallel multi-perspective exploration.
 user-invocable: false
 metadata:
-  version: "2.7.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-23"
-  tags: "plan, team, research, spec, parallel"
+  version: '2.7.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-23'
+  tags: 'plan, team, research, spec, parallel'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,10 +21,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["team plan", "parallel research", "team spec"]
-  agents: ["team-reader"]
-  phases: ["plan"]
+  keywords: ['team plan', 'parallel research', 'team spec']
+  agents: ['team-reader']
+  phases: ['plan']
 ---
+
 # Workflow: Team Plan - Agent Teams SPEC Creation
 
 Purpose: Create comprehensive SPEC documents through parallel team-based research and analysis. Used when plan phase benefits from multi-angle exploration.
@@ -42,6 +43,7 @@ See .claude/rules/moai/workflow/spec-workflow.md for team mode prerequisites.
    - .moai/config/sections/quality.yaml for development mode
 
 2. Create team:
+
    ```
    TeamCreate(team_name: "moai-plan-{feature-slug}")
    ```
@@ -112,11 +114,13 @@ All three teammates run in parallel. Messages from teammates are delivered autom
 ## Phase 2: Parallel Research
 
 Teammates work independently:
+
 - researcher explores codebase (fastest, haiku)
 - analyst defines requirements (medium)
 - architect designs solution (waits for researcher findings)
 
 MoAI monitors:
+
 - Receive progress messages automatically
 - Forward researcher findings to architect when available
 - Resolve any questions from teammates
@@ -130,6 +134,7 @@ When a teammate goes idle, you MUST respond:
    - If task is completed, proceed to step 2
 
 2. If all assigned work is complete, send new work or shutdown:
+
    ```
    SendMessage(type: "message", recipient: "{name}", content: "New task: {instructions}")
    # OR
@@ -152,6 +157,7 @@ This iterative refinement catches architectural misunderstandings before SPEC cr
 ## Phase 3: Synthesis
 
 After all research tasks complete and annotation cycle is approved:
+
 1. Collect findings from all three teammates
 2. Include research.md artifact as the foundation for SPEC creation
 3. Delegate SPEC creation to manager-spec subagent (NOT a teammate) with all findings
@@ -162,6 +168,7 @@ SPEC output at: .moai/specs/SPEC-XXX/spec.md
 ## Phase 4: User Approval
 
 AskUserQuestion with options:
+
 - Approve SPEC and proceed to implementation
 - Request modifications (specify which section)
 - Cancel workflow
@@ -192,6 +199,7 @@ AskUserQuestion with options:
 ## Fallback
 
 If team creation fails or AGENT_TEAMS not enabled:
+
 - Fall back to sub-agent plan workflow (workflows/plan.md)
 - Log warning about team mode unavailability
 

@@ -1,5 +1,5 @@
 ---
-paths: "**/*.swift,**/Package.swift,**/*.xcodeproj/**"
+paths: '**/*.swift,**/Package.swift,**/*.xcodeproj/**'
 ---
 
 # Swift Rules
@@ -33,7 +33,7 @@ Version: Swift 6+
 
 ## File Conventions
 
-- *Tests.swift for test files
+- \*Tests.swift for test files
 - One type per file for public types
 - Use PascalCase for types and protocols
 - Use camelCase for properties and methods

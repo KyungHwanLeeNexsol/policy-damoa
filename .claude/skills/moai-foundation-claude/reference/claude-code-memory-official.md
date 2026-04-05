@@ -156,13 +156,7 @@ Settings Management (`config/config.json`):
   "constitution": {
     "test_coverage_target": 90,
     "enforce_tdd": true,
-    "quality_gates": [
-      "test-first",
-      "readable",
-      "unified",
-      "secured",
-      "trackable"
-    ]
+    "quality_gates": ["test-first", "readable", "unified", "secured", "trackable"]
   },
   "git_strategy": {
     "mode": "team",
@@ -385,10 +379,7 @@ Production Environment:
     "cache_size": "50MB",
     "auto_refresh": false,
     "debug_memory": false,
-    "memory_files": [
-      ".claude/memory/execution-rules.md",
-      ".claude/memory/production-policies.md"
-    ],
+    "memory_files": [".claude/memory/execution-rules.md", ".claude/memory/production-policies.md"],
     "memory_restrictions": {
       "max_file_size": "1MB",
       "allowed_extensions": [".md", ".json"],

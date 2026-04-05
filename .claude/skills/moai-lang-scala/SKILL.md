@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, scala, akka, cats-effect, zio, spark, sbt"
+  version: '2.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, scala, akka, cats-effect, zio, spark, sbt'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,8 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Scala", "Akka", "Cats Effect", "ZIO", "Spark", ".scala", ".sc", "build.sbt", "sbt"]
-  languages: ["scala"]
+  keywords: ['Scala', 'Akka', 'Cats Effect', 'ZIO', 'Spark', '.scala', '.sc', 'build.sbt', 'sbt']
+  languages: ['scala']
 ---
 
 # Scala 3.4+ Development Specialist

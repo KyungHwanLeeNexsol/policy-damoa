@@ -1,5 +1,5 @@
 ---
-paths: "**/*.java,**/pom.xml,**/build.gradle,**/build.gradle.kts"
+paths: '**/*.java,**/pom.xml,**/build.gradle,**/build.gradle.kts'
 ---
 
 # Java Rules
@@ -33,7 +33,7 @@ Version: Java 21 LTS
 
 ## File Conventions
 
-- *Test.java for test files
+- \*Test.java for test files
 - One public class per file
 - Package name matches directory structure
 - Use PascalCase for classes

@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob WebFetch WebSearch mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "3.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-01-08"
-  modularized: "false"
-  tags: "workflow, documentation, jit-loading, context-aware, caching, discovery"
+  version: '3.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-01-08'
+  modularized: 'false'
+  tags: 'workflow, documentation, jit-loading, context-aware, caching, discovery'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,9 +24,19 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["documentation", "docs", "API reference", "how to", "implement", "best practices", "technology guide", "framework documentation"]
-  phases: ["plan", "run", "sync"]
-  agents: ["manager-docs", "manager-spec", "expert-backend", "expert-frontend"]
+  keywords:
+    [
+      'documentation',
+      'docs',
+      'API reference',
+      'how to',
+      'implement',
+      'best practices',
+      'technology guide',
+      'framework documentation',
+    ]
+  phases: ['plan', 'run', 'sync']
+  agents: ['manager-docs', 'manager-spec', 'expert-backend', 'expert-frontend']
 ---
 
 ## Quick Reference (30 seconds)

@@ -1,5 +1,5 @@
 ---
-paths: "**/.claude/agents/**"
+paths: '**/.claude/agents/**'
 ---
 
 # Agent Authoring
@@ -11,6 +11,7 @@ Guidelines for creating custom agents in MoAI-ADK.
 Custom agents are defined in `.claude/agents/*.md` or `.claude/agents/**/*.md` (subdirectories supported).
 
 Directory convention:
+
 - User custom agents: `.claude/agents/<agent-name>.md` (root level)
 - MoAI-ADK system agents: `.claude/agents/moai/<agent-name>.md` (moai subdirectory)
 
@@ -20,21 +21,21 @@ Platform Support: Windows ARM64 (`win32-arm64`) is natively supported as of Clau
 
 All agent definitions use YAML frontmatter. The following fields are available:
 
-| Field | Required | Default | Description |
-|-------|----------|---------|-------------|
-| name | Yes | - | Unique identifier, lowercase with hyphens |
-| description | Yes | - | When Claude should delegate to this agent |
-| tools | No | Inherits all | Tools the agent can use (allowlist approach) |
-| disallowedTools | No | None | Tools to deny (denylist approach, alternative to tools) |
-| model | No | inherit | Model selection: sonnet, opus, haiku, or inherit |
-| permissionMode | No | default | Permission behavior for the agent |
-| maxTurns | No | Unlimited | Maximum agentic turns before stopping (deprecated since v2.1.69+, use maxContextSize instead) |
-| skills | No | None | Skills injected into agent context at startup |
-| mcpServers | No | None | MCP servers available to this agent |
-| hooks | No | None | Lifecycle hooks scoped to this agent |
-| memory | No | None | Persistent memory scope for cross-session learning |
-| background | No | false | Run agent in background without blocking conversation (v2.1.46+) |
-| isolation | No | none | Isolation mode: "worktree" creates isolated git worktree (v2.1.49+) |
+| Field           | Required | Default      | Description                                                                                   |
+| --------------- | -------- | ------------ | --------------------------------------------------------------------------------------------- |
+| name            | Yes      | -            | Unique identifier, lowercase with hyphens                                                     |
+| description     | Yes      | -            | When Claude should delegate to this agent                                                     |
+| tools           | No       | Inherits all | Tools the agent can use (allowlist approach)                                                  |
+| disallowedTools | No       | None         | Tools to deny (denylist approach, alternative to tools)                                       |
+| model           | No       | inherit      | Model selection: sonnet, opus, haiku, or inherit                                              |
+| permissionMode  | No       | default      | Permission behavior for the agent                                                             |
+| maxTurns        | No       | Unlimited    | Maximum agentic turns before stopping (deprecated since v2.1.69+, use maxContextSize instead) |
+| skills          | No       | None         | Skills injected into agent context at startup                                                 |
+| mcpServers      | No       | None         | MCP servers available to this agent                                                           |
+| hooks           | No       | None         | Lifecycle hooks scoped to this agent                                                          |
+| memory          | No       | None         | Persistent memory scope for cross-session learning                                            |
+| background      | No       | false        | Run agent in background without blocking conversation (v2.1.46+)                              |
+| isolation       | No       | none         | Isolation mode: "worktree" creates isolated git worktree (v2.1.49+)                           |
 
 ### Field Details
 
@@ -65,24 +66,24 @@ The `tools` field supports `Task(worker, researcher)` syntax to restrict which s
 
 The `permissionMode` field controls how the agent handles permission checks:
 
-| Mode | Behavior | Use Case |
-|------|----------|----------|
-| default | Standard permission checking with user prompts | General-purpose agents |
-| acceptEdits | Auto-accept file edit operations | Trusted implementation agents |
-| delegate | Coordination-only mode, restricts to team management tools | Team lead agents |
-| dontAsk | Auto-deny all permission prompts | Strict sandbox agents |
-| bypassPermissions | Skip all permission checks (use with caution) | Fully trusted automation |
-| plan | Read-only exploration mode, no write operations | Research and analysis agents |
+| Mode              | Behavior                                                   | Use Case                      |
+| ----------------- | ---------------------------------------------------------- | ----------------------------- |
+| default           | Standard permission checking with user prompts             | General-purpose agents        |
+| acceptEdits       | Auto-accept file edit operations                           | Trusted implementation agents |
+| delegate          | Coordination-only mode, restricts to team management tools | Team lead agents              |
+| dontAsk           | Auto-deny all permission prompts                           | Strict sandbox agents         |
+| bypassPermissions | Skip all permission checks (use with caution)              | Fully trusted automation      |
+| plan              | Read-only exploration mode, no write operations            | Research and analysis agents  |
 
 ## Persistent Memory
 
 The `memory` field enables cross-session learning for agents. Three scope levels:
 
-| Scope | Storage Location | Shared via VCS | Use Case |
-|-------|-----------------|----------------|----------|
-| user | ~/.claude/agent-memory/\<name\>/ | No | Cross-project learnings, personal preferences |
-| project | .claude/agent-memory/\<name\>/ | Yes | Project-specific knowledge, team-shared context |
-| local | .claude/agent-memory-local/\<name\>/ | No | Project-specific knowledge, not shared |
+| Scope   | Storage Location                     | Shared via VCS | Use Case                                        |
+| ------- | ------------------------------------ | -------------- | ----------------------------------------------- |
+| user    | ~/.claude/agent-memory/\<name\>/     | No             | Cross-project learnings, personal preferences   |
+| project | .claude/agent-memory/\<name\>/       | Yes            | Project-specific knowledge, team-shared context |
+| local   | .claude/agent-memory-local/\<name\>/ | No             | Project-specific knowledge, not shared          |
 
 ## Agent Categories
 
@@ -122,28 +123,30 @@ Create new MoAI components:
 
 ### Dynamic Team Generation (Experimental)
 
-**Architecture**: Agent Teams teammates are spawned dynamically using `Agent(subagent_type: "general-purpose")` with runtime parameter overrides. No static team-* agent definition files are used.
+**Architecture**: Agent Teams teammates are spawned dynamically using `Agent(subagent_type: "general-purpose")` with runtime parameter overrides. No static team-\* agent definition files are used.
 
 **Key distinction from regular subagents**:
+
 - Regular subagents: spawned from main conversation, return results, cannot communicate with each other
 - Dynamic teammates: spawned with `team_name` + `name` parameters, get Agent Teams tools (SendMessage, TaskList etc.) automatically injected by the framework
 
 **Spawn pattern** (Agent Teams only):
+
 ```
 Agent(subagent_type: "general-purpose", team_name: "...", name: "researcher", model: "haiku", mode: "plan")
 ```
 
 Role profiles are defined in `.moai/config/sections/workflow.yaml` under `team.role_profiles`:
 
-| Role Profile | Default Model | Mode | Isolation | Purpose |
-|-------------|---------------|------|-----------|---------|
-| researcher | haiku | plan (read-only) | none | Codebase exploration, analysis |
-| analyst | sonnet | plan (read-only) | none | Requirements analysis, validation |
-| architect | sonnet | plan (read-only) | none | Solution design, architecture |
-| implementer | sonnet | acceptEdits | worktree | Backend, frontend, full-stack code |
-| tester | sonnet | acceptEdits | worktree | Test creation, coverage validation |
-| designer | sonnet | acceptEdits | worktree | UI/UX design with MCP tools |
-| reviewer | haiku | plan (read-only) | none | Code review, quality validation |
+| Role Profile | Default Model | Mode             | Isolation | Purpose                            |
+| ------------ | ------------- | ---------------- | --------- | ---------------------------------- |
+| researcher   | haiku         | plan (read-only) | none      | Codebase exploration, analysis     |
+| analyst      | sonnet        | plan (read-only) | none      | Requirements analysis, validation  |
+| architect    | sonnet        | plan (read-only) | none      | Solution design, architecture      |
+| implementer  | sonnet        | acceptEdits      | worktree  | Backend, frontend, full-stack code |
+| tester       | sonnet        | acceptEdits      | worktree  | Test creation, coverage validation |
+| designer     | sonnet        | acceptEdits      | worktree  | UI/UX design with MCP tools        |
+| reviewer     | haiku         | plan (read-only) | none      | Code review, quality validation    |
 
 Requires: `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` in settings.json env
 
@@ -169,6 +172,7 @@ Builder agents: Read, Write, Edit, Grep, Glob
 Dynamic teammates (general-purpose): Inherit all tools from parent session. Permission control via `mode` parameter at spawn time.
 
 Notes:
+
 - Dynamic teammates use `mode: "plan"` for read-only enforcement instead of tool restrictions
 - Project-specific context is included in the spawn prompt, not preloaded skills
 - Teammates can self-load skills via Skill() tool when deeper documentation is needed
@@ -181,6 +185,7 @@ Invoke agents via Agent tool:
 - Agent tool with subagent_type parameter
 
 For team mode invocation:
+
 - TeamCreate to initialize team structure
 - Agent() with team_name and name parameters to spawn teammates
 - SendMessage for inter-teammate coordination

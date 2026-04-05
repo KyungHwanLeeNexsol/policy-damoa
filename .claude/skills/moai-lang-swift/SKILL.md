@@ -9,14 +9,14 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "swift, swiftui, ios, macos, combine, concurrency"
-  context7-libraries: "/apple/swift, /apple/swift-evolution"
-  related-skills: "moai-lang-kotlin, moai-lang-flutter"
+  version: '2.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'swift, swiftui, ios, macos, combine, concurrency'
+  context7-libraries: '/apple/swift, /apple/swift-evolution'
+  related-skills: 'moai-lang-kotlin, moai-lang-flutter'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -26,8 +26,21 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Swift", "SwiftUI", "Combine", "iOS", "macOS", "async", "await", "Actor", "@Observable", ".swift", "Xcode"]
-  languages: ["swift"]
+  keywords:
+    [
+      'Swift',
+      'SwiftUI',
+      'Combine',
+      'iOS',
+      'macOS',
+      'async',
+      'await',
+      'Actor',
+      '@Observable',
+      '.swift',
+      'Xcode',
+    ]
+  languages: ['swift']
 ---
 
 # Swift 6+ Development Specialist

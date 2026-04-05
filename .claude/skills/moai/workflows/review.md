@@ -7,11 +7,11 @@ description: >
   Use when performing code review, security audit, or quality assessment.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "review, code-review, security, performance, quality, ux, audit"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'review, code-review, security, performance, quality, ux, audit'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["review", "code review", "security audit", "quality check", "code analysis"]
-  agents: ["manager-quality", "expert-security"]
-  phases: ["review"]
+  keywords: ['review', 'code review', 'security audit', 'quality check', 'code analysis']
+  agents: ['manager-quality', 'expert-security']
+  phases: ['review']
 ---
 
 # Workflow: Review - Code Review
@@ -52,6 +52,7 @@ If --file: Read the specified file(s) directly.
 If no flag: Use `git diff HEAD~1` for the most recent commit changes.
 
 Collect:
+
 - List of modified files with change types (added, modified, deleted)
 - Diff summary with line counts
 - Affected modules and their responsibilities
@@ -122,22 +123,27 @@ Produce a consolidated review report organized by severity:
 ## Code Review Report - {target}
 
 ### Critical Issues (must fix)
+
 - [SECURITY] file:line: Description
 - [PERFORMANCE] file:line: Description
 
 ### Warnings (should fix)
+
 - [QUALITY] file:line: Description
 - [UX] file:line: Description
 
 ### Suggestions (nice to have)
+
 - [QUALITY] file:line: Description
 
 ### MX Tag Compliance
+
 - Missing tags: N
 - Outdated tags: N
 - Compliant files: N/M
 
 ### Overall Assessment
+
 - Security: PASS/FAIL
 - Performance: PASS/WARN
 - Quality: PASS/WARN
@@ -150,6 +156,7 @@ Produce a consolidated review report organized by severity:
 After Phase 4 consolidation, MoAI MUST evaluate whether to call Skill("simplify").
 
 Condition: Any of the following Quality perspective findings exist:
+
 - At least 1 Warning-level or higher Quality finding
 - TRUST 5 compliance score < 5/5
 - At least 3 Suggestion-level Quality findings
@@ -171,6 +178,7 @@ Present options via AskUserQuestion:
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - Each critical finding tracked as a pending task via TaskCreate
 - Warnings grouped by file as aggregate tasks
 - Suggestions listed in report but not tracked as tasks
@@ -186,6 +194,7 @@ For detailed team orchestration steps, see ${CLAUDE_SKILL_DIR}/team/review.md.
 Fallback: If team mode is unavailable, standard single-agent sequential review continues.
 
 Team Prerequisites:
+
 - workflow.team.enabled: true in .moai/config/sections/workflow.yaml
 - CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 in environment
 - If prerequisites not met: Falls back to single-agent review
@@ -199,6 +208,7 @@ When to run: --design or --critique flag is present, OR changed files include UI
 Agent: expert-frontend subagent (with moai-design-craft skill)
 
 Tasks:
+
 1. Scan UI files for repeated patterns: spacing values, radius values, color tokens, button/card patterns, depth strategy (borders vs shadows)
 2. Identify existing design conventions and inconsistencies
 3. If `.moai/design/system.md` exists: Compare extracted patterns against system.md, report deviations
@@ -212,6 +222,7 @@ Output: Design pattern report with deviation list (file:line references)
 Agent: expert-frontend subagent (with moai-design-craft skill)
 
 Tasks:
+
 1. Read `.moai/design/system.md` for design direction context
 2. Review built UI against craft principles:
    - **Composition**: Layout rhythm, proportions, focal point clarity

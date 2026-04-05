@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob, Bash
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "agency"
-  status: "active"
-  updated: "2026-04-02"
-  evolution_count: "0"
-  confidence_score: "0.00"
-  base_context: "quality-standards.md"
-  dependencies: ""
-  tags: "evaluation, quality, testing, playwright, scoring, criteria, assessment"
-  related-skills: "agency-copywriting, agency-design-system, agency-frontend-patterns"
+  version: '1.0.0'
+  category: 'agency'
+  status: 'active'
+  updated: '2026-04-02'
+  evolution_count: '0'
+  confidence_score: '0.00'
+  base_context: 'quality-standards.md'
+  dependencies: ''
+  tags: 'evaluation, quality, testing, playwright, scoring, criteria, assessment'
+  related-skills: 'agency-copywriting, agency-design-system, agency-frontend-patterns'
 
 progressive_disclosure:
   enabled: true
@@ -26,9 +26,10 @@ progressive_disclosure:
   level2_tokens: 5000
 
 triggers:
-  keywords: ["evaluate", "quality", "score", "test", "review", "assessment", "criteria", "pass", "fail"]
-  agents: ["evaluator"]
-  phases: ["run"]
+  keywords:
+    ['evaluate', 'quality', 'score', 'test', 'review', 'assessment', 'criteria', 'pass', 'fail']
+  agents: ['evaluator']
+  phases: ['run']
 ---
 
 # Agency Evaluation Criteria Skill
@@ -44,12 +45,14 @@ Governs quality assessment of all agency project deliverables. Enforces skeptica
 **Purpose**: Define evaluation criteria, scoring weights, pass/fail thresholds, and testing requirements for agency project quality assessment.
 
 **Input Contract**:
+
 - Built application (URL or local path)
 - Original copy.md (for copy integrity verification)
 - Original design-spec.md (for design compliance verification)
 - BRIEF document (for completeness verification)
 
 **Output Contract**:
+
 - `evaluation-report.md` containing:
   - Overall score (0.00 - 1.00) with PASS/FAIL verdict
   - Per-dimension scores with evidence
@@ -71,12 +74,12 @@ Governs quality assessment of all agency project deliverables. Enforces skeptica
 
 ### Default Evaluation Weights
 
-| Dimension | Weight | Description |
-|-----------|--------|-------------|
-| Design Quality | 30% | Visual consistency, brand alignment, polish |
-| Originality | 25% | Not generic/template-like, unique approach |
-| Completeness | 25% | All BRIEF sections present, copy accurate |
-| Functionality | 20% | Responsive, accessible, all interactions work |
+| Dimension      | Weight | Description                                   |
+| -------------- | ------ | --------------------------------------------- |
+| Design Quality | 30%    | Visual consistency, brand alignment, polish   |
+| Originality    | 25%    | Not generic/template-like, unique approach    |
+| Completeness   | 25%    | All BRIEF sections present, copy accurate     |
+| Functionality  | 20%    | Responsive, accessible, all interactions work |
 
 ### Hard Thresholds (always FAIL)
 

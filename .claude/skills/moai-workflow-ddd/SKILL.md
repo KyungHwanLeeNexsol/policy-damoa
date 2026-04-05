@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Bash(git:*) Bash(pytest:*) Bash(ruff:*) Bash(npm:*) Bash(npx:*) Bash(node:*) Bash(uv:*) Bash(make:*) Bash(cargo:*) Bash(go:*) Bash(mix:*) Bash(bundle:*) Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-01-16"
-  modularized: "true"
-  tags: "workflow, refactoring, ddd, domain-driven, behavior-preservation, ast-grep, characterization-tests"
-  author: "MoAI-ADK Team"
-  context: "fork"
-  agent: "manager-ddd"
-  related-skills: "moai-tool-ast-grep, moai-workflow-testing, moai-foundation-quality"
+  version: '1.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-01-16'
+  modularized: 'true'
+  tags: 'workflow, refactoring, ddd, domain-driven, behavior-preservation, ast-grep, characterization-tests'
+  author: 'MoAI-ADK Team'
+  context: 'fork'
+  agent: 'manager-ddd'
+  related-skills: 'moai-tool-ast-grep, moai-workflow-testing, moai-foundation-quality'
 ---
 
 # Domain-Driven Development (DDD) Workflow
@@ -29,14 +29,16 @@ metadata:
 
 ```yaml
 constitution:
-  development_mode: ddd    # or tdd
+  development_mode: ddd # or tdd
 ```
 
 **When to use this workflow**:
+
 - `development_mode: ddd` → Use DDD (this workflow)
 - `development_mode: tdd` → Use TDD instead (moai-workflow-tdd)
 
 **Key distinction**:
+
 - **DDD**: Characterization-test-first for existing codebases with minimal test coverage
 - **TDD** (default): Test-first development for all work, including brownfield projects with pre-RED analysis
 

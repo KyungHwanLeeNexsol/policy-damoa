@@ -5,6 +5,7 @@ The Intent-First process ensures every design decision traces back to a clear st
 ## Principle: Why Before What
 
 Design problems have two layers:
+
 1. **Surface layer**: What does it look like? What components are used?
 2. **Intent layer**: Why does this exist? What does the user need to accomplish? What would success feel like?
 
@@ -15,16 +16,19 @@ Intent-First starts at layer 2 and works up to layer 1. Skipping layer 2 produce
 Before any component or layout decision, explore the domain:
 
 ### Step 1: User Context
+
 - Who is the user in this specific moment? (Not a persona — the actual task they are doing)
 - What do they already know? What are they uncertain about?
 - What is the cost of a mistake for them?
 
 ### Step 2: Mental Model Audit
+
 - What real-world model does the user bring to this interaction?
 - Does the interface reinforce or contradict that model?
 - Where is the vocabulary mismatch between domain and UI?
 
 ### Step 3: Interaction Contract
+
 - What is the user committing to when they interact with this element?
 - What feedback do they need to feel confident?
 - What does an empty state, error state, and success state mean in this domain?
@@ -38,6 +42,7 @@ After domain exploration, write a Design Direction — 1 to 3 sentences that cap
 3. **Craft principle**: The single most important quality constraint (e.g., "must feel instant", "must signal permanence", "must not overwhelm")
 
 Example:
+
 > The user is reconciling a financial transaction they did not initiate. The interface must surface all relevant context without requiring navigation. Trust is the craft principle — every element must communicate reversibility or confirmation before action.
 
 Write this to `.moai/design/system.md` under the relevant section.
@@ -47,6 +52,7 @@ Write this to `.moai/design/system.md` under the relevant section.
 Collect 3–5 terms that belong to the domain (not the UI layer). These become the shared vocabulary for components, copy, and code comments.
 
 Example for a payments domain:
+
 - "Reconciliation" (not "match" or "sync")
 - "Initiating party" (not "sender" or "payer")
 - "Settlement window" (not "processing time")
@@ -87,6 +93,7 @@ Use motion to create presence and hierarchy, not noise. Ship at least 2-3 intent
 ## When to Trigger Design Direction
 
 Trigger this process when a SPEC contains any of:
+
 - New user-facing flows (not just modifying existing components)
 - Features that require the user to make a consequential decision
 - Features in a domain the codebase has not handled before
@@ -95,6 +102,7 @@ Trigger this process when a SPEC contains any of:
 ## Output
 
 Write findings to `.moai/specs/SPEC-{ID}/design-direction.md` (when inside a SPEC workflow) containing:
+
 - Intent statement (who, what, feel)
 - Domain concepts and vocabulary (5+ entries)
 - Color world exploration (5+ entries)

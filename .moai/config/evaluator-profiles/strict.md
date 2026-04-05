@@ -4,12 +4,12 @@ Enhanced security and reliability evaluation for critical systems (auth, payment
 
 ## Evaluation Weights
 
-| Dimension | Weight | Threshold |
-|-----------|--------|-----------|
-| Functionality | 35% | All acceptance criteria PASS + edge cases verified |
-| Security | 35% | Full OWASP Top 10 audit, no findings of any severity |
-| Craft | 20% | Coverage >= 90%, mutation testing score >= 80% |
-| Consistency | 10% | Strict pattern adherence |
+| Dimension     | Weight | Threshold                                            |
+| ------------- | ------ | ---------------------------------------------------- |
+| Functionality | 35%    | All acceptance criteria PASS + edge cases verified   |
+| Security      | 35%    | Full OWASP Top 10 audit, no findings of any severity |
+| Craft         | 20%    | Coverage >= 90%, mutation testing score >= 80%       |
+| Consistency   | 10%    | Strict pattern adherence                             |
 
 ## Hard Thresholds
 

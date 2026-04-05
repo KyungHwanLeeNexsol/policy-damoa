@@ -23,7 +23,7 @@ One-time messages are the simplest communication pattern. The sender sends a mes
 async function fetchData(query) {
   const response = await chrome.runtime.sendMessage({
     action: 'fetch-data',
-    query: query
+    query: query,
   });
   return response;
 }
@@ -70,12 +70,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.action) {
     case 'fetch-data':
       handleFetchData(message.query)
-        .then(data => sendResponse({ success: true, data }))
-        .catch(err => sendResponse({ success: false, error: err.message }));
+        .then((data) => sendResponse({ success: true, data }))
+        .catch((err) => sendResponse({ success: false, error: err.message }));
       return true; // IMPORTANT: Keep message channel open for async response
 
     case 'get-settings':
-      chrome.storage.local.get('settings').then(result => {
+      chrome.storage.local.get('settings').then((result) => {
         sendResponse(result.settings || {});
       });
       return true;
@@ -83,7 +83,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case 'save-data':
       handleSaveData(message.data)
         .then(() => sendResponse({ success: true }))
-        .catch(err => sendResponse({ success: false, error: err.message }));
+        .catch((err) => sendResponse({ success: false, error: err.message }));
       return true;
 
     default:
@@ -107,11 +107,13 @@ When handling messages asynchronously, you must either return true from the onMe
 // Pattern 1: return true + sendResponse (all Chrome versions)
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === 'async-task') {
-    performAsyncTask(message.data).then(result => {
-      sendResponse({ result });
-    }).catch(error => {
-      sendResponse({ error: error.message });
-    });
+    performAsyncTask(message.data)
+      .then((result) => {
+        sendResponse({ result });
+      })
+      .catch((error) => {
+        sendResponse({ error: error.message });
+      });
     return true; // Required to keep sendResponse valid
   }
 });
@@ -120,8 +122,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.runtime.onMessage.addListener((message, sender) => {
   if (message.action === 'async-task') {
     return performAsyncTask(message.data)
-      .then(result => ({ result }))
-      .catch(error => ({ error: error.message }));
+      .then((result) => ({ result }))
+      .catch((error) => ({ error: error.message }));
   }
 });
 ```
@@ -198,7 +200,7 @@ function handlePortMessage(port, portId, message) {
 
     case 'request':
       // Process request and respond via port
-      processRequest(message.data).then(result => {
+      processRequest(message.data).then((result) => {
         port.postMessage({ type: 'response', requestId: message.id, data: result });
       });
       break;
@@ -256,7 +258,7 @@ Popup, side panel, and options pages are extension pages that can communicate wi
 async function loadData() {
   const response = await chrome.runtime.sendMessage({
     action: 'get-data',
-    source: 'popup'
+    source: 'popup',
   });
   displayData(response);
 }
@@ -275,7 +277,7 @@ async function notifyPopup(data) {
     await chrome.runtime.sendMessage({
       target: 'popup',
       type: 'update',
-      data
+      data,
     });
   } catch {
     // Popup is closed, ignore error
@@ -294,10 +296,10 @@ Extensions can communicate with other extensions using chrome.runtime.sendMessag
 const TARGET_EXTENSION_ID = 'abcdefghijklmnopabcdefghijklmnop';
 
 async function sendToOtherExtension(data) {
-  const response = await chrome.runtime.sendMessage(
-    TARGET_EXTENSION_ID,
-    { action: 'shared-action', data }
-  );
+  const response = await chrome.runtime.sendMessage(TARGET_EXTENSION_ID, {
+    action: 'shared-action',
+    data,
+  });
   return response;
 }
 ```
@@ -317,8 +319,8 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   switch (message.action) {
     case 'shared-action':
       processSharedAction(message.data)
-        .then(result => sendResponse({ success: true, data: result }))
-        .catch(err => sendResponse({ error: err.message }));
+        .then((result) => sendResponse({ success: true, data: result }))
+        .catch((err) => sendResponse({ error: err.message }));
       return true;
   }
 });
@@ -361,14 +363,18 @@ Web pages can send messages to extensions using chrome.runtime.sendMessage if th
 // The extension ID is required
 const EXTENSION_ID = 'abcdefghijklmnopabcdefghijklmnop';
 
-chrome.runtime.sendMessage(EXTENSION_ID, {
-  action: 'authenticate',
-  token: 'user-token'
-}, (response) => {
-  if (response.success) {
-    console.log('Authenticated with extension');
+chrome.runtime.sendMessage(
+  EXTENSION_ID,
+  {
+    action: 'authenticate',
+    token: 'user-token',
+  },
+  (response) => {
+    if (response.success) {
+      console.log('Authenticated with extension');
+    }
   }
-});
+);
 ```
 
 ### Extension Receiving Web Page Messages
@@ -392,8 +398,8 @@ chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => 
   switch (message.action) {
     case 'authenticate':
       handleWebAuth(message.token, sender)
-        .then(result => sendResponse({ success: true, data: result }))
-        .catch(err => sendResponse({ success: false, error: err.message }));
+        .then((result) => sendResponse({ success: true, data: result }))
+        .catch((err) => sendResponse({ success: false, error: err.message }));
       return true;
   }
 });
@@ -421,7 +427,7 @@ async function sendMessageWithRetry(message, maxRetries = 3) {
       if (error.message.includes('Could not establish connection')) {
         // Receiving end does not exist, retry after delay
         if (attempt < maxRetries - 1) {
-          await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+          await new Promise((r) => setTimeout(r, 1000 * (attempt + 1)));
           continue;
         }
       }
@@ -471,8 +477,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   handler(message, sender)
-    .then(result => sendResponse({ success: true, data: result }))
-    .catch(error => sendResponse({ success: false, error: error.message }));
+    .then((result) => sendResponse({ success: true, data: result }))
+    .catch((error) => sendResponse({ success: false, error: error.message }));
 
   return true; // Always async
 });

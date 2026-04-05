@@ -42,7 +42,7 @@ Policy Testing involves testing policies with different JWT tokens. Use supabase
 
 ## Real-time and Presence
 
-Postgres Changes Subscription uses supabase.channel('custom-channel').on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, payload => console.log(payload)).subscribe().
+Postgres Changes Subscription uses supabase.channel('custom-channel').on('postgres_changes', { event: '\*', schema: 'public', table: 'messages' }, payload => console.log(payload)).subscribe().
 
 Filtered Changes specify event type (INSERT, UPDATE, DELETE) and filter by column using filter: { column: 'value' }.
 

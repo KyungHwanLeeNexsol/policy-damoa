@@ -6,11 +6,11 @@ description: >
   and performs multi-perspective code reviews.
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-04-02"
-  tags: "github, issues, pr, review, gh"
+  version: '1.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-04-02'
+  tags: 'github, issues, pr, review, gh'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -20,9 +20,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["github", "issue", "pr", "pull request"]
-  agents: ["expert-debug", "expert-backend", "manager-quality"]
-  phases: ["github"]
+  keywords: ['github', 'issue', 'pr', 'pull request']
+  agents: ['expert-debug', 'expert-backend', 'manager-quality']
+  phases: ['github']
 ---
 
 # Workflow: GitHub - Issue Fix and PR Review
@@ -44,6 +44,7 @@ Flow: Discovery -> Analysis -> Implementation -> PR Creation -> Report
 ## Sub-commands
 
 First argument determines the workflow:
+
 - **issues** (aliases: issue, fix): Fix GitHub issues
 - **pr** (aliases: review, pull-request): Review PRs
 - No argument: AskUserQuestion to choose
@@ -55,11 +56,13 @@ First argument determines the workflow:
 ### Phase 1: Issue Discovery
 
 Step 1.1: Fetch open issues
+
 ```bash
 gh issue list --state open --limit 30 --json number,title,labels,body,assignees
 ```
 
 Step 1.2: Issue selection
+
 - If NUMBER provided: `gh issue view {number} --json number,title,body,labels,comments`
 - If --all: Process all open issues sequentially
 - If --label LABEL: `gh issue list --state open --label "{LABEL}" --json number,title,labels,body`
@@ -67,6 +70,7 @@ Step 1.2: Issue selection
 
 Step 1.3: Classification
 Classify by title/labels/body:
+
 - **bug** → branch prefix `fix/issue-{number}`
 - **feature** → branch prefix `feat/issue-{number}`
 - **enhancement** → branch prefix `improve/issue-{number}`
@@ -77,20 +81,24 @@ Classify by title/labels/body:
 [HARD] Delegate all implementation to specialized agents.
 
 Step 2.1: Analyze root cause
+
 - Delegate to expert-debug subagent (bugs) or expert-backend subagent (features)
 - Agent reads issue body, explores codebase, identifies affected files and fix approach
 
 Step 2.2: Create branch and implement
+
 ```bash
 git checkout main && git pull origin main
 git checkout -b {prefix}/issue-{number}
 ```
+
 - Agent implements fix using Edit tool
 - Agent writes/updates tests for the fix
 - Run test suite to verify (language-specific: `go test ./...`, `npm test`, etc.)
 - If tests fail: retry with error context (max 3 attempts)
 
 Step 2.3: Commit
+
 ```bash
 git add {modified_files}
 git commit -m "{type}({scope}): {description}
@@ -112,6 +120,7 @@ Fixes #{number}"
 ```
 
 After PR creation:
+
 ```bash
 git checkout main
 ```
@@ -119,6 +128,7 @@ git checkout main
 ### Phase 4: Report
 
 Display result:
+
 ```markdown
 ## Issue #{number} Fixed
 
@@ -129,6 +139,7 @@ Display result:
 ```
 
 AskUserQuestion for next steps:
+
 - Fix another issue: Continue to next issue
 - Done: End workflow
 
@@ -139,16 +150,19 @@ AskUserQuestion for next steps:
 ### Phase 1: PR Discovery
 
 Step 1.1: Fetch open PRs
+
 ```bash
 gh pr list --state open --limit 20 --json number,title,author,additions,deletions,changedFiles,headRefName
 ```
 
 Step 1.2: PR selection
+
 - If NUMBER provided: Fetch specific PR
 - If --all: Review all sequentially
 - Otherwise: AskUserQuestion to select
 
 Step 1.3: Fetch details
+
 ```bash
 gh pr diff {number}
 gh pr view {number} --json files --jq '.files[].path'
@@ -159,18 +173,21 @@ gh pr view {number} --json files --jq '.files[].path'
 Delegate to two sub-agents in parallel:
 
 Agent 1 - expert-security:
+
 - Injection risks (SQL, XSS, command injection)
 - Authentication/authorization issues
 - Sensitive data exposure
 - OWASP Top 10 compliance
 
 Agent 2 - manager-quality:
+
 - Code correctness and edge cases
 - Test coverage for changes
 - Error handling completeness
 - Naming conventions and readability
 
 Synthesize findings:
+
 - **Critical**: Must fix before merge
 - **Important**: Should fix
 - **Suggestion**: Nice to have
@@ -178,12 +195,14 @@ Synthesize findings:
 ### Phase 3: Submit Review
 
 Present review summary to user via AskUserQuestion:
+
 - Approve (Recommended if no Critical issues): Submit approval
 - Request Changes: Submit with required changes
 - Comment Only: Submit observations without decision
 - Skip: Do not submit review
 
 Submit via:
+
 ```bash
 gh pr review {number} --approve --body "{review_body}"
 # OR
@@ -195,6 +214,7 @@ gh pr review {number} --comment --body "{review_body}"
 ### Phase 4: Report
 
 Display review summary:
+
 ```markdown
 ## PR #{number} Review Complete
 
@@ -205,6 +225,7 @@ Display review summary:
 ```
 
 AskUserQuestion for next steps:
+
 - Review another PR
 - Done
 

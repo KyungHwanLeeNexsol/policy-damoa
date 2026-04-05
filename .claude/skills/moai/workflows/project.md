@@ -8,11 +8,11 @@ description: >
   Use when initializing projects or generating project documentation.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "project, documentation, initialization, codebase-analysis, setup"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'project, documentation, initialization, codebase-analysis, setup'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,9 +22,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["project", "init", "documentation", "setup", "initialize"]
-  agents: ["manager-project", "manager-docs", "Explore", "expert-devops"]
-  phases: ["project"]
+  keywords: ['project', 'init', 'documentation', 'setup', 'initialize']
+  agents: ['manager-project', 'manager-docs', 'Explore', 'expert-devops']
+  phases: ['project']
 ---
 
 # Workflow: project - Project Documentation Generation
@@ -40,7 +40,8 @@ This workflow is also triggered automatically when project documentation does no
 [HARD] Auto-detect project type by checking for existing source code files FIRST.
 
 Detection Logic:
-1. Check if source code files exist in the current directory (using Glob for *.py, *.ts, *.js, *.go, *.java, *.rb, *.rs, src/, lib/, app/)
+
+1. Check if source code files exist in the current directory (using Glob for _.py, _.ts, _.js, _.go, _.java, _.rb, \*.rs, src/, lib/, app/)
 2. If source code found: Classify as "Existing Project" and present confirmation
 3. If no source code found: Classify as "New Project"
 
@@ -51,10 +52,12 @@ Question: Project type detected. Please confirm (in user's conversation_language
 Options (first option is auto-detected recommendation):
 
 If source code found:
+
 - Existing Project (Recommended): Your codebase will be automatically analyzed to generate accurate documentation. MoAI scans your files, architecture, and dependencies to create product.md, structure.md, and tech.md.
 - New Project: Choose this if you want to start fresh and define the project from scratch through a guided interview, ignoring existing code.
 
 If no source code found:
+
 - New Project (Recommended): MoAI will guide you through a short interview to understand your project goals, technology choices, and key features. This creates the foundation documents for all future development.
 - Existing Project: Choose this if your code exists elsewhere and you want to point MoAI to analyze it.
 
@@ -94,6 +97,7 @@ Question 3 - Project Description (AskUserQuestion with free text via "Other"):
 Header: "Description"
 
 Present a question asking the user to describe their project. The user provides free text including:
+
 - Project name
 - Main features or goals
 - Target users or audience
@@ -105,24 +109,28 @@ Header: "Features"
 Based on the selected project type and language, present relevant feature options:
 
 For Web Applications:
+
 - Authentication: User login, registration, session management
 - Database: Data persistence with ORM and migrations
 - API Integration: External API calls and webhooks
 - Real-time: WebSocket or SSE for live updates
 
 For API Services:
+
 - REST Endpoints: CRUD operations with validation
 - Authentication: JWT, OAuth, API keys
 - Database: SQL or NoSQL data layer
 - Documentation: OpenAPI/Swagger auto-generation
 
 For CLI Tools:
+
 - Interactive prompts: User input collection with TUI
 - Configuration: Config file management (YAML, JSON, TOML)
 - Output formatting: Tables, colors, progress bars
 - Plugin system: Extensible architecture
 
 For Library/Package:
+
 - Type safety: Full type annotations
 - Documentation: Auto-generated API docs
 - Testing: Unit and integration test suite
@@ -210,10 +218,12 @@ Purpose: Generate architecture documentation in `.moai/project/codemaps/` direct
 [HARD] This phase runs automatically after Phase 3 documentation generation.
 
 Agent Chain:
+
 - Explore subagent: Analyze codebase architecture (reuse Phase 1 results if available)
 - manager-docs subagent: Generate codemaps documentation files
 
 Output Files (in `.moai/project/codemaps/` directory):
+
 - overview.md: High-level architecture summary, design patterns, system boundaries
 - modules.md: Module descriptions, responsibilities, public interfaces
 - dependencies.md: Dependency graph, external packages, internal module relationships
@@ -221,6 +231,7 @@ Output Files (in `.moai/project/codemaps/` directory):
 - data-flow.md: Data flow paths, request lifecycle, state management patterns
 
 Skip Conditions:
+
 - New projects with no existing code (Phase 0.5 path): Skip codemaps generation, create placeholder `.moai/project/codemaps/overview.md` with project goals only
 - User explicitly requests skip via AskUserQuestion in Phase 2
 
@@ -268,11 +279,13 @@ Goal: Automatically set the `development_mode` in `.moai/config/sections/quality
 Auto-Detection Logic:
 
 For New Projects (Phase 0 classified as "New Project"):
+
 - Set `development_mode: "tdd"` (test-first development)
 - Rationale: New projects benefit from test-first development with clean RED-GREEN-REFACTOR cycles
 
 For Existing Projects (Phase 0 classified as "Existing Project"):
-- Step 1: Check for existing test files using Glob patterns (*_test.go, *_test.py, *.test.ts, *.test.js, *.spec.ts, *.spec.js, test_*.py, tests/, __tests__/, spec/)
+
+- Step 1: Check for existing test files using Glob patterns (_\_test.go, \_\_test.py, *.test.ts, *.test.js, *.spec.ts, *.spec.js, test_\*.py, tests/, **tests**/, spec/)
 - Step 2: Estimate test coverage level based on test file count relative to source file count:
   - No test files found (0%): Set `development_mode: "ddd"` (need characterization tests first)
   - Few test files (< 10% ratio): Set `development_mode: "ddd"` (insufficient coverage, characterization tests first)
@@ -280,6 +293,7 @@ For Existing Projects (Phase 0 classified as "Existing Project"):
   - Good test files (>= 50% ratio): Set `development_mode: "tdd"` (strong test base for test-first development)
 
 Implementation:
+
 - Read current `.moai/config/sections/quality.yaml`
 - Update only the `constitution.development_mode` field
 - Preserve all other settings in quality.yaml unchanged
@@ -287,12 +301,12 @@ Implementation:
 
 Methodology-to-Mode Mapping Reference:
 
-| Project State | Test Ratio | development_mode | Rationale |
-|--------------|-----------|------------------|-----------|
-| New (no code) | N/A | tdd | Clean slate, test-first development |
-| Existing | >= 50% | tdd | Strong test base for test-first development |
-| Existing | 10-49% | tdd | Partial tests, expand with test-first development |
-| Existing | < 10% | ddd | No tests, gradual characterization test creation |
+| Project State | Test Ratio | development_mode | Rationale                                         |
+| ------------- | ---------- | ---------------- | ------------------------------------------------- |
+| New (no code) | N/A        | tdd              | Clean slate, test-first development               |
+| Existing      | >= 50%     | tdd              | Strong test base for test-first development       |
+| Existing      | 10-49%     | tdd              | Partial tests, expand with test-first development |
+| Existing      | < 10%      | ddd              | No tests, gradual characterization test creation  |
 
 ---
 
@@ -303,6 +317,7 @@ Methodology-to-Mode Mapping Reference:
 [HARD] Read the generated documents and present a structured summary to the user in conversation_language.
 
 Read these files and extract key information:
+
 - .moai/project/product.md → Project name, description, core features, target audience
 - .moai/project/structure.md → Top-level directory structure, architecture pattern
 - .moai/project/tech.md → Primary language, framework, key dependencies

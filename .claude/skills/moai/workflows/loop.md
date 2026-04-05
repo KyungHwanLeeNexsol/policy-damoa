@@ -7,11 +7,11 @@ description: >
   Use when iterative error resolution or continuous fixing is needed.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "loop, iterative, auto-fix, diagnostics, testing, coverage"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'loop, iterative, auto-fix, diagnostics, testing, coverage'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["loop", "iterate", "repeat", "until done", "keep fixing", "all errors"]
-  agents: ["expert-debug", "expert-backend", "expert-frontend", "expert-testing"]
-  phases: ["loop"]
+  keywords: ['loop', 'iterate', 'repeat', 'until done', 'keep fixing', 'all errors']
+  agents: ['expert-debug', 'expert-backend', 'expert-frontend', 'expert-testing']
+  phases: ['loop']
 ---
 
 # Workflow: Loop - Iterative Autonomous Fixing
@@ -47,11 +47,13 @@ Flow: Check Completion -> Memory Check -> Diagnose -> Fix -> Verify -> Repeat
 Each iteration executes the following steps in order:
 
 Step 1 - Completion Check:
+
 - Check for completion marker in previous iteration response
 - Marker types: `<moai>DONE</moai>`, `<moai>COMPLETE</moai>`
 - If marker found: Exit loop with success
 
 Step 2 - Memory Pressure Check (if --memory-check enabled):
+
 - Calculate session duration from start time
 - Monitor iteration time for GC pressure signs (doubling iteration time)
 - If session duration exceeds 25 minutes OR iteration time doubling:
@@ -60,7 +62,7 @@ Step 2 - Memory Pressure Check (if --memory-check enabled):
   - Suggest resuming with /moai:loop --resume memory-pressure
 - Physical memory check (if memory_guard.enabled in quality.yaml):
   - Linux: Read MemAvailable from `free -m`
-  - macOS: Estimate from `vm_stat` pages free * page_size
+  - macOS: Estimate from `vm_stat` pages free \* page_size
   - If available_mb < emergency_threshold_mb:
     - Save checkpoint to $CLAUDE_PROJECT_DIR/.moai/cache/loop-snapshots/memory-emergency.json
     - Exit loop with message: "System memory critically low ({available_mb}MB < {emergency_threshold_mb}MB). Checkpoint saved."
@@ -71,6 +73,7 @@ Step 2 - Memory Pressure Check (if --memory-check enabled):
 - If memory-safe limit reached (50 iterations): Exit with checkpoint
 
 Step 3 - Parallel Diagnostics:
+
 - Launch four diagnostic tools simultaneously using Bash with run_in_background
 - Tool 1: LSP diagnostics for detected language
 - Tool 2: AST-grep scan with sgconfig.yml rules
@@ -82,14 +85,17 @@ Step 3 - Parallel Diagnostics:
 If --sequential flag: Run LSP, then AST-grep, then Tests, then Coverage sequentially.
 
 Step 4 - Completion Condition Check:
+
 - Conditions: Zero errors AND all tests passing AND coverage meets threshold
 - If all conditions met: Prompt user to add completion marker or continue
 - If only coverage below target (zero errors + tests passing): Auto-route to coverage workflow (workflows/coverage.md) for intelligent gap analysis and test generation instead of blind looping. Coverage workflow identifies P1-P4 priority gaps and generates targeted tests.
 
 Step 5 - Task Generation:
+
 - [HARD] TaskCreate for all newly discovered issues with pending status
 
 Step 5.5 - Pre-Fix MX Context Scan:
+
 - Scan files with newly discovered issues for existing @MX tags
 - @MX:ANCHOR functions: Pass as "do not break" constraints to fix agents
 - @MX:WARN zones: Pass danger context; ensure fix does not worsen the warned condition
@@ -100,10 +106,12 @@ Step 5.5 - Pre-Fix MX Context Scan:
 - See .claude/rules/moai/workflow/mx-tag-protocol.md for tag type definitions
 
 Step 6 - Fix Execution:
+
 - [HARD] Before each fix: TaskUpdate to change item to in_progress
 - [HARD] Agent delegation mandate: ALL fix tasks MUST be delegated to specialized agents. NEVER execute fixes directly.
 
 Agent selection by issue type:
+
 - Type errors, logic bugs: expert-debug subagent
 - Import/module issues: expert-backend or expert-frontend subagent
 - Test failures: expert-testing subagent
@@ -111,15 +119,18 @@ Agent selection by issue type:
 - Performance issues: expert-performance subagent
 
 Fix levels applied per --auto setting:
+
 - Level 1 (Immediate): No approval. Import sorting, whitespace
 - Level 2 (Safe): Log only. Rename variable, add type
 - Level 3 (Approval): AskUserQuestion required. Logic change, API modify
 - Level 4 (Manual): Not auto-fixed. Security, architecture
 
 Step 7 - Verification:
+
 - [HARD] After each fix: TaskUpdate to change item to completed
 
 Step 7.5 - MX Tag Check:
+
 - After fixes applied, scan modified files for MX tag requirements
 - Add missing tags for modified functions:
   - New exported functions: Add @MX:NOTE or @MX:ANCHOR if fan_in >= 3
@@ -130,16 +141,19 @@ Step 7.5 - MX Tag Check:
 - See .claude/rules/moai/workflow/mx-tag-protocol.md for tag rules
 
 Step 8 - Snapshot Save:
+
 - Save iteration snapshot to $CLAUDE_PROJECT_DIR/.moai/cache/loop-snapshots/
 - Increment iteration counter
 
 Step 9 - Repeat or Exit:
+
 - If max iterations reached: Display remaining issues and options
 - Otherwise: Return to Step 1
 
 ## Completion Conditions
 
 The loop exits when any of these conditions are met:
+
 - Completion marker detected in response
 - All conditions met: zero errors + tests passing + coverage threshold
 - Max iterations reached (displays remaining issues)
@@ -147,6 +161,7 @@ The loop exits when any of these conditions are met:
 - User interruption (state auto-saved)
 
 Pre-exit clean sweep (when exiting with success):
+
 - Before final report, run clean workflow (workflows/clean.md) scan on all modified files
 - Remove dead code exposed by fixes (unused imports, orphaned functions)
 - Skip if no dead code detected or if --errors flag was set
@@ -156,6 +171,7 @@ Pre-exit clean sweep (when exiting with success):
 Each iteration includes MX tag management:
 
 **Tag Updates During Loop:**
+
 - Fix resolves an issue: Remove corresponding @MX:TODO
 - Fix introduces new code: Add appropriate @MX tags
 - Fix changes function signature: Re-evaluate @MX:ANCHOR
@@ -171,6 +187,7 @@ Each iteration includes MX tag management:
 
 **MX Tag Report:**
 After each iteration, include MX_TAG_REPORT section:
+
 - Tags Added: List new tags with file:line
 - Tags Removed: List resolved TODOs
 - Tags Updated: List modified tags
@@ -181,6 +198,7 @@ After each iteration, include MX_TAG_REPORT section:
 Snapshot location: $CLAUDE_PROJECT_DIR/.moai/cache/loop-snapshots/
 
 Files:
+
 - iteration-001.json, iteration-002.json, etc. (per-iteration snapshots)
 - latest.json (symlink to most recent)
 - memory-pressure.json (proactive checkpoint on memory pressure)
@@ -189,6 +207,7 @@ Files:
 Loop state file: $CLAUDE_PROJECT_DIR/.moai/cache/.moai_loop_state.json
 
 Resume commands:
+
 - /moai:loop --resume latest
 - /moai:loop --resume iteration-002
 - /moai:loop --resume memory-pressure
@@ -197,24 +216,24 @@ Resume commands:
 
 Test runner and coverage tool selection is based on auto-detected project language:
 
-| Language | Indicator File | Test Command | Coverage Command |
-|----------|---------------|--------------|--------------------|
-| Go | go.mod | `go test ./...` | `go test -cover ./...` |
-| Python | pyproject.toml / setup.py | `pytest --tb=short` | `coverage run -m pytest` |
-| TypeScript/JavaScript | package.json | `npm test` or `jest` | `npm run coverage` or `c8` |
-| Rust | Cargo.toml | `cargo test` | `cargo tarpaulin` |
-| Java (Maven) | pom.xml | `mvn test -q` | `mvn jacoco:report` |
-| Java (Gradle) | build.gradle | `gradle test -q` | `gradle jacocoTestReport` |
-| Kotlin | build.gradle.kts | `gradle test -q` | `gradle jacocoTestReport` |
-| C# | *.csproj | `dotnet test` | `dotnet test --collect:"XPlat Code Coverage"` |
-| Ruby | Gemfile | `bundle exec rspec` or `bundle exec rake test` | `simplecov` (via .simplecov config) |
-| PHP | composer.json | `vendor/bin/phpunit` | `vendor/bin/phpunit --coverage-text` |
-| Scala | build.sbt | `sbt test` | `sbt coverage test coverageReport` |
-| Elixir | mix.exs | `mix test` | `mix test --cover` |
-| Swift | Package.swift | `swift test` | `swift test --enable-code-coverage` |
-| Flutter/Dart | pubspec.yaml | `flutter test` or `dart test` | `flutter test --coverage` |
-| R | DESCRIPTION | `Rscript -e 'testthat::test_package(".")'` | `covr::package_coverage()` |
-| C++ | CMakeLists.txt | `ctest --test-dir build` | `gcov`/`lcov` (if configured) |
+| Language              | Indicator File            | Test Command                                   | Coverage Command                              |
+| --------------------- | ------------------------- | ---------------------------------------------- | --------------------------------------------- |
+| Go                    | go.mod                    | `go test ./...`                                | `go test -cover ./...`                        |
+| Python                | pyproject.toml / setup.py | `pytest --tb=short`                            | `coverage run -m pytest`                      |
+| TypeScript/JavaScript | package.json              | `npm test` or `jest`                           | `npm run coverage` or `c8`                    |
+| Rust                  | Cargo.toml                | `cargo test`                                   | `cargo tarpaulin`                             |
+| Java (Maven)          | pom.xml                   | `mvn test -q`                                  | `mvn jacoco:report`                           |
+| Java (Gradle)         | build.gradle              | `gradle test -q`                               | `gradle jacocoTestReport`                     |
+| Kotlin                | build.gradle.kts          | `gradle test -q`                               | `gradle jacocoTestReport`                     |
+| C#                    | \*.csproj                 | `dotnet test`                                  | `dotnet test --collect:"XPlat Code Coverage"` |
+| Ruby                  | Gemfile                   | `bundle exec rspec` or `bundle exec rake test` | `simplecov` (via .simplecov config)           |
+| PHP                   | composer.json             | `vendor/bin/phpunit`                           | `vendor/bin/phpunit --coverage-text`          |
+| Scala                 | build.sbt                 | `sbt test`                                     | `sbt coverage test coverageReport`            |
+| Elixir                | mix.exs                   | `mix test`                                     | `mix test --cover`                            |
+| Swift                 | Package.swift             | `swift test`                                   | `swift test --enable-code-coverage`           |
+| Flutter/Dart          | pubspec.yaml              | `flutter test` or `dart test`                  | `flutter test --coverage`                     |
+| R                     | DESCRIPTION               | `Rscript -e 'testthat::test_package(".")'`     | `covr::package_coverage()`                    |
+| C++                   | CMakeLists.txt            | `ctest --test-dir build`                       | `gcov`/`lcov` (if configured)                 |
 
 Language detection priority: Check for indicator files in project root. If multiple present, prefer the one with the most associated source files. If detection fails, prompt user to specify language.
 
@@ -225,6 +244,7 @@ Send any message to interrupt the loop. State is automatically saved via session
 ## Safe Development Protocol
 
 All fixes within the loop follow CLAUDE.md Section 7 Safe Development Protocol:
+
 - Reproduction-first: Write failing tests before fixing bugs
 - Post-fix review: List potential side effects after each fix cycle
 - Maximum 3 retries per individual operation (per CLAUDE.md constitution)

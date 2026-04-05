@@ -42,6 +42,7 @@ For product context, see: `../.moai/project/product.md`
 Central domain. Owns the `Policy` model and all search, filtering, and detail retrieval logic. This module will be the most complex and data-intensive part of the system.
 
 **Key responsibilities**:
+
 - Policy data normalization from multiple sources
 - Full-text search indexing
 - Filter query composition (multi-criteria eligibility matching)
@@ -52,6 +53,7 @@ Central domain. Owns the `Policy` model and all search, filtering, and detail re
 Handles user alert preferences and notification delivery.
 
 **Key responsibilities**:
+
 - Notification preference storage and management
 - Policy-to-user matching engine (runs after each data sync)
 - Web push notification delivery
@@ -62,6 +64,7 @@ Handles user alert preferences and notification delivery.
 AI-powered personalization layer.
 
 **Key responsibilities**:
+
 - User profile analysis
 - OpenAI API integration for relevance scoring
 - Recommendation caching and freshness management
@@ -72,6 +75,7 @@ AI-powered personalization layer.
 User identity and profile management.
 
 **Key responsibilities**:
+
 - Authentication session management (NextAuth.js)
 - Profile attribute storage (eligibility attributes: age, region, occupation, etc.)
 - Saved policy bookmarks
@@ -82,6 +86,7 @@ User identity and profile management.
 Background data pipeline, not part of the main Next.js app.
 
 **Key responsibilities**:
+
 - API clients for data.go.kr and 보조금24
 - Crawlers for local government websites
 - Data normalization and deduplication
@@ -91,29 +96,29 @@ Background data pipeline, not part of the main Next.js app.
 
 ## Entry Points (Planned)
 
-| Entry Point | Description |
-|---|---|
-| `src/app/page.tsx` | Landing page / policy search home |
-| `src/app/api/policies/route.ts` | Policy search and listing API |
-| `src/app/api/recommendations/route.ts` | AI recommendation API |
-| `src/app/api/notifications/route.ts` | Notification management API |
-| `src/app/api/auth/[...nextauth]/route.ts` | Authentication handler |
-| `scripts/sync/syncPublicDataPortal.ts` | Data collection entry (cron) |
+| Entry Point                               | Description                       |
+| ----------------------------------------- | --------------------------------- |
+| `src/app/page.tsx`                        | Landing page / policy search home |
+| `src/app/api/policies/route.ts`           | Policy search and listing API     |
+| `src/app/api/recommendations/route.ts`    | AI recommendation API             |
+| `src/app/api/notifications/route.ts`      | Notification management API       |
+| `src/app/api/auth/[...nextauth]/route.ts` | Authentication handler            |
+| `scripts/sync/syncPublicDataPortal.ts`    | Data collection entry (cron)      |
 
 ---
 
 ## External Integrations (Planned)
 
-| Service | Purpose | Integration Point |
-|---|---|---|
-| data.go.kr | Primary policy data source | `src/services/data-collection/publicDataPortal.service.ts` |
-| 보조금24 | Subsidy program data | `src/services/data-collection/bojo24.service.ts` |
-| OpenAI API | AI recommendations | `src/services/ai/recommendation.service.ts` |
-| Neon PostgreSQL | Primary database | `src/lib/db.ts` |
-| Upstash Redis | Caching and rate limiting | `src/lib/redis.ts` |
-| Kakao OAuth | Primary social login | `src/lib/auth.ts` |
-| Resend | Transactional email | `src/services/notification/email.service.ts` |
-| Vercel | Deployment and cron | `vercel.json` |
+| Service         | Purpose                    | Integration Point                                          |
+| --------------- | -------------------------- | ---------------------------------------------------------- |
+| data.go.kr      | Primary policy data source | `src/services/data-collection/publicDataPortal.service.ts` |
+| 보조금24        | Subsidy program data       | `src/services/data-collection/bojo24.service.ts`           |
+| OpenAI API      | AI recommendations         | `src/services/ai/recommendation.service.ts`                |
+| Neon PostgreSQL | Primary database           | `src/lib/db.ts`                                            |
+| Upstash Redis   | Caching and rate limiting  | `src/lib/redis.ts`                                         |
+| Kakao OAuth     | Primary social login       | `src/lib/auth.ts`                                          |
+| Resend          | Transactional email        | `src/services/notification/email.service.ts`               |
+| Vercel          | Deployment and cron        | `vercel.json`                                              |
 
 ---
 

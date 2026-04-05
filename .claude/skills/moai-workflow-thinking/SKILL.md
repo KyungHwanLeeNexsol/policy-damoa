@@ -10,10 +10,10 @@ allowed-tools: Read, Grep, Glob, mcp__sequential-thinking__sequentialthinking
 effort: high
 user-invocable: false
 metadata:
-  version: "2.0.0"
-  category: "workflow"
-  status: "active"
-  modularized: "false"
+  version: '2.0.0'
+  category: 'workflow'
+  status: 'active'
+  modularized: 'false'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -23,7 +23,17 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["sequential thinking", "deepthink", "deep analysis", "complex problem", "architecture decision", "technology selection", "trade-off", "breaking change"]
+  keywords:
+    [
+      'sequential thinking',
+      'deepthink',
+      'deep analysis',
+      'complex problem',
+      'architecture decision',
+      'technology selection',
+      'trade-off',
+      'breaking change',
+    ]
   phases:
     - plan
   agents:
@@ -39,12 +49,13 @@ Structured step-by-step reasoning via `mcp__sequential-thinking__sequentialthink
 
 MoAI has TWO independent deep analysis modes. They are NOT the same thing:
 
-| Mode | Trigger | Mechanism | MCP Tool? | GLM Compatible? |
-|------|---------|-----------|-----------|-----------------|
-| `--deepthink` | Explicit `--deepthink` flag | Sequential Thinking MCP tool | YES — `mcp__sequential-thinking__sequentialthinking` | NO — generates server_tool_use content type |
-| `ultrathink` | Keyword or auto-detection | Claude native extended reasoning (high effort) | NO — native to Claude | YES — no special content type |
+| Mode          | Trigger                     | Mechanism                                      | MCP Tool?                                            | GLM Compatible?                             |
+| ------------- | --------------------------- | ---------------------------------------------- | ---------------------------------------------------- | ------------------------------------------- |
+| `--deepthink` | Explicit `--deepthink` flag | Sequential Thinking MCP tool                   | YES — `mcp__sequential-thinking__sequentialthinking` | NO — generates server_tool_use content type |
+| `ultrathink`  | Keyword or auto-detection   | Claude native extended reasoning (high effort) | NO — native to Claude                                | YES — no special content type               |
 
 **Rules:**
+
 - `--deepthink` → ALWAYS invoke Sequential Thinking MCP. NEVER use for native reasoning.
 - `ultrathink` → ALWAYS use Claude's native extended reasoning. NEVER invoke Sequential Thinking MCP.
 - They can coexist: `ultrathink --deepthink` activates BOTH modes independently.
@@ -65,12 +76,14 @@ Use Sequential Thinking MCP when `--deepthink` flag is explicitly present:
 ## Tool Parameters
 
 **Required Parameters:**
+
 - `thought` (string): Current thinking step content
 - `nextThoughtNeeded` (boolean): Whether another step is needed
 - `thoughtNumber` (integer): Current thought number (starts from 1)
 - `totalThoughts` (integer): Estimated total thoughts needed
 
 **Optional Parameters:**
+
 - `isRevision` (boolean): Whether this revises previous thinking
 - `revisesThought` (integer): Which thought is being reconsidered
 - `branchFromThought` (integer): Branching point for alternatives
@@ -80,6 +93,7 @@ Use Sequential Thinking MCP when `--deepthink` flag is explicitly present:
 ## Usage Pattern
 
 **Step 1 - Initial Analysis:**
+
 ```
 thought: "Analyzing the problem: [describe problem]"
 nextThoughtNeeded: true
@@ -88,6 +102,7 @@ totalThoughts: 5
 ```
 
 **Step 2 - Decomposition:**
+
 ```
 thought: "Breaking down: [sub-problems]"
 nextThoughtNeeded: true
@@ -96,6 +111,7 @@ totalThoughts: 5
 ```
 
 **Step 3 - Revision (if needed):**
+
 ```
 thought: "Revising thought 2: [correction]"
 isRevision: true
@@ -106,6 +122,7 @@ nextThoughtNeeded: true
 ```
 
 **Final Step - Conclusion:**
+
 ```
 thought: "Conclusion: [final answer]"
 thoughtNumber: 5

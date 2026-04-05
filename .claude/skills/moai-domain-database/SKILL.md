@@ -9,17 +9,45 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Write, Edit, Bash(psql:*), Bash(mysql:*), Bash(sqlite3:*), Bash(mongosh:*), Bash(redis-cli:*), Bash(npm:*), Bash(npx:*), Bash(prisma:*), Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "database, postgresql, mongodb, redis, oracle, data-patterns, performance"
-  author: "MoAI-ADK Team"
+  version: '1.0.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'database, postgresql, mongodb, redis, oracle, data-patterns, performance'
+  author: 'MoAI-ADK Team'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["database", "PostgreSQL", "MongoDB", "Redis", "Oracle", "SQL", "NoSQL", "PL/SQL", "query", "schema", "migration", "indexing", "ORM", "ODM", "SQLAlchemy", "Mongoose", "Prisma", "Drizzle", "python-oracledb", "cx_Oracle", "connection pool", "transaction", "data modeling", "aggregation", "partitioning", "hierarchical query"]
+  keywords:
+    [
+      'database',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'Oracle',
+      'SQL',
+      'NoSQL',
+      'PL/SQL',
+      'query',
+      'schema',
+      'migration',
+      'indexing',
+      'ORM',
+      'ODM',
+      'SQLAlchemy',
+      'Mongoose',
+      'Prisma',
+      'Drizzle',
+      'python-oracledb',
+      'cx_Oracle',
+      'connection pool',
+      'transaction',
+      'data modeling',
+      'aggregation',
+      'partitioning',
+      'hierarchical query',
+    ]
 ---
 
 # Database Domain Specialist

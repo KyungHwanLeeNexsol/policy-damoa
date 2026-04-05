@@ -37,12 +37,14 @@ https://mcp.figma.com/mcp
 Two deployment modes are available:
 
 **Remote MCP server (recommended):**
+
 - Hosted at https://mcp.figma.com/mcp
 - No Figma desktop app required
 - Broadest feature set including write-to-canvas and Code-to-Canvas
 - Recommended for most users
 
 **Desktop MCP server:**
+
 - Runs locally through the Figma desktop app
 - Primarily for organizations and enterprises with specific requirements
 - More limited feature set compared to remote server
@@ -54,6 +56,7 @@ Two deployment modes are available:
 #### get_design_context
 
 Extract design context from Figma files:
+
 - Retrieve component hierarchy and structure
 - Understand layout, spacing, and design relationships
 - Get detailed specifications for implementing designs
@@ -65,6 +68,7 @@ get_design_context(fileKey, nodeId?) → { components, layout, styles, ... }
 #### get_screenshot
 
 Capture screenshots of Figma frames for visual reference:
+
 - Render specific frames as images
 - Use as visual reference during implementation
 - Compare design intent with code output
@@ -76,6 +80,7 @@ get_screenshot(fileKey, nodeId) → image data
 #### get_variable_defs
 
 Extract design variables and tokens from Figma files:
+
 - Color tokens and palettes
 - Typography definitions
 - Spacing and sizing values
@@ -88,6 +93,7 @@ get_variable_defs(fileKey) → { colors, typography, spacing, ... }
 #### get_metadata
 
 Get file metadata and structural information:
+
 - File name, description, and timestamps
 - Page structure and frame hierarchy
 - Component library references
@@ -99,6 +105,7 @@ get_metadata(fileKey) → { name, description, lastModified, pages, ... }
 #### whoami
 
 Get current authenticated user information:
+
 - Verify authentication status
 - Check user identity and permissions
 
@@ -111,6 +118,7 @@ whoami() → { id, name, email, ... }
 #### get_code_connect_map
 
 Retrieve code connect mappings that link Figma components to code implementations:
+
 - Map Figma component IDs to code component names
 - Reference existing design-to-code connections
 
@@ -121,6 +129,7 @@ get_code_connect_map(fileKey) → { componentId: codeComponent, ... }
 #### add_code_connect_map
 
 Add new code connect mappings to link Figma components with code:
+
 - Register code implementations for Figma components
 - Enable bidirectional design-code traceability
 
@@ -131,6 +140,7 @@ add_code_connect_map(fileKey, mappings) → confirmation
 #### get_code_connect_suggestions
 
 Auto-detect potential component mappings between Figma and code:
+
 - Analyzes codebase to suggest Figma-to-code component mappings
 - Works with Code Connect framework for automated discovery
 
@@ -141,6 +151,7 @@ get_code_connect_suggestions(fileKey) → { suggestions: [...] }
 #### send_code_connect_mappings
 
 Confirm and finalize suggested Code Connect mappings:
+
 - Used after calling get_code_connect_suggestions
 - Reviews and confirms suggested component mappings
 - Establishes bidirectional design-code traceability
@@ -154,6 +165,7 @@ send_code_connect_mappings(fileKey, mappings) → confirmation
 #### get_figjam
 
 Access FigJam boards for collaboration content:
+
 - Retrieve sticky notes, shapes, and text
 - Extract workflow diagrams and user flows
 - Access collaborative brainstorming sessions
@@ -165,6 +177,7 @@ get_figjam(fileKey) → { boards, elements, ... }
 #### generate_diagram
 
 Create diagrams in FigJam from text descriptions:
+
 - Generate flowcharts and architecture diagrams
 - Create user journey maps
 - Build system design visualizations
@@ -178,6 +191,7 @@ generate_diagram(description, fileKey?) → { diagramId, ... }
 #### generate_figma_design
 
 Capture live web UI and send it to Figma files (Code-to-Canvas, Remote MCP only):
+
 - Capture web pages and convert them into Figma design layers
 - Append captured designs to existing files or create new ones
 - Convert live UI interfaces into editable Figma frames
@@ -187,6 +201,7 @@ generate_figma_design(url, targetFileKey?) → { frameId, ... }
 ```
 
 **Known Limitations:**
+
 - Japanese text rendering may have issues
 - Image dimensions may not exactly match specifications
 - Available via Remote MCP server only (https://mcp.figma.com/mcp)
@@ -196,6 +211,7 @@ generate_figma_design(url, targetFileKey?) → { frameId, ... }
 #### use_figma
 
 General-purpose tool for creating, editing, or inspecting any object in a Figma file (Remote MCP only, beta):
+
 - Create and modify pages, frames, components, variants, variables, styles, text, images
 - Checks design system before generating new elements
 - Currently free during beta period (will become usage-based paid feature)
@@ -207,6 +223,7 @@ use_figma(fileKey, operations) → confirmation
 #### search_design_system
 
 Search connected design libraries for reusable assets:
+
 - Find components, variables, and styles matching a text query
 - Returns matching design system elements for reuse
 - Ensures consistency with established design patterns
@@ -218,6 +235,7 @@ search_design_system(query) → { components, variables, styles }
 #### create_new_file
 
 Create a new blank Figma Design or FigJam file:
+
 - Creates files in the authenticated user's drafts folder
 - Prompts for team/organization selection if applicable
 - Supports both Figma Design and FigJam file types
@@ -231,6 +249,7 @@ create_new_file(name, type?) → { fileKey, url }
 #### create_design_system_rules
 
 Create design system rules and guidelines within Figma:
+
 - Define component usage patterns
 - Establish naming conventions
 - Document design principles
@@ -242,12 +261,15 @@ create_design_system_rules(rules) → { ruleId, ... }
 ## Rate Limits
 
 **Starter Plan / View or Collab seats on paid plans:**
+
 - Limited to 6 tool calls per month
 
 **Dev or Full seats (Professional/Organization/Enterprise plans):**
+
 - Per-minute rate limits matching Figma REST API Tier 1
 
 **Write-to-Canvas:**
+
 - Currently free during beta period
 - Will become a usage-based paid feature
 
@@ -282,6 +304,7 @@ Extract all design variables (colors, typography, spacing). Use these values in 
 ### Step 4: Analyze Component Structure
 
 Review the design context to identify:
+
 - Component hierarchy and nesting
 - Responsive behavior and breakpoints
 - Interactive states (hover, active, disabled)
@@ -290,6 +313,7 @@ Review the design context to identify:
 ### Step 5: Generate React/Tailwind Code
 
 Implement the component using extracted design context:
+
 - Map Figma components to React components
 - Apply design token values from get_variable_defs
 - Use Tailwind classes for styling
@@ -306,20 +330,21 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          500: '#3B82F6',  /* Figma: colors.primary */
-        }
+          500: '#3B82F6' /* Figma: colors.primary */,
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 ### Step 7: Verify Against Screenshot
 
 Compare the implemented component against the screenshot from Step 2:
+
 - Check visual accuracy (colors, spacing, typography)
 - Validate responsive behavior at all breakpoints
 - Verify interactive states
@@ -334,10 +359,11 @@ vars = get_variable_defs(fileKey)
 ```
 
 Map to CSS custom properties:
+
 ```css
 :root {
-  --color-primary: #3B82F6;
-  --color-primary-hover: #2563EB;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
 }
 ```
 
@@ -349,6 +375,7 @@ vars = get_variable_defs(fileKey)
 ```
 
 Map to Tailwind:
+
 ```typescript
 module.exports = {
   theme: {
@@ -356,10 +383,10 @@ module.exports = {
       fontSize: {
         'heading-1': ['2rem', { lineHeight: '1.2', fontWeight: '700' }],
         'heading-2': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 ```
 
 ## Design-to-Code Workflow Examples
@@ -405,6 +432,7 @@ module.exports = {
 ### Token Naming Conventions
 
 Use semantic naming when mapping Figma variables to code:
+
 - `color.primary.500` instead of `blue`
 - `spacing.md` instead of `16px`
 - `font.heading.1` instead of `32px bold`
@@ -412,6 +440,7 @@ Use semantic naming when mapping Figma variables to code:
 ### Code Connect Usage
 
 Register code-component mappings for full traceability:
+
 - Use add_code_connect_map when implementing new components
 - Use get_code_connect_map to discover if components are already mapped
 

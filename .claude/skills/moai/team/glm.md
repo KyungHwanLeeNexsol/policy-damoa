@@ -7,11 +7,11 @@ description: >
   60-70% cost reduction for implementation-heavy tasks.
 user-invocable: false
 metadata:
-  version: "3.0.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-22"
-  tags: "team, glm, tmux, cost-effective, agent-teams, cg"
+  version: '3.0.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-22'
+  tags: 'team, glm, tmux, cost-effective, agent-teams, cg'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["--team", "team mode", "glm worker", "cg mode", "tmux"]
-  agents: ["moai"]
-  phases: ["run"]
+  keywords: ['--team', 'team mode', 'glm worker', 'cg mode', 'tmux']
+  agents: ['moai']
+  phases: ['run']
 ---
 
 # MoAI CG Mode (Claude + GLM via tmux Agent Teams)
@@ -84,12 +84,12 @@ sessions in their own tmux panes, visible via `tmux list-panes`.
 
 ## Cost Benefit
 
-| Phase | Tokens | Model | Cost |
-|-------|--------|-------|------|
-| Plan | 30K | Leader (Claude) | Standard |
-| Run | 180K | Teammates (GLM) | Cost effective |
-| Quality | 20K | Leader (Claude) | Standard |
-| Sync | 40K | Leader (Claude) | Standard |
+| Phase   | Tokens | Model           | Cost           |
+| ------- | ------ | --------------- | -------------- |
+| Plan    | 30K    | Leader (Claude) | Standard       |
+| Run     | 180K   | Teammates (GLM) | Cost effective |
+| Quality | 20K    | Leader (Claude) | Standard       |
+| Sync    | 40K    | Leader (Claude) | Standard       |
 
 **Result**: Run phase uses ~70% of tokens. GLM for Run = 60-70% overall cost reduction.
 
@@ -97,13 +97,14 @@ sessions in their own tmux panes, visible via `tmux list-panes`.
 
 Read `.moai/config/sections/llm.yaml` for `team_mode` value:
 
-| team_mode | Execution Mode | Leader | Teammates |
-|-----------|---------------|--------|-----------|
-| (empty) | Sub-agent | Current session | Agent() subagents |
-| cg | CG Mode | Claude (this pane) | GLM (new tmux panes) |
-| glm | GLM-only | GLM | GLM |
+| team_mode | Execution Mode | Leader             | Teammates            |
+| --------- | -------------- | ------------------ | -------------------- |
+| (empty)   | Sub-agent      | Current session    | Agent() subagents    |
+| cg        | CG Mode        | Claude (this pane) | GLM (new tmux panes) |
+| glm       | GLM-only       | GLM                | GLM                  |
 
 Detection steps:
+
 1. Read `.moai/config/sections/llm.yaml`
 2. If `team_mode == "cg"`: Activate CG mode (this skill)
 3. If `team_mode == "glm"`: All-GLM mode (no hybrid)
@@ -112,25 +113,31 @@ Detection steps:
 ## Prerequisites
 
 1. **Save GLM API key** (once):
+
    ```bash
    moai glm sk-your-glm-api-key
    ```
+
    Or set `GLM_API_KEY` environment variable.
 
 2. **Start tmux session** (required for CG mode):
+
    ```bash
    tmux new -s moai
    ```
 
 3. **Enable CG mode** (inside tmux):
+
    ```bash
    moai cg
    ```
 
 4. **Start Claude Code in the SAME pane** (critical):
+
    ```bash
    claude
    ```
+
    Starting Claude in a NEW pane would make it inherit GLM env.
 
 5. **Run workflow**:
@@ -142,13 +149,13 @@ Detection steps:
 
 `moai cg` injects these into the tmux session:
 
-| Variable | Value | Purpose |
-|----------|-------|---------|
-| ANTHROPIC_AUTH_TOKEN | GLM API key | Z.AI authentication |
-| ANTHROPIC_BASE_URL | https://api.z.ai/api/anthropic | Z.AI endpoint |
-| ANTHROPIC_DEFAULT_OPUS_MODEL | glm-5.1 | Opus model override |
-| ANTHROPIC_DEFAULT_SONNET_MODEL | glm-4.7 | Sonnet model override |
-| ANTHROPIC_DEFAULT_HAIKU_MODEL | glm-4.5-air | Haiku model override |
+| Variable                       | Value                          | Purpose               |
+| ------------------------------ | ------------------------------ | --------------------- |
+| ANTHROPIC_AUTH_TOKEN           | GLM API key                    | Z.AI authentication   |
+| ANTHROPIC_BASE_URL             | https://api.z.ai/api/anthropic | Z.AI endpoint         |
+| ANTHROPIC_DEFAULT_OPUS_MODEL   | glm-5.1                        | Opus model override   |
+| ANTHROPIC_DEFAULT_SONNET_MODEL | glm-4.7                        | Sonnet model override |
+| ANTHROPIC_DEFAULT_HAIKU_MODEL  | glm-4.5-air                    | Haiku model override  |
 
 These are set via `tmux set-environment` (session-level, not global).
 
@@ -163,35 +170,35 @@ CG mode uses standard Agent Teams with tmux display:
 
 Agent model mapping in CG mode:
 
-| Agent | Pane | API | Model |
-|-------|------|-----|-------|
-| Leader (MoAI) | Original | Claude | User's choice (Opus/Sonnet) |
-| team-coder | New pane | Z.AI | glm-5.1 / glm-4.7 |
-| team-tester | New pane | Z.AI | glm-5.1 / glm-4.7 |
-| team-designer | New pane | Z.AI | glm-5.1 / glm-4.7 |
-| team-reader | New pane | Z.AI | glm-4.7-flashx |
-| team-validator | New pane | Z.AI | glm-4.7-flashx |
+| Agent          | Pane     | API    | Model                       |
+| -------------- | -------- | ------ | --------------------------- |
+| Leader (MoAI)  | Original | Claude | User's choice (Opus/Sonnet) |
+| team-coder     | New pane | Z.AI   | glm-5.1 / glm-4.7           |
+| team-tester    | New pane | Z.AI   | glm-5.1 / glm-4.7           |
+| team-designer  | New pane | Z.AI   | glm-5.1 / glm-4.7           |
+| team-reader    | New pane | Z.AI   | glm-4.7-flashx              |
+| team-validator | New pane | Z.AI   | glm-4.7-flashx              |
 
 ## Error Recovery
 
-| Failure | Recovery |
-|---------|----------|
-| Not in tmux | Error: "CG mode requires a tmux session" |
-| No API key | Error: "Run moai glm <api-key> first" |
-| Teammate spawn failure | Falls back to sub-agent mode |
-| tmux env injection failure | Fatal for CG mode (retry tmux session) |
-| Quality gate failure | Leader creates fix task or manual intervention |
+| Failure                    | Recovery                                       |
+| -------------------------- | ---------------------------------------------- |
+| Not in tmux                | Error: "CG mode requires a tmux session"       |
+| No API key                 | Error: "Run moai glm <api-key> first"          |
+| Teammate spawn failure     | Falls back to sub-agent mode                   |
+| tmux env injection failure | Fatal for CG mode (retry tmux session)         |
+| Quality gate failure       | Leader creates fix task or manual intervention |
 
 ## Comparison with Other Modes
 
-| Aspect | CG Mode | GLM-only Mode | Sub-agent Mode | Agent Teams Mode |
-|--------|---------|---------------|----------------|------------------|
-| APIs | Claude + GLM | GLM only | Claude only | Claude only |
-| Cost | Lowest | Low | Medium | Highest |
-| Quality | Highest (Claude leads) | Medium | High | High |
-| Parallelism | Parallel (Agent Teams) | Parallel (Agent Teams) | Sequential | Parallel |
-| Requires tmux | Yes | No (recommended) | No | No |
-| Isolation | tmux panes | tmux panes / in-process | None | File ownership |
+| Aspect        | CG Mode                | GLM-only Mode           | Sub-agent Mode | Agent Teams Mode |
+| ------------- | ---------------------- | ----------------------- | -------------- | ---------------- |
+| APIs          | Claude + GLM           | GLM only                | Claude only    | Claude only      |
+| Cost          | Lowest                 | Low                     | Medium         | Highest          |
+| Quality       | Highest (Claude leads) | Medium                  | High           | High             |
+| Parallelism   | Parallel (Agent Teams) | Parallel (Agent Teams)  | Sequential     | Parallel         |
+| Requires tmux | Yes                    | No (recommended)        | No             | No               |
+| Isolation     | tmux panes             | tmux panes / in-process | None           | File ownership   |
 
 ## Cleanup
 
@@ -202,6 +209,7 @@ moai cc
 ```
 
 This command:
+
 - Removes GLM env from settings.local.json
 - Unsets tmux session GLM env vars
 - Resets team_mode to empty in llm.yaml

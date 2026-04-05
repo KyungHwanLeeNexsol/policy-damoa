@@ -21,16 +21,16 @@ skills:
   - moai-workflow-testing
 hooks:
   PreToolUse:
-    - matcher: "Write|Edit"
+    - matcher: 'Write|Edit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" frontend-validation"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" frontend-validation'
           timeout: 5
   PostToolUse:
-    - matcher: "Write|Edit"
+    - matcher: 'Write|Edit'
       hooks:
         - type: command
-          command: "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh\" frontend-verification"
+          command: '"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-agent-hook.sh" frontend-verification'
           timeout: 15
 ---
 
@@ -312,6 +312,7 @@ This agent uses Pencil MCP for all UI/UX design tasks. Pencil is a Design-as-Cod
 Pencil MCP server starts automatically when Pencil is running (IDE extension or desktop app). No manual MCP configuration is needed.
 
 Requirements:
+
 - Pencil installed (VS Code/Cursor extension or desktop app)
 - Claude Code CLI authenticated
 - A `.pen` file in the project workspace
@@ -319,17 +320,20 @@ Requirements:
 ### Pencil MCP Tools Reference
 
 Design Operations:
+
 - batch_design: Create, modify, and manipulate design elements (insert, copy, update, replace, move, delete, generate images). Maximum 25 operations per call.
 - batch_get: Read nodes by searching patterns or by node IDs. Use for discovering and understanding .pen file structure.
 - open_document: Open an existing .pen file or create a new one (pass 'new' for new file).
 
 Analysis and Inspection:
+
 - get_editor_state: Get current editor context, active file, user selection. Always call this first.
 - get_screenshot: Render visual preview of nodes. Use periodically to validate design output.
 - snapshot_layout: Analyze computed layout rectangles to find positioning issues and decide where to insert new nodes.
 - find_empty_space_on_canvas: Find empty areas on canvas for placing new elements.
 
 Styling and Theming:
+
 - get_guidelines: Get design rules for specific topics (code, table, tailwind, landing-page). Only use available topics.
 - get_style_guide_tags: Discover available style guide tags for design inspiration.
 - get_style_guide: Get a style guide by tags or name. Use when designing screens, websites, apps, or dashboards.
@@ -337,32 +341,38 @@ Styling and Theming:
 - set_variables: Add or update design variables (design tokens, theme values).
 
 Bulk Operations:
+
 - search_all_unique_properties: Search for unique property values across entire node tree.
 - replace_all_matching_properties: Replace matching properties across the node tree for bulk updates.
 
 ### Design Workflow with Pencil
 
 Step 1: Initialize
+
 - Call get_editor_state to understand current context
 - If no .pen file is open, use open_document to create or open one
 - Call get_guidelines for relevant design rules (tailwind, landing-page, etc.)
 
 Step 2: Style Foundation
+
 - Use get_style_guide_tags to discover available style options
 - Call get_style_guide with relevant tags for design inspiration
 - Set up design tokens with set_variables (colors, spacing, typography)
 
 Step 3: Design Creation
+
 - Use batch_design to create the design with insert operations
 - Use snapshot_layout to verify positioning
 - Use get_screenshot to validate visual output
 
 Step 4: Iteration and Refinement
+
 - Use batch_get to inspect current structure
 - Use batch_design with update/replace operations to refine
 - Use get_screenshot after each round of changes
 
 Step 5: Code Export
+
 - Use AI prompt (Cmd/Ctrl + K) to generate code from design
 - Supported frameworks: React, Next.js, Vue, Svelte, HTML/CSS
 - Supported styling: Tailwind CSS, CSS Modules, Styled Components
@@ -371,6 +381,7 @@ Step 5: Code Export
 ### Variables and Design Tokens
 
 Pencil variables function as design tokens (similar to CSS custom properties):
+
 - Import from CSS: Extract variables from globals.css automatically
 - Import from existing designs: Copy/paste token data
 - Manual creation: Define custom variables for themes
@@ -380,6 +391,7 @@ Pencil variables function as design tokens (similar to CSS custom properties):
 ### Available UI Kits
 
 Pencil provides pre-built design kits:
+
 - Shadcn UI: Popular React component library
 - Halo: Modern design system
 - Lunaris: Versatile design system
@@ -388,18 +400,21 @@ Pencil provides pre-built design kits:
 ### Pencil Design Best Practices
 
 Prompting Guidelines:
+
 - Be specific about layout, spacing, and colors rather than vague descriptions
 - Reference design system variables when available
 - Specify framework and component library in code generation prompts
 - Build iteratively: start broad, then refine details
 
 File Management:
+
 - Store .pen files alongside code in project repository
 - Use descriptive names (dashboard.pen, components.pen, login-page.pen)
 - Save frequently (no auto-save yet) with Cmd/Ctrl + S
 - Commit .pen files to Git like code files for version history
 
 Design-to-Code Workflow:
+
 - Keep .pen files in the same workspace as source code
 - The AI agent can access both design and code simultaneously
 - Specify icon libraries in prompts (Lucide, Heroicons) for code generation

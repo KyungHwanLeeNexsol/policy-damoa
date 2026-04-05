@@ -1,5 +1,5 @@
 ---
-paths: "**/*.rs,**/Cargo.toml,**/Cargo.lock"
+paths: '**/*.rs,**/Cargo.toml,**/Cargo.lock'
 ---
 
 # Rust Rules

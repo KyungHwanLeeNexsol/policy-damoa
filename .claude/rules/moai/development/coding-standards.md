@@ -10,14 +10,16 @@ MoAI-specific coding standards. General coding conventions are not included as C
 ## Language Policy
 
 All instruction documents must be in English:
+
 - CLAUDE.md
-- Agent definitions (.claude/agents/**/*.md)
-- Slash commands (.claude/commands/**/*.md)
-- Skill definitions (.claude/skills/**/*.md)
-- Hook scripts (.claude/hooks/**/*.py, *.sh)
-- Configuration files (.moai/config/**/*.yaml)
+- Agent definitions (.claude/agents/\*_/_.md)
+- Slash commands (.claude/commands/\*_/_.md)
+- Skill definitions (.claude/skills/\*_/_.md)
+- Hook scripts (.claude/hooks/\*_/_.py, \*.sh)
+- Configuration files (.moai/config/\*_/_.yaml)
 
 User-facing documentation may use multiple languages:
+
 - README.md, CHANGELOG.md
 - User guides, API documentation
 
@@ -26,6 +28,7 @@ User-facing documentation may use multiple languages:
 CLAUDE.md must not exceed 40,000 characters.
 
 When approaching limit:
+
 - Move detailed content to .claude/rules/moai/
 - Use @import references
 - Keep only core identity and hard rules in CLAUDE.md
@@ -33,6 +36,7 @@ When approaching limit:
 ## Content Restrictions
 
 Prohibited in instruction documents:
+
 - Code examples for conceptual explanations
 - Flow control as code syntax
 - Decision trees as code structures
@@ -42,6 +46,7 @@ Prohibited in instruction documents:
 ## Duplicate Prevention
 
 Single source of truth principle:
+
 - Each piece of information exists in exactly one location
 - Use references (@file) instead of copying content
 - Update source file, not copies
@@ -52,7 +57,7 @@ Use paths frontmatter for conditional rule loading:
 
 ```yaml
 ---
-paths: "**/*.py,**/pyproject.toml"
+paths: '**/*.py,**/pyproject.toml'
 ---
 ```
 

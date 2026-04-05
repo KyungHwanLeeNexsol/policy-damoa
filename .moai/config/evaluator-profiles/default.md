@@ -4,12 +4,12 @@ Standard skeptical evaluation for general-purpose code review.
 
 ## Evaluation Weights
 
-| Dimension | Weight | Threshold |
-|-----------|--------|-----------|
-| Functionality | 40% | All acceptance criteria PASS |
-| Security | 25% | No Critical/High findings |
-| Craft | 20% | Coverage >= 85% |
-| Consistency | 15% | No major pattern violations |
+| Dimension     | Weight | Threshold                    |
+| ------------- | ------ | ---------------------------- |
+| Functionality | 40%    | All acceptance criteria PASS |
+| Security      | 25%    | No Critical/High findings    |
+| Craft         | 20%    | Coverage >= 85%              |
+| Consistency   | 15%    | No major pattern violations  |
 
 ## Hard Thresholds
 

@@ -51,7 +51,9 @@ Template engines that generate code at runtime (such as eval-based templating) c
 ```html
 <!-- WRONG: Inline script -->
 <button onclick="handleClick()">Click</button>
-<script>var x = 1;</script>
+<script>
+  var x = 1;
+</script>
 
 <!-- CORRECT: External script with addEventListener -->
 <button id="my-btn">Click</button>
@@ -123,7 +125,7 @@ Request permissions at runtime when the user first needs the feature. This reduc
 // Request optional permission when user enables a feature
 async function enableBookmarksFeature() {
   const granted = await chrome.permissions.request({
-    permissions: ['bookmarks']
+    permissions: ['bookmarks'],
   });
 
   if (granted) {
@@ -168,7 +170,7 @@ const MESSAGE_SCHEMAS = {
   'save-data': {
     required: ['key', 'value'],
     types: { key: 'string', value: 'object' },
-    validate: (msg) => msg.key.length <= 100 && msg.key.match(/^[a-zA-Z0-9_-]+$/)
+    validate: (msg) => msg.key.length <= 100 && msg.key.match(/^[a-zA-Z0-9_-]+$/),
   },
   'fetch-url': {
     required: ['url'],
@@ -177,9 +179,11 @@ const MESSAGE_SCHEMAS = {
       try {
         const url = new URL(msg.url);
         return url.protocol === 'https:';
-      } catch { return false; }
-    }
-  }
+      } catch {
+        return false;
+      }
+    },
+  },
 };
 
 function validateMessage(message) {
@@ -229,8 +233,8 @@ function isAllowedURL(urlString) {
   try {
     const url = new URL(urlString);
     if (url.protocol !== 'https:') return false;
-    return ALLOWED_DOMAINS.some(domain =>
-      url.hostname === domain || url.hostname.endsWith(`.${domain}`)
+    return ALLOWED_DOMAINS.some(
+      (domain) => url.hostname === domain || url.hostname.endsWith(`.${domain}`)
     );
   } catch {
     return false;
@@ -262,8 +266,20 @@ function createSafeElement(tag, attributes, textContent) {
   const el = document.createElement(tag);
   for (const [key, value] of Object.entries(attributes)) {
     // Only allow safe attributes
-    const safeAttrs = ['class', 'id', 'data-', 'aria-', 'role', 'type', 'name', 'value', 'placeholder'];
-    if (safeAttrs.some(safe => key === safe || key.startsWith('data-') || key.startsWith('aria-'))) {
+    const safeAttrs = [
+      'class',
+      'id',
+      'data-',
+      'aria-',
+      'role',
+      'type',
+      'name',
+      'value',
+      'placeholder',
+    ];
+    if (
+      safeAttrs.some((safe) => key === safe || key.startsWith('data-') || key.startsWith('aria-'))
+    ) {
       el.setAttribute(key, String(value));
     }
   }
@@ -305,17 +321,17 @@ In content scripts injected into web pages:
 
 ```javascript
 // UNSAFE patterns - never do these
-element.innerHTML = userData;                    // XSS
-element.insertAdjacentHTML('beforeend', data);  // XSS
-document.write(content);                        // XSS
-eval(messageData);                              // Code injection
-new Function(dynamicCode)();                    // Code injection
-setTimeout(stringCode, 0);                      // Code injection
+element.innerHTML = userData; // XSS
+element.insertAdjacentHTML('beforeend', data); // XSS
+document.write(content); // XSS
+eval(messageData); // Code injection
+new Function(dynamicCode)(); // Code injection
+setTimeout(stringCode, 0); // Code injection
 
 // SAFE patterns
-element.textContent = userData;                 // Safe
-element.setAttribute('title', userData);        // Safe for most attributes
-const el = document.createElement('span');      // Safe DOM construction
+element.textContent = userData; // Safe
+element.setAttribute('title', userData); // Safe for most attributes
+const el = document.createElement('span'); // Safe DOM construction
 el.textContent = userData;
 element.appendChild(el);
 ```

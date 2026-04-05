@@ -9,13 +9,13 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-02-10"
-  modularized: "true"
-  tags: "foundation, critical-thinking, brainstorming, ideation, evaluation, creative-thinking, diverge-converge"
-  related-skills: "moai-foundation-philosopher"
+  version: '1.0.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-02-10'
+  modularized: 'true'
+  tags: 'foundation, critical-thinking, brainstorming, ideation, evaluation, creative-thinking, diverge-converge'
+  related-skills: 'moai-foundation-philosopher'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,13 +25,31 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["brainstorm", "ideation", "creative", "evaluate", "critical thinking", "diverge", "converge", "generate ideas", "explore options", "question", "deep analysis", "problem exploration", "solution space", "scoring", "clustering", "prioritize"]
+  keywords:
+    [
+      'brainstorm',
+      'ideation',
+      'creative',
+      'evaluate',
+      'critical thinking',
+      'diverge',
+      'converge',
+      'generate ideas',
+      'explore options',
+      'question',
+      'deep analysis',
+      'problem exploration',
+      'solution space',
+      'scoring',
+      'clustering',
+      'prioritize',
+    ]
   agents:
-    - "manager-strategy"
-    - "manager-spec"
-    - "team-reader"
+    - 'manager-strategy'
+    - 'manager-spec'
+    - 'team-reader'
   phases:
-    - "plan"
+    - 'plan'
 ---
 
 # MoAI Foundation Thinking
@@ -45,6 +63,7 @@ Core Philosophy: Generate broadly, evaluate rigorously, question deeply. Creativ
 What is the Thinking Toolkit?
 
 Three integrated frameworks for structured thinking:
+
 - Critical Evaluation: Rigorous 7-step analysis to assess proposals and detect flaws
 - Diverge-Converge: Systematic brainstorming from 20-50 raw ideas to 3-5 validated solutions
 - Deep Questioning: 6-layer progressive inquiry to uncover hidden requirements and risks
@@ -57,6 +76,7 @@ When to Use Each Framework:
 - Complex decisions: Combine all three (Question first, Generate second, Evaluate third)
 
 Quick Access:
+
 - Rigorous proposal assessment: [Critical Evaluation Module](modules/critical-evaluation.md)
 - Creative solution generation: [Diverge-Converge Module](modules/diverge-converge.md)
 - Progressive inquiry: [Deep Questioning Module](modules/deep-questioning.md)
@@ -86,6 +106,7 @@ Step 6 - Check Contradictions: Look for internal inconsistencies. Do different p
 Step 7 - Evaluate Burden of Proof: Determine if the evidence is proportional to the claim. Extraordinary claims require extraordinary evidence. Identify what additional evidence would strengthen or weaken the case.
 
 Output Format:
+
 - Evaluation Summary: Overall assessment (Strong, Moderate, Weak, Flawed)
 - Key Strengths: What holds up under scrutiny
 - Critical Gaps: What needs more evidence or revision
@@ -111,6 +132,7 @@ Phase 4 - Converge (Score and Select): Rate each cluster against success criteri
 Phase 5 - Document and Validate: Write up selected solutions with rationale. Define validation experiments for top candidates. Identify risks and mitigation strategies. Plan implementation sequence.
 
 Output Format:
+
 - Problem Statement: Clear definition of what we are solving
 - Idea Count: Total ideas generated and cluster distribution
 - Top Candidates: 3-5 selected solutions with scores
@@ -138,12 +160,14 @@ Layer 5 - Solution Exploration: What are the boundary conditions? What edge case
 Layer 6 - Validation and Risk: How will we know if the solution works? What could go wrong? What is the rollback strategy? What monitoring or alerting is needed?
 
 Progressive Depth Indicators:
+
 - Shallow: Only Layers 1-2 explored (common in quick tasks)
 - Moderate: Layers 1-4 explored (sufficient for most features)
 - Deep: All 6 layers explored (required for architecture decisions)
 - Exhaustive: All layers with multiple iterations (critical systems)
 
 Output Format:
+
 - Understanding Level: Shallow, Moderate, Deep, or Exhaustive
 - Key Discoveries: Insights from each explored layer
 - Open Questions: Remaining unknowns requiring further investigation
@@ -174,15 +198,18 @@ Architecture change: All three frameworks in full
 ## Integration with MoAI Workflow
 
 SPEC Phase (/moai plan):
+
 - Apply Deep Questioning during requirements gathering
 - Use Diverge-Converge for solution approach selection
 - Apply Critical Evaluation to finalize SPEC document
 
 Run Phase (/moai run):
+
 - Use Critical Evaluation when reviewing implementation options
 - Apply Deep Questioning when encountering unexpected complexity
 
 Agent Teams:
+
 - team-reader (analyst role): Primary user of Deep Questioning framework
 - team-reader (architect role): Primary user of Critical Evaluation framework
 - team-reader (researcher role): Uses all three for comprehensive analysis
@@ -192,23 +219,27 @@ Agent Teams:
 ## Works Well With
 
 Agents:
+
 - manager-strategy: Combined with Philosopher for full decision framework
 - manager-spec: Deep Questioning during requirement analysis
 - team-reader (analyst role): Primary consumer for plan phase analysis
 - team-reader (researcher role): Comprehensive research methodology
 
 Skills:
+
 - moai-foundation-philosopher: Complementary (Philosopher = strategic decisions, Thinking = creative analysis)
 - moai-foundation-core: Integration with SPEC workflow
 - moai-workflow-spec: Requirement documentation support
 
 Commands:
+
 - /moai plan: Apply thinking frameworks during specification
 - /moai run: Reference during implementation decisions
 
 ---
 
 Module Deep Dives:
+
 - [Critical Evaluation](modules/critical-evaluation.md)
 - [Diverge-Converge](modules/diverge-converge.md)
 - [Deep Questioning](modules/deep-questioning.md)

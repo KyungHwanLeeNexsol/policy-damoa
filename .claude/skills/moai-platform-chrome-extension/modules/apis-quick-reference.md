@@ -10,7 +10,7 @@ updated: 2026-02-01
 
 ## Overview
 
-This module provides a quick reference for the most commonly used chrome.* APIs in Manifest V3 extensions. Each section lists the required permission, key methods, events, and common usage patterns.
+This module provides a quick reference for the most commonly used chrome.\* APIs in Manifest V3 extensions. Each section lists the required permission, key methods, events, and common usage patterns.
 
 ## chrome.runtime
 
@@ -169,7 +169,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
 
 // Enable content script access to session storage
 await chrome.storage.session.setAccessLevel({
-  accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS'
+  accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS',
 });
 ```
 
@@ -210,7 +210,7 @@ chrome.action.onClicked.addListener(async (tab) => {
   // Only fires when no popup is set
   await chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    files: ['content/toggle.js']
+    files: ['content/toggle.js'],
   });
 });
 ```
@@ -244,7 +244,7 @@ const results = await chrome.scripting.executeScript({
   func: (greeting) => {
     return `${greeting}, page title is: ${document.title}`;
   },
-  args: ['Hello']
+  args: ['Hello'],
 });
 console.log(results[0].result); // "Hello, page title is: ..."
 ```
@@ -306,7 +306,7 @@ chrome.notifications.create('update-available', {
   iconUrl: 'icons/icon128.png',
   title: 'Update Available',
   message: 'A new version is ready to install.',
-  buttons: [{ title: 'Install Now' }, { title: 'Later' }]
+  buttons: [{ title: 'Install Now' }, { title: 'Later' }],
 });
 ```
 
@@ -334,13 +334,13 @@ chrome.contextMenus.onClicked fires when a menu item is clicked. Callback receiv
 chrome.contextMenus.create({
   id: 'search-selection',
   title: 'Search for "%s"',
-  contexts: ['selection']
+  contexts: ['selection'],
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === 'search-selection') {
     chrome.tabs.create({
-      url: `https://search.example.com?q=${encodeURIComponent(info.selectionText)}`
+      url: `https://search.example.com?q=${encodeURIComponent(info.selectionText)}`,
     });
   }
 });
@@ -371,7 +371,7 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
   await chrome.sidePanel.setOptions({
     tabId,
     path: 'sidepanel/tab-specific.html',
-    enabled: true
+    enabled: true,
   });
 });
 ```
@@ -399,16 +399,18 @@ Each rule has an id, priority, action (block, redirect, modifyHeaders, allow, up
 ```javascript
 // Block specific URLs dynamically
 await chrome.declarativeNetRequest.updateDynamicRules({
-  addRules: [{
-    id: 1,
-    priority: 1,
-    action: { type: 'block' },
-    condition: {
-      urlFilter: 'tracking.example.com',
-      resourceTypes: ['script', 'xmlhttprequest']
-    }
-  }],
-  removeRuleIds: []
+  addRules: [
+    {
+      id: 1,
+      priority: 1,
+      action: { type: 'block' },
+      condition: {
+        urlFilter: 'tracking.example.com',
+        resourceTypes: ['script', 'xmlhttprequest'],
+      },
+    },
+  ],
+  removeRuleIds: [],
 });
 ```
 

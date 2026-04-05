@@ -1,5 +1,5 @@
 ---
-paths: "**/*.cs,**/*.csproj,**/*.sln"
+paths: '**/*.cs,**/*.csproj,**/*.sln'
 ---
 
 # C# Rules
@@ -33,10 +33,10 @@ Version: C# 12 / .NET 8
 
 ## File Conventions
 
-- *Tests.cs for test files
+- \*Tests.cs for test files
 - One type per file
 - Use PascalCase for public members
-- Use camelCase for private fields (with _prefix)
+- Use camelCase for private fields (with \_prefix)
 - Match namespace to folder structure
 
 ## Testing

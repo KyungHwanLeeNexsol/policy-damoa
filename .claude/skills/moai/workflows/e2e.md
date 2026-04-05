@@ -6,12 +6,12 @@ description: >
   and automated test execution with intelligent tool selection.
 user-invocable: false
 metadata:
-  version: "2.7.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "e2e, end-to-end, testing, browser, playwright, chrome, agent-browser, user-journey"
-  context7-libraries: "microsoft/playwright"
+  version: '2.7.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'e2e, end-to-end, testing, browser, playwright, chrome, agent-browser, user-journey'
+  context7-libraries: 'microsoft/playwright'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,10 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["e2e", "end-to-end", "e2e test", "browser test", "playwright", "agent-browser", "user journey"]
-  agents: ["expert-testing", "expert-frontend"]
-  phases: ["e2e"]
+  keywords:
+    ['e2e', 'end-to-end', 'e2e test', 'browser test', 'playwright', 'agent-browser', 'user journey']
+  agents: ['expert-testing', 'expert-frontend']
+  phases: ['e2e']
 ---
 
 # Workflow: E2E - End-to-End Testing
@@ -47,18 +48,18 @@ Flow: Tool Selection -> Installation -> Journey Mapping -> Test Script Creation 
 
 ### Tool Comparison
 
-| Feature | Agent Browser | Playwright CLI | Claude in Chrome |
-|---------|--------------|----------------|------------------|
-| **Token Cost** | Low (CLI output) | Low (CLI output) | High (MCP round-trips) |
-| **Setup** | npm install | npx playwright install | Chrome extension required |
-| **Headless** | Yes | Yes | No (requires visible Chrome) |
-| **Cross-Browser** | Chromium only | Chromium, Firefox, WebKit | Chrome only |
-| **GIF Recording** | Via Playwright trace | Via Playwright trace | Via mcp__claude-in-chrome__gif_creator |
-| **AI Navigation** | Built-in AI agent | Script-based | MCP tool-based AI |
-| **Best For** | AI-driven exploration | Deterministic test suites | Interactive debugging |
-| **Install Size** | ~50MB | ~200MB | N/A (extension) |
-| **CI/CD** | Yes | Yes | No |
-| **Source** | github.com/vercel-labs/agent-browser | playwright.dev | Built-in MCP |
+| Feature           | Agent Browser                        | Playwright CLI            | Claude in Chrome                       |
+| ----------------- | ------------------------------------ | ------------------------- | -------------------------------------- |
+| **Token Cost**    | Low (CLI output)                     | Low (CLI output)          | High (MCP round-trips)                 |
+| **Setup**         | npm install                          | npx playwright install    | Chrome extension required              |
+| **Headless**      | Yes                                  | Yes                       | No (requires visible Chrome)           |
+| **Cross-Browser** | Chromium only                        | Chromium, Firefox, WebKit | Chrome only                            |
+| **GIF Recording** | Via Playwright trace                 | Via Playwright trace      | Via mcp**claude-in-chrome**gif_creator |
+| **AI Navigation** | Built-in AI agent                    | Script-based              | MCP tool-based AI                      |
+| **Best For**      | AI-driven exploration                | Deterministic test suites | Interactive debugging                  |
+| **Install Size**  | ~50MB                                | ~200MB                    | N/A (extension)                        |
+| **CI/CD**         | Yes                                  | Yes                       | No                                     |
+| **Source**        | github.com/vercel-labs/agent-browser | playwright.dev            | Built-in MCP                           |
 
 ### Auto-Detection Priority
 
@@ -66,7 +67,7 @@ When --tool flag is not provided, auto-detect in this order:
 
 1. Check if `agent-browser` is installed: `npx agent-browser --version` or `bunx agent-browser --version`
 2. Check if Playwright is installed: `npx playwright --version` or `bunx playwright --version`
-3. Check if Chrome MCP is available: Verify mcp__claude-in-chrome tools exist
+3. Check if Chrome MCP is available: Verify mcp\_\_claude-in-chrome tools exist
 
 Detection results are used to mark availability status in AskUserQuestion options.
 
@@ -74,14 +75,14 @@ Detection results are used to mark availability status in AskUserQuestion option
 
 [HARD] Always present tool selection to user via AskUserQuestion. The recommendation logic below determines which option is marked "(Recommended)":
 
-| Condition | Recommended Tool | Rationale |
-|-----------|-----------------|-----------|
-| --record flag with no specific tool | Claude in Chrome | Best GIF recording via MCP |
-| CI/CD environment detected | Playwright CLI | Most reliable headless support |
-| Journey requires AI exploration | Agent Browser | Built-in AI navigation |
-| Deterministic test suite needed | Playwright CLI | Most stable, cross-browser |
-| Interactive debugging | Claude in Chrome | Visual real-time feedback |
-| Default (no special condition) | Playwright CLI | Best balance of features and token efficiency |
+| Condition                           | Recommended Tool | Rationale                                     |
+| ----------------------------------- | ---------------- | --------------------------------------------- |
+| --record flag with no specific tool | Claude in Chrome | Best GIF recording via MCP                    |
+| CI/CD environment detected          | Playwright CLI   | Most reliable headless support                |
+| Journey requires AI exploration     | Agent Browser    | Built-in AI navigation                        |
+| Deterministic test suite needed     | Playwright CLI   | Most stable, cross-browser                    |
+| Interactive debugging               | Claude in Chrome | Visual real-time feedback                     |
+| Default (no special condition)      | Playwright CLI   | Best balance of features and token efficiency |
 
 ## Phase 0: Tool Selection & Installation
 
@@ -90,9 +91,10 @@ Detection results are used to mark availability status in AskUserQuestion option
 [HARD] Delegate tool detection to the expert-testing subagent.
 
 Detection commands (run in parallel):
+
 - Agent Browser: `npx agent-browser --version 2>/dev/null || echo "not-installed"`
 - Playwright: `npx playwright --version 2>/dev/null || echo "not-installed"`
-- Chrome MCP: Check if mcp__claude-in-chrome tools are available in current session
+- Chrome MCP: Check if mcp\_\_claude-in-chrome tools are available in current session
 
 ### Step 0.2: User Selection
 
@@ -113,6 +115,7 @@ Mark the recommended tool with "(Recommended)" based on the Recommendation Logic
 If selected tool is not installed:
 
 **Playwright Installation:**
+
 ```bash
 # Node.js project
 npx playwright install --with-deps chromium
@@ -124,6 +127,7 @@ npx playwright install --with-deps
 ```
 
 **Agent Browser Installation:**
+
 ```bash
 # Install globally
 npm install -g agent-browser
@@ -135,6 +139,7 @@ npx agent-browser --version
 ```
 
 **Claude in Chrome:** No installation needed (built-in MCP). If Chrome MCP tools are not available, inform user to:
+
 - Install Claude Code Chrome extension
 - Open Chrome browser
 - Connect via Claude Code
@@ -144,6 +149,7 @@ After installation, verify the tool works with a simple test before proceeding.
 ### Skill Reference
 
 For Playwright best practices and patterns, reference: Skill("moai-workflow-testing") which includes:
+
 - playwright-best-practices.md: Page Object Model, cross-browser strategy, performance integration
 - Context7 integration: `microsoft/playwright` library ID for latest API patterns
 
@@ -156,6 +162,7 @@ If --journey flag: Load the specified journey definition and skip to Phase 2.
 If no --journey flag: Analyze the application to identify key user journeys.
 
 Journey Discovery:
+
 - Read project documentation (.moai/project/product.md) for feature descriptions
 - Analyze route definitions (routes.ts, urls.py, router.go) for available paths
 - Identify form elements, authentication flows, and CRUD operations
@@ -168,9 +175,11 @@ Present discovered journeys via AskUserQuestion:
 - Define custom journey: Describe a custom user journey to test. MoAI will create the test script based on your description.
 
 Journey Definition Format:
+
 ```markdown
 Journey: User Login
 Steps:
+
 1. Navigate to /login
 2. Enter email in #email field
 3. Enter password in #password field
@@ -188,11 +197,13 @@ Steps:
 Generate Playwright test files following project conventions:
 
 Test File Naming:
+
 - TypeScript: `e2e/{journey-name}.spec.ts`
 - JavaScript: `e2e/{journey-name}.spec.js`
 - Python: `e2e/test_{journey_name}.py`
 
 Include:
+
 - Page Object Model pattern (reference playwright-best-practices.md)
 - Setup and teardown fixtures
 - Step-by-step assertions with descriptive names
@@ -207,6 +218,7 @@ Generate Agent Browser task definitions:
 Task File: `e2e/{journey-name}.agent.ts` or `e2e/{journey-name}.agent.js`
 
 Include:
+
 - Natural language instruction for each journey step
 - Validation assertions for expected outcomes
 - Fallback instructions for alternative UI layouts
@@ -223,6 +235,7 @@ No test script files generated. Instead, create journey step definitions as stru
 ### Playwright CLI Execution
 
 Run via CLI (token-efficient - CLI output only, no MCP round-trips):
+
 ```bash
 # Run all E2E tests
 npx playwright test e2e/
@@ -242,6 +255,7 @@ Parse CLI output for results. No MCP tokens consumed.
 ### Agent Browser Execution
 
 Run via CLI:
+
 ```bash
 # Run with natural language task
 npx agent-browser --task "Navigate to {url} and {journey_steps}"
@@ -258,14 +272,16 @@ Parse CLI output for results. Agent Browser handles AI navigation internally.
 ### Claude in Chrome Execution
 
 Execute via MCP tools (higher token cost but real-time interaction):
-- mcp__claude-in-chrome__navigate: Page navigation
-- mcp__claude-in-chrome__find: Element location
-- mcp__claude-in-chrome__form_input: Form interaction
-- mcp__claude-in-chrome__computer: Click/keyboard interactions
-- mcp__claude-in-chrome__read_page: Content verification
-- mcp__claude-in-chrome__get_page_text: Full page text extraction
+
+- mcp**claude-in-chrome**navigate: Page navigation
+- mcp**claude-in-chrome**find: Element location
+- mcp**claude-in-chrome**form_input: Form interaction
+- mcp**claude-in-chrome**computer: Click/keyboard interactions
+- mcp**claude-in-chrome**read_page: Content verification
+- mcp**claude-in-chrome**get_page_text: Full page text extraction
 
 Execution flow per journey step:
+
 1. Navigate to URL
 2. Wait for page load (read_page to verify)
 3. Interact with elements (form_input, computer)
@@ -283,6 +299,7 @@ Execution flow per journey step:
 If --record flag:
 
 ### Playwright Recording
+
 ```bash
 # Generate trace (includes screenshots, network, console)
 npx playwright test --trace on
@@ -290,20 +307,24 @@ npx playwright test --trace on
 # View trace
 npx playwright show-trace trace.zip
 ```
+
 Trace files stored in `e2e/traces/` directory.
 
 ### Agent Browser Recording
+
 ```bash
 # With trace flag
 npx agent-browser --task "..." --trace --output e2e/recordings/
 ```
 
 ### Claude in Chrome Recording
-- Use mcp__claude-in-chrome__gif_creator to record browser interactions
+
+- Use mcp**claude-in-chrome**gif_creator to record browser interactions
 - Capture extra frames before and after actions for smooth playback
 - Generate GIF with meaningful filename: `e2e/recordings/{journey-name}.gif`
 
 Recording Best Practices:
+
 - Name files descriptively (e.g., "login_flow.gif", "checkout_process.gif")
 - Include timestamp in filename for versioning
 - Store all recordings in `e2e/recordings/` directory
@@ -318,21 +339,25 @@ Display E2E test results in user's conversation_language:
 ### Tool Used: {Playwright CLI | Agent Browser | Claude in Chrome}
 
 ### Results Summary
-| Journey | Status | Duration | Screenshots |
-|---------|--------|----------|-------------|
-| Login | PASS | 2.3s | 3 captured |
-| Checkout | FAIL | 5.1s | 4 captured |
+
+| Journey  | Status | Duration | Screenshots |
+| -------- | ------ | -------- | ----------- |
+| Login    | PASS   | 2.3s     | 3 captured  |
+| Checkout | FAIL   | 5.1s     | 4 captured  |
 
 ### Failures
+
 - Checkout (Step 4): Expected redirect to /confirmation but got /error
   - Screenshot: e2e/screenshots/checkout-step4.png
   - Error: TimeoutError: Navigation timeout of 30000ms exceeded
 
 ### Recordings (if --record)
+
 - e2e/recordings/login_flow.gif
 - e2e/recordings/checkout_process.gif
 
 ### Coverage
+
 - User journeys tested: 5/7
 - Critical paths covered: 3/3
 - Error scenarios tested: 2/4
@@ -348,6 +373,7 @@ Next Steps (AskUserQuestion):
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - Each user journey tracked as a pending task via TaskCreate
 - Before test execution: change to in_progress via TaskUpdate
 - After test passes: change to completed via TaskUpdate

@@ -353,9 +353,9 @@ const OptimizedProductList = memo(({ products, onProductClick }) => {
   const processedProducts = useMemo(() => {
     return products.map((product) => ({
       ...product,
-      formattedPrice: new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+      formattedPrice: new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
       }).format(product.price),
     }));
   }, [products]);
@@ -365,9 +365,9 @@ const OptimizedProductList = memo(({ products, onProductClick }) => {
     (product) => {
       onProductClick(product);
       // Track analytics
-      analytics.track("product_click", { productId: product.id });
+      analytics.track('product_click', { productId: product.id });
     },
-    [onProductClick],
+    [onProductClick]
   );
 
   return (
@@ -391,17 +391,17 @@ Bundle Optimization:
 module.exports = {
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: 'all',
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          chunks: "all",
+          name: 'vendors',
+          chunks: 'all',
         },
         common: {
-          name: "common",
+          name: 'common',
           minChunks: 2,
-          chunks: "all",
+          chunks: 'all',
           enforce: true,
         },
       },
@@ -413,7 +413,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
             cacheDirectory: true,
           },
@@ -594,18 +594,18 @@ Rust Formatting:
 ```yaml
 rust_formatting:
   tools:
-    - rustfmt: "Official Rust formatter"
-    - clippy: "Rust lints and optimization"
+    - rustfmt: 'Official Rust formatter'
+    - clippy: 'Rust lints and optimization'
 
   configuration:
   rustfmt:
-  edition: "2021"
+  edition: '2021'
   use_small_heuristics: true
-  width_heuristics: "MaxWidth(100)"
+  width_heuristics: 'MaxWidth(100)'
 
   clippy:
-  deny: ["warnings", "clippy::all"]
-  allow: ["clippy::too_many_arguments"]
+  deny: ['warnings', 'clippy::all']
+  allow: ['clippy::too_many_arguments']
 ```
 
 ````
@@ -793,27 +793,23 @@ Frontend Debugging Patterns:
 const ReactDebugPatterns = {
   // Component debugging
   componentDebug: {
-    tools: ["React DevTools", "Console logging", "Error boundaries"],
-    commonIssues: ["State updates", "Prop drilling", "Rendering cycles"],
-    strategies: ["State inspection", "Prop tracing", "Performance profiling"],
+    tools: ['React DevTools', 'Console logging', 'Error boundaries'],
+    commonIssues: ['State updates', 'Prop drilling', 'Rendering cycles'],
+    strategies: ['State inspection', 'Prop tracing', 'Performance profiling'],
   },
 
   // State management debugging
   stateDebug: {
-    tools: ["Redux DevTools", "React Query DevTools", "Console"],
-    commonIssues: ["State mutations", "Async state", "Cache invalidation"],
-    strategies: ["Time travel debugging", "State snapshots", "Action tracing"],
+    tools: ['Redux DevTools', 'React Query DevTools', 'Console'],
+    commonIssues: ['State mutations', 'Async state', 'Cache invalidation'],
+    strategies: ['Time travel debugging', 'State snapshots', 'Action tracing'],
   },
 
   // Performance debugging
   performanceDebug: {
-    tools: ["Chrome DevTools", "React Profiler", "Lighthouse"],
-    commonIssues: ["Render bottlenecks", "Memory leaks", "Bundle size"],
-    strategies: [
-      "Component profiling",
-      "Memory analysis",
-      "Bundle optimization",
-    ],
+    tools: ['Chrome DevTools', 'React Profiler', 'Lighthouse'],
+    commonIssues: ['Render bottlenecks', 'Memory leaks', 'Bundle size'],
+    strategies: ['Component profiling', 'Memory analysis', 'Bundle optimization'],
   },
 };
 ```

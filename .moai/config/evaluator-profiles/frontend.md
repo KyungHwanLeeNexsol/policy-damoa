@@ -4,15 +4,16 @@ UI/UX-focused evaluation with anti-AI-slop criteria for web frontend projects.
 
 ## Evaluation Weights
 
-| Dimension | Weight | Threshold |
-|-----------|--------|-----------|
-| Originality | 40% | No generic AI patterns detected |
-| Design Quality | 30% | Coherent typography, color, and layout |
-| Craft & Functionality | 30% | Accessibility (WCAG), responsive, usable |
+| Dimension             | Weight | Threshold                                |
+| --------------------- | ------ | ---------------------------------------- |
+| Originality           | 40%    | No generic AI patterns detected          |
+| Design Quality        | 30%    | Coherent typography, color, and layout   |
+| Craft & Functionality | 30%    | Accessibility (WCAG), responsive, usable |
 
 ## AI-Slop Detection (Penalize)
 
 The following patterns indicate generic AI-generated output and should be penalized:
+
 - Default Bootstrap/Tailwind card layouts without customization
 - Generic purple/blue gradient backgrounds
 - Stock hero sections with centered text + CTA button

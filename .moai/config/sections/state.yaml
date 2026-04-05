@@ -2,4 +2,4 @@
 # Session state directory for Claude Code sessions (diagnostics baseline, coverage, etc.)
 
 state:
-  state_dir: ".moai/state"
+  state_dir: '.moai/state'

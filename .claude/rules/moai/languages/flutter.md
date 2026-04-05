@@ -1,5 +1,5 @@
 ---
-paths: "**/*.dart,**/pubspec.yaml,**/pubspec.lock"
+paths: '**/*.dart,**/pubspec.yaml,**/pubspec.lock'
 ---
 
 # Flutter/Dart Rules
@@ -34,7 +34,7 @@ Version: Flutter 3.24+ / Dart 3.5+
 
 ## File Conventions
 
-- *_test.dart for test files
+- \*\_test.dart for test files
 - Use snake_case for file names
 - Use PascalCase for classes
 - Use camelCase for functions and variables

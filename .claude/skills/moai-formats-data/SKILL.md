@@ -10,17 +10,18 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.0.0"
-  category: "library"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "formats, data, toon, serialization, validation, optimization"
-  author: "MoAI-ADK Team"
+  version: '2.0.0'
+  category: 'library'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'formats, data, toon, serialization, validation, optimization'
+  author: 'MoAI-ADK Team'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["serialization", "data format", "json", "yaml", "toon", "validation", "schema", "optimization"]
+  keywords:
+    ['serialization', 'data format', 'json', 'yaml', 'toon', 'validation', 'schema', 'optimization']
 ---
 
 # Data Format Specialist

@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "agency"
-  status: "active"
-  updated: "2026-04-02"
-  evolution_count: "0"
-  confidence_score: "0.00"
-  base_context: "target-audience.md"
-  dependencies: ""
-  tags: "interview, discovery, context-gathering, client, onboarding, brief"
-  related-skills: "agency-copywriting"
+  version: '1.0.0'
+  category: 'agency'
+  status: 'active'
+  updated: '2026-04-02'
+  evolution_count: '0'
+  confidence_score: '0.00'
+  base_context: 'target-audience.md'
+  dependencies: ''
+  tags: 'interview, discovery, context-gathering, client, onboarding, brief'
+  related-skills: 'agency-copywriting'
 
 progressive_disclosure:
   enabled: true
@@ -26,9 +26,9 @@ progressive_disclosure:
   level2_tokens: 5000
 
 triggers:
-  keywords: ["interview", "brief", "discovery", "onboarding", "context", "client", "requirements"]
-  agents: ["planner", "copywriter"]
-  phases: ["plan"]
+  keywords: ['interview', 'brief', 'discovery', 'onboarding', 'context', 'client', 'requirements']
+  agents: ['planner', 'copywriter']
+  phases: ['plan']
 ---
 
 # Agency Client Interview Skill
@@ -44,10 +44,12 @@ Governs the client discovery process for AI Agency projects. Provides structured
 **Purpose**: Define interview question frameworks, context gathering strategies, and structured output formats for populating `.agency/context/` files during project onboarding.
 
 **Input Contract**:
+
 - User request (natural language description of desired project)
 - Existing `.agency/context/` files (may be empty on first run)
 
 **Output Contract**:
+
 - Populated `.agency/context/` files:
   - `brand-voice.md` — tone, style, language preferences
   - `target-audience.md` — customer personas, pain points
@@ -70,21 +72,16 @@ Governs the client discovery process for AI Agency projects. Provides structured
 ### Default Interview Flow
 
 **Phase 1: Business Context (3 questions)**
+
 1. What is the primary business objective for this project?
 2. Who is your target customer? (age, role, pain points)
 3. What does success look like? (specific KPIs if possible)
 
-**Phase 2: Brand Identity (3 questions)**
-4. How would you describe your brand voice? (3-5 adjectives)
-5. Are there reference sites or brands you admire?
-6. Any design preferences or constraints? (colors, style, existing brand guidelines)
+**Phase 2: Brand Identity (3 questions)** 4. How would you describe your brand voice? (3-5 adjectives) 5. Are there reference sites or brands you admire? 6. Any design preferences or constraints? (colors, style, existing brand guidelines)
 
-**Phase 3: Technical Scope (2 questions)**
-7. What pages/sections do you need?
-8. Any technical requirements? (framework, hosting, integrations)
+**Phase 3: Technical Scope (2 questions)** 7. What pages/sections do you need? 8. Any technical requirements? (framework, hosting, integrations)
 
-**Phase 4: Quality Expectations (1 question)**
-9. What matters most to you? (speed, design quality, mobile experience, SEO)
+**Phase 4: Quality Expectations (1 question)** 9. What matters most to you? (speed, design quality, mobile experience, SEO)
 
 ### Adaptive Behavior
 

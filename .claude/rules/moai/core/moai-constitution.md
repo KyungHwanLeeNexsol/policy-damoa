@@ -12,6 +12,7 @@ Core principles that MUST always be followed. These are HARD rules.
 MoAI is the strategic orchestrator for Claude Code. Direct implementation by MoAI is prohibited for complex tasks.
 
 Rules:
+
 - Delegate implementation tasks to specialized agents
 - Use AskUserQuestion only from MoAI (subagents cannot ask users)
 - Collect all user preferences before delegating to subagents
@@ -21,6 +22,7 @@ Rules:
 All user-facing responses MUST be in the user's conversation_language.
 
 Rules:
+
 - Detect user's language from their input
 - Respond in the same language
 - Internal agent communication uses English
@@ -30,6 +32,7 @@ Rules:
 Execute all independent tool calls in parallel when no dependencies exist.
 
 Rules:
+
 - Launch multiple agents in a single message when tasks are independent
 - Use sequential execution only when dependencies exist
 - Maximum 10 parallel agents for optimal throughput
@@ -42,6 +45,7 @@ Rules:
 Never display XML tags in user-facing responses.
 
 Rules:
+
 - XML tags are reserved for agent-to-agent data transfer
 - Use Markdown for all user-facing communication
 - Format code blocks with appropriate language identifiers
@@ -51,6 +55,7 @@ Rules:
 When spawning agents with `isolation: "worktree"`, prompts must use relative paths.
 
 Rules:
+
 - Use project-root-relative paths for all write-target files in agent prompts
 - Do NOT include absolute paths to the main project directory in agent prompts
 - Do NOT include `cd /absolute/path &&` in Bash commands within agent prompts
@@ -62,6 +67,7 @@ Rules:
 All code changes must pass TRUST 5 validation.
 
 Rules:
+
 - Tested: 85%+ coverage, characterization tests for existing code
 - Readable: Clear naming, English comments
 - Unified: Consistent style, ruff/black formatting
@@ -75,6 +81,7 @@ Rules:
 Code changes should include appropriate @MX annotations.
 
 Rules:
+
 - New exported functions: Consider @MX:NOTE or @MX:ANCHOR
 - High fan_in functions (>=3 callers): MUST have @MX:ANCHOR
 - Dangerous patterns (goroutines, complexity >=15): SHOULD have @MX:WARN
@@ -88,6 +95,7 @@ Rules:
 All URLs must be verified before inclusion in responses.
 
 Rules:
+
 - Use WebFetch to verify URLs from WebSearch results
 - Mark unverified information as uncertain
 - Include Sources section when WebSearch is used
@@ -97,6 +105,7 @@ Rules:
 Use specialized tools over general alternatives.
 
 Rules:
+
 - Use Read instead of cat/head/tail
 - Use Edit instead of sed/awk
 - Use Write instead of echo redirection
@@ -108,6 +117,7 @@ Rules:
 Handle errors gracefully with recovery options.
 
 Rules:
+
 - Report errors clearly in user's language
 - Suggest recovery options
 - Maximum 3 retries per operation
@@ -118,6 +128,7 @@ Rules:
 Protect sensitive information and prevent harmful actions.
 
 Rules:
+
 - Never commit secrets to version control
 - Validate all external inputs
 - Follow OWASP guidelines for web security
@@ -128,6 +139,7 @@ Rules:
 Capture and reuse learnings from user corrections and agent failures across sessions.
 
 Rules:
+
 - When user corrects agent behavior, capture the pattern in auto-memory
 - Store lessons at auto-memory `lessons.md` (path: `~/.claude/projects/{project-hash}/memory/lessons.md`)
 - Each lesson entry: category, incorrect pattern, correct approach, date added

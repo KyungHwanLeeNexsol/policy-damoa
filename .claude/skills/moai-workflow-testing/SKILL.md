@@ -9,15 +9,15 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Bash(pytest:*) Bash(ruff:*) Bash(npm:*) Bash(npx:*) Bash(node:*) Bash(jest:*) Bash(vitest:*) Bash(go:*) Bash(cargo:*) Bash(mix:*) Bash(uv:*) Bash(bundle:*) Bash(php:*) Bash(phpunit:*) Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.4.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-01-21"
-  modularized: "true"
-  tags: "workflow, ddd, testing, debugging, performance, quality, review, pr-review"
-  author: "MoAI-ADK Team"
-  context: "fork"
-  agent: "manager-ddd"
+  version: '2.4.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-01-21'
+  modularized: 'true'
+  tags: 'workflow, ddd, testing, debugging, performance, quality, review, pr-review'
+  author: 'MoAI-ADK Team'
+  context: 'fork'
+  agent: 'manager-ddd'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -27,9 +27,23 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["DDD", "domain-driven development", "characterization tests", "behavior preservation", "debugging", "performance optimization", "code review", "PR review", "quality assurance", "testing", "CI/CD", "TRUST 5"]
-  phases: ["run", "sync"]
-  agents: ["manager-ddd", "expert-testing", "expert-debug", "expert-performance", "manager-quality"]
+  keywords:
+    [
+      'DDD',
+      'domain-driven development',
+      'characterization tests',
+      'behavior preservation',
+      'debugging',
+      'performance optimization',
+      'code review',
+      'PR review',
+      'quality assurance',
+      'testing',
+      'CI/CD',
+      'TRUST 5',
+    ]
+  phases: ['run', 'sync']
+  agents: ['manager-ddd', 'expert-testing', 'expert-debug', 'expert-performance', 'manager-quality']
 ---
 
 # Development Workflow Specialist

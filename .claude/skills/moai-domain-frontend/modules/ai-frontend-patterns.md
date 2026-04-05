@@ -44,11 +44,13 @@ Ship at least 2-3 intentional motions for visually-led work. Use motion to creat
 For simpler frontend tasks, lower reasoning levels often produce stronger results. The model stays fast, focused, and less prone to overthinking layout decisions.
 
 Use higher reasoning for:
+
 - Complex state management logic
 - Multi-step form validation
 - Architectural decisions (routing, data flow)
 
 Use lower reasoning for:
+
 - Landing page layouts
 - Marketing pages
 - Simple component styling
@@ -59,6 +61,7 @@ Use lower reasoning for:
 Provide real copy, product context, or a clear project goal to improve frontend results. Generic placeholder text leads to generic-looking interfaces.
 
 For product UI, default to utility copy:
+
 - Prioritize orientation, status, and action
 - Section headings describe what the area is or what the user can do
 - Start with the working surface: KPIs, charts, filters, tables

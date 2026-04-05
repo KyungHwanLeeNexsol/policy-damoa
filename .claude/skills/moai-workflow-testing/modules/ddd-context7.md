@@ -102,24 +102,28 @@ The DDD Context7 integration provides:
 ### Core Modules
 
 **ANALYZE-PRESERVE-IMPROVE Implementation** (`ddd-context7/analyze-preserve-improve.md`)
+
 - DDD cycle implementation
 - Test execution and validation
 - Coverage analysis
 - Session management
 
 **Test Generation** (`ddd-context7/test-generation.md`)
+
 - AI-powered test generation
 - Specification-based generation
 - Context7-enhanced generation
 - Template-based generation
 
 **Test Patterns** (`ddd-context7/test-patterns.md`)
+
 - Testing patterns and best practices
 - Pytest fixtures and organization
 - Test discovery structure
 - Coverage configuration
 
 **Advanced Features** (`ddd-context7/advanced-features.md`)
+
 - Comprehensive test suite generation
 - Property-based testing
 - Mutation testing

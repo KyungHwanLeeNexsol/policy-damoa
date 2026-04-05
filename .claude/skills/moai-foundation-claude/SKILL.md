@@ -9,13 +9,13 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "5.0.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "foundation, claude-code, skills, sub-agents, plugins, slash-commands, hooks, memory, settings, sandboxing, headless, agent-patterns"
-  aliases: "moai-foundation-claude"
+  version: '5.0.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'foundation, claude-code, skills, sub-agents, plugins, slash-commands, hooks, memory, settings, sandboxing, headless, agent-patterns'
+  aliases: 'moai-foundation-claude'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,15 +25,31 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["skill", "agent", "plugin", "slash command", "hook", "sandbox", "headless", "memory", "settings", "claude code", "sub-agent", "agent pattern", "orchestration", "delegation"]
+  keywords:
+    [
+      'skill',
+      'agent',
+      'plugin',
+      'slash command',
+      'hook',
+      'sandbox',
+      'headless',
+      'memory',
+      'settings',
+      'claude code',
+      'sub-agent',
+      'agent pattern',
+      'orchestration',
+      'delegation',
+    ]
   agents:
-    - "builder-agent"
-    - "builder-skill"
-    - "builder-plugin"
+    - 'builder-agent'
+    - 'builder-skill'
+    - 'builder-plugin'
   phases:
-    - "plan"
-    - "run"
-    - "sync"
+    - 'plan'
+    - 'run'
+    - 'sync'
 ---
 
 # Claude Code Authoring Kit
@@ -77,7 +93,7 @@ Commands: User-invoked via /command. Parameters: $ARGUMENTS, $1, $2. File refs: 
 
 Hooks: Events in settings.json. PreToolUse, PostToolUse, SessionStart, SessionEnd, PreCompact, Notification.
 
-Memory: CLAUDE.md files + .claude/rules/*.md. Enterprise to Project to User hierarchy. @import syntax.
+Memory: CLAUDE.md files + .claude/rules/\*.md. Enterprise to Project to User hierarchy. @import syntax.
 
 Settings: 6-level hierarchy. Managed to file-managed to CLI to local to shared to user.
 
@@ -175,19 +191,23 @@ Worker agents: Execute focused tasks, return condensed summaries
 When using Explore agent or direct exploration tools (Grep, Glob, Read), apply these optimizations to prevent performance bottlenecks with GLM models:
 
 **AST-Grep Priority**
+
 - Use structural search (ast-grep) before text-based search (Grep)
 - Load moai-tool-ast-grep skill for complex pattern matching
 - Example: `sg -p 'class $X extends Service' --lang python` is faster than `grep -r "class.*extends.*Service"`
 
 **Search Scope Limitation**
+
 - Always use `path` parameter to limit search scope
 - Example: `Grep(pattern="func ", path="internal/core/")` instead of `Grep(pattern="async def")`
 
 **File Pattern Specificity**
+
 - Use specific Glob patterns instead of wildcards
 - Example: `Glob(pattern="internal/core/*.go")` instead of `Glob(pattern="src/**/*.py")`
 
 **Parallel Processing**
+
 - Execute independent searches in parallel (single message, multiple tool calls)
 - Maximum 5 parallel searches to prevent context fragmentation
 

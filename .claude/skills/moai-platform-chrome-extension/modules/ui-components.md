@@ -38,25 +38,25 @@ Configure the popup in manifest.json under the action field. Set default_popup t
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="popup.css">
-</head>
-<body>
-  <div class="container">
-    <header class="header">
-      <h1>Extension Name</h1>
-    </header>
-    <main id="content">
-      <div class="loading">Loading...</div>
-    </main>
-    <footer class="footer">
-      <button id="options-btn">Settings</button>
-    </footer>
-  </div>
-  <script src="popup.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Extension Name</h1>
+      </header>
+      <main id="content">
+        <div class="loading">Loading...</div>
+      </main>
+      <footer class="footer">
+        <button id="options-btn">Settings</button>
+      </footer>
+    </div>
+    <script src="popup.js"></script>
+  </body>
 </html>
 ```
 
@@ -114,7 +114,7 @@ function setupEventListeners() {
 function handleItemClick(item) {
   chrome.runtime.sendMessage({
     action: 'process-item',
-    itemId: item.id
+    itemId: item.id,
   });
   window.close(); // Close popup after action
 }
@@ -134,7 +134,10 @@ body {
   width: 360px;
   min-height: 200px;
   max-height: 600px;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   font-size: 14px;
   color: #333;
   overflow-y: auto;
@@ -236,20 +239,20 @@ The side panel provides a persistent UI surface alongside web content. Unlike po
 <!-- sidepanel/sidepanel.html -->
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="sidepanel.css">
-</head>
-<body>
-  <div class="panel">
-    <header>
-      <h1>Side Panel</h1>
-      <div id="tab-info"></div>
-    </header>
-    <main id="content"></main>
-  </div>
-  <script src="sidepanel.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <div class="panel">
+      <header>
+        <h1>Side Panel</h1>
+        <div id="tab-info"></div>
+      </header>
+      <main id="content"></main>
+    </div>
+    <script src="sidepanel.js"></script>
+  </body>
 </html>
 ```
 
@@ -299,19 +302,19 @@ chrome.tabs.onActivated.addListener(async ({ tabId }) => {
     await chrome.sidePanel.setOptions({
       tabId,
       path: 'sidepanel/github.html',
-      enabled: true
+      enabled: true,
     });
   } else if (url.hostname.includes('docs.google.com')) {
     await chrome.sidePanel.setOptions({
       tabId,
       path: 'sidepanel/docs.html',
-      enabled: true
+      enabled: true,
     });
   } else {
     await chrome.sidePanel.setOptions({
       tabId,
       path: 'sidepanel/default.html',
-      enabled: true
+      enabled: true,
     });
   }
 });
@@ -347,40 +350,40 @@ Setting open_in_tab to false embeds the options page within chrome://extensions,
 <!-- options/options.html -->
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="options.css">
-</head>
-<body>
-  <div class="options-container">
-    <h1>Extension Settings</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="options-container">
+      <h1>Extension Settings</h1>
 
-    <section class="setting-group">
-      <h2>General</h2>
-      <label class="setting">
-        <span>Enable notifications</span>
-        <input type="checkbox" id="notifications-enabled">
-      </label>
-      <label class="setting">
-        <span>Theme</span>
-        <select id="theme-select">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="system">System</option>
-        </select>
-      </label>
-    </section>
+      <section class="setting-group">
+        <h2>General</h2>
+        <label class="setting">
+          <span>Enable notifications</span>
+          <input type="checkbox" id="notifications-enabled" />
+        </label>
+        <label class="setting">
+          <span>Theme</span>
+          <select id="theme-select">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">System</option>
+          </select>
+        </label>
+      </section>
 
-    <section class="setting-group">
-      <h2>Sites</h2>
-      <div id="site-list"></div>
-      <button id="add-site">Add Site</button>
-    </section>
+      <section class="setting-group">
+        <h2>Sites</h2>
+        <div id="site-list"></div>
+        <button id="add-site">Add Site</button>
+      </section>
 
-    <div class="status" id="status"></div>
-  </div>
-  <script src="options.js"></script>
-</body>
+      <div class="status" id="status"></div>
+    </div>
+    <script src="options.js"></script>
+  </body>
 </html>
 ```
 
@@ -394,8 +397,8 @@ async function loadSettings() {
     settings: {
       notificationsEnabled: true,
       theme: 'system',
-      sites: []
-    }
+      sites: [],
+    },
   });
 
   document.getElementById('notifications-enabled').checked = settings.notificationsEnabled;
@@ -412,7 +415,7 @@ async function saveSettings() {
   const settings = {
     notificationsEnabled: document.getElementById('notifications-enabled').checked,
     theme: document.getElementById('theme-select').value,
-    sites: getSiteList()
+    sites: getSiteList(),
   };
 
   await chrome.storage.local.set({ settings });
@@ -463,14 +466,17 @@ function addSite() {
   input.addEventListener('change', saveSettings);
   const removeBtn = document.createElement('button');
   removeBtn.textContent = 'Remove';
-  removeBtn.addEventListener('click', () => { item.remove(); saveSettings(); });
+  removeBtn.addEventListener('click', () => {
+    item.remove();
+    saveSettings();
+  });
   item.appendChild(input);
   item.appendChild(removeBtn);
   container.appendChild(item);
 }
 
 function getSiteList() {
-  return [...document.querySelectorAll('.site-item input')].map(i => i.value).filter(Boolean);
+  return [...document.querySelectorAll('.site-item input')].map((i) => i.value).filter(Boolean);
 }
 ```
 
@@ -492,17 +498,19 @@ Extensions can add custom panels to Chrome DevTools. The DevTools page is loaded
 <!-- devtools/devtools.html -->
 <!DOCTYPE html>
 <html>
-<head><script src="devtools.js"></script></head>
-<body></body>
+  <head>
+    <script src="devtools.js"></script>
+  </head>
+  <body></body>
 </html>
 ```
 
 ```javascript
 // devtools/devtools.js - Creates the DevTools panel
 chrome.devtools.panels.create(
-  'My Extension',           // Panel title
-  'icons/icon16.png',       // Panel icon
-  'devtools/panel.html',    // Panel HTML page
+  'My Extension', // Panel title
+  'icons/icon16.png', // Panel icon
+  'devtools/panel.html', // Panel HTML page
   (panel) => {
     panel.onShown.addListener((panelWindow) => {
       // Panel is visible - initialize or update
@@ -563,7 +571,9 @@ function showNotificationBar(message, type = 'info') {
 
   const bar = document.createElement('div');
   bar.id = 'ext-notification-bar';
-  bar.setAttribute('style', `
+  bar.setAttribute(
+    'style',
+    `
     position: fixed;
     top: 0;
     left: 0;
@@ -577,14 +587,17 @@ function showNotificationBar(message, type = 'info') {
     color: white;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
-  `);
+  `
+  );
 
   const text = document.createElement('span');
   text.textContent = message;
 
   const closeBtn = document.createElement('button');
   closeBtn.textContent = 'Dismiss';
-  closeBtn.setAttribute('style', `
+  closeBtn.setAttribute(
+    'style',
+    `
     margin-left: 16px;
     padding: 4px 12px;
     border: 1px solid rgba(255,255,255,0.5);
@@ -593,7 +606,8 @@ function showNotificationBar(message, type = 'info') {
     color: white;
     cursor: pointer;
     font-size: 13px;
-  `);
+  `
+  );
   closeBtn.addEventListener('click', () => bar.remove());
 
   bar.appendChild(text);

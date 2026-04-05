@@ -3,10 +3,10 @@
 
 project:
   # Project name (derived from directory name or user input)
-  name: "policy-damoa"
+  name: 'policy-damoa'
 
   # Project description (optional, user-provided)
-  description: ""
+  description: ''
 
   # Project mode: personal, team, or enterprise
   # - personal: Single developer, lightweight workflows
@@ -15,7 +15,7 @@ project:
   mode: personal
 
   # Project creation timestamp (ISO 8601 format)
-  created_at: ""
+  created_at: ''
 
   # Project initialization status
   initialized: true
@@ -24,4 +24,4 @@ project:
   optimized: false
 
   # Template version used to create/update this project
-  template_version: "2.9.1"
+  template_version: '2.9.1'

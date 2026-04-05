@@ -1,5 +1,5 @@
 ---
-paths: "**/*.rb,**/Gemfile,**/Gemfile.lock,**/*.gemspec"
+paths: '**/*.rb,**/Gemfile,**/Gemfile.lock,**/*.gemspec'
 ---
 
 # Ruby Rules
@@ -33,7 +33,7 @@ Version: Ruby 3.3+
 
 ## File Conventions
 
-- *_spec.rb or *_test.rb for test files
+- _\_spec.rb or _\_test.rb for test files
 - Use snake_case for files and methods
 - Use PascalCase for classes and modules
 - Use SCREAMING_CASE for constants

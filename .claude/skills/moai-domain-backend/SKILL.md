@@ -9,17 +9,40 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Write, Edit, Bash(npm:*), Bash(npx:*), Bash(node:*), Bash(uv:*), Bash(pip:*), Bash(pytest:*), Bash(ruff:*), Bash(docker:*), Bash(curl:*), Bash(go:*), Bash(cargo:*), Grep, Glob, mcp__context7__resolve-library-id, mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "backend, api, database, microservices, architecture"
-  author: "MoAI-ADK Team"
+  version: '1.0.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'backend, api, database, microservices, architecture'
+  author: 'MoAI-ADK Team'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["backend", "API", "server", "authentication", "authorization", "REST", "GraphQL", "gRPC", "microservices", "database", "endpoint", "middleware", "FastAPI", "Express", "Django", "Flask", "serverless", "caching", "Redis", "PostgreSQL", "MongoDB"]
+  keywords:
+    [
+      'backend',
+      'API',
+      'server',
+      'authentication',
+      'authorization',
+      'REST',
+      'GraphQL',
+      'gRPC',
+      'microservices',
+      'database',
+      'endpoint',
+      'middleware',
+      'FastAPI',
+      'Express',
+      'Django',
+      'Flask',
+      'serverless',
+      'caching',
+      'Redis',
+      'PostgreSQL',
+      'MongoDB',
+    ]
 ---
 
 # Backend Development Specialist

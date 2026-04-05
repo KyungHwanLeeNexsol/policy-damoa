@@ -193,12 +193,12 @@ A couple with a 1-year-old child creates a joint profile. The system identifies 
 
 ## Competitive Analysis Summary
 
-| Platform | Programs | UX Quality | Notifications | AI Features | Personalization |
-|---|---|---|---|---|---|
-| **보조금24** | 16,373+ | Poor | None | None | None |
-| **복지로** | ~5,000 | Moderate | Basic | None | Limited |
-| **커넥트웍스** | ~2,000 | Good | None | None | Moderate |
-| **Policy-Damoa** | All aggregated | Excellent | Yes (push) | Yes | Full profile |
+| Platform         | Programs       | UX Quality | Notifications | AI Features | Personalization |
+| ---------------- | -------------- | ---------- | ------------- | ----------- | --------------- |
+| **보조금24**     | 16,373+        | Poor       | None          | None        | None            |
+| **복지로**       | ~5,000         | Moderate   | Basic         | None        | Limited         |
+| **커넥트웍스**   | ~2,000         | Good       | None          | None        | Moderate        |
+| **Policy-Damoa** | All aggregated | Excellent  | Yes (push)    | Yes         | Full profile    |
 
 ### Differentiation
 
@@ -219,6 +219,7 @@ No monetization in MVP phase. Focus on user acquisition and data quality.
 ### Phase 2: Premium Subscription
 
 Monthly subscription (~3,000-5,000 KRW) for:
+
 - Priority AI recommendations with detailed matching report
 - Unlimited saved searches and alert profiles
 - Application document checklist generation

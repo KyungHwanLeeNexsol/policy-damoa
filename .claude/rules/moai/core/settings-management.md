@@ -1,5 +1,5 @@
 ---
-paths: "**/.moai/config/**,**/.mcp.json,**/.claude/settings.json,**/.claude/settings.local.json"
+paths: '**/.moai/config/**,**/.mcp.json,**/.claude/settings.json,**/.claude/settings.local.json'
 ---
 
 # Settings Management
@@ -37,10 +37,12 @@ MCP tools are deferred and must be loaded before use:
 2. Then call the loaded tool directly
 
 Example flow:
-- ToolSearch("context7 docs") loads mcp__context7__* tools
-- mcp__context7__resolve-library-id is then available
+
+- ToolSearch("context7 docs") loads mcp**context7**\* tools
+- mcp**context7**resolve-library-id is then available
 
 MCP rules:
+
 - Always use ToolSearch before calling MCP tools
 - Prefer MCP tools over manual alternatives
 - Authenticated URLs require specialized MCP tools
@@ -87,16 +89,20 @@ Hooks support environment variables and must be quoted to handle spaces:
 ```json
 {
   "hooks": {
-    "SessionStart": [{
-      "type": "command",
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-session-start.sh\"",
-      "timeout": 5
-    }],
-    "PreToolUse": [{
-      "matcher": "Write|Edit|Bash",
-      "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-pre-tool.sh\"",
-      "timeout": 5
-    }]
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-session-start.sh\"",
+        "timeout": 5
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "command": "\"$CLAUDE_PROJECT_DIR/.claude/hooks/moai/handle-pre-tool.sh\"",
+        "timeout": 5
+      }
+    ]
   }
 }
 ```
@@ -165,24 +171,24 @@ This env var must be set for Claude Code to expose the Teams API.
 
 Team behavior is controlled by the `workflow.team` section in `.moai/config/sections/workflow.yaml`:
 
-| Setting | Type | Default | Description |
-|---------|------|---------|-------------|
-| team.enabled | boolean | true | Master switch for team mode |
-| team.max_teammates | integer | 10 | Maximum teammates per team (2-10 recommended) |
-| team.default_model | string | inherit | Default model for teammates (inherit/haiku/sonnet/opus) |
-| team.require_plan_approval | boolean | true | Require plan approval before implementing |
-| team.delegate_mode | boolean | true | Team lead coordination-only mode (no direct implementation) |
-| team.teammate_display | string | auto | Display mode: auto, in-process, or tmux |
+| Setting                    | Type    | Default | Description                                                 |
+| -------------------------- | ------- | ------- | ----------------------------------------------------------- |
+| team.enabled               | boolean | true    | Master switch for team mode                                 |
+| team.max_teammates         | integer | 10      | Maximum teammates per team (2-10 recommended)               |
+| team.default_model         | string  | inherit | Default model for teammates (inherit/haiku/sonnet/opus)     |
+| team.require_plan_approval | boolean | true    | Require plan approval before implementing                   |
+| team.delegate_mode         | boolean | true    | Team lead coordination-only mode (no direct implementation) |
+| team.teammate_display      | string  | auto    | Display mode: auto, in-process, or tmux                     |
 
 ### Auto-Selection Thresholds
 
 When `workflow.execution_mode` is `auto`, these thresholds determine when team mode activates:
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| team.auto_selection.min_domains_for_team | 3 | Minimum distinct domains to trigger team mode |
-| team.auto_selection.min_files_for_team | 10 | Minimum affected files to trigger team mode |
-| team.auto_selection.min_complexity_score | 7 | Minimum complexity score (1-10) to trigger team mode |
+| Setting                                  | Default | Description                                          |
+| ---------------------------------------- | ------- | ---------------------------------------------------- |
+| team.auto_selection.min_domains_for_team | 3       | Minimum distinct domains to trigger team mode        |
+| team.auto_selection.min_files_for_team   | 10      | Minimum affected files to trigger team mode          |
+| team.auto_selection.min_complexity_score | 7       | Minimum complexity score (1-10) to trigger team mode |
 
 ## Rules
 
@@ -193,4 +199,3 @@ When `workflow.execution_mode` is `auto`, these thresholds determine when team m
 - StatusLine uses relative paths only (no env var expansion)
 - Template sources (.tmpl files) belong in `internal/template/templates/` only
 - Local projects should contain rendered results, not template sources
-

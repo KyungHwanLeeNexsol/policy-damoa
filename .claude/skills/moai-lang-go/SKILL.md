@@ -6,14 +6,14 @@ license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "go, golang, fiber, gin, concurrency, microservices"
-  context7-libraries: "/gofiber/fiber, /gin-gonic/gin, /go-gorm/gorm"
-  related-skills: "moai-lang-rust, moai-domain-backend"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'go, golang, fiber, gin, concurrency, microservices'
+  context7-libraries: '/gofiber/fiber, /gin-gonic/gin, /go-gorm/gorm'
+  related-skills: 'moai-lang-rust, moai-domain-backend'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -23,8 +23,28 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Go", "Golang", "Fiber", "Gin", "GORM", "Echo", "Chi", ".go", "go.mod", "goroutine", "channel", "generics", "concurrent", "testing", "benchmark", "fuzzing", "microservices", "gRPC"]
-  languages: ["go", "golang"]
+  keywords:
+    [
+      'Go',
+      'Golang',
+      'Fiber',
+      'Gin',
+      'GORM',
+      'Echo',
+      'Chi',
+      '.go',
+      'go.mod',
+      'goroutine',
+      'channel',
+      'generics',
+      'concurrent',
+      'testing',
+      'benchmark',
+      'fuzzing',
+      'microservices',
+      'gRPC',
+    ]
+  languages: ['go', 'golang']
 ---
 
 ## Quick Reference (30 seconds)

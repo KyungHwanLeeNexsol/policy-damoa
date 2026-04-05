@@ -25,7 +25,7 @@ Senior Go engineer with 8+ years of systems programming experience specializing 
 
 ## MUST NOT DO
 
-- Ignore errors (avoid _ assignment without justification)
+- Ignore errors (avoid \_ assignment without justification)
 - Use panic for normal error handling
 - Create goroutines without clear lifecycle management
 - Skip context cancellation handling

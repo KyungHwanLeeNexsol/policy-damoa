@@ -5,6 +5,7 @@ Guidelines for writing website text (headlines, body copy, CTAs) that reads like
 ## The Problem
 
 AI-generated web copy follows predictable patterns that erode user trust:
+
 - Uniform sentence length and rhythm
 - Overuse of vague intensifiers ("innovative", "powerful", "seamless")
 - Formulaic structure (problem → solution → call-to-action) without variation
@@ -16,13 +17,13 @@ This module provides a framework to detect and eliminate these patterns.
 
 Replace abstract adjectives with specific, verifiable facts.
 
-| Weak (AI-typical) | Strong (human-typical) |
-|---|---|
-| A powerful analytics platform | Tracks 50M events per second |
-| Innovative solution | First to support offline sync |
-| Comprehensive guide | 47 tested recipes in 12 categories |
-| Seamless integration | One line of code, zero config |
-| Trusted by leading companies | Used by 3 of the top 5 banks |
+| Weak (AI-typical)             | Strong (human-typical)             |
+| ----------------------------- | ---------------------------------- |
+| A powerful analytics platform | Tracks 50M events per second       |
+| Innovative solution           | First to support offline sync      |
+| Comprehensive guide           | 47 tested recipes in 12 categories |
+| Seamless integration          | One line of code, zero config      |
+| Trusted by leading companies  | Used by 3 of the top 5 banks       |
 
 **Rule**: If a word can be deleted without losing meaning, delete it. If it cannot be verified, replace it with a number or a name.
 
@@ -123,11 +124,13 @@ Common AI padding phrases to remove on sight:
 ### End With Weight, Not Politeness
 
 Do not close sections with:
+
 - "Feel free to reach out" — weak
 - "We hope this was helpful" — unnecessary
 - "Don't hesitate to contact us" — redundant
 
 Instead, end with:
+
 - A fact that lingers
 - A one-line summary
 - A direct action ("Start building. It's free.")
@@ -143,12 +146,12 @@ Instead, end with:
 
 ### CTA Patterns
 
-| Purpose | Pattern | Example |
-|---------|---------|---------|
-| Primary conversion | [Verb] + [outcome] | "Start building" |
-| Low commitment | [Verb] + [outcome] + [reassurance] | "Try free for 14 days" |
-| Information request | [Verb] + [what they receive] | "Get the playbook" |
-| Contact | [Verb] + [specificity] | "Talk to an engineer" |
+| Purpose             | Pattern                            | Example                |
+| ------------------- | ---------------------------------- | ---------------------- |
+| Primary conversion  | [Verb] + [outcome]                 | "Start building"       |
+| Low commitment      | [Verb] + [outcome] + [reassurance] | "Try free for 14 days" |
+| Information request | [Verb] + [what they receive]       | "Get the playbook"     |
+| Contact             | [Verb] + [specificity]             | "Talk to an engineer"  |
 
 ## Anti-AI Checklist
 
@@ -166,7 +169,7 @@ After writing any web page copy, verify:
 
 This module complements the Intent-First process:
 
-- **Design Direction** (intent-first.md) establishes *why* the page exists and *who* reads it
+- **Design Direction** (intent-first.md) establishes _why_ the page exists and _who_ reads it
 - **Web Copy Craft** (this module) ensures the text matches that intent with human-quality writing
 - **Design Critique** (critique-workflow.md) audits copy alongside visual elements
 

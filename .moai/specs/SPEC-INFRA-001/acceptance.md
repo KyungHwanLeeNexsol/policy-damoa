@@ -1,6 +1,6 @@
 ---
 id: SPEC-INFRA-001
-title: "Project Foundation - Acceptance Criteria"
+title: 'Project Foundation - Acceptance Criteria'
 spec_ref: SPEC-INFRA-001/spec.md
 ---
 

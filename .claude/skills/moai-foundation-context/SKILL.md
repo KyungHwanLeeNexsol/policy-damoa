@@ -9,14 +9,14 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "3.1.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "foundation, context, session, token-optimization, state-management, multi-agent"
-  aliases: "moai-foundation-context"
-  replaces: "moai-core-context-budget, moai-core-session-state"
+  version: '3.1.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'foundation, context, session, token-optimization, state-management, multi-agent'
+  aliases: 'moai-foundation-context'
+  replaces: 'moai-core-context-budget, moai-core-session-state'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -26,18 +26,34 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["token", "context", "session", "budget", "optimization", "handoff", "state", "memory", "/clear", "context window", "token limit", "session persistence", "context management", "multi-agent"]
+  keywords:
+    [
+      'token',
+      'context',
+      'session',
+      'budget',
+      'optimization',
+      'handoff',
+      'state',
+      'memory',
+      '/clear',
+      'context window',
+      'token limit',
+      'session persistence',
+      'context management',
+      'multi-agent',
+    ]
   agents:
-    - "manager-spec"
-    - "manager-ddd"
-    - "manager-strategy"
-    - "manager-quality"
-    - "manager-docs"
-    - "manager-project"
+    - 'manager-spec'
+    - 'manager-ddd'
+    - 'manager-strategy'
+    - 'manager-quality'
+    - 'manager-docs'
+    - 'manager-project'
   phases:
-    - "plan"
-    - "run"
-    - "sync"
+    - 'plan'
+    - 'run'
+    - 'sync'
 ---
 
 ## Quick Reference

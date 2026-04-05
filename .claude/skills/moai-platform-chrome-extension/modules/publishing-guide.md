@@ -276,7 +276,7 @@ chrome.runtime.onInstalled.addListener((details) => {
         type: 'basic',
         iconUrl: 'icons/icon128.png',
         title: 'Extension Updated',
-        message: `Updated to version ${currentVersion}. Click to see what is new.`
+        message: `Updated to version ${currentVersion}. Click to see what is new.`,
       });
     }
   }
@@ -332,7 +332,7 @@ For global distribution, localize your extension using the Chrome i18n system.
 
 ### Messages Files
 
-Create _locales directory with subdirectories for each language:
+Create \_locales directory with subdirectories for each language:
 
 ```json
 // _locales/en/messages.json
@@ -395,7 +395,7 @@ document.getElementById('title').textContent = title;
 
 ```javascript
 // Auto-translate elements with data-i18n attribute
-document.querySelectorAll('[data-i18n]').forEach(el => {
+document.querySelectorAll('[data-i18n]').forEach((el) => {
   const key = el.getAttribute('data-i18n');
   el.textContent = chrome.i18n.getMessage(key);
 });
@@ -425,14 +425,14 @@ self.addEventListener('error', (event) => {
     message: event.message,
     filename: event.filename,
     line: event.lineno,
-    col: event.colno
+    col: event.colno,
   });
 });
 
 self.addEventListener('unhandledrejection', (event) => {
   reportError({
     type: 'unhandled-rejection',
-    message: event.reason?.message || String(event.reason)
+    message: event.reason?.message || String(event.reason),
   });
 });
 

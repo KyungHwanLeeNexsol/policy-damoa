@@ -29,14 +29,14 @@ chrome.runtime.onInstalled.addListener((details) => {
     // First-time installation setup
     chrome.storage.local.set({
       settings: { theme: 'light', notifications: true },
-      installDate: Date.now()
+      installDate: Date.now(),
     });
 
     // Create context menu items
     chrome.contextMenus.create({
       id: 'main-action',
       title: 'Process with Extension',
-      contexts: ['selection']
+      contexts: ['selection'],
     });
   }
 
@@ -74,12 +74,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 // These listeners will NOT persist across service worker restarts
 async function setup() {
   // DO NOT register listeners here
-  chrome.runtime.onMessage.addListener(() => { /* ... */ });
+  chrome.runtime.onMessage.addListener(() => {
+    /* ... */
+  });
 }
 
 setTimeout(() => {
   // DO NOT register listeners here
-  chrome.alarms.onAlarm.addListener(() => { /* ... */ });
+  chrome.alarms.onAlarm.addListener(() => {
+    /* ... */
+  });
 }, 1000);
 ```
 
@@ -138,13 +142,13 @@ Replace setTimeout and setInterval with the chrome.alarms API. Alarms persist ac
 ```javascript
 // Create a periodic alarm
 chrome.alarms.create('check-updates', {
-  delayInMinutes: 1,       // First fire after 1 minute
-  periodInMinutes: 30      // Repeat every 30 minutes
+  delayInMinutes: 1, // First fire after 1 minute
+  periodInMinutes: 30, // Repeat every 30 minutes
 });
 
 // Create a one-time alarm
 chrome.alarms.create('delayed-task', {
-  delayInMinutes: 5        // Fire once after 5 minutes
+  delayInMinutes: 5, // Fire once after 5 minutes
 });
 
 // Handle alarm events (must be top-level)
@@ -200,7 +204,7 @@ async function startOffscreenProcessing() {
     await chrome.offscreen.createDocument({
       url: 'offscreen.html',
       reasons: ['DOM_PARSER'],
-      justification: 'Parse HTML content from fetched pages'
+      justification: 'Parse HTML content from fetched pages',
     });
   }
 
@@ -208,7 +212,7 @@ async function startOffscreenProcessing() {
   chrome.runtime.sendMessage({
     target: 'offscreen',
     action: 'parse-html',
-    data: htmlContent
+    data: htmlContent,
   });
 }
 ```
@@ -228,7 +232,7 @@ async function ensureOffscreenDocument() {
   await chrome.offscreen.createDocument({
     url: 'offscreen/offscreen.html',
     reasons: ['DOM_PARSER'],
-    justification: 'Parse and extract data from HTML content'
+    justification: 'Parse and extract data from HTML content',
   });
 }
 
@@ -246,7 +250,7 @@ async function parseHTML(htmlString) {
     chrome.runtime.sendMessage({
       target: 'offscreen',
       action: 'parse-html',
-      data: htmlString
+      data: htmlString,
     });
   });
 }
@@ -256,8 +260,10 @@ async function parseHTML(htmlString) {
 <!-- offscreen/offscreen.html -->
 <!DOCTYPE html>
 <html>
-<head><script src="offscreen.js"></script></head>
-<body></body>
+  <head>
+    <script src="offscreen.js"></script>
+  </head>
+  <body></body>
 </html>
 ```
 
@@ -272,16 +278,16 @@ chrome.runtime.onMessage.addListener((message) => {
 
     // Extract data using DOM APIs
     const title = doc.querySelector('title')?.textContent || '';
-    const headings = [...doc.querySelectorAll('h1, h2, h3')].map(h => h.textContent);
-    const links = [...doc.querySelectorAll('a[href]')].map(a => ({
+    const headings = [...doc.querySelectorAll('h1, h2, h3')].map((h) => h.textContent);
+    const links = [...doc.querySelectorAll('a[href]')].map((a) => ({
       text: a.textContent,
-      href: a.getAttribute('href')
+      href: a.getAttribute('href'),
     }));
 
     chrome.runtime.sendMessage({
       target: 'service-worker',
       action: 'parse-result',
-      data: { title, headings, links }
+      data: { title, headings, links },
     });
   }
 });
@@ -300,7 +306,7 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 10000) {
   try {
     const response = await fetch(url, {
       ...options,
-      signal: controller.signal
+      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -327,7 +333,7 @@ async function cachedFetch(url, cacheKey, maxAgeMs = 3600000) {
 
   const data = await fetchWithTimeout(url);
   await chrome.storage.local.set({
-    [cacheKey]: { data, timestamp: Date.now() }
+    [cacheKey]: { data, timestamp: Date.now() },
   });
   return data;
 }

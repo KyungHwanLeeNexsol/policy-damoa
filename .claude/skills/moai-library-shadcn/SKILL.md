@@ -10,17 +10,32 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "3.0.0"
-  category: "library"
-  modularized: "true"
-  status: "active"
-  updated: "2026-03-28"
-  tags: "library, shadcn, enterprise, development, ui, preset, RTL, OKLCH, CLI v4, radix-ui, registry"
-  aliases: "moai-library-shadcn"
+  version: '3.0.0'
+  category: 'library'
+  modularized: 'true'
+  status: 'active'
+  updated: '2026-03-28'
+  tags: 'library, shadcn, enterprise, development, ui, preset, RTL, OKLCH, CLI v4, radix-ui, registry'
+  aliases: 'moai-library-shadcn'
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["shadcn", "component library", "design system", "radix", "tailwind", "ui components", "preset", "RTL", "OKLCH", "radix-ui", "migrate", "shadcn skills", "registry"]
+  keywords:
+    [
+      'shadcn',
+      'component library',
+      'design system',
+      'radix',
+      'tailwind',
+      'ui components',
+      'preset',
+      'RTL',
+      'OKLCH',
+      'radix-ui',
+      'migrate',
+      'shadcn skills',
+      'registry',
+    ]
 ---
 
 ## Quick Reference

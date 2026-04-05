@@ -7,11 +7,11 @@ description: >
   Use when fixing errors, linting issues, or running diagnostics.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "fix, auto-fix, lsp, linting, diagnostics, errors, type-check"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'fix, auto-fix, lsp, linting, diagnostics, errors, type-check'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["fix", "auto-fix", "error", "lint", "diagnostic", "lsp", "type error"]
-  agents: ["expert-debug", "expert-backend", "expert-frontend", "expert-refactoring"]
-  phases: ["fix"]
+  keywords: ['fix', 'auto-fix', 'error', 'lint', 'diagnostic', 'lsp', 'type error']
+  agents: ['expert-debug', 'expert-backend', 'expert-frontend', 'expert-refactoring']
+  phases: ['fix']
 ---
 
 # Workflow: Fix - One-Shot Auto-Fix
@@ -50,54 +50,56 @@ Launch three diagnostic tools simultaneously using Bash with run_in_background f
 Scanner 1 - LSP Diagnostics:
 Language-specific type checking via auto-detection. Indicator file determines language, then the corresponding LSP tool is executed:
 
-| Language | Indicator File | LSP Command |
-|----------|---------------|-------------|
-| Go | go.mod | `go vet ./...` |
-| Python | pyproject.toml / setup.py | `mypy --output json` |
-| TypeScript | package.json (tsconfig.json present) | `tsc --noEmit` |
-| JavaScript | package.json (no tsconfig.json) | `node --check` or skip |
-| Rust | Cargo.toml | `cargo check --message-format json` |
-| Java (Maven) | pom.xml | `mvn compile -q` |
-| Java (Gradle) | build.gradle | `gradle compileJava -q` |
-| Kotlin | build.gradle.kts | `gradle compileKotlin -q` |
-| C# | *.csproj / *.sln | `dotnet build --no-restore -q` |
-| Ruby | Gemfile | `bundle exec rubocop --format json` |
-| PHP | composer.json | `php -l` on changed files |
-| Scala | build.sbt | `sbt compile` |
-| Elixir | mix.exs | `mix compile` |
-| Swift | Package.swift | `swift build` |
-| Flutter/Dart | pubspec.yaml | `dart analyze` |
-| R | DESCRIPTION | `R CMD check --no-manual` |
-| C++ | CMakeLists.txt | `cmake --build build --target all` |
+| Language      | Indicator File                       | LSP Command                         |
+| ------------- | ------------------------------------ | ----------------------------------- |
+| Go            | go.mod                               | `go vet ./...`                      |
+| Python        | pyproject.toml / setup.py            | `mypy --output json`                |
+| TypeScript    | package.json (tsconfig.json present) | `tsc --noEmit`                      |
+| JavaScript    | package.json (no tsconfig.json)      | `node --check` or skip              |
+| Rust          | Cargo.toml                           | `cargo check --message-format json` |
+| Java (Maven)  | pom.xml                              | `mvn compile -q`                    |
+| Java (Gradle) | build.gradle                         | `gradle compileJava -q`             |
+| Kotlin        | build.gradle.kts                     | `gradle compileKotlin -q`           |
+| C#            | _.csproj / _.sln                     | `dotnet build --no-restore -q`      |
+| Ruby          | Gemfile                              | `bundle exec rubocop --format json` |
+| PHP           | composer.json                        | `php -l` on changed files           |
+| Scala         | build.sbt                            | `sbt compile`                       |
+| Elixir        | mix.exs                              | `mix compile`                       |
+| Swift         | Package.swift                        | `swift build`                       |
+| Flutter/Dart  | pubspec.yaml                         | `dart analyze`                      |
+| R             | DESCRIPTION                          | `R CMD check --no-manual`           |
+| C++           | CMakeLists.txt                       | `cmake --build build --target all`  |
 
 Output: Parsed error list with file, line, column, severity, message for each diagnostic.
 
 Scanner 2 - AST-grep Scan:
+
 - Structural pattern matching with sgconfig.yml rules
 - Security patterns and code quality rules
 
 Scanner 3 - Linter:
 Language-specific linting via auto-detection:
 
-| Language | Linter Command |
-|----------|---------------|
-| Go | `golangci-lint run --out-format json` |
-| Python | `ruff check --output-format json` |
-| TypeScript/JavaScript | `eslint --format json` |
-| Rust | `cargo clippy --message-format json` |
-| Java | `checkstyle` (if configured) or skip |
-| Kotlin | `detekt --output-format xml` (if configured) |
-| C# | `dotnet format --verify-no-changes` |
-| Ruby | `bundle exec rubocop --format json` |
-| PHP | `composer exec phpcs -- --report=json` (if configured) |
-| Swift | `swiftlint lint --reporter json` (if configured) |
-| Elixir | `mix credo --format json` |
-| Flutter/Dart | `dart analyze` (covers linting) |
-| Scala / R / C++ | Language-specific tool if configured, else skip |
+| Language              | Linter Command                                         |
+| --------------------- | ------------------------------------------------------ |
+| Go                    | `golangci-lint run --out-format json`                  |
+| Python                | `ruff check --output-format json`                      |
+| TypeScript/JavaScript | `eslint --format json`                                 |
+| Rust                  | `cargo clippy --message-format json`                   |
+| Java                  | `checkstyle` (if configured) or skip                   |
+| Kotlin                | `detekt --output-format xml` (if configured)           |
+| C#                    | `dotnet format --verify-no-changes`                    |
+| Ruby                  | `bundle exec rubocop --format json`                    |
+| PHP                   | `composer exec phpcs -- --report=json` (if configured) |
+| Swift                 | `swiftlint lint --reporter json` (if configured)       |
+| Elixir                | `mix credo --format json`                              |
+| Flutter/Dart          | `dart analyze` (covers linting)                        |
+| Scala / R / C++       | Language-specific tool if configured, else skip        |
 
 If linter not installed or configured: Skip Scanner 3 and note absence in report.
 
 After all scanners complete:
+
 - Parse output from each tool into structured issue list
 - Remove duplicate issues appearing in multiple scanners
 - Sort by severity: Critical, High, Medium, Low
@@ -105,6 +107,7 @@ After all scanners complete:
 
 **Structured Error Output (Language-Agnostic):**
 Normalize all scanner output into a unified issue record format regardless of language:
+
 - `file`: relative path from project root
 - `line`: integer line number
 - `column`: integer column number (0 if not available)
@@ -138,12 +141,14 @@ Before applying fixes, scan target files for existing @MX tags to understand con
 **Scan Target:** All files with classified issues (from Phase 2 results).
 
 **MX Context Extraction:**
+
 - @MX:ANCHOR functions: Flag as critical path. Pass fan_in context to fix agent. Warn that signature changes may break multiple callers.
 - @MX:WARN zones: Pass danger context to fix agent. Ensure fix does not worsen the warned condition.
 - @MX:NOTE context: Pass business logic context to fix agent to prevent fixing symptoms while breaking intent.
 - @MX:TODO items: Check if any classified issues match existing TODOs (enables removal upon fix).
 
 **Output:** MX context map passed to Phase 3 agents as part of the fix prompt. Each fix agent receives:
+
 - List of @MX:ANCHOR functions in the target file (do not break these contracts)
 - List of @MX:WARN zones (approach with caution)
 - Relevant @MX:NOTE context (understand before modifying)
@@ -157,11 +162,13 @@ See .claude/rules/moai/workflow/mx-tag-protocol.md for tag type definitions.
 [HARD] Agent delegation mandate: ALL fix tasks MUST be delegated to specialized agents. NEVER execute fixes directly.
 
 Agent selection by fix level:
+
 - Level 1 (import, formatting): expert-backend or expert-frontend subagent
 - Level 2 (rename, type): expert-refactoring subagent
 - Level 3 (logic, API): expert-debug or expert-backend subagent (after user approval)
 
 Execution order:
+
 - Level 1 fixes applied automatically via agent delegation
 - Level 2 fixes applied automatically with logging
 - Level 3 fixes require AskUserQuestion approval, then delegated to agent
@@ -188,6 +195,7 @@ After fixes are verified, update @MX tags for modified files:
 | Level 4 (manual) | Requires @MX:WARN with @MX:REASON if security-related |
 
 **Specific Actions:**
+
 - Bug fix applied: Remove corresponding @MX:TODO if exists
 - New code introduced: Add appropriate @MX tags per protocol
 - Function signature changed: Re-evaluate @MX:ANCHOR (fan_in may change)
@@ -196,19 +204,24 @@ After fixes are verified, update @MX tags for modified files:
 
 **MX Tag Report Generation:**
 Generate MX_TAG_REPORT section in fix report:
+
 ```markdown
 ## MX Tag Report
 
 ### Tags Added (N)
+
 - file:line: @MX:NOTE: [description]
 
 ### Tags Removed (N)
+
 - file:line: @MX:TODO (resolved)
 
 ### Tags Updated (N)
+
 - file:line: @MX:ANCHOR (fan_in updated)
 
 ### Attention Required
+
 - Files with new @MX:WARN requiring review
 ```
 
@@ -226,6 +239,7 @@ After fixes are applied and verified, scan for dead code exposed by the fixes:
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - All discovered issues added as pending via TaskCreate
 - Before each fix: change to in_progress via TaskUpdate
 - After each fix: change to completed via TaskUpdate
@@ -233,6 +247,7 @@ After fixes are applied and verified, scan for dead code exposed by the fixes:
 ## Safe Development Protocol
 
 All fixes follow CLAUDE.md Section 7 Safe Development Protocol:
+
 - Reproduction-first: Write a failing test that reproduces the bug before fixing
 - Approach-first: For Level 3+ fixes, explain approach before applying
 - Post-fix review: List potential side effects after each fix
@@ -242,6 +257,7 @@ All fixes follow CLAUDE.md Section 7 Safe Development Protocol:
 Snapshot location: $CLAUDE_PROJECT_DIR/.moai/cache/fix-snapshots/
 
 Snapshot contents:
+
 - Timestamp
 - Target path
 - Issues found, fixed, and pending counts
@@ -250,6 +266,7 @@ Snapshot contents:
 - Scan results
 
 Resume commands:
+
 - /moai:fix --resume (uses latest snapshot)
 - /moai:fix --resume fix-20260119-143052 (uses specific snapshot)
 
@@ -264,6 +281,7 @@ For detailed team orchestration steps, see ${CLAUDE_SKILL_DIR}/team/debug.md.
 Fallback: If team mode is unavailable, standard single-agent fix workflow continues.
 
 Team Prerequisites:
+
 - workflow.team.enabled: true in .moai/config/sections/workflow.yaml
 - CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1 in environment
 - If prerequisites not met: Falls back to standard single-agent fix workflow

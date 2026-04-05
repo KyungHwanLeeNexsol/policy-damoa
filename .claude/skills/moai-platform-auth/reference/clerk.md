@@ -19,6 +19,7 @@ Major version with breaking changes released in 2024. See Core 2 Migration secti
 Required environment variables for Next.js applications:
 
 **.env.local:**
+
 ```
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
@@ -31,30 +32,36 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
 **Variable Descriptions:**
 
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+
 - Public key starting with pk_test (development) or pk_live (production)
 - Safe to expose in client-side code
 - Used for client-side Clerk initialization
 
 CLERK_SECRET_KEY:
+
 - Secret key starting with sk_test (development) or sk_live (production)
 - NEVER expose in client-side code
 - Used for server-side API calls
 
 NEXT_PUBLIC_CLERK_SIGN_IN_URL:
+
 - Route path for sign-in page (default: /sign-in)
 - Must match your sign-in route
 - Used for redirect after sign-out
 
 NEXT_PUBLIC_CLERK_SIGN_UP_URL:
+
 - Route path for sign-up page (default: /sign-up)
 - Must match your sign-up route
 - Used for account creation flows
 
 NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL:
+
 - Redirect destination after successful sign-in
 - Can be dynamic based on user role
 
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
+
 - Redirect destination after successful sign-up
 - Useful for onboarding flows
 
@@ -67,6 +74,7 @@ Root layout configuration for Next.js App Router.
 Import ClerkProvider from @clerk/nextjs. Create RootLayout component accepting children prop. Wrap html tag with ClerkProvider. Nest body tag inside with children rendered.
 
 **Key Points:**
+
 - ClerkProvider must wrap entire app
 - No configuration props needed (uses environment variables)
 - Provides authentication context to all components
@@ -113,7 +121,7 @@ Create app/sign-in/[[...sign-in]]/page.tsx with catch-all route. Import SignIn c
 Create app/sign-up/[[...sign-up]]/page.tsx with catch-all route. Import SignUp component from @clerk/nextjs. Render SignUp with centered layout matching sign-in page. Consistent styling for better UX.
 
 **Why Catch-All Routes:**
-Clerk components handle multiple sub-routes for verification, password reset, and MFA flows. Catch-all route [[...sign-in]] captures all sub-paths under /sign-in/*.
+Clerk components handle multiple sub-routes for verification, password reset, and MFA flows. Catch-all route [[...sign-in]] captures all sub-paths under /sign-in/\*.
 
 ## Route Protection
 
@@ -136,6 +144,7 @@ Define isPublicRoute using createRouteMatcher with array of public route pattern
 Combine protected and admin routes. Define isAdminRoute separately with admin-specific patterns. Call auth.protect() with custom role check for admin routes. Enables fine-grained authorization.
 
 **Middleware Execution Order:**
+
 1. Clerk middleware processes authentication
 2. Route matcher evaluates current path
 3. auth.protect() enforces authentication requirement
@@ -152,31 +161,37 @@ Provides authentication state, session tokens, and sign-out functionality.
 **Available Properties:**
 
 userId (string | null):
+
 - Unique user identifier when authenticated
 - null when not authenticated
 - Use for conditional rendering
 
 sessionId (string | null):
+
 - Current session identifier
 - null when no active session
 - Use for session tracking
 
 isLoaded (boolean):
+
 - True when authentication state has been determined
 - False during initial load
 - Always check before rendering
 
 isSignedIn (boolean):
+
 - True when user is authenticated
 - False when not authenticated
 - Use for auth-dependent UI
 
 getToken (function):
+
 - Async function returning session token
 - Accepts template name for custom JWT templates
 - Returns null if not authenticated
 
 signOut (function):
+
 - Async function to sign out user
 - Clears session and redirects
 - Accepts redirect URL option
@@ -192,14 +207,17 @@ Provides user profile data and metadata.
 **Available Properties:**
 
 isSignedIn (boolean):
+
 - True when user is authenticated
 - Same as useAuth isSignedIn
 
 isLoaded (boolean):
+
 - True when user data has loaded
 - False during initial fetch
 
 user (User | null):
+
 - Full user object when authenticated
 - null when not authenticated
 - Contains profile, email, phone data
@@ -207,38 +225,47 @@ user (User | null):
 **User Object Structure:**
 
 id:
+
 - Unique user identifier
 - Same as userId from useAuth
 
 firstName:
+
 - User's first name
 - null if not provided
 
 lastName:
+
 - User's last name
 - null if not provided
 
 fullName:
+
 - Computed full name
 - Combines firstName and lastName
 
 primaryEmailAddress:
+
 - Email object with emailAddress string property
 - null if no email
 
 primaryPhoneNumber:
+
 - Phone object with phoneNumber string property
 - null if no phone
 
 imageUrl:
+
 - User profile image URL
 - Clerk-hosted image
 
 publicMetadata:
+
 - Custom data visible to client
 - Set via Dashboard or API
 
 unsafeMetadata:
+
 - Custom data editable by client
 - Not recommended for sensitive data
 
@@ -253,18 +280,22 @@ Provides access to Clerk instance for advanced operations.
 **Available Methods:**
 
 openSignIn():
+
 - Opens sign-in modal programmatically
 - Accepts custom redirect URL
 
 openSignUp():
+
 - Opens sign-up modal programmatically
 - Accepts custom redirect URL
 
 redirectToSignIn():
+
 - Redirects to sign-in page
 - Useful for protected actions
 
 redirectToSignUp():
+
 - Redirects to sign-up page
 - Useful for marketing CTAs
 
@@ -283,6 +314,7 @@ Import auth and currentUser from @clerk/nextjs/server. Make component async. Cal
 **auth() Function:**
 
 Returns object with:
+
 - userId: User ID or null
 - sessionId: Session ID or null
 - getToken(): Get session token
@@ -313,16 +345,19 @@ Multi-tenant features for B2B applications.
 ### Organization Concepts
 
 **Organization:**
+
 - Group of users with shared resources
 - One user can belong to multiple organizations
 - Each organization has roles and permissions
 
 **Membership:**
+
 - User's relationship to organization
 - Includes role assignment
 - Can be invited or joined
 
 **Roles:**
+
 - Admin: Full organization access
 - Member: Standard user access
 - Custom: Defined in Dashboard
@@ -362,32 +397,40 @@ Access current organization data and operations.
 **Available Properties:**
 
 organization (Organization | null):
+
 - Current organization object
 - null if no organization selected
 
 isLoaded (boolean):
+
 - True when organization data loaded
 - False during fetch
 
 membership (OrganizationMembership | null):
+
 - Current user's membership in organization
 - Includes role information
 
 **Organization Object:**
 
 id:
+
 - Unique organization identifier
 
 name:
+
 - Organization display name
 
 imageUrl:
+
 - Organization logo URL
 
 membersCount:
+
 - Number of organization members
 
 publicMetadata:
+
 - Custom organization data
 
 **Example Usage:**
@@ -405,12 +448,14 @@ Navigate to Clerk Dashboard > User & Authentication > Email, Phone, Username. En
 **Supported Authenticators:**
 
 Platform Authenticators:
+
 - Touch ID (macOS, iOS)
 - Face ID (iOS)
 - Windows Hello (Windows)
 - Android biometrics
 
 Roaming Authenticators:
+
 - YubiKey
 - Titan Security Key
 - Other FIDO2-compliant keys
@@ -440,6 +485,7 @@ Pre-configured OAuth providers with minimal setup.
 ### Supported Providers
 
 Major Providers:
+
 - Google
 - GitHub
 - Microsoft
@@ -508,16 +554,19 @@ Real-time event notifications for user actions.
 ### Webhook Events
 
 User Events:
+
 - user.created: New user registered
 - user.updated: User profile changed
 - user.deleted: User account deleted
 
 Session Events:
+
 - session.created: User signed in
 - session.ended: User signed out
 - session.removed: Session expired
 
 Organization Events:
+
 - organization.created: New organization created
 - organization.updated: Organization data changed
 - organization.deleted: Organization removed
@@ -555,9 +604,11 @@ Breaking changes when upgrading from Core 1 to Core 2.
 ### Environment Variable Changes
 
 Core 1:
+
 - CLERK_FRONTEND_API
 
 Core 2:
+
 - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 Migration:
@@ -568,9 +619,11 @@ Replace CLERK_FRONTEND_API with NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY in environment
 **Middleware:**
 
 Core 1:
+
 - authMiddleware() with publicRoutes config
 
 Core 2:
+
 - clerkMiddleware() with createRouteMatcher
 - Remove publicRoutes from config
 - Use route matcher functions
@@ -578,28 +631,34 @@ Core 2:
 **Server Imports:**
 
 Core 1:
+
 - Import from @clerk/nextjs
 
 Core 2:
+
 - Import from @clerk/nextjs/server for server-side functions
 - Separates client and server imports
 
 **Session Management:**
 
 Core 1:
+
 - setSession(sessionId)
 
 Core 2:
+
 - setActive({ session: sessionId })
 - Unified method for session and organization
 
 **Image URLs:**
 
 Core 1:
+
 - user.profileImageUrl
 - organization.logoUrl
 
 Core 2:
+
 - user.imageUrl
 - organization.imageUrl
 - Consistent naming
@@ -613,6 +672,7 @@ npx @clerk/upgrade --from=core-1
 ```
 
 **What It Does:**
+
 - Updates package versions
 - Modifies import statements
 - Replaces deprecated APIs
@@ -620,6 +680,7 @@ npx @clerk/upgrade --from=core-1
 - Suggests manual changes
 
 **Manual Steps After:**
+
 - Update environment variables
 - Test authentication flows
 - Verify route protection
@@ -669,7 +730,7 @@ Minimize middleware logic. Check authentication only where needed. Use route mat
 
 **Clerk Components Not Rendering:**
 
-Check that ClerkProvider wraps app in layout.tsx. Verify environment variables are set. Ensure public variables have NEXT_PUBLIC_ prefix.
+Check that ClerkProvider wraps app in layout.tsx. Verify environment variables are set. Ensure public variables have NEXT*PUBLIC* prefix.
 
 **Middleware Not Protecting Routes:**
 
@@ -696,23 +757,27 @@ Create .env.local entry for CLERK_DEBUG set to true. Clerk SDK logs to console. 
 ## Resources
 
 **Official Documentation:**
+
 - Clerk Docs: https://clerk.com/docs
 - Next.js Quickstart: https://clerk.com/docs/quickstarts/nextjs
 - API Reference: https://clerk.com/docs/reference/nextjs/overview
 - Core 2 Migration: https://clerk.com/docs/guides/development/upgrading/upgrade-guides/core-2/nextjs
 
 **Clerk SDKs:**
+
 - @clerk/nextjs: Next.js integration
 - @clerk/clerk-react: React integration
 - @clerk/express: Express.js integration
 - @clerk/backend: Backend SDK for Node.js
 
 **Community:**
+
 - Discord: clerk.com/discord
 - GitHub: github.com/clerk
 - Twitter: @clerk_dev
 
 **Tools:**
+
 - Clerk Dashboard: dashboard.clerk.com
 - Webhook Tester: dashboard.clerk.com/webhooks
 - API Explorer: clerk.com/docs/reference/backend-api

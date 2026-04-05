@@ -7,13 +7,13 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, csharp, dotnet, aspnet-core, entity-framework, blazor"
-  context7-libraries: "/dotnet/aspnetcore, /dotnet/efcore, /dotnet/runtime"
+  version: '2.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, csharp, dotnet, aspnet-core, entity-framework, blazor'
+  context7-libraries: '/dotnet/aspnetcore, /dotnet/efcore, /dotnet/runtime'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -23,8 +23,20 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["C#", "Csharp", ".NET", "ASP.NET", "Entity Framework", "Blazor", ".cs", ".csproj", ".sln", "dotnet"]
-  languages: ["csharp", "c#"]
+  keywords:
+    [
+      'C#',
+      'Csharp',
+      '.NET',
+      'ASP.NET',
+      'Entity Framework',
+      'Blazor',
+      '.cs',
+      '.csproj',
+      '.sln',
+      'dotnet',
+    ]
+  languages: ['csharp', 'c#']
 ---
 
 # C# 12 / .NET 8 Development Specialist
@@ -104,7 +116,7 @@ Entity Configuration: Create a class implementing IEntityTypeConfiguration of yo
 
 For latest documentation, use Context7 MCP tools.
 
-For ASP.NET Core documentation, first resolve the library ID using mcp__context7__resolve-library-id with "aspnetcore", then fetch docs using mcp__context7__get-library-docs with the resolved library ID and topic like "minimal-apis middleware".
+For ASP.NET Core documentation, first resolve the library ID using mcp**context7**resolve-library-id with "aspnetcore", then fetch docs using mcp**context7**get-library-docs with the resolved library ID and topic like "minimal-apis middleware".
 
 For Entity Framework Core documentation, resolve with "efcore" and fetch with topics like "dbcontext migrations".
 

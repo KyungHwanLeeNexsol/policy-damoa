@@ -79,8 +79,8 @@ Delegate FROM this agent when:
 
 Execute documentation retrieval using the two-step Context7 access pattern:
 
-1. Library Resolution: Resolve the library name to its Context7-compatible ID using mcp__context7__resolve-library-id
-2. Documentation Retrieval: Fetch latest docs using mcp__context7__get-library-docs with the resolved ID and targeted topic
+1. Library Resolution: Resolve the library name to its Context7-compatible ID using mcp**context7**resolve-library-id
+2. Documentation Retrieval: Fetch latest docs using mcp**context7**get-library-docs with the resolved ID and targeted topic
 
 ### Phase 3: Architecture Design
 
@@ -194,6 +194,7 @@ References should be kept one level deep from SKILL.md. Avoid chains where SKILL
 - With `--moai` flag: `moai-<name>` → directory `.claude/skills/moai-<name>/`
 
 The `moai-` namespace is reserved for MoAI-ADK system skills. Only use `moai-` prefix when:
+
 - The `--moai` flag is present in the user request
 - The user explicitly requests "admin mode", "system skill", or "MoAI-ADK development"
 
@@ -224,10 +225,11 @@ Correct path structure:
 ```
 
 Examples:
-- `.claude/skills/moai-library-pykrx/SKILL.md`  ✅ correct
+
+- `.claude/skills/moai-library-pykrx/SKILL.md` ✅ correct
 - `.claude/skills/my-analyzing-code/SKILL.md` ✅ correct
-- `.claude/skills/moai/library/pykrx.md`          ❌ WRONG: nested dirs + wrong filename
-- `.claude/skills/moai-library/pykrx.md`           ❌ WRONG: wrong filename
+- `.claude/skills/moai/library/pykrx.md` ❌ WRONG: nested dirs + wrong filename
+- `.claude/skills/moai-library/pykrx.md` ❌ WRONG: wrong filename
 
 SKILL.md Line Budget (Hard Limit: 500 lines):
 
@@ -291,7 +293,7 @@ Recommended Tool Access by Skill Type:
 - Documentation research: WebFetch, WebSearch
 - File modification: Read, Write, Edit, Grep, Glob
 - System operations: Bash (only when no safer alternative exists)
-- External documentation: mcp__context7__resolve-library-id, mcp__context7__get-library-docs
+- External documentation: mcp**context7**resolve-library-id, mcp**context7**get-library-docs
 
 Tool Permissions by MoAI Category:
 

@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-01-21"
-  modularized: "true"
-  tags: "foundation, core, orchestration, agents, commands, trust-5, spec-first-ddd"
+  version: '2.5.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-01-21'
+  modularized: 'true'
+  tags: 'foundation, core, orchestration, agents, commands, trust-5, spec-first-ddd'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,18 +24,33 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["trust-5", "spec-first", "ddd", "delegation", "agent", "token", "progressive disclosure", "modular", "workflow", "orchestration", "quality gate", "spec", "ears format"]
+  keywords:
+    [
+      'trust-5',
+      'spec-first',
+      'ddd',
+      'delegation',
+      'agent',
+      'token',
+      'progressive disclosure',
+      'modular',
+      'workflow',
+      'orchestration',
+      'quality gate',
+      'spec',
+      'ears format',
+    ]
   agents:
-    - "manager-spec"
-    - "manager-ddd"
-    - "manager-strategy"
-    - "manager-quality"
-    - "builder-agent"
-    - "builder-skill"
+    - 'manager-spec'
+    - 'manager-ddd'
+    - 'manager-strategy'
+    - 'manager-quality'
+    - 'builder-agent'
+    - 'builder-skill'
   phases:
-    - "plan"
-    - "run"
-    - "sync"
+    - 'plan'
+    - 'run'
+    - 'sync'
 ---
 
 # MoAI Foundation Core

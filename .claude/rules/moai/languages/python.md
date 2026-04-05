@@ -1,5 +1,5 @@
 ---
-paths: "**/*.py,**/pyproject.toml,**/requirements*.txt"
+paths: '**/*.py,**/pyproject.toml,**/requirements*.txt'
 ---
 
 # Python Rules
@@ -27,15 +27,15 @@ Version: Python 3.13+
 
 - Use bare except clauses
 - Mutate default arguments (mutable defaults)
-- Use wildcard imports (from x import *)
+- Use wildcard imports (from x import \*)
 - Ignore type checker errors with # type: ignore without reason
 - Store secrets in code or config files
 - Use print() for logging (use logging module)
 
 ## File Conventions
 
-- test_*.py or *_test.py for test files
-- __init__.py for package initialization
+- test\__.py or _\_test.py for test files
+- **init**.py for package initialization
 - conftest.py for pytest fixtures
 - Use snake_case for modules and functions
 - Use PascalCase for classes

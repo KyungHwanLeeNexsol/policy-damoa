@@ -7,11 +7,11 @@ description: >
   Use when comprehensive multi-angle code review is needed.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "review, team, security, performance, quality, ux, parallel"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'review, team, security, performance, quality, ux, parallel'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,10 +21,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["team review", "multi-perspective review", "parallel review"]
-  agents: ["team-validator"]
-  phases: ["review"]
+  keywords: ['team review', 'multi-perspective review', 'parallel review']
+  agents: ['team-validator']
+  phases: ['review']
 ---
+
 # Workflow: Team Review - Multi-Perspective Code Review
 
 Purpose: Review code changes from multiple perspectives simultaneously. Each reviewer focuses on a specific quality dimension.
@@ -117,6 +118,7 @@ All four reviewers run in parallel. Messages from teammates are delivered automa
 ## Phase 2: Parallel Review
 
 Reviewers work independently (all read-only, 4 perspectives):
+
 - Security: OWASP compliance, injection risks, auth vulnerabilities
 - Performance: Algorithmic complexity, resource usage, caching
 - Quality: TRUST 5 compliance, patterns, maintainability
@@ -127,6 +129,7 @@ Reviewers work independently (all read-only, 4 perspectives):
 ## Phase 3: Report Consolidation
 
 After all reviews complete:
+
 1. Collect findings from all reviewers
 2. Deduplicate overlapping issues
 3. Prioritize by severity (critical first)
@@ -158,6 +161,7 @@ After all reviews complete:
 ## Fallback
 
 If team creation fails:
+
 - Fall back to manager-quality subagent for single-perspective review
 - Sequential review of security, performance, then quality
 

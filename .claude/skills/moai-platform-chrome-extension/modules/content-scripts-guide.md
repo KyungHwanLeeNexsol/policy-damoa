@@ -51,9 +51,9 @@ Match Pattern Syntax:
 
 Patterns follow the format scheme://host/path where:
 
-- scheme can be http, https, or the wildcard * matching both
-- host can be a specific domain, a wildcard subdomain like *.example.com, or * for all hosts
-- path uses * as wildcard matching any path segment
+- scheme can be http, https, or the wildcard \* matching both
+- host can be a specific domain, a wildcard subdomain like _.example.com, or _ for all hosts
+- path uses \* as wildcard matching any path segment
 
 Special patterns:
 
@@ -83,8 +83,8 @@ async function registerScripts() {
       js: ['content/feature.js'],
       css: ['content/feature.css'],
       runAt: 'document_end',
-      allFrames: false
-    }
+      allFrames: false,
+    },
   ]);
 }
 
@@ -93,15 +93,15 @@ async function updateScripts(newMatches) {
   await chrome.scripting.updateContentScripts([
     {
       id: 'feature-enhancement',
-      matches: newMatches
-    }
+      matches: newMatches,
+    },
   ]);
 }
 
 // Unregister scripts when feature is disabled
 async function unregisterScripts() {
   await chrome.scripting.unregisterContentScripts({
-    ids: ['feature-enhancement']
+    ids: ['feature-enhancement'],
   });
 }
 
@@ -125,7 +125,7 @@ async function injectScript() {
 
   await chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    files: ['content/injected.js']
+    files: ['content/injected.js'],
   });
 }
 
@@ -137,7 +137,7 @@ async function injectFunction(tabId) {
       document.body.style.backgroundColor = color;
       return document.title;
     },
-    args: ['#f0f0f0']
+    args: ['#f0f0f0'],
   });
 
   // results is an array of InjectionResult objects
@@ -148,7 +148,7 @@ async function injectFunction(tabId) {
 async function injectIntoFrames(tabId, frameIds) {
   await chrome.scripting.executeScript({
     target: { tabId, frameIds },
-    files: ['content/frame-script.js']
+    files: ['content/frame-script.js'],
   });
 }
 
@@ -156,7 +156,7 @@ async function injectIntoFrames(tabId, frameIds) {
 async function injectCSS(tabId) {
   await chrome.scripting.insertCSS({
     target: { tabId },
-    css: '.extension-highlight { background: yellow !important; }'
+    css: '.extension-highlight { background: yellow !important; }',
   });
 }
 
@@ -164,7 +164,7 @@ async function injectCSS(tabId) {
 async function removeCSS(tabId) {
   await chrome.scripting.removeCSS({
     target: { tabId },
-    css: '.extension-highlight { background: yellow !important; }'
+    css: '.extension-highlight { background: yellow !important; }',
   });
 }
 ```
@@ -204,7 +204,7 @@ function getExtensionResource(path) {
 async function queryTabs() {
   const response = await chrome.runtime.sendMessage({
     action: 'query-tabs',
-    params: { currentWindow: true }
+    params: { currentWindow: true },
   });
   return response.tabs;
 }
@@ -213,7 +213,7 @@ async function queryTabs() {
 async function notify(title, message) {
   await chrome.runtime.sendMessage({
     action: 'create-notification',
-    params: { title, message }
+    params: { title, message },
   });
 }
 ```
@@ -227,13 +227,13 @@ Content scripts have full access to the page DOM. Use standard DOM APIs for read
 function extractPageData() {
   const title = document.title;
   const meta = document.querySelector('meta[name="description"]')?.content || '';
-  const headings = [...document.querySelectorAll('h1, h2, h3')].map(h => ({
+  const headings = [...document.querySelectorAll('h1, h2, h3')].map((h) => ({
     level: h.tagName,
-    text: h.textContent.trim()
+    text: h.textContent.trim(),
   }));
-  const links = [...document.querySelectorAll('a[href]')].map(a => ({
+  const links = [...document.querySelectorAll('a[href]')].map((a) => ({
     text: a.textContent.trim(),
-    href: a.href
+    href: a.href,
   }));
 
   return { title, meta, headings, links };
@@ -242,7 +242,7 @@ function extractPageData() {
 // Modify page content safely
 function highlightElements(selector, color = '#ffeb3b') {
   const elements = document.querySelectorAll(selector);
-  elements.forEach(el => {
+  elements.forEach((el) => {
     el.style.outline = `2px solid ${color}`;
     el.dataset.extensionHighlighted = 'true';
   });
@@ -267,7 +267,7 @@ function observePageChanges(targetSelector, callback) {
 
   observer.observe(target, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
 
   return observer;
@@ -276,7 +276,7 @@ function observePageChanges(targetSelector, callback) {
 // Clean up when content script is destroyed
 function cleanup() {
   // Remove injected elements
-  document.querySelectorAll('[data-extension-highlighted]').forEach(el => {
+  document.querySelectorAll('[data-extension-highlighted]').forEach((el) => {
     el.style.outline = '';
     delete el.dataset.extensionHighlighted;
   });

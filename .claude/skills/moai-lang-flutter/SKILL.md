@@ -8,14 +8,14 @@ license: Apache-2.0
 compatibility: Designed for Claude Code
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "false"
-  tags: "flutter, dart, riverpod, cross-platform, mobile, desktop"
-  context7-libraries: "/flutter/flutter, /rrousselgit/riverpod, /flutter/packages"
-  related-skills: "moai-lang-swift, moai-lang-kotlin"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'false'
+  tags: 'flutter, dart, riverpod, cross-platform, mobile, desktop'
+  context7-libraries: '/flutter/flutter, /rrousselgit/riverpod, /flutter/packages'
+  related-skills: 'moai-lang-swift, moai-lang-kotlin'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,8 +25,25 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Flutter", "Dart", "Riverpod", "go_router", "widget", ".dart", "pubspec.yaml", "cross-platform", "mobile", "adaptive", "responsive", "animation", "hero", "staggered", "physics"]
-  languages: ["dart", "flutter"]
+  keywords:
+    [
+      'Flutter',
+      'Dart',
+      'Riverpod',
+      'go_router',
+      'widget',
+      '.dart',
+      'pubspec.yaml',
+      'cross-platform',
+      'mobile',
+      'adaptive',
+      'responsive',
+      'animation',
+      'hero',
+      'staggered',
+      'physics',
+    ]
+  languages: ['dart', 'flutter']
 ---
 
 ## Quick Reference (30 seconds)

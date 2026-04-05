@@ -13,8 +13,8 @@ See `.claude/skills/moai-design-craft/` for the protocol that governs this file.
 
 ## Domain Vocabulary
 
-| Term | Definition |
-|------|-----------|
+| Term   | Definition                                                                 |
+| ------ | -------------------------------------------------------------------------- |
 | [Term] | [Domain-specific definition — use the user's language, not UI terminology] |
 
 ## Craft Principles

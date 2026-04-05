@@ -9,27 +9,32 @@ Create smooth, performant animations in Flutter using the right approach for eac
 Choose the right animation type based on your requirements:
 
 **Implicit Animations** - Use when:
+
 - Animating a single property (color, size, position)
 - Animation is triggered by state change
 - No need for fine-grained control
 
 **Explicit Animations** - Use when:
+
 - Need full control over animation lifecycle
 - Animating multiple properties simultaneously
 - Need to react to animation state changes
 - Creating custom animations or transitions
 
 **Hero Animations** - Use when:
+
 - Sharing an element between two screens
 - Creating shared element transitions
 - User expects element to "fly" between routes
 
 **Staggered Animations** - Use when:
+
 - Multiple animations should run sequentially or overlap
 - Creating ripple effects or sequential reveals
 - Animating list items in sequence
 
 **Physics-Based Animations** - Use when:
+
 - Animations should feel natural/physical
 - Spring-like behavior, scrolling gestures
 - Draggable interactions
@@ -83,6 +88,7 @@ TweenAnimationBuilder<double>(
 ```
 
 **Other implicit widgets:**
+
 - `AnimatedPadding` - Padding animation
 - `AnimatedPositioned` - Position animation (in Stack)
 - `AnimatedAlign` - Alignment animation
@@ -199,6 +205,7 @@ class GrowTransition extends StatelessWidget {
 ### Built-in Explicit Transitions
 
 Flutter provides ready-to-use transitions:
+
 - `FadeTransition` - Fade animation
 - `ScaleTransition` - Scale animation
 - `SlideTransition` - Slide animation
@@ -213,6 +220,7 @@ Hero animations create shared element transitions between screens.
 ### Basic Hero Animation
 
 **Source screen:**
+
 ```dart
 Hero(
   tag: 'hero-image',
@@ -221,6 +229,7 @@ Hero(
 ```
 
 **Destination screen:**
+
 ```dart
 Hero(
   tag: 'hero-image',  // Same tag!

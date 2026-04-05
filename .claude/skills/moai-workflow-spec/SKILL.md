@@ -9,15 +9,15 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Edit Bash(git:*) Bash(ls:*) Bash(wc:*) Bash(mkdir:*) Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.2.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-01-08"
-  modularized: "true"
-  tags: "workflow, spec, ears, requirements, moai-adk, planning"
-  author: "MoAI-ADK Team"
-  context: "fork"
-  agent: "Plan"
+  version: '1.2.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-01-08'
+  modularized: 'true'
+  tags: 'workflow, spec, ears, requirements, moai-adk, planning'
+  author: 'MoAI-ADK Team'
+  context: 'fork'
+  agent: 'Plan'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -27,9 +27,19 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["SPEC", "requirement", "EARS", "acceptance criteria", "user story", "planning", "specification", "requirements gathering"]
-  phases: ["plan"]
-  agents: ["manager-spec", "manager-strategy", "Plan"]
+  keywords:
+    [
+      'SPEC',
+      'requirement',
+      'EARS',
+      'acceptance criteria',
+      'user story',
+      'planning',
+      'specification',
+      'requirements gathering',
+    ]
+  phases: ['plan']
+  agents: ['manager-spec', 'manager-strategy', 'Plan']
 ---
 
 # SPEC Workflow Management

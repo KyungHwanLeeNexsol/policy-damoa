@@ -1,5 +1,5 @@
 ---
-paths: "**/*.ts,**/*.tsx,**/tsconfig.json"
+paths: '**/*.ts,**/*.tsx,**/tsconfig.json'
 ---
 
 # TypeScript Rules
@@ -33,9 +33,9 @@ Version: TypeScript 5.9+
 
 ## File Conventions
 
-- *.test.ts or *.spec.ts for test files
+- _.test.ts or _.spec.ts for test files
 - index.ts for barrel exports
-- Use PascalCase for components (*.tsx)
+- Use PascalCase for components (\*.tsx)
 - Use camelCase for utilities
 - Use kebab-case for file names
 

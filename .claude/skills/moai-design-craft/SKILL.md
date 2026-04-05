@@ -9,13 +9,13 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob
 user-invocable: false
 metadata:
-  version: "1.2.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-03-30"
-  modularized: "true"
-  tags: "design, craft, intent-first, design-direction, domain-exploration, design-memory, critique, web-copy, ux-writing, headline, cta"
-  related-skills: "moai-domain-uiux, moai-design-tools, moai-domain-frontend"
+  version: '1.2.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-03-30'
+  modularized: 'true'
+  tags: 'design, craft, intent-first, design-direction, domain-exploration, design-memory, critique, web-copy, ux-writing, headline, cta'
+  related-skills: 'moai-domain-uiux, moai-design-tools, moai-domain-frontend'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,9 +25,31 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["intent-first", "design craft", "design direction", "design intent", "domain exploration", "design critique", "craft review", "design memory", "design system", "system.md", "design audit", "why before what", "design extract", "interface design", "web copy", "ux writing", "headline", "cta copy", "landing page copy", "anti-ai writing"]
-  agents: ["expert-frontend", "team-designer"]
-  phases: ["plan", "run", "review"]
+  keywords:
+    [
+      'intent-first',
+      'design craft',
+      'design direction',
+      'design intent',
+      'domain exploration',
+      'design critique',
+      'craft review',
+      'design memory',
+      'design system',
+      'system.md',
+      'design audit',
+      'why before what',
+      'design extract',
+      'interface design',
+      'web copy',
+      'ux writing',
+      'headline',
+      'cta copy',
+      'landing page copy',
+      'anti-ai writing',
+    ]
+  agents: ['expert-frontend', 'team-designer']
+  phases: ['plan', 'run', 'review']
 ---
 
 # Design Craft Specialist
@@ -36,15 +58,15 @@ Intent-First design philosophy integrated into MoAI workflows. Ensures design de
 
 ## Core Philosophy
 
-**Intent-First**: Before any visual or component decision, establish *why* — the domain, the user, the interaction contract, and the craft principles that apply.
+**Intent-First**: Before any visual or component decision, establish _why_ — the domain, the user, the interaction contract, and the craft principles that apply.
 
 The three craft operations:
 
-| Operation | When | What It Does |
-|-----------|------|--------------|
-| Design Direction | At `/moai plan` (design keywords) | Domain exploration, intent capture, vocabulary alignment |
-| Design Audit | At `/moai review --design` | Checks implementation against `.moai/design/system.md` |
-| Design Critique | At `/moai review --critique` | Post-build craft review: observe, diagnose, rebuild decision |
+| Operation        | When                              | What It Does                                                 |
+| ---------------- | --------------------------------- | ------------------------------------------------------------ |
+| Design Direction | At `/moai plan` (design keywords) | Domain exploration, intent capture, vocabulary alignment     |
+| Design Audit     | At `/moai review --design`        | Checks implementation against `.moai/design/system.md`       |
+| Design Critique  | At `/moai review --critique`      | Post-build craft review: observe, diagnose, rebuild decision |
 
 ## Module Index
 

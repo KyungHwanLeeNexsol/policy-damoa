@@ -7,11 +7,11 @@ description: >
   Use when generating architecture documentation or visualizing codebase structure.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "codemaps, architecture, documentation, visualization, codebase-analysis"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'codemaps, architecture, documentation, visualization, codebase-analysis'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["codemaps", "architecture", "codebase map", "module map", "dependency graph"]
-  agents: ["Explore", "manager-docs"]
-  phases: ["codemaps"]
+  keywords: ['codemaps', 'architecture', 'codebase map', 'module map', 'dependency graph']
+  agents: ['Explore', 'manager-docs']
+  phases: ['codemaps']
 ---
 
 # Workflow: Codemaps - Architecture Documentation Generation
@@ -94,6 +94,7 @@ Output Files in `.moai/project/codemaps/` directory:
 - `data-flow.md`: Key data flow paths through the system
 
 If --area flag: Generate only area-specific maps:
+
 - `.moai/project/codemaps/{area}/overview.md`
 - `.moai/project/codemaps/{area}/modules.md`
 - `.moai/project/codemaps/{area}/dependencies.md`
@@ -125,6 +126,7 @@ Next Steps (AskUserQuestion):
 ## Task Tracking
 
 [HARD] Task management tools mandatory:
+
 - Each map file creation tracked as a pending task via TaskCreate
 - Before each generation: change to in_progress via TaskUpdate
 - After each generation: change to completed via TaskUpdate

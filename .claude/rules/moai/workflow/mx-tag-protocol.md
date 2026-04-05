@@ -1,5 +1,5 @@
 ---
-paths: "**/*.go,**/*.py,**/*.ts,**/*.js,**/*.java,**/*.rs,**/*.c,**/*.cpp,**/*.rb,**/*.php,**/*.kt,**/*.swift,**/*.dart,**/*.ex,**/*.scala,**/*.hs,**/*.zig"
+paths: '**/*.go,**/*.py,**/*.ts,**/*.js,**/*.java,**/*.rs,**/*.c,**/*.cpp,**/*.rb,**/*.php,**/*.kt,**/*.swift,**/*.dart,**/*.ex,**/*.scala,**/*.hs,**/*.zig'
 ---
 
 # @MX TAG Protocol
@@ -18,6 +18,7 @@ This rule applies to all agents working with source code in the supported progra
 ```
 
 **Tag Types:**
+
 - `@MX:NOTE` -- Context and intent delivery
 - `@MX:WARN` -- Danger zone (requires @MX:REASON)
 - `@MX:ANCHOR` -- Invariant contract (requires @MX:REASON)
@@ -28,22 +29,26 @@ This rule applies to all agents working with source code in the supported progra
 ## When to Add Tags
 
 **@MX:NOTE** -- Add when:
+
 - Magic constant encountered
 - Exported function lacks godoc and exceeds 100 lines
 - Business rule is unexplained
 
 **@MX:WARN** -- Add when:
+
 - Goroutine/channel without context.Context
 - Cyclomatic complexity >= 15
 - Global state mutation detected
 - If-branches >= 8
 
 **@MX:ANCHOR** -- Add when:
+
 - Function has fan_in >= 3 callers
 - Public API boundary identified
 - External system integration point detected
 
 **@MX:TODO** -- Add when:
+
 - Public function has no test file
 - SPEC requirement is not implemented
 - Error returned without handling
@@ -65,22 +70,26 @@ This rule applies to all agents working with source code in the supported progra
 ## Tag Lifecycle Rules
 
 **TODO:**
+
 - Created in RED/ANALYZE phase
 - Resolved in GREEN/IMPROVE phase (removed)
 - Escalates to WARN after > 3 iterations unresolved
 
 **ANCHOR:**
+
 - Created when fan_in >= 3
 - Updated when caller count or SPEC changes
 - Demoted to NOTE when fan_in drops below 3 (requires report)
 - NEVER auto-deleted
 
 **WARN:**
+
 - Created when danger detected
 - Persistent when structural (e.g., goroutine lifecycle)
 - Removable when resolved
 
 **NOTE:**
+
 - Created when context needed
 - Updated after signature changes
 - Obsolete when code deleted
@@ -90,6 +99,7 @@ This rule applies to all agents working with source code in the supported progra
 Files matching patterns in `.moai/config/sections/mx.yaml` exclude list are not tagged:
 
 Default exclude patterns:
+
 - `**/*_generated.go`
 - `**/vendor/**`
 - `**/mock_*.go`
@@ -97,16 +107,19 @@ Default exclude patterns:
 ## Hard Limits
 
 Per-file limits from `.moai/config/sections/mx.yaml` (defaults):
+
 - `anchor_per_file`: 3
 - `warn_per_file`: 5
 
 When limits exceeded:
+
 - ANCHOR: Demote excess by lowest fan_in
 - WARN: Keep P1-P5 highest priority only
 
 ## Team Environment
 
 In Agent Teams mode, @MX tag operations follow file ownership rules:
+
 - Each teammate only modifies tags within owned file patterns
 - Cross-file tag validation respects ownership boundaries
 - Report summarizes tag changes across all teammates
@@ -119,15 +132,16 @@ In Agent Teams mode, @MX tag operations follow file ownership rules:
 
 ## Comment Syntax by Language
 
-| Language | Prefix | Example |
-|----------|--------|---------|
-| Go, Java, TS, Rust, C/C++, Swift, Kotlin, Dart, Zig, Scala | `//` | `// @MX:NOTE:` |
-| Python, Ruby, Elixir | `#` | `# @MX:WARN:` |
-| Haskell | `--` | `-- @MX:ANCHOR:` |
+| Language                                                   | Prefix | Example          |
+| ---------------------------------------------------------- | ------ | ---------------- |
+| Go, Java, TS, Rust, C/C++, Swift, Kotlin, Dart, Zig, Scala | `//`   | `// @MX:NOTE:`   |
+| Python, Ruby, Elixir                                       | `#`    | `# @MX:WARN:`    |
+| Haskell                                                    | `--`   | `-- @MX:ANCHOR:` |
 
 ## Configuration
 
 Project-level settings in `.moai/config/sections/mx.yaml`:
+
 - thresholds: fan_in_anchor, complexity_warn, branch_warn
 - limits: anchor_per_file, warn_per_file
 - exclude: file patterns to skip
@@ -139,11 +153,13 @@ Project-level settings in `.moai/config/sections/mx.yaml`:
 **IMPORTANT**: @MX tag descriptions MUST respect the `code_comments` setting from `.moai/config/sections/language.yaml`.
 
 The `code_comments` setting controls the language used for:
+
 - @MX tag descriptions (NOTE, WARN, ANCHOR, TODO)
 - @MX:REASON sub-lines
 - Code comments and godoc
 
 Available languages:
+
 - `en` - English (default)
 - `ko` - Korean
 - `ja` - Japanese
@@ -153,10 +169,11 @@ Available languages:
 Before adding @MX tags, agents MUST read `.moai/config/sections/language.yaml` and use the `code_comments` value to determine the tag language.
 
 **Example:**
+
 ```yaml
 # .moai/config/sections/language.yaml
 language:
-  code_comments: ko  # Tags will be in Korean
+  code_comments: ko # Tags will be in Korean
 ```
 
 If `code_comments` is not set, default to English (`en`).
@@ -169,8 +186,11 @@ After any phase with tag changes, generate report:
 ## @MX Tag Report -- [Phase] -- [Timestamp]
 
 ### Tags Added (N)
+
 ### Tags Removed (N)
+
 ### Tags Updated (N)
+
 ### Attention Required
 ```
 

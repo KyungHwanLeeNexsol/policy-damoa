@@ -1,5 +1,5 @@
 ---
-paths: "**/*.php,**/composer.json,**/composer.lock"
+paths: '**/*.php,**/composer.json,**/composer.lock'
 ---
 
 # PHP Rules
@@ -33,7 +33,7 @@ Version: PHP 8.3+
 
 ## File Conventions
 
-- *Test.php for test files
+- \*Test.php for test files
 - PSR-4 autoloading structure
 - Use PascalCase for classes
 - Use camelCase for methods

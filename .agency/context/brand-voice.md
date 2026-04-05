@@ -1,11 +1,11 @@
-<!-- 
+<!--
   Agency Brand Context: Brand Voice
-  
+
   This file is part of the Agency Brand Context (constitution).
   It is NOT auto-modified by the learner agent.
   Changes require manual editing by the user.
   It serves as the foundation for all agency skill evolution.
-  
+
   Fill this file during the first `/agency brief` run via client interview.
 -->
 
@@ -49,18 +49,23 @@ Bold [ ] [X] [ ] [ ] [ ] Reserved
 ## Language Rules
 
 Formality Level: _TBD_
+
 <!-- Example: semi-formal, conversational but not slangy -->
 
 Pronouns: _TBD_
+
 <!-- Example: "we" for the company, "you" for the customer, avoid "I" -->
 
 Jargon Policy: _TBD_
+
 <!-- Example: avoid technical jargon unless the audience is developers -->
 
 Sentence Length: _TBD_
+
 <!-- Example: short to medium, max 25 words per sentence -->
 
 Contractions: _TBD_
+
 <!-- Example: yes, always use contractions (don't, we're, it's) -->
 
 ## Sample Phrases
@@ -98,10 +103,13 @@ Contractions: _TBD_
 <!-- What feeling should the copy evoke in the reader? -->
 
 Primary Emotion: _TBD_
+
 <!-- Example: confidence, trust, excitement, calm -->
 
 Secondary Emotion: _TBD_
+
 <!-- Example: curiosity, belonging, empowerment -->
 
 What the reader should think after reading: _TBD_
+
 <!-- Example: "These people understand my problem and have a real solution." -->

@@ -149,10 +149,7 @@ Use specific patterns when possible. Prefer activeTab over broad host patterns t
 
 ```json
 {
-  "host_permissions": [
-    "https://*.example.com/*",
-    "https://api.service.com/*"
-  ]
+  "host_permissions": ["https://*.example.com/*", "https://api.service.com/*"]
 }
 ```
 
@@ -218,7 +215,7 @@ side_panel configures the extension side panel displayed alongside web content. 
 
 commands declares keyboard shortcuts for extension actions. Each command has a suggested_key object with platform-specific key combinations and an optional description.
 
-The special "_execute_action" command triggers the toolbar button action.
+The special "\_execute_action" command triggers the toolbar button action.
 
 ```json
 {

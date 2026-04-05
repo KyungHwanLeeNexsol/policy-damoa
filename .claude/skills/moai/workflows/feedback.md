@@ -7,11 +7,11 @@ description: >
   Use when submitting feedback, reporting bugs, or requesting features.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-21"
-  tags: "feedback, bug-report, feature-request, github-issues, quality"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-21'
+  tags: 'feedback, bug-report, feature-request, github-issues, quality'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,9 +21,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["feedback", "bug", "issue", "suggestion", "report", "feature request"]
-  agents: ["manager-quality"]
-  phases: ["feedback"]
+  keywords: ['feedback', 'bug', 'issue', 'suggestion', 'report', 'feature request']
+  agents: ['manager-quality']
+  phases: ['feedback']
 ---
 
 # Workflow: feedback - GitHub Issue Creation
@@ -93,12 +93,12 @@ Pass to manager-quality:
 
 Language examples:
 
-| conversation_language | Title example | Section header example |
-|----------------------|---------------|----------------------|
-| en | "Login fails with 500 error" | "## Description", "## Priority", "## Environment" |
-| ko | "로그인 시 500 에러 발생" | "## 설명", "## 우선순위", "## 환경 정보" |
-| ja | "ログイン時に500エラー発生" | "## 説明", "## 優先度", "## 環境情報" |
-| zh | "登录时出现500错误" | "## 描述", "## 优先级", "## 环境信息" |
+| conversation_language | Title example                | Section header example                            |
+| --------------------- | ---------------------------- | ------------------------------------------------- |
+| en                    | "Login fails with 500 error" | "## Description", "## Priority", "## Environment" |
+| ko                    | "로그인 시 500 에러 발생"    | "## 설명", "## 우선순위", "## 환경 정보"          |
+| ja                    | "ログイン時に500エラー発生"  | "## 説明", "## 優先度", "## 環境情報"             |
+| zh                    | "登录时出现500错误"          | "## 描述", "## 优先级", "## 环境信息"             |
 
 ### Issue Creation Command
 

@@ -4,66 +4,67 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 
 ## Feature Comparison Matrix
 
-| Feature | Auth0 | Clerk | Firebase Auth |
-|---------|-------|-------|---------------|
-| **Authentication Methods** |
-| Email/Password | ✅ Full | ✅ Full | ✅ Full |
-| Passwordless Email | ✅ Magic Link | ✅ Magic Link | ✅ Magic Link |
-| Phone/SMS | ✅ SMS + Voice | ❌ No | ✅ SMS Only |
-| Social Providers | ✅ 30+ providers | ✅ 10+ providers | ✅ 15+ providers |
-| WebAuthn/Passkeys | ✅ Security Keys | ✅ Full Support | ❌ Limited |
-| Anonymous Auth | ❌ No | ❌ No | ✅ Yes |
-| Custom Auth | ✅ Extensibility | ⚠️ Limited | ✅ Custom Tokens |
-| **Security Features** |
-| MFA | ✅ Full (TOTP, SMS, Push, WebAuthn) | ✅ WebAuthn, TOTP | ⚠️ Phone, Enterprise TOTP |
-| Adaptive MFA | ✅ Risk-based (Enterprise) | ❌ No | ❌ No |
-| Bot Detection | ✅ Built-in | ❌ No | ⚠️ reCAPTCHA |
-| Breached Password Detection | ✅ Standard + Credential Guard | ❌ No | ❌ No |
-| Brute Force Protection | ✅ Configurable | ✅ Basic | ⚠️ Rate Limiting |
-| IP Throttling | ✅ Velocity Detection | ❌ No | ❌ No |
-| Token Binding (DPoP) | ✅ Yes | ❌ No | ❌ No |
-| Certificate Binding (mTLS) | ✅ Enterprise HRI | ❌ No | ❌ No |
-| Session Monitoring | ✅ Security Center | ⚠️ Basic | ⚠️ Basic |
-| **Compliance** |
-| GDPR | ✅ Full (DPA, Right to Erasure) | ✅ Compliant | ✅ Compliant |
-| HIPAA | ✅ BAA Available (Enterprise) | ❌ No | ⚠️ BAA for Firebase (Google Cloud) |
-| SOC 2 Type 2 | ✅ Yes | ✅ Yes | ✅ Yes (Google) |
-| ISO 27001 | ✅ Yes | ❌ No | ✅ Yes (Google) |
-| FAPI | ✅ FAPI 1 Advanced (HRI) | ❌ No | ❌ No |
-| PCI DSS | ✅ Compliant Infrastructure | ❌ No | ❌ No |
-| **Developer Experience** |
-| Pre-built UI Components | ⚠️ Universal Login | ✅ Excellent (React) | ❌ FirebaseUI (separate) |
-| Documentation Quality | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| SDK Quality | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| Setup Complexity | Medium | Easy | Easy-Medium |
-| Customization | High | Medium | Medium-High |
-| Integration Effort | 1-2 weeks | 1-3 days | 3-7 days |
-| **Platform Support** |
-| Web (React/Next.js) | ✅ Full | ✅ Excellent | ✅ Full |
-| iOS Native | ✅ Swift SDK | ⚠️ Via Web | ✅ Native SDK |
-| Android Native | ✅ Kotlin SDK | ⚠️ Via Web | ✅ Native SDK |
-| Flutter | ⚠️ Via Web | ⚠️ Via Web | ✅ Native Plugin |
-| React Native | ✅ SDK | ⚠️ Via Expo | ✅ Native Module |
-| Server-Side | ✅ Node, Python, Go, Java, .NET | ✅ Node | ✅ Admin SDK (All) |
-| **Backend Integration** |
-| Custom Claims/Metadata | ✅ Actions + Management API | ✅ Metadata API | ✅ Custom Claims |
-| Webhooks | ✅ Extensive | ✅ Yes | ⚠️ Cloud Functions |
-| User Management API | ✅ Full REST API | ✅ Backend SDK | ✅ Admin SDK |
-| Organization/Tenancy | ✅ Organizations (B2B) | ✅ Organizations | ⚠️ Manual |
-| Role-Based Access | ✅ Authorization Core | ✅ Organization Roles | ⚠️ Custom Claims |
-| **Scalability** |
-| Max Users | Unlimited | Unlimited | Unlimited |
-| Max Active Sessions | Unlimited | Unlimited | Unlimited |
-| Rate Limits | High | Medium | Medium |
-| Geographic Distribution | ✅ Global CDN | ✅ Global | ✅ Multi-region |
-| **Pricing** |
-| Free Tier | 7,500 MAU | 10,000 MAU | Unlimited (generous limits) |
-| Paid Tiers | $35/month (Essentials), $240/month (Professional), Custom (Enterprise) | $25/month (Pro), Custom (Enterprise) | Pay-as-you-go |
-| Cost at 10K MAU | ~$240/month | ~$25/month | Free |
-| Cost at 100K MAU | ~$2,300/month | ~$599/month | ~$100/month |
-| Enterprise Pricing | Custom | Custom | Google Cloud pricing |
+| Feature                     | Auth0                                                                  | Clerk                                | Firebase Auth                      |
+| --------------------------- | ---------------------------------------------------------------------- | ------------------------------------ | ---------------------------------- |
+| **Authentication Methods**  |
+| Email/Password              | ✅ Full                                                                | ✅ Full                              | ✅ Full                            |
+| Passwordless Email          | ✅ Magic Link                                                          | ✅ Magic Link                        | ✅ Magic Link                      |
+| Phone/SMS                   | ✅ SMS + Voice                                                         | ❌ No                                | ✅ SMS Only                        |
+| Social Providers            | ✅ 30+ providers                                                       | ✅ 10+ providers                     | ✅ 15+ providers                   |
+| WebAuthn/Passkeys           | ✅ Security Keys                                                       | ✅ Full Support                      | ❌ Limited                         |
+| Anonymous Auth              | ❌ No                                                                  | ❌ No                                | ✅ Yes                             |
+| Custom Auth                 | ✅ Extensibility                                                       | ⚠️ Limited                           | ✅ Custom Tokens                   |
+| **Security Features**       |
+| MFA                         | ✅ Full (TOTP, SMS, Push, WebAuthn)                                    | ✅ WebAuthn, TOTP                    | ⚠️ Phone, Enterprise TOTP          |
+| Adaptive MFA                | ✅ Risk-based (Enterprise)                                             | ❌ No                                | ❌ No                              |
+| Bot Detection               | ✅ Built-in                                                            | ❌ No                                | ⚠️ reCAPTCHA                       |
+| Breached Password Detection | ✅ Standard + Credential Guard                                         | ❌ No                                | ❌ No                              |
+| Brute Force Protection      | ✅ Configurable                                                        | ✅ Basic                             | ⚠️ Rate Limiting                   |
+| IP Throttling               | ✅ Velocity Detection                                                  | ❌ No                                | ❌ No                              |
+| Token Binding (DPoP)        | ✅ Yes                                                                 | ❌ No                                | ❌ No                              |
+| Certificate Binding (mTLS)  | ✅ Enterprise HRI                                                      | ❌ No                                | ❌ No                              |
+| Session Monitoring          | ✅ Security Center                                                     | ⚠️ Basic                             | ⚠️ Basic                           |
+| **Compliance**              |
+| GDPR                        | ✅ Full (DPA, Right to Erasure)                                        | ✅ Compliant                         | ✅ Compliant                       |
+| HIPAA                       | ✅ BAA Available (Enterprise)                                          | ❌ No                                | ⚠️ BAA for Firebase (Google Cloud) |
+| SOC 2 Type 2                | ✅ Yes                                                                 | ✅ Yes                               | ✅ Yes (Google)                    |
+| ISO 27001                   | ✅ Yes                                                                 | ❌ No                                | ✅ Yes (Google)                    |
+| FAPI                        | ✅ FAPI 1 Advanced (HRI)                                               | ❌ No                                | ❌ No                              |
+| PCI DSS                     | ✅ Compliant Infrastructure                                            | ❌ No                                | ❌ No                              |
+| **Developer Experience**    |
+| Pre-built UI Components     | ⚠️ Universal Login                                                     | ✅ Excellent (React)                 | ❌ FirebaseUI (separate)           |
+| Documentation Quality       | ⭐⭐⭐⭐                                                               | ⭐⭐⭐⭐⭐                           | ⭐⭐⭐⭐                           |
+| SDK Quality                 | ⭐⭐⭐⭐                                                               | ⭐⭐⭐⭐⭐                           | ⭐⭐⭐⭐                           |
+| Setup Complexity            | Medium                                                                 | Easy                                 | Easy-Medium                        |
+| Customization               | High                                                                   | Medium                               | Medium-High                        |
+| Integration Effort          | 1-2 weeks                                                              | 1-3 days                             | 3-7 days                           |
+| **Platform Support**        |
+| Web (React/Next.js)         | ✅ Full                                                                | ✅ Excellent                         | ✅ Full                            |
+| iOS Native                  | ✅ Swift SDK                                                           | ⚠️ Via Web                           | ✅ Native SDK                      |
+| Android Native              | ✅ Kotlin SDK                                                          | ⚠️ Via Web                           | ✅ Native SDK                      |
+| Flutter                     | ⚠️ Via Web                                                             | ⚠️ Via Web                           | ✅ Native Plugin                   |
+| React Native                | ✅ SDK                                                                 | ⚠️ Via Expo                          | ✅ Native Module                   |
+| Server-Side                 | ✅ Node, Python, Go, Java, .NET                                        | ✅ Node                              | ✅ Admin SDK (All)                 |
+| **Backend Integration**     |
+| Custom Claims/Metadata      | ✅ Actions + Management API                                            | ✅ Metadata API                      | ✅ Custom Claims                   |
+| Webhooks                    | ✅ Extensive                                                           | ✅ Yes                               | ⚠️ Cloud Functions                 |
+| User Management API         | ✅ Full REST API                                                       | ✅ Backend SDK                       | ✅ Admin SDK                       |
+| Organization/Tenancy        | ✅ Organizations (B2B)                                                 | ✅ Organizations                     | ⚠️ Manual                          |
+| Role-Based Access           | ✅ Authorization Core                                                  | ✅ Organization Roles                | ⚠️ Custom Claims                   |
+| **Scalability**             |
+| Max Users                   | Unlimited                                                              | Unlimited                            | Unlimited                          |
+| Max Active Sessions         | Unlimited                                                              | Unlimited                            | Unlimited                          |
+| Rate Limits                 | High                                                                   | Medium                               | Medium                             |
+| Geographic Distribution     | ✅ Global CDN                                                          | ✅ Global                            | ✅ Multi-region                    |
+| **Pricing**                 |
+| Free Tier                   | 7,500 MAU                                                              | 10,000 MAU                           | Unlimited (generous limits)        |
+| Paid Tiers                  | $35/month (Essentials), $240/month (Professional), Custom (Enterprise) | $25/month (Pro), Custom (Enterprise) | Pay-as-you-go                      |
+| Cost at 10K MAU             | ~$240/month                                                            | ~$25/month                           | Free                               |
+| Cost at 100K MAU            | ~$2,300/month                                                          | ~$599/month                          | ~$100/month                        |
+| Enterprise Pricing          | Custom                                                                 | Custom                               | Google Cloud pricing               |
 
 **Legend:**
+
 - ✅ Full support or excellent
 - ⚠️ Partial support or adequate
 - ❌ Not supported or poor
@@ -74,18 +75,21 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 ### Auth0 Pricing
 
 **Free Tier:**
+
 - 7,500 monthly active users
 - Social and database connections
 - Unlimited logins
 - Community support
 
 **Essentials ($35/month):**
+
 - 500 MAU included, $0.05 per additional
 - Email support
 - Custom domains
 - Adaptive MFA (limited)
 
 **Professional ($240/month):**
+
 - 1,000 MAU included, $0.13 per additional
 - Phone support
 - Advanced customization
@@ -94,6 +98,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Breached password detection
 
 **Enterprise (Custom):**
+
 - Custom MAU pricing
 - 24/7 support with SLA
 - Highly Regulated Identity (HRI) add-on
@@ -103,6 +108,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Dedicated instance options
 
 **Additional Costs:**
+
 - Machine-to-Machine tokens: $0.001 per token (after free tier)
 - SMS MFA: $0.05-0.10 per message (provider dependent)
 - Breached password detection: Included in Professional+
@@ -110,6 +116,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 ### Clerk Pricing
 
 **Free Tier:**
+
 - 10,000 monthly active users
 - Unlimited social connections
 - Email and password authentication
@@ -117,6 +124,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Basic webhooks
 
 **Pro ($25/month):**
+
 - 10,000 MAU included, $0.02 per additional
 - Priority support
 - Custom JWT templates
@@ -125,6 +133,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Custom domains
 
 **Enterprise (Custom):**
+
 - Volume discounts
 - 24/7 support with SLA
 - Advanced security
@@ -133,10 +142,12 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Dedicated infrastructure
 
 **Additional Costs:**
+
 - SMS for phone authentication: Provider dependent (Twilio integration)
 - No additional per-feature costs
 
 **Volume Discounts:**
+
 - 10K-50K MAU: Standard pricing
 - 50K-100K MAU: ~20% discount
 - 100K+ MAU: Custom negotiated pricing
@@ -144,6 +155,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 ### Firebase Auth Pricing
 
 **Free Tier (Spark Plan):**
+
 - Unlimited users
 - 10K verifications/day per method
 - 1GB storage
@@ -151,6 +163,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Community support
 
 **Pay-as-you-go (Blaze Plan):**
+
 - Unlimited users (no per-user charge)
 - Phone authentication: $0.06 per verification (US)
 - Email verification: Free
@@ -158,12 +171,14 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 - Custom authentication: Free
 
 **Additional Firebase Costs:**
+
 - Cloud Functions: $0.40 per million invocations
 - Firestore: $0.06 per 100K reads, $0.18 per 100K writes
 - Storage: $0.026 per GB/month
 - Hosting: Free for 10GB/month, then $0.026/GB
 
 **Enterprise Support:**
+
 - Google Cloud Support: $150-$12,500+/month
 - Premium support available
 - SLA guarantees
@@ -176,6 +191,7 @@ Comprehensive comparison of Auth0, Clerk, and Firebase Auth to guide platform se
 **Recommendation: Auth0**
 
 Reasons:
+
 - Organizations feature for multi-tenancy
 - Enterprise SSO (SAML, OIDC) for customer identity
 - Advanced attack protection
@@ -190,6 +206,7 @@ Alternative: Clerk (if prioritizing developer experience and modern UX)
 **Recommendation: Clerk**
 
 Reasons:
+
 - Beautiful pre-built UI components
 - Minimal code integration (ClerkProvider + components)
 - Excellent Next.js integration
@@ -204,6 +221,7 @@ Alternative: Firebase Auth (if already using Firebase services)
 **Recommendation: Firebase Auth**
 
 Reasons:
+
 - Native mobile SDKs (iOS, Android, Flutter)
 - Anonymous authentication with upgrade path
 - Google Sign-In integration
@@ -218,6 +236,7 @@ Alternative: Auth0 (if requiring advanced security features)
 **Recommendation: Firebase Auth**
 
 Reasons:
+
 - Real-time Firestore integration
 - Security Rules with authentication context
 - Presence detection with Realtime Database
@@ -232,6 +251,7 @@ Alternative: Clerk (for web-first applications with organizations)
 **Recommendation: Auth0 with HRI**
 
 Reasons:
+
 - FAPI compliance (Open Banking)
 - HIPAA BAA available
 - Sender-constrained tokens (DPoP, mTLS)
@@ -246,6 +266,7 @@ Alternative: Firebase Auth (if Google Cloud HIPAA compliance sufficient)
 **Recommendation: Clerk**
 
 Reasons:
+
 - Native WebAuthn and passkeys support
 - Email magic links
 - Beautiful passwordless UI
@@ -259,6 +280,7 @@ Alternative: Auth0 (for enterprise passwordless with attack protection)
 **Recommendation: Clerk**
 
 Reasons:
+
 - Free 10,000 MAU
 - Fastest time to implementation (1-3 days)
 - Beautiful default UI
@@ -273,6 +295,7 @@ Alternative: Firebase Auth (for mobile-first MVP or existing Firebase usage)
 **Recommendation: Auth0 Enterprise**
 
 Reasons:
+
 - Global CDN with low latency
 - Data residency options (US, EU, AU, JP)
 - Multiple compliance certifications
@@ -289,6 +312,7 @@ Alternative: Firebase Auth (for Google Cloud customers)
 **Complexity: High**
 
 Challenges:
+
 - Different token formats and claims structure
 - User metadata mapping required
 - Custom authentication rules must be rewritten
@@ -296,6 +320,7 @@ Challenges:
 - No direct migration tool
 
 Steps:
+
 1. Export user data from Auth0 Management API
 2. Map Auth0 metadata to Clerk metadata schema
 3. Create users in Clerk via Backend API
@@ -310,6 +335,7 @@ Steps:
 **Complexity: High**
 
 Challenges:
+
 - Completely different architecture (JWT vs. Firebase ID tokens)
 - Custom claims syntax differences
 - No organizations concept (requires manual multi-tenancy)
@@ -317,6 +343,7 @@ Challenges:
 - Security Rules require complete rewrite
 
 Steps:
+
 1. Export users from Auth0
 2. Create users in Firebase with Custom Token approach
 3. Map custom claims to Firebase format
@@ -331,12 +358,14 @@ Steps:
 **Complexity: Medium-High**
 
 Challenges:
+
 - UI components must be replaced (Clerk components to Auth0 Universal Login)
 - Different session management
 - Organization structure mapping
 - Webhook format changes
 
 Steps:
+
 1. Export users from Clerk API
 2. Import users to Auth0 via Management API
 3. Map organization structure to Auth0 Organizations
@@ -351,12 +380,14 @@ Steps:
 **Complexity: High**
 
 Challenges:
+
 - Different authentication patterns (components vs. SDK methods)
 - Custom claims migration
 - Organization multi-tenancy must be manual
 - Security Rules implementation required
 
 Steps:
+
 1. Export users from Clerk
 2. Create Firebase users with Custom Token
 3. Implement Security Rules
@@ -371,6 +402,7 @@ Steps:
 **Complexity: High**
 
 Challenges:
+
 - Different token formats
 - Custom claims to Auth0 metadata mapping
 - Loss of Firebase ecosystem integration
@@ -378,6 +410,7 @@ Challenges:
 - Different SDK paradigms
 
 Steps:
+
 1. Export users from Firebase Admin SDK
 2. Create users in Auth0 with imported passwords (if using Firebase Auth email/password)
 3. Map custom claims to Auth0 user metadata
@@ -392,12 +425,14 @@ Steps:
 **Complexity: Medium-High**
 
 Challenges:
+
 - UI paradigm shift (Firebase methods to Clerk components)
 - Custom claims to metadata mapping
 - Organization structure implementation
 - Loss of Firebase ecosystem benefits
 
 Steps:
+
 1. Export users from Firebase
 2. Create users in Clerk via Backend SDK
 3. Map custom claims to Clerk metadata
@@ -414,14 +449,17 @@ Steps:
 **5,000 Monthly Active Users:**
 
 Auth0:
+
 - Free tier: ✅ Covered (7,500 MAU)
 - Cost: $0/month
 
 Clerk:
+
 - Free tier: ✅ Covered (10,000 MAU)
 - Cost: $0/month
 
 Firebase:
+
 - Spark plan: ✅ Covered
 - Cost: $0/month (assuming no phone auth)
 
@@ -432,16 +470,19 @@ Firebase:
 **40,000 Monthly Active Users:**
 
 Auth0:
+
 - Professional plan required: $240/month base
 - Additional users: 39,000 × $0.13 = $5,070/month
 - Total: ~$5,310/month
 
 Clerk:
+
 - Pro plan: $25/month base
 - Additional users: 30,000 × $0.02 = $600/month
 - Total: ~$625/month
 
 Firebase:
+
 - Blaze plan: Pay-as-you-go
 - Authentication: Free (no per-user charge)
 - Cloud Functions (assuming 1M invocations): $0.40
@@ -455,16 +496,19 @@ Firebase:
 **250,000 Monthly Active Users:**
 
 Auth0:
+
 - Enterprise plan: Custom pricing
 - Estimated: ~$20,000-30,000/month (negotiated)
 - Includes: 24/7 support, SLA, compliance features
 
 Clerk:
+
 - Enterprise plan: Custom pricing
 - Estimated: ~$3,000-5,000/month (negotiated)
 - Volume discounts apply
 
 Firebase:
+
 - Blaze plan with enterprise support
 - Authentication: Still free
 - Cloud Functions + Firestore: ~$500/month
@@ -480,12 +524,14 @@ Firebase:
 **30,000 Monthly Active Users, 5,000 phone verifications/month:**
 
 Auth0:
+
 - Professional plan: $240/month base
 - Additional users: 29,000 × $0.13 = $3,770/month
 - SMS costs: 5,000 × $0.05 = $250/month
 - Total: ~$4,260/month
 
 Clerk:
+
 - Pro plan: $25/month base
 - Additional users: 20,000 × $0.02 = $400/month
 - Phone auth: Requires custom implementation (Twilio)
@@ -493,6 +539,7 @@ Clerk:
 - Total: ~$464.50/month
 
 Firebase:
+
 - Blaze plan
 - Phone authentication: 5,000 × $0.06 = $300/month
 - Cloud Functions + Firestore: ~$50/month
@@ -507,6 +554,7 @@ Firebase:
 **Winner: Auth0**
 
 Features:
+
 - Bot detection with ML
 - Breached password detection (Standard + Credential Guard)
 - Brute force protection with configurable thresholds
@@ -521,6 +569,7 @@ Use Auth0 when attack protection is business-critical.
 **Winner: Clerk**
 
 Features:
+
 - Pre-built React components
 - Beautiful default UI
 - Minimal setup (ClerkProvider + components)
@@ -535,6 +584,7 @@ Use Clerk for fastest time-to-market and best DX.
 **Winner: Firebase Auth**
 
 Features:
+
 - Native iOS SDK (Swift)
 - Native Android SDK (Kotlin)
 - Official Flutter plugin
@@ -549,6 +599,7 @@ Use Firebase Auth for mobile-first applications.
 **Winner: Auth0**
 
 Certifications:
+
 - FAPI 1 Advanced OpenID Provider
 - SOC 2 Type 2
 - ISO 27001/27017/27018
@@ -563,6 +614,7 @@ Use Auth0 for highly regulated industries.
 **Winner: Clerk**
 
 Features:
+
 - Native WebAuthn support
 - Passkeys (platform authenticators)
 - Beautiful passwordless UI
@@ -576,6 +628,7 @@ Use Clerk for modern passwordless authentication.
 **Winner: Firebase Auth**
 
 Features:
+
 - Native Google Sign-In
 - Firebase services integration
 - Google Cloud Functions
@@ -589,6 +642,7 @@ Use Firebase Auth for Google-centric applications.
 **Winner: Clerk**
 
 Features:
+
 - Native organization support
 - OrganizationSwitcher component
 - Role-based access control
@@ -600,6 +654,7 @@ Use Clerk for B2B multi-tenant applications (Auth0 also excellent for enterprise
 ## Final Recommendation Framework
 
 ### Choose Auth0 if:
+
 - Enterprise security and compliance are mandatory
 - Need sophisticated attack protection
 - Implementing financial services (FAPI compliance)
@@ -608,6 +663,7 @@ Use Clerk for B2B multi-tenant applications (Auth0 also excellent for enterprise
 - Budget allows for premium security features
 
 ### Choose Clerk if:
+
 - Building modern Next.js or React application
 - Developer experience is a priority
 - Need beautiful pre-built UI components
@@ -616,6 +672,7 @@ Use Clerk for B2B multi-tenant applications (Auth0 also excellent for enterprise
 - Organization management for B2B
 
 ### Choose Firebase Auth if:
+
 - Mobile-first application
 - Already using Firebase services
 - Need generous free tier
@@ -628,37 +685,44 @@ Use Clerk for B2B multi-tenant applications (Auth0 also excellent for enterprise
 Use this checklist to evaluate platforms for your project:
 
 **Security Requirements:**
+
 - [ ] Do you need FAPI compliance? → Auth0
 - [ ] Is attack protection critical? → Auth0
 - [ ] Need sender-constrained tokens? → Auth0
 - [ ] Passwordless priority? → Clerk
 
 **Developer Experience:**
+
 - [ ] Want minimal integration effort? → Clerk
 - [ ] Need beautiful default UI? → Clerk
 - [ ] Prefer code-first SDK approach? → Firebase
 
 **Platform Support:**
+
 - [ ] Mobile-first application? → Firebase
 - [ ] Next.js/React web app? → Clerk
 - [ ] Cross-platform (web + mobile + desktop)? → Firebase
 
 **Budget:**
+
 - [ ] Need generous free tier? → Firebase or Clerk
 - [ ] Have enterprise budget? → Auth0 Enterprise
 - [ ] Cost-sensitive at scale? → Firebase
 
 **Ecosystem:**
+
 - [ ] Using Firebase services? → Firebase Auth
 - [ ] Using Vercel for deployment? → Clerk
 - [ ] Need standalone authentication? → Auth0
 
 **Compliance:**
+
 - [ ] HIPAA required? → Auth0 (or Firebase with Google Cloud BAA)
 - [ ] GDPR compliance? → All (Auth0 best for documentation)
 - [ ] Financial services? → Auth0 HRI
 
 **Timeline:**
+
 - [ ] Need to ship in 1 week? → Clerk
 - [ ] Complex security setup acceptable? → Auth0
 - [ ] Balance of speed and features? → Firebase

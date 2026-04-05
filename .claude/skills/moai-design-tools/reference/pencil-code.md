@@ -21,6 +21,7 @@ frames = batch_get(nodeIds: ["node-id-123"])
 ```
 
 The returned JSON structure contains:
+
 - Component type and name
 - Style properties (colors, typography, spacing, borders)
 - Layout configuration (flexbox direction, gap, alignment, dimensions)
@@ -29,6 +30,7 @@ The returned JSON structure contains:
 ### Step 2: Analyze Component Structure
 
 Parse the JSON to understand:
+
 - Nesting hierarchy and parent-child relationships
 - Applied style values (map to design tokens where available)
 - Component types (frame, text, image, button, input)
@@ -45,17 +47,17 @@ layout = snapshot_layout()
 
 Use the component mapping reference to translate Pencil node types to React primitives:
 
-| Pencil Node Type | React Component | Tailwind Classes |
-|------------------|-----------------|------------------|
-| `frame` (flex row) | `<div>` | `flex flex-row` |
-| `frame` (flex col) | `<div>` | `flex flex-col` |
-| `frame` (grid) | `<div>` | `grid` |
-| `text` (body) | `<p>` or `<span>` | `text-sm text-gray-700` |
-| `text` (heading) | `<h1>`–`<h6>` | `text-xl font-semibold` |
-| `image` | `<img>` or `next/image` | `object-cover` |
-| `button` frame | `<button>` | `btn` pattern |
-| `input` frame | `<input>` | `input` pattern |
-| `card` frame | `<div>` | `rounded-lg border bg-white p-4` |
+| Pencil Node Type   | React Component         | Tailwind Classes                 |
+| ------------------ | ----------------------- | -------------------------------- |
+| `frame` (flex row) | `<div>`                 | `flex flex-row`                  |
+| `frame` (flex col) | `<div>`                 | `flex flex-col`                  |
+| `frame` (grid)     | `<div>`                 | `grid`                           |
+| `text` (body)      | `<p>` or `<span>`       | `text-sm text-gray-700`          |
+| `text` (heading)   | `<h1>`–`<h6>`           | `text-xl font-semibold`          |
+| `image`            | `<img>` or `next/image` | `object-cover`                   |
+| `button` frame     | `<button>`              | `btn` pattern                    |
+| `input` frame      | `<input>`               | `input` pattern                  |
+| `card` frame       | `<div>`                 | `rounded-lg border bg-white p-4` |
 
 ### Step 4: Generate Code with Design Token Mapping
 
@@ -75,18 +77,18 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50:  '#eff6ff',
-          500: '#3b82f6',  /* From .pen design tokens */
+          50: '#eff6ff',
+          500: '#3b82f6' /* From .pen design tokens */,
           600: '#2563eb',
-        }
+        },
       },
       spacing: {
-        '18': '4.5rem',
-        '88': '22rem',
-        '128': '32rem',
-      }
-    }
-  }
+        18: '4.5rem',
+        88: '22rem',
+        128: '32rem',
+      },
+    },
+  },
 };
 ```
 
@@ -117,6 +119,7 @@ vars = get_variables()
 ```
 
 Returns the current state of:
+
 - Color definitions and palette
 - Typography values (font family, size, weight)
 - Spacing tokens
@@ -127,8 +130,8 @@ Returns the current state of:
 ```css
 /* From get_variables() output */
 :root {
-  --color-primary: #3B82F6;
-  --color-primary-hover: #2563EB;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
   --color-text-primary: #171717;
   --color-text-secondary: #525252;
   --spacing-md: 16px;
@@ -143,7 +146,8 @@ Returns the current state of:
 
 ```tsx
 // Responsive grid from .pen frame analysis
-<div className="
+<div
+  className="
   grid
   grid-cols-1
   md:grid-cols-2
@@ -151,7 +155,8 @@ Returns the current state of:
   gap-4
   md:gap-6
   lg:gap-8
-">
+"
+>
   {/* Cards */}
 </div>
 ```
@@ -161,19 +166,17 @@ Returns the current state of:
 ```tsx
 // Nova style (default) — from get_variables() output
 const card = (
-  <div className="
+  <div
+    className="
     bg-white
     rounded-md
     border border-neutral-200
     p-4
     shadow-sm
-  ">
-    <h3 className="text-lg font-semibold text-neutral-900">
-      Card Title
-    </h3>
-    <p className="text-sm text-neutral-500 mt-1">
-      Card description text here.
-    </p>
+  "
+  >
+    <h3 className="text-lg font-semibold text-neutral-900">Card Title</h3>
+    <p className="text-sm text-neutral-500 mt-1">Card description text here.</p>
   </div>
 );
 ```
@@ -197,18 +200,20 @@ export const Button = ({
   children,
   ...props
 }: ButtonProps) => {
-  const base = 'inline-flex items-center justify-center font-medium rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+  const base =
+    'inline-flex items-center justify-center font-medium rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
 
   const variants = {
-    primary:   'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
-    secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus-visible:ring-neutral-500',
-    tertiary:  'bg-transparent text-neutral-700 hover:bg-neutral-100 focus-visible:ring-neutral-500',
+    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
+    secondary:
+      'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus-visible:ring-neutral-500',
+    tertiary: 'bg-transparent text-neutral-700 hover:bg-neutral-100 focus-visible:ring-neutral-500',
   };
 
   const sizes = {
-    small:  'px-3 py-1.5 text-sm',
+    small: 'px-3 py-1.5 text-sm',
     medium: 'px-4 py-2 text-base',
-    large:  'px-6 py-3 text-lg',
+    large: 'px-6 py-3 text-lg',
   };
 
   return (
@@ -242,10 +247,7 @@ export const FormField = ({
       className={`
         block w-full rounded-md border px-3 py-2 text-sm
         focus:outline-none focus:ring-2 focus:ring-offset-0
-        ${error
-          ? 'border-red-500 focus:ring-red-500'
-          : 'border-neutral-300 focus:ring-blue-500'
-        }
+        ${error ? 'border-red-500 focus:ring-red-500' : 'border-neutral-300 focus:ring-blue-500'}
       `}
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
@@ -289,7 +291,10 @@ export const DataTable = <T extends Record<string, unknown>>({
         {data.map((row, i) => (
           <tr key={i}>
             {columns.map((col) => (
-              <td key={String(col.key)} className="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+              <td
+                key={String(col.key)}
+                className="px-6 py-4 whitespace-nowrap text-sm text-neutral-900"
+              >
                 {String(row[col.key])}
               </td>
             ))}
@@ -312,12 +317,13 @@ export const Grid = ({
   children: React.ReactNode;
   cols?: 1 | 2 | 3 | 4;
 }) => {
-  const colMap = { 1: 'lg:grid-cols-1', 2: 'lg:grid-cols-2', 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' };
-  return (
-    <div className={`grid gap-6 grid-cols-1 md:grid-cols-2 ${colMap[cols]}`}>
-      {children}
-    </div>
-  );
+  const colMap = {
+    1: 'lg:grid-cols-1',
+    2: 'lg:grid-cols-2',
+    3: 'lg:grid-cols-3',
+    4: 'lg:grid-cols-4',
+  };
+  return <div className={`grid gap-6 grid-cols-1 md:grid-cols-2 ${colMap[cols]}`}>{children}</div>;
 };
 ```
 
@@ -355,6 +361,7 @@ export interface CardProps {
 ### Read Before Generate
 
 Always read the .pen frame data before generating code:
+
 1. `batch_get` to retrieve frame structure
 2. `get_variables` to extract design tokens
 3. `search_all_unique_properties` to audit design consistency
@@ -365,6 +372,7 @@ Always read the .pen frame data before generating code:
 ### Design Token Priority
 
 Prefer design tokens over hardcoded values:
+
 - Use `get_variables` output as source of truth
 - Map token names to CSS custom properties or Tailwind config
 - Never hardcode colors, spacing, or typography values that exist in tokens
@@ -386,6 +394,7 @@ src/
 ### Validation
 
 After generating code from .pen frames:
+
 1. Use `get_screenshot` to capture the design
 2. Run the application in a browser
 3. Compare visual output against design screenshot

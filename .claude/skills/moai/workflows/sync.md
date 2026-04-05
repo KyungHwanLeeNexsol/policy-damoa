@@ -8,11 +8,11 @@ description: >
   Use when documentation sync, PR creation, or quality verification is needed.
 user-invocable: false
 metadata:
-  version: "3.3.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-25"
-  tags: "sync, documentation, pull-request, quality, verification, pr, context-memory"
+  version: '3.3.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-25'
+  tags: 'sync, documentation, pull-request, quality, verification, pr, context-memory'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,9 +22,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["sync", "docs", "pr", "documentation", "pull request", "changelog", "readme"]
-  agents: ["manager-docs", "manager-quality", "manager-git"]
-  phases: ["sync"]
+  keywords: ['sync', 'docs', 'pr', 'documentation', 'pull request', 'changelog', 'readme']
+  agents: ['manager-docs', 'manager-quality', 'manager-git']
+  phases: ['sync']
 ---
 
 # Sync Workflow Orchestration
@@ -58,6 +58,7 @@ Synchronize documentation with code changes, verify project quality, and finaliz
 The `project` mode performs comprehensive project-wide synchronization:
 
 **When to use:**
+
 - After completing a milestone or major feature
 - Before releasing a new version
 - Periodic maintenance (weekly/monthly)
@@ -92,6 +93,7 @@ The `project` mode performs comprehensive project-wide synchronization:
    - MX tag validation for ALL source files
 
 **Output for project mode:**
+
 - Complete project health report
 - All SPEC documents requiring updates
 - All project documents requiring updates
@@ -229,18 +231,21 @@ Agent: manager-quality subagent
 Invoke regardless of project language. Execute multi-perspective code review beyond basic TRUST 5 validation:
 
 Review Perspectives:
+
 - Security: OWASP Top 10 compliance, injection risks, secrets exposure, dependency vulnerabilities
 - Performance: Algorithmic complexity, query efficiency (N+1), memory patterns, concurrency safety
 - Quality: TRUST 5 compliance, error handling completeness, naming conventions, code consistency
 - UX: User flow integrity, error states, accessibility (WCAG/ARIA), breaking changes in public interfaces
 
 Auto-Fix Behavior:
+
 - If critical issues found: Delegate auto-fix to expert-debug or appropriate expert subagent
 - Re-run review after fix to verify resolution
 - Maximum 3 auto-fix iterations for critical issues before escalating to user
 - Warnings and suggestions are logged in report but do not block pipeline
 
 Output:
+
 - Review report with findings by severity (critical, warning, suggestion)
 - @MX tag compliance status (integrated with Phase 0.6)
 - Auto-fix log if corrections were applied
@@ -248,6 +253,7 @@ Output:
 #### LSP Quality Gates
 
 The sync phase enforces LSP-based quality gates as configured in quality.yaml:
+
 - Zero errors required (lsp_quality_gates.sync.max_errors: 0)
 - Maximum 10 warnings allowed (lsp_quality_gates.sync.max_warnings: 10)
 - Clean LSP state required (lsp_quality_gates.sync.require_clean_lsp: true)
@@ -261,6 +267,7 @@ Aggregate all results into a quality report showing status for test-runner, lint
 Purpose: Run a targeted security audit on changed files before PR creation. Catches security vulnerabilities that code review alone may miss.
 
 **Activation condition**: Execute this phase ONLY when changed files match security-sensitive patterns:
+
 - Authentication/authorization files (auth, login, session, token, permission, role)
 - Database interaction files (query, model, migration, schema, repository, dao)
 - API endpoint files (handler, controller, route, endpoint, middleware)
@@ -274,6 +281,7 @@ Purpose: Run a targeted security audit on changed files before PR creation. Catc
 Agent: expert-security subagent
 
 Delegate to expert-security with the security workflow (workflows/security.md) in inline mode:
+
 - Only CRITICAL findings block the sync pipeline
 - HIGH findings are reported as warnings in PR description
 - MEDIUM and LOW findings are logged in sync report
@@ -282,6 +290,7 @@ Delegate to expert-security with the security workflow (workflows/security.md) i
 #### Step 0.55.2: Security Gate Decision
 
 If CRITICAL findings exist:
+
 - Present findings via AskUserQuestion:
   - Fix now (Recommended): Delegate to expert-security subagent for auto-fix, then re-scan
   - Continue with warning: Proceed to Phase 0.6 with security warnings embedded in PR description
@@ -301,6 +310,7 @@ Purpose: Ensure code has appropriate @MX annotations for AI agent context. Suppo
 - P4 (Advisory): untested public function missing @MX:TODO — warning only, sync continues
 
 When P1/P2 violations are detected:
+
 1. Display full violation report with file:line references
 2. Show message: "Run /moai run to add missing tags, or use --skip-mx to bypass"
 3. Halt sync — do NOT proceed to Phase 0.7+
@@ -311,24 +321,24 @@ Skip if `--skip-mx` flag is provided. When skipped, log: "MX validation skipped 
 
 Detect languages present in modified files:
 
-| Language | Indicator Files | File Patterns | Comment Prefix |
-|----------|----------------|---------------|----------------|
-| Go | go.mod | *.go | `//` |
-| Python | pyproject.toml | *.py | `#` |
-| TypeScript | tsconfig.json | *.ts, *.tsx | `//` |
-| JavaScript | package.json | *.js, *.jsx | `//` |
-| Rust | Cargo.toml | *.rs | `//` |
-| Java | pom.xml | *.java | `//` |
-| Kotlin | build.gradle.kts | *.kt | `//` |
-| C# | .csproj | *.cs | `//` |
-| Ruby | Gemfile | *.rb | `#` |
-| PHP | composer.json | *.php | `//` |
-| Elixir | mix.exs | *.ex, *.exs | `#` |
-| C++ | CMakeLists.txt | *.cpp, *.h | `//` |
-| Scala | build.sbt | *.scala | `//` |
-| R | DESCRIPTION | *.R, *.r | `#` |
-| Flutter | pubspec.yaml | *.dart | `//` |
-| Swift | Package.swift | *.swift | `//` |
+| Language   | Indicator Files  | File Patterns | Comment Prefix |
+| ---------- | ---------------- | ------------- | -------------- |
+| Go         | go.mod           | \*.go         | `//`           |
+| Python     | pyproject.toml   | \*.py         | `#`            |
+| TypeScript | tsconfig.json    | _.ts, _.tsx   | `//`           |
+| JavaScript | package.json     | _.js, _.jsx   | `//`           |
+| Rust       | Cargo.toml       | \*.rs         | `//`           |
+| Java       | pom.xml          | \*.java       | `//`           |
+| Kotlin     | build.gradle.kts | \*.kt         | `//`           |
+| C#         | .csproj          | \*.cs         | `//`           |
+| Ruby       | Gemfile          | \*.rb         | `#`            |
+| PHP        | composer.json    | \*.php        | `//`           |
+| Elixir     | mix.exs          | _.ex, _.exs   | `#`            |
+| C++        | CMakeLists.txt   | _.cpp, _.h    | `//`           |
+| Scala      | build.sbt        | \*.scala      | `//`           |
+| R          | DESCRIPTION      | _.R, _.r      | `#`            |
+| Flutter    | pubspec.yaml     | \*.dart       | `//`           |
+| Swift      | Package.swift    | \*.swift      | `//`           |
 
 #### Step 0.6.2: Scan Modified Files
 
@@ -341,6 +351,7 @@ Detect languages present in modified files:
 For modified files missing @MX tags, use language-specific patterns:
 
 **Backend Languages (Go, Python, Rust, Java, Kotlin, C#, Ruby, PHP, Elixir, C++, Scala)**:
+
 1. **fan_in >= 3**: Add `@MX:ANCHOR` for functions/methods with many callers
 2. **Language-specific WARN patterns**:
    - Go: `go func`, `go ` (goroutines without context)
@@ -358,6 +369,7 @@ For modified files missing @MX tags, use language-specific patterns:
 4. **missing tests**: Add `@MX:TODO` for untested public functions
 
 **Frontend Languages (TypeScript, JavaScript)**:
+
 1. **fan_in >= 3**: Add `@MX:ANCHOR` for functions with many callers
 2. **Promise chains**: Add `@MX:WARN` for Promise.all without error handling
 3. **async/await**: Add `@MX:WARN` for async functions without try/catch
@@ -365,6 +377,7 @@ For modified files missing @MX tags, use language-specific patterns:
 5. **missing tests**: Add `@MX:TODO` for untested functions
 
 **Data Science Languages (R, Flutter/Dart)**:
+
 1. **fan_in >= 3**: Add `@MX:ANCHOR` for functions with many callers
 2. **Language-specific WARN patterns**:
    - R: `parallel::` (parallel processing)
@@ -373,6 +386,7 @@ For modified files missing @MX tags, use language-specific patterns:
 4. **missing tests**: Add `@MX:TODO` for untested functions
 
 **Mobile (Swift)**:
+
 1. **fan_in >= 3**: Add `@MX:ANCHOR` for functions with many callers
 2. **Swift-specific WARN**: `Task.`, `DispatchQueue` (async/concurrency)
 3. **magic constants**: Add `@MX:NOTE` for unexplained values
@@ -381,6 +395,7 @@ For modified files missing @MX tags, use language-specific patterns:
 #### Step 0.6.4: Generate Tag Report
 
 Include in sync report:
+
 - Files scanned: N (by language)
 - Tags added: N (by type, by language)
 - Files requiring attention (high complexity, missing documentation)
@@ -388,6 +403,7 @@ Include in sync report:
 #### MX Tag Integration
 
 When MX tags are added during sync:
+
 - Changes are included in the same commit as documentation updates
 - Tag additions are noted in the PR description
 - Report summarizes tag changes by category
@@ -403,6 +419,7 @@ Purpose: Measure test coverage, identify gaps, and generate missing tests to mee
 Agent: expert-testing subagent
 
 Measure current coverage using language-specific tools:
+
 - Go: `go test -coverprofile=coverage.out -covermode=atomic ./...` then `go tool cover -func=coverage.out`
 - Python: `pytest --cov --cov-report=json`
 - TypeScript/JavaScript: `vitest run --coverage` or `jest --coverage --json`
@@ -417,6 +434,7 @@ Agent: expert-testing subagent
 Identify files below the coverage target (from quality.yaml test_coverage_target, default 85%).
 
 Prioritize gaps by risk:
+
 - P1 (Critical): Public API functions, high fan_in (>=3), functions with @MX:ANCHOR
 - P2 (High): Business logic, error handling paths
 - P3 (Medium): Internal utilities, helper functions
@@ -427,25 +445,29 @@ Prioritize gaps by risk:
 Agent: expert-testing subagent
 
 Generate missing tests for P1 and P2 gaps:
+
 - Follow development_mode for test style (TDD: table-driven tests, DDD: characterization tests)
 - Include edge cases and error scenarios
 - Follow existing test patterns in the codebase
-- Respect file naming conventions (*_test.go, *.test.ts, test_*.py)
+- Respect file naming conventions (_\_test.go, _.test.ts, test\_\*.py)
 
 #### Step 0.7.4: Verification
 
 After test generation:
+
 - Run the full test suite to ensure no regressions
 - Re-measure coverage to confirm improvement
 - Compare before/after coverage percentages
 
 Behavior:
+
 - If coverage target met: Proceed to Phase 1
 - If coverage target not met after test generation: Log remaining gaps and proceed (do not block pipeline)
 
 #### Step 0.7.5: Coverage Report
 
 Include in sync quality report:
+
 - Before/after coverage percentages
 - Tests generated (count and file list)
 - Remaining gaps if target not fully met
@@ -459,7 +481,6 @@ Include in sync quality report:
 - .claude/ directory must exist
 - Project must be inside a Git repository
 
-
 #### Step 1.2: Analyze Project Status
 
 - Analyze Git changes: git status, git diff, categorize changed files
@@ -470,6 +491,7 @@ Include in sync quality report:
 ##### Worktree Context Detection
 
 Detect if the current session is running within a MoAI worktree:
+
 - Check if current git directory path contains `/.moai/worktrees/` component
 - OR check if `.moai/worktrees/registry.json` has an active entry for current SPEC-ID
 - Store result as `is_worktree_context` boolean for use in Phase 3.4
@@ -567,11 +589,13 @@ All document updates use conversation_language setting.
 Apply updates based on SPEC lifecycle level detected in Phase 1.5.5:
 
 Level 1 (spec-first):
+
 - Append "Implementation Notes" section to spec.md summarizing actual implementation
 - Record scope changes: features added beyond plan, items deferred
 - Mark SPEC as completed (no ongoing maintenance expected)
 
 Level 2 (spec-anchored):
+
 - Update spec.md requirements to reflect actual implementation
 - Add new EARS-format requirements for features implemented beyond original scope
 - Update plan.md with actual implementation steps taken
@@ -579,6 +603,7 @@ Level 2 (spec-anchored):
 - Preserve original requirements with "as-implemented" annotations where changed
 
 Level 3 (spec-as-source):
+
 - Do NOT modify SPEC content
 - Generate discrepancy report listing implementation deviations from SPEC
 - Flag as warnings in sync report for manual review
@@ -589,6 +614,7 @@ Level 3 (spec-as-source):
 Purpose: Update .moai/project/ documents when significant structural changes are detected.
 
 Condition: Execute this step ONLY when the divergence report from Phase 1.5 indicates:
+
 - New directories were created in the project
 - New dependencies or technologies were added
 - New major features or capabilities were implemented
@@ -607,6 +633,7 @@ Tasks for manager-docs:
 - If architectural changes: Regenerate .moai/project/codemaps/ via codemaps workflow (workflows/codemaps.md) when significant structural changes (new directories, dependency graph changes, or module reorganization) are detected
 
 Constraints:
+
 - Only update sections relevant to detected changes (do not regenerate entire files)
 - Preserve existing content and append or modify incrementally
 - Use conversation_language setting for all updates
@@ -650,15 +677,16 @@ This step is informational only. Actual Issue closure happens automatically via 
 
 Read `github.git_workflow` from `.moai/config/sections/system.yaml`. This determines how changes are delivered.
 
-| Strategy | Branch Model | PR Behavior | Best For |
-|----------|-------------|-------------|----------|
-| github_flow | Feature branches off main | Auto-create PR to main | Team/OSS projects |
-| main_direct | Direct commits to main | No PR created | Solo development |
-| gitflow | develop/release/hotfix branches | PR to appropriate base | Enterprise projects |
+| Strategy    | Branch Model                    | PR Behavior            | Best For            |
+| ----------- | ------------------------------- | ---------------------- | ------------------- |
+| github_flow | Feature branches off main       | Auto-create PR to main | Team/OSS projects   |
+| main_direct | Direct commits to main          | No PR created          | Solo development    |
+| gitflow     | develop/release/hotfix branches | PR to appropriate base | Enterprise projects |
 
 Default strategy (if not configured): `github_flow`
 
 Also read `github.spec_git_workflow` to determine SPEC branch handling:
+
 - `feature_branch`: Each SPEC gets its own branch (recommended for github_flow/gitflow)
 - `main_direct`: SPEC changes committed to current branch (only when git_workflow is main_direct)
 
@@ -768,18 +796,19 @@ Purpose: Replicate CI checks locally before pushing and creating a PR to catch f
 ##### Step 3.1.5.1: Discover CI Configuration
 
 Read `.github/workflows/` to auto-detect CI jobs:
+
 - If `ci.yml` (or any CI file) exists: parse jobs, steps, and commands
 - If no CI config found: skip this phase entirely, log "No CI config detected"
 
 Build a local execution plan mapping each CI job to its local equivalent:
 
-| CI Job | CI Runner | Local Equivalent | Skippable |
-|--------|-----------|-----------------|-----------|
-| test (ubuntu) | ubuntu-latest | Local OS tests | No (run on current OS) |
-| test (macos) | macos-latest | Local OS tests | No (identical on macOS) |
-| test (windows) | windows-latest | **SKIP** | Yes — cannot run locally |
-| lint | ubuntu-latest | Local golangci-lint | No |
-| build (cross-compile) | ubuntu-latest | Local cross-compile | No |
+| CI Job                | CI Runner      | Local Equivalent    | Skippable                |
+| --------------------- | -------------- | ------------------- | ------------------------ |
+| test (ubuntu)         | ubuntu-latest  | Local OS tests      | No (run on current OS)   |
+| test (macos)          | macos-latest   | Local OS tests      | No (identical on macOS)  |
+| test (windows)        | windows-latest | **SKIP**            | Yes — cannot run locally |
+| lint                  | ubuntu-latest  | Local golangci-lint | No                       |
+| build (cross-compile) | ubuntu-latest  | Local cross-compile | No                       |
 
 ##### Step 3.1.5.2: Run Local Equivalents in Parallel
 
@@ -857,17 +886,18 @@ Pass CI mirror results to Step 3.2 for inclusion in the PR body:
 
 ```markdown
 ## Local CI Mirror Results
-| Check | Status | Notes |
-|-------|--------|-------|
-| go vet | ✅ Pass | |
-| go test -race (macOS) | ✅ Pass | Coverage: 87% |
-| golangci-lint | ✅ Pass | |
-| build linux/amd64 | ✅ Pass | |
-| build linux/arm64 | ✅ Pass | |
-| build darwin/amd64 | ✅ Pass | |
-| build darwin/arm64 | ✅ Pass | |
-| build windows/amd64 | ✅ Pass | |
-| test (windows) | ⏭ Skipped | Cannot run locally |
+
+| Check                 | Status     | Notes              |
+| --------------------- | ---------- | ------------------ |
+| go vet                | ✅ Pass    |                    |
+| go test -race (macOS) | ✅ Pass    | Coverage: 87%      |
+| golangci-lint         | ✅ Pass    |                    |
+| build linux/amd64     | ✅ Pass    |                    |
+| build linux/arm64     | ✅ Pass    |                    |
+| build darwin/amd64    | ✅ Pass    |                    |
+| build darwin/arm64    | ✅ Pass    |                    |
+| build windows/amd64   | ✅ Pass    |                    |
+| test (windows)        | ⏭ Skipped | Cannot run locally |
 ```
 
 #### Step 3.2: Push and Deliver (Strategy-Aware)
@@ -875,6 +905,7 @@ Pass CI mirror results to Step 3.2 for inclusion in the PR body:
 Behavior varies based on `github.git_workflow` setting and current branch context.
 
 **Base Branch Resolution** (applies to all strategies below):
+
 1. Read `git_strategy.mode` from `.moai/config/sections/git-strategy.yaml`
 2. Resolve `main_branch`:
    - If `git_strategy.{mode}.main_branch` exists: use that value
@@ -886,6 +917,7 @@ Behavior varies based on `github.git_workflow` setting and current branch contex
 Detect current branch:
 
 **Feature branch** (any branch other than main):
+
 1. Push branch to remote: `git push -u origin <branch>`
 2. Check if PR already exists: `gh pr list --head <branch> --json number`
 3. If no PR exists: Create PR via `gh pr create`
@@ -898,11 +930,13 @@ Detect current branch:
 5. Display PR URL to user
 
 **Main branch** (direct commit):
+
 - Push directly: `git push origin {main_branch}`
 - Display push confirmation
 - Note: Direct main commits are permitted but feature branches are recommended
 
 **Worktree context** (detected from git directory structure):
+
 - Push worktree branch to remote
 - Create PR if not exists (same as feature branch flow)
 - Display PR URL and worktree context
@@ -910,6 +944,7 @@ Detect current branch:
 ##### Strategy: main_direct
 
 All commits go directly to main, no PRs:
+
 1. Push to main: `git push origin main`
 2. Display push confirmation
 3. No PR created regardless of branch name
@@ -918,27 +953,32 @@ All commits go directly to main, no PRs:
 
 Detect current branch type and route accordingly:
 
-**feature/* branch** → PR to `develop`:
+**feature/\* branch** → PR to `develop`:
+
 1. Push branch: `git push -u origin <branch>`
 2. Create or update PR targeting `develop` branch
 3. Display PR URL
 
-**release/* branch** → PR to `main`:
+**release/\* branch** → PR to `main`:
+
 1. Push branch: `git push -u origin <branch>`
 2. Create or update PR targeting `main` branch
 3. Display PR URL
 
-**hotfix/* branch** → PR to `main` (and back-merge to develop):
+**hotfix/\* branch** → PR to `main` (and back-merge to develop):
+
 1. Push branch: `git push -u origin <branch>`
 2. Create or update PR targeting `main` branch
 3. After merge: Create follow-up PR to `develop` for back-merge
 4. Display PR URLs
 
 **develop branch** → Push directly:
+
 1. Push to develop: `git push origin develop`
 2. Display push confirmation
 
 **main branch** → Error:
+
 - Direct commits to main are not allowed in gitflow
 - Suggest creating a hotfix or release branch instead
 
@@ -969,10 +1009,12 @@ Only applies when a PR was created in Step 3.2.
 ##### Auto-Merge Trigger Conditions
 
 Auto-merge trigger conditions:
+
 - `is_worktree_context == true` AND `--no-merge` flag NOT set
 - OR `--merge` flag explicitly set (deprecated, logged as warning)
 
 When auto-merge is triggered:
+
 1. Verify all CI/CD checks pass (gh pr checks)
 2. Verify zero merge conflicts (gh pr view --json mergeable)
 3. If all checks pass: Execute `gh pr merge --squash --delete-branch`
@@ -1002,6 +1044,7 @@ When auto-merge is triggered:
 Condition: Auto-merge succeeded AND `workflow.worktree.auto_cleanup == true`
 
 Steps:
+
 1. Detect worktree path for current SPEC-ID from registry
 2. Execute cleanup equivalent to `moai worktree done SPEC-{ID} --auto --delete-branch`:
    - Remove worktree directory
@@ -1010,6 +1053,7 @@ Steps:
 3. Log cleanup result
 
 Error handling:
+
 - Cleanup failure does NOT block or affect merge result
 - On failure: Log warning with manual cleanup command
 - Message: "Worktree cleanup warning: {error}. Manual: `moai worktree done SPEC-{ID}`"
@@ -1019,6 +1063,7 @@ Error handling:
 #### Completion Report
 
 Display summary including:
+
 - Git workflow strategy used (github_flow, main_direct, or gitflow)
 - Sync mode and scope
 - Files updated and created
@@ -1033,17 +1078,20 @@ Display summary including:
 Tool: AskUserQuestion with options tailored to delivery result:
 
 **If PR was created (github_flow feature branch, or gitflow):**
+
 - Review PR on GitHub
 - Auto-Merge PR (/moai sync --merge)
 - Create Next SPEC (/moai plan)
 - Start New Session (/clear)
 
 **If direct push (main_direct, or github_flow main branch):**
+
 - Create Next SPEC (/moai plan)
 - Continue Development
 - Start New Session (/clear)
 
 **If worktree context:**
+
 - Review PR in Browser
 - Return to Main Directory
 - Remove This Worktree
@@ -1087,8 +1135,10 @@ All of the following must be verified:
 ## Test Scenarios
 
 ### Normal Flow
+
 **Prompt**: "/moai sync SPEC-AUTH-001"
 **Expected Result**:
+
 - Phase 0: Pre-sync quality gate passes (tests, lint)
 - Phase 0.5: Quality verification confirms TRUST 5 compliance
 - Phase 1: Divergence analysis shows implementation matches SPEC
@@ -1098,8 +1148,10 @@ All of the following must be verified:
 - Phase 3: Commits created, PR opened with summary
 
 ### Partial Implementation Flow
+
 **Prompt**: "/moai sync SPEC-AUTH-001" (only backend implemented, frontend pending)
 **Expected Result**:
+
 - Phase 1.5: Divergence detected - 3/5 acceptance criteria met
 - Sync plan notes partial implementation
 - SPEC status updated to "in-progress" (not "implemented")
@@ -1107,8 +1159,10 @@ All of the following must be verified:
 - PR description notes remaining work
 
 ### Error Flow
+
 **Prompt**: "/moai sync" (no SPEC specified, uncommitted changes exist)
 **Expected Result**:
+
 - Auto-detect: Finds uncommitted changes on current branch
 - AskUserQuestion: "Sync changes on current branch?"
 - If user confirms, syncs based on git diff

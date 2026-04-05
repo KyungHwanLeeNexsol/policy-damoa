@@ -9,13 +9,13 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.2.0"
-  category: "foundation"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "foundation, quality, testing, validation, trust-5, best-practices, code-review"
-  aliases: "moai-foundation-quality"
+  version: '2.2.0'
+  category: 'foundation'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'foundation, quality, testing, validation, trust-5, best-practices, code-review'
+  aliases: 'moai-foundation-quality'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -25,25 +25,44 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["quality", "testing", "test", "validation", "trust-5", "best practice", "code review", "linting", "coverage", "pytest", "security", "ci/cd", "quality gate", "proactive", "code smell", "technical debt", "refactoring"]
+  keywords:
+    [
+      'quality',
+      'testing',
+      'test',
+      'validation',
+      'trust-5',
+      'best practice',
+      'code review',
+      'linting',
+      'coverage',
+      'pytest',
+      'security',
+      'ci/cd',
+      'quality gate',
+      'proactive',
+      'code smell',
+      'technical debt',
+      'refactoring',
+    ]
   agents:
-    - "manager-quality"
-    - "manager-ddd"
-    - "expert-testing"
-    - "expert-security"
-    - "expert-refactoring"
+    - 'manager-quality'
+    - 'manager-ddd'
+    - 'expert-testing'
+    - 'expert-security'
+    - 'expert-refactoring'
   phases:
-    - "run"
-    - "sync"
+    - 'run'
+    - 'sync'
   languages:
-    - "python"
-    - "javascript"
-    - "typescript"
-    - "java"
-    - "go"
-    - "rust"
-    - "cpp"
-    - "csharp"
+    - 'python'
+    - 'javascript'
+    - 'typescript'
+    - 'java'
+    - 'go'
+    - 'rust'
+    - 'cpp'
+    - 'csharp'
 ---
 
 # Enterprise Code Quality Orchestrator

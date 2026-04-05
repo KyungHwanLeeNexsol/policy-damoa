@@ -9,14 +9,14 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Write Bash(psql:*) Bash(npm:*) Bash(npx:*) Bash(neonctl:*) Bash(firebase:*) Bash(supabase:*) Grep Glob mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "2.0.0"
-  category: "platform"
-  status: "active"
-  updated: "2026-02-09"
-  modularized: "true"
-  tags: "database, postgresql, nosql, serverless, real-time, offline, cloud"
-  context7-libraries: "/neondatabase/neon, /supabase/supabase, /firebase/firebase-docs"
-  related-skills: "moai-platform-auth, moai-lang-typescript, moai-domain-backend"
+  version: '2.0.0'
+  category: 'platform'
+  status: 'active'
+  updated: '2026-02-09'
+  modularized: 'true'
+  tags: 'database, postgresql, nosql, serverless, real-time, offline, cloud'
+  context7-libraries: '/neondatabase/neon, /supabase/supabase, /firebase/firebase-docs'
+  related-skills: 'moai-platform-auth, moai-lang-typescript, moai-domain-backend'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -26,10 +26,25 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["neon", "supabase", "firestore", "cloud database", "serverless postgresql", "real-time database", "offline sync", "pgvector", "rls", "database branching", "vector database", "nosql", "mobile database"]
-  agents: ["expert-backend", "expert-devops", "manager-spec"]
-  phases: ["plan", "run"]
-  languages: ["typescript", "javascript", "python", "go"]
+  keywords:
+    [
+      'neon',
+      'supabase',
+      'firestore',
+      'cloud database',
+      'serverless postgresql',
+      'real-time database',
+      'offline sync',
+      'pgvector',
+      'rls',
+      'database branching',
+      'vector database',
+      'nosql',
+      'mobile database',
+    ]
+  agents: ['expert-backend', 'expert-devops', 'manager-spec']
+  phases: ['plan', 'run']
+  languages: ['typescript', 'javascript', 'python', 'go']
 ---
 
 # moai-platform-database-cloud: Cloud Database Platform Specialist
@@ -152,11 +167,11 @@ Firestore SDK is the primary interface with no ORM abstraction layer needed.
 
 For latest platform documentation, use the Context7 MCP tools:
 
-Neon: Use mcp__context7__resolve-library-id with query "neondatabase/neon" to get the library ID, then mcp__context7__get-library-docs with topics like "branching", "connection pooling", or "auto-scaling".
+Neon: Use mcp**context7**resolve-library-id with query "neondatabase/neon" to get the library ID, then mcp**context7**get-library-docs with topics like "branching", "connection pooling", or "auto-scaling".
 
-Supabase: Use mcp__context7__resolve-library-id with query "supabase" to get the library ID, then mcp__context7__get-library-docs with topics like "postgresql pgvector", "row-level-security", or "realtime".
+Supabase: Use mcp**context7**resolve-library-id with query "supabase" to get the library ID, then mcp**context7**get-library-docs with topics like "postgresql pgvector", "row-level-security", or "realtime".
 
-Firestore: Use mcp__context7__resolve-library-id with query "firebase" to get the library ID, then mcp__context7__get-library-docs with topics like "firestore security-rules", "firestore offline", or "firestore real-time".
+Firestore: Use mcp**context7**resolve-library-id with query "firebase" to get the library ID, then mcp**context7**get-library-docs with topics like "firestore security-rules", "firestore offline", or "firestore real-time".
 
 ---
 

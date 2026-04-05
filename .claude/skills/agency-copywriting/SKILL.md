@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob
 user-invocable: false
 metadata:
-  version: "3.2.0"
-  category: "agency"
-  status: "active"
-  updated: "2026-04-02"
-  evolution_count: "0"
-  confidence_score: "0.70"
-  base_context: "brand-voice.md"
-  dependencies: "agency-design-system, agency-frontend-patterns"
-  tags: "copywriting, brand-voice, tone, content-structure, agency, web-copy"
-  related-skills: "agency-design-system, agency-frontend-patterns, agency-client-interview"
+  version: '3.2.0'
+  category: 'agency'
+  status: 'active'
+  updated: '2026-04-02'
+  evolution_count: '0'
+  confidence_score: '0.70'
+  base_context: 'brand-voice.md'
+  dependencies: 'agency-design-system, agency-frontend-patterns'
+  tags: 'copywriting, brand-voice, tone, content-structure, agency, web-copy'
+  related-skills: 'agency-design-system, agency-frontend-patterns, agency-client-interview'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -28,9 +28,22 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["copy", "copywriting", "brand voice", "tone", "headline", "tagline", "web copy", "content structure", "microcopy", "CTA", "value proposition"]
-  agents: ["copywriter"]
-  phases: ["plan", "run"]
+  keywords:
+    [
+      'copy',
+      'copywriting',
+      'brand voice',
+      'tone',
+      'headline',
+      'tagline',
+      'web copy',
+      'content structure',
+      'microcopy',
+      'CTA',
+      'value proposition',
+    ]
+  agents: ['copywriter']
+  phases: ['plan', 'run']
 ---
 
 # Agency Copywriting Skill
@@ -46,12 +59,14 @@ Governs all textual content produced for AI Agency websites. Ensures brand-align
 **Purpose**: Define and enforce copy rules, tone guidelines, structural patterns, and anti-patterns for AI Agency website content generation.
 
 **Input Contract**:
+
 - Brand brief (from `.agency/context/brand-voice.md`)
 - Target audience description (from `.agency/context/target-audience.md`)
 - Page type (landing, about, services, case-study, blog, contact)
 
 **Output Contract**:
 JSON-structured copy per section with the following shape:
+
 ```json
 {
   "page_type": "landing",
@@ -100,6 +115,7 @@ JSON-structured copy per section with the following shape:
 _No rules discovered yet. Rules are added through the evolution process._
 
 Format for future rules:
+
 ```
 ### R-001 (v1 | confidence: 0.XX | evidence: N)
 [Rule description]
@@ -113,6 +129,7 @@ Format for future rules:
 _No anti-patterns discovered yet. Anti-patterns are added through the evolution process._
 
 Format for future anti-patterns:
+
 ```
 ### AP-001 (confidence: 0.XX | evidence: N)
 AVOID: [What to avoid]
@@ -125,6 +142,7 @@ AVOID: [What to avoid]
 _No heuristics discovered yet. Heuristics are added through the evolution process._
 
 Format for future heuristics:
+
 ```
 ### H-001 (weight: 0.X | evidence: N)
 [Soft guideline]
@@ -139,6 +157,7 @@ Format for future heuristics:
 _No evolution entries yet._
 
 Format for future entries:
+
 ```
 ### Evolution E-001
 - Date: YYYY-MM-DD

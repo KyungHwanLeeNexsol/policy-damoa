@@ -196,6 +196,7 @@ Before any branch checkout or `gh pr create` operation, resolve the base branch 
 3. Use `--base {main_branch}` in all `gh pr create` commands
 
 Example resolution:
+
 - mode: `personal`, `personal.main_branch: dev` → `gh pr create --base dev`
 - mode: `team`, `team.main_branch: main` → `gh pr create --base main`
 
@@ -1161,17 +1162,17 @@ All implementation commits MUST include a `## Context` section in the commit bod
 
 Context Memory Categories:
 
-| Category | Purpose | When to Use | Example |
-|----------|---------|-------------|---------|
-| Decision | Technical decision + rationale | Always | "EdDSA over RSA256 (user requested, performance priority)" |
-| Constraint | Active constraints | Always | "Must maintain /api/v1 backward compatibility" |
-| Gotcha | Pitfalls discovered | Always | "Redis TTL unreliable for RefreshToken storage" |
-| Pattern | Patterns/references used | Always | "middleware chain pattern from auth.go:45" |
-| Risk | Known risks/deferred items | Always | "Token rotation deferred to Phase 2" |
-| UserPref | User preferences captured | Always | "User prefers functional style over OOP" |
-| Rejected | Evaluated alternatives with dismissal reason | When 2+ alternatives were considered | "Background refresh on timer \| race condition with concurrent requests" |
-| Not-tested | Known test coverage gaps | When known test blind spots exist | "Auth service cold-start > 500ms behavior" |
-| Reversibility | Change rollback difficulty: clean, migration-needed, irreversible | Breaking changes only | "migration-needed (schema column dropped)" |
+| Category      | Purpose                                                           | When to Use                          | Example                                                                  |
+| ------------- | ----------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------ |
+| Decision      | Technical decision + rationale                                    | Always                               | "EdDSA over RSA256 (user requested, performance priority)"               |
+| Constraint    | Active constraints                                                | Always                               | "Must maintain /api/v1 backward compatibility"                           |
+| Gotcha        | Pitfalls discovered                                               | Always                               | "Redis TTL unreliable for RefreshToken storage"                          |
+| Pattern       | Patterns/references used                                          | Always                               | "middleware chain pattern from auth.go:45"                               |
+| Risk          | Known risks/deferred items                                        | Always                               | "Token rotation deferred to Phase 2"                                     |
+| UserPref      | User preferences captured                                         | Always                               | "User prefers functional style over OOP"                                 |
+| Rejected      | Evaluated alternatives with dismissal reason                      | When 2+ alternatives were considered | "Background refresh on timer \| race condition with concurrent requests" |
+| Not-tested    | Known test coverage gaps                                          | When known test blind spots exist    | "Auth service cold-start > 500ms behavior"                               |
+| Reversibility | Change rollback difficulty: clean, migration-needed, irreversible | Breaking changes only                | "migration-needed (schema column dropped)"                               |
 
 Context Section Format:
 

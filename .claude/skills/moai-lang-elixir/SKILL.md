@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(mix:*) Bash(elixir:*) Bash(iex:*) Bash(erl:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, elixir, phoenix, liveview, ecto, otp, genserver"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, elixir, phoenix, liveview, ecto, otp, genserver'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,8 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Elixir", "Phoenix", "LiveView", "Ecto", "OTP", "GenServer", ".ex", ".exs", "mix.exs"]
-  languages: ["elixir"]
+  keywords: ['Elixir', 'Phoenix', 'LiveView', 'Ecto', 'OTP', 'GenServer', '.ex', '.exs', 'mix.exs']
+  languages: ['elixir']
 ---
 
 ## Quick Reference (30 seconds)
@@ -52,7 +52,7 @@ For create actions, pattern match on the context result tuple. On ok tuple, use 
 
 Ecto Schema with Changeset: Define a module using Ecto.Schema and importing Ecto.Changeset. Define the schema block with field declarations including types like :string and virtual fields. Create a changeset function taking the struct and attrs, using pipe operator to chain cast with the list of fields to cast, validate_required, validate_format with regex, validate_length with min option, and unique_constraint.
 
-GenServer Pattern: Define a module using GenServer. Create start_link taking initial_value and calling GenServer.start_link with __MODULE__, initial_value, and name option. Define client API functions that call GenServer.call with __MODULE__ and the message atom. Implement init callback returning ok tuple with state. Implement handle_call callbacks for each message, returning reply tuple with response and new state.
+GenServer Pattern: Define a module using GenServer. Create start_link taking initial_value and calling GenServer.start_link with **MODULE**, initial_value, and name option. Define client API functions that call GenServer.call with **MODULE** and the message atom. Implement init callback returning ok tuple with state. Implement handle_call callbacks for each message, returning reply tuple with response and new state.
 
 ---
 

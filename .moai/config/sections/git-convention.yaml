@@ -3,7 +3,7 @@
 
 git_convention:
   # Convention name: "auto" (detect from history), "conventional-commits", "angular", "karma", "custom"
-  convention: "auto"
+  convention: 'auto'
 
   # Enforce convention check on push (via pre-push hook)
   enforce_on_push: false

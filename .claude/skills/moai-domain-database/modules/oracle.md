@@ -205,7 +205,7 @@ def stream_large_lob(connection, doc_id: int, chunk_size: int = 65536):
 - **Python Drivers**: python-oracledb (recommended), cx_Oracle (legacy)
 - **ORMs**: SQLAlchemy with Oracle dialect, Django ORM
 - **Connection Pooling**: Built-in pooling, Oracle DRCP
-- **Migration Tools**: SQL*Plus, Data Pump, Flyway, Liquibase
+- **Migration Tools**: SQL\*Plus, Data Pump, Flyway, Liquibase
 - **Monitoring**: Oracle Enterprise Manager, AWR, ASH reports
 - **Cloud**: Oracle Autonomous Database, OCI integration
 

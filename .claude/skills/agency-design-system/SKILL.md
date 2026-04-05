@@ -9,16 +9,16 @@ compatibility: Designed for Claude Code
 allowed-tools: Read, Grep, Glob
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "agency"
-  status: "active"
-  updated: "2026-04-02"
-  evolution_count: "0"
-  confidence_score: "0.00"
-  base_context: "visual-identity.md"
-  dependencies: "agency-evaluation-criteria"
-  tags: "design, visual-identity, color, typography, layout, components, design-tokens"
-  related-skills: "agency-copywriting, agency-frontend-patterns, agency-evaluation-criteria"
+  version: '1.0.0'
+  category: 'agency'
+  status: 'active'
+  updated: '2026-04-02'
+  evolution_count: '0'
+  confidence_score: '0.00'
+  base_context: 'visual-identity.md'
+  dependencies: 'agency-evaluation-criteria'
+  tags: 'design, visual-identity, color, typography, layout, components, design-tokens'
+  related-skills: 'agency-copywriting, agency-frontend-patterns, agency-evaluation-criteria'
 
 progressive_disclosure:
   enabled: true
@@ -26,9 +26,21 @@ progressive_disclosure:
   level2_tokens: 5000
 
 triggers:
-  keywords: ["design", "visual", "color", "typography", "layout", "component", "spacing", "design-system", "UI", "theme"]
-  agents: ["designer", "builder"]
-  phases: ["plan", "run"]
+  keywords:
+    [
+      'design',
+      'visual',
+      'color',
+      'typography',
+      'layout',
+      'component',
+      'spacing',
+      'design-system',
+      'UI',
+      'theme',
+    ]
+  agents: ['designer', 'builder']
+  phases: ['plan', 'run']
 ---
 
 # Agency Design System Skill
@@ -44,11 +56,13 @@ Governs all visual design decisions for AI Agency projects. Ensures brand-aligne
 **Purpose**: Define and enforce visual design system rules, component patterns, and design token standards for agency project generation.
 
 **Input Contract**:
+
 - Copy document (from copywriter output: `copy.md`)
 - Visual identity preferences (from `.agency/context/visual-identity.md`)
 - Design preferences expressed during client interview
 
 **Output Contract**:
+
 - `design-spec.md` containing:
   - Color tokens (primary, secondary, accent, semantic, neutral)
   - Typography scale (headings, body, caption, with responsive sizes)

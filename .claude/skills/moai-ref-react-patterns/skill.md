@@ -7,12 +7,12 @@ description: >
   NOT for: backend API design, database modeling, DevOps, mobile apps.
 user-invocable: false
 metadata:
-  version: "1.0.0"
-  category: "domain"
-  status: "active"
-  updated: "2026-03-30"
-  tags: "react, nextjs, component, patterns, frontend, reference"
-  agent: "expert-frontend"
+  version: '1.0.0'
+  category: 'domain'
+  status: 'active'
+  updated: '2026-03-30'
+  tags: 'react, nextjs, component, patterns, frontend, reference'
+  agent: 'expert-frontend'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -22,9 +22,9 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["react", "component", "nextjs", "frontend", "ui", "state"]
-  agents: ["expert-frontend"]
-  phases: ["run"]
+  keywords: ['react', 'component', 'nextjs', 'frontend', 'ui', 'state']
+  agents: ['expert-frontend']
+  phases: ['run']
 ---
 
 # React Patterns Reference
@@ -36,18 +36,21 @@ triggers:
 ## Component Design Patterns
 
 ### 1. Compound Components
+
 Parent and child share implicit state via Context.
 
 Suited for: Tab, Accordion, Dropdown, Select
 Structure: `<Select>` + `<Select.Trigger>` + `<Select.Option>`
 
 ### 2. Custom Hooks (Extraction Pattern)
+
 Extract state logic into reusable hooks.
 
 Suited for: Form management, API calls, localStorage, debounce
 Naming: `use` prefix required - `useForm`, `useDebounce`, `useAuth`
 
 ### 3. Container/Presentational Separation
+
 Separate data logic (Container) from UI (Presentational).
 
 Suited for: Large apps, when testability is needed
@@ -55,6 +58,7 @@ Container: Data fetch, state management, event handlers
 Presentational: Renders only from props, functionally pure
 
 ### 4. Headless Component
+
 Provides behavior/state without UI.
 
 Suited for: Design system-independent logic
@@ -62,17 +66,18 @@ Examples: headless `useCombobox`, `useDialog`, `useTable`
 
 ## State Management Selection Guide
 
-| State Type | Tool | Rationale |
-|-----------|------|-----------|
-| UI Local | useState, useReducer | Component-internal |
-| Server State | React Query / TanStack Query | Caching, refetch, optimistic |
-| Global Client | Zustand | Concise, minimal boilerplate |
-| Complex Global | Zustand + Immer | Immutability convenience |
-| URL State | nuqs / useSearchParams | Filters, pagination |
-| Form State | React Hook Form + Zod | Integrated validation |
-| Theme/i18n | Context + Provider | Low change frequency |
+| State Type     | Tool                         | Rationale                    |
+| -------------- | ---------------------------- | ---------------------------- |
+| UI Local       | useState, useReducer         | Component-internal           |
+| Server State   | React Query / TanStack Query | Caching, refetch, optimistic |
+| Global Client  | Zustand                      | Concise, minimal boilerplate |
+| Complex Global | Zustand + Immer              | Immutability convenience     |
+| URL State      | nuqs / useSearchParams       | Filters, pagination          |
+| Form State     | React Hook Form + Zod        | Integrated validation        |
+| Theme/i18n     | Context + Provider           | Low change frequency         |
 
 ### Decision Flow
+
 ```
 Restorable from URL? -> URL state (nuqs)
 Server data? -> React Query
@@ -109,29 +114,30 @@ src/
 
 ## Component Quality Standards
 
-| Item | Standard |
-|------|----------|
-| Component Size | Under 200 lines (split if exceeded) |
-| Props | 5 or fewer (group into object if exceeded) |
-| Custom Hooks | Always extract when reusing logic |
-| Error Boundaries | Set at the page level |
-| Loading States | Provide loading UI for all async ops |
-| Form Validation | Validate on both client and server |
+| Item             | Standard                                   |
+| ---------------- | ------------------------------------------ |
+| Component Size   | Under 200 lines (split if exceeded)        |
+| Props            | 5 or fewer (group into object if exceeded) |
+| Custom Hooks     | Always extract when reusing logic          |
+| Error Boundaries | Set at the page level                      |
+| Loading States   | Provide loading UI for all async ops       |
+| Form Validation  | Validate on both client and server         |
 
 ## Performance Patterns
 
-| Pattern | When | Tool |
-|---------|------|------|
-| Memoization | Expensive computation | `useMemo`, `React.memo` |
-| Lazy Loading | Bundle size | `React.lazy`, `next/dynamic` |
-| Virtualization | 1000+ item lists | `@tanstack/react-virtual` |
-| Image Optimization | Image loading | `next/image` |
-| Optimistic Updates | Immediate feedback | React Query `onMutate` |
-| Debounce | Search, input | `useDeferredValue` or custom hook |
+| Pattern            | When                  | Tool                              |
+| ------------------ | --------------------- | --------------------------------- |
+| Memoization        | Expensive computation | `useMemo`, `React.memo`           |
+| Lazy Loading       | Bundle size           | `React.lazy`, `next/dynamic`      |
+| Virtualization     | 1000+ item lists      | `@tanstack/react-virtual`         |
+| Image Optimization | Image loading         | `next/image`                      |
+| Optimistic Updates | Immediate feedback    | React Query `onMutate`            |
+| Debounce           | Search, input         | `useDeferredValue` or custom hook |
 
 ## Error Handling
 
 ### Hierarchical Error Boundaries
+
 ```
 RootErrorBoundary (global)
   └── LayoutErrorBoundary (per section)
@@ -139,14 +145,15 @@ RootErrorBoundary (global)
 ```
 
 ### API Error Handling
-| HTTP Status | Client Handling |
-|------------|----------------|
-| 401 | Auto logout + redirect |
-| 403 | Unauthorized UI |
-| 404 | Not Found page |
-| 422 | Per-field form error |
-| 429 | Retry + wait notice |
-| 500 | Generic error + retry button |
+
+| HTTP Status | Client Handling              |
+| ----------- | ---------------------------- |
+| 401         | Auto logout + redirect       |
+| 403         | Unauthorized UI              |
+| 404         | Not Found page               |
+| 422         | Per-field form error         |
+| 429         | Retry + wait notice          |
+| 500         | Generic error + retry button |
 
 ## Accessibility Checklist
 

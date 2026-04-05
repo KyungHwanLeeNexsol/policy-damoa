@@ -9,12 +9,12 @@ compatibility: Designed for Claude Code
 allowed-tools: Read Grep Glob Bash(ruby:*) Bash(gem:*) Bash(bundle:*) Bash(rake:*) Bash(rspec:*) Bash(rubocop:*) Bash(rails:*) mcp__context7__resolve-library-id mcp__context7__get-library-docs
 user-invocable: false
 metadata:
-  version: "1.1.0"
-  category: "language"
-  status: "active"
-  updated: "2026-01-11"
-  modularized: "true"
-  tags: "language, ruby, rails, activerecord, hotwire, turbo, rspec"
+  version: '1.1.0'
+  category: 'language'
+  status: 'active'
+  updated: '2026-01-11'
+  modularized: 'true'
+  tags: 'language, ruby, rails, activerecord, hotwire, turbo, rspec'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -24,8 +24,20 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["Ruby", "Rails", "ActiveRecord", "Hotwire", "Turbo", "RSpec", ".rb", "Gemfile", "Rakefile", "config.ru"]
-  languages: ["ruby"]
+  keywords:
+    [
+      'Ruby',
+      'Rails',
+      'ActiveRecord',
+      'Hotwire',
+      'Turbo',
+      'RSpec',
+      '.rb',
+      'Gemfile',
+      'Rakefile',
+      'config.ru',
+    ]
+  languages: ['ruby']
 ---
 
 ## Quick Reference (30 seconds)

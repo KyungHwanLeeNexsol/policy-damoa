@@ -7,11 +7,11 @@ description: >
   Use when scanning code for MX tags or annotating codebase for AI context.
 user-invocable: false
 metadata:
-  version: "2.5.0"
-  category: "workflow"
-  status: "active"
-  updated: "2026-02-22"
-  tags: "mx, annotation, code-context, scan, tagging"
+  version: '2.5.0'
+  category: 'workflow'
+  status: 'active'
+  updated: '2026-02-22'
+  tags: 'mx, annotation, code-context, scan, tagging'
 
 # MoAI Extension: Progressive Disclosure
 progressive_disclosure:
@@ -21,10 +21,11 @@ progressive_disclosure:
 
 # MoAI Extension: Triggers
 triggers:
-  keywords: ["mx", "annotation", "code context", "tag scan", "mx tag"]
-  agents: ["expert-backend", "expert-frontend"]
-  phases: ["mx", "sync"]
+  keywords: ['mx', 'annotation', 'code context', 'tag scan', 'mx tag']
+  agents: ['expert-backend', 'expert-frontend']
+  phases: ['mx', 'sync']
 ---
+
 # Workflow: MX Tag Scan and Annotation
 
 Purpose: Scan codebase and add @MX code-level annotations for AI agent context.
@@ -46,26 +47,26 @@ For tag types, lifecycle rules, mandatory fields, and per-file limits, see: .cla
 
 ## Flags
 
-| Flag | Description |
-|------|-------------|
-| `--all` | Scan entire codebase (all languages, all P1+P2 files) |
-| `--dry` | Preview only - show tags to add without modifying files |
-| `--priority P1-P4` | Filter by priority level (default: all) |
-| `--force` | Overwrite existing @MX tags |
-| `--exclude pattern` | Additional exclude patterns (comma-separated) |
-| `--lang go,py,ts` | Scan only specified languages (default: auto-detect) |
-| `--threshold N` | Override fan_in threshold (default: 3) |
-| `--no-discovery` | Skip Phase 0 codebase discovery |
-| `--team` | Parallel scan by language (Agent Teams mode) |
+| Flag                | Description                                             |
+| ------------------- | ------------------------------------------------------- |
+| `--all`             | Scan entire codebase (all languages, all P1+P2 files)   |
+| `--dry`             | Preview only - show tags to add without modifying files |
+| `--priority P1-P4`  | Filter by priority level (default: all)                 |
+| `--force`           | Overwrite existing @MX tags                             |
+| `--exclude pattern` | Additional exclude patterns (comma-separated)           |
+| `--lang go,py,ts`   | Scan only specified languages (default: auto-detect)    |
+| `--threshold N`     | Override fan_in threshold (default: 3)                  |
+| `--no-discovery`    | Skip Phase 0 codebase discovery                         |
+| `--team`            | Parallel scan by language (Agent Teams mode)            |
 
 ## Priority Levels
 
-| Priority | Condition | Tag Type |
-|----------|-----------|----------|
-| P1 | fan_in >= 3 callers | `@MX:ANCHOR` |
-| P2 | goroutine/async, complexity >= 15 | `@MX:WARN` |
-| P3 | magic constant, missing docstring | `@MX:NOTE` |
-| P4 | missing test | `@MX:TODO` |
+| Priority | Condition                         | Tag Type     |
+| -------- | --------------------------------- | ------------ |
+| P1       | fan_in >= 3 callers               | `@MX:ANCHOR` |
+| P2       | goroutine/async, complexity >= 15 | `@MX:WARN`   |
+| P3       | magic constant, missing docstring | `@MX:NOTE`   |
+| P4       | missing test                      | `@MX:TODO`   |
 
 ## Workflow Phases
 
@@ -74,28 +75,29 @@ For tag types, lifecycle rules, mandatory fields, and per-file limits, see: .cla
 **Purpose**: Detect project languages and load context before scanning.
 
 **Steps**:
+
 1. **Language Detection** (16 languages supported)
 
    Check indicator files in priority order:
 
-   | Language | Indicator Files | Comment Prefix |
-   |----------|----------------|----------------|
-   | Go | go.mod, go.sum | `//` |
-   | Python | pyproject.toml, setup.py, requirements.txt | `#` |
-   | TypeScript | tsconfig.json, package.json (with typescript) | `//` |
-   | JavaScript | package.json (without tsconfig) | `//` |
-   | Rust | Cargo.toml, Cargo.lock | `//` |
-   | Java | pom.xml, build.gradle, build.gradle.kts | `//` |
-   | Kotlin | build.gradle.kts (with kotlin plugin) | `//` |
-   | C# | .csproj, .sln, .fsproj | `//` |
-   | Ruby | Gemfile, .ruby-version, Rakefile | `#` |
-   | PHP | composer.json, composer.lock | `//` |
-   | Elixir | mix.exs | `#` |
-   | C++ | CMakeLists.txt, Makefile (with C++) | `//` |
-   | Scala | build.sbt, build.sc | `//` |
-   | R | DESCRIPTION, .Rproj, renv.lock | `#` |
-   | Flutter/Dart | pubspec.yaml | `//` |
-   | Swift | Package.swift, .xcodeproj | `//` |
+   | Language     | Indicator Files                               | Comment Prefix |
+   | ------------ | --------------------------------------------- | -------------- |
+   | Go           | go.mod, go.sum                                | `//`           |
+   | Python       | pyproject.toml, setup.py, requirements.txt    | `#`            |
+   | TypeScript   | tsconfig.json, package.json (with typescript) | `//`           |
+   | JavaScript   | package.json (without tsconfig)               | `//`           |
+   | Rust         | Cargo.toml, Cargo.lock                        | `//`           |
+   | Java         | pom.xml, build.gradle, build.gradle.kts       | `//`           |
+   | Kotlin       | build.gradle.kts (with kotlin plugin)         | `//`           |
+   | C#           | .csproj, .sln, .fsproj                        | `//`           |
+   | Ruby         | Gemfile, .ruby-version, Rakefile              | `#`            |
+   | PHP          | composer.json, composer.lock                  | `//`           |
+   | Elixir       | mix.exs                                       | `#`            |
+   | C++          | CMakeLists.txt, Makefile (with C++)           | `//`           |
+   | Scala        | build.sbt, build.sc                           | `//`           |
+   | R            | DESCRIPTION, .Rproj, renv.lock                | `#`            |
+   | Flutter/Dart | pubspec.yaml                                  | `//`           |
+   | Swift        | Package.swift, .xcodeproj                     | `//`           |
 
 2. **Project Context Loading**
    - Read `.moai/project/tech.md` for tech stack context
@@ -120,6 +122,7 @@ Decision:
 - If condition is not met: Continue to standard sequential Pass 1 below.
 
 Batch execution instructions when triggered:
+
 1. Divide files by language group (all Go files to batch A, all TypeScript files to batch B, etc.)
 2. Each batch agent receives: its assigned file list, project context (tech.md, structure.md, product.md), language.yaml code_comments setting, and mx.yaml thresholds
 3. Each agent must produce a tag report in the standard format defined in the Output section
@@ -129,6 +132,7 @@ Batch execution instructions when triggered:
 **Purpose**: Scan all source files and generate priority queue.
 
 **Steps**:
+
 1. For each enabled language:
    - Glob all source files using language-specific patterns
    - Fan-in analysis: Count function/method references across files
@@ -142,6 +146,7 @@ Batch execution instructions when triggered:
 **Purpose**: Read P1 + P2 files and generate accurate tag descriptions.
 
 **Steps**:
+
 1. For each P1 and P2 file:
    - Full file Read with context
    - Analyze function signatures and call patterns
@@ -149,6 +154,7 @@ Batch execution instructions when triggered:
    - Use language-specific comment syntax
 
 **Project Context Integration**:
+
 - Tech stack information from `tech.md`
 - Architecture patterns from `structure.md`
 - Business domain from `product.md`
@@ -158,6 +164,7 @@ Batch execution instructions when triggered:
 **Purpose**: Insert tags into files.
 
 **Steps**:
+
 1. One Edit call per file
 2. All tags for a given file inserted in single operation
 3. Preserve existing @MX tags (unless --force)
@@ -171,28 +178,33 @@ After completion, generates report:
 ## @MX Tag Report
 
 ### Discovery Summary
+
 - Languages detected: Go (45), Python (23), TypeScript (67)
 - Project context: Loaded from .moai/project/tech.md
 - Scan scope: 135 files, 35,000 estimated tokens
 
 ### Summary
+
 - Files scanned: 135
 - Tags added: 87
 - Tags updated: 23
 - Tags skipped (existing): 12
 
 ### Tags by Type
+
 - @MX:ANCHOR: 32 (P1) - High fan_in functions (>= 3 callers)
 - @MX:WARN: 18 (P2) - Complex/dangerous patterns
 - @MX:NOTE: 28 (P3) - Context annotations
 - @MX:TODO: 9 (P4) - Missing tests
 
 ### Files Modified
+
 - internal/core/handler.go: +5 tags
 - src/api/server.ts: +4 tags
 - lib/utils/helper.py: +3 tags
 
 ### Attention Required
+
 - High fan_in functions (>= 10 callers): handler.go:ProcessRequest
 ```
 
@@ -201,6 +213,7 @@ After completion, generates report:
 ### With /moai sync
 
 During sync phase, MX validation runs automatically:
+
 1. Scan files modified since last sync (all languages)
 2. Check for missing @MX tags in modified functions
 3. Add tags if `--skip-mx` flag not provided
@@ -209,6 +222,7 @@ During sync phase, MX validation runs automatically:
 ### With /moai run
 
 During DDD ANALYZE phase:
+
 1. If codebase has zero @MX tags, 3-Pass auto-triggers
 2. Existing tags are validated and updated
 3. New tags added for new code

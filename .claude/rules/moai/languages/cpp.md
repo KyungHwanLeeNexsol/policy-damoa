@@ -1,5 +1,5 @@
 ---
-paths: "**/*.cpp,**/*.hpp,**/*.h,**/*.cc,**/CMakeLists.txt"
+paths: '**/*.cpp,**/*.hpp,**/*.h,**/*.cc,**/CMakeLists.txt'
 ---
 
 # C++ Rules
@@ -34,7 +34,7 @@ Version: C++23 / C++20
 
 ## File Conventions
 
-- *_test.cpp for test files
+- \*\_test.cpp for test files
 - .hpp for C++ headers, .h for C headers
 - Use PascalCase for classes and types
 - Use snake_case for functions and variables

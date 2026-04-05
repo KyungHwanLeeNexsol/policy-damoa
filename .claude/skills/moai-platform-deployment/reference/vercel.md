@@ -11,12 +11,14 @@ Comprehensive guide to Vercel edge deployment platform.
 Edge Functions execute globally at 30+ edge locations with sub-50ms cold starts.
 
 **Runtime Declaration**:
+
 ```typescript
-export const runtime = "edge"
-export const preferredRegion = ["iad1", "sfo1", "fra1"]
+export const runtime = 'edge';
+export const preferredRegion = ['iad1', 'sfo1', 'fra1'];
 ```
 
 **Supported Edge APIs**:
+
 - Request/Response manipulation
 - Geo-location data (request.geo)
 - Headers and cookies
@@ -26,54 +28,57 @@ export const preferredRegion = ["iad1", "sfo1", "fra1"]
 ### Middleware Patterns
 
 **Authentication Middleware**:
+
 ```typescript
-import { NextResponse } from "next/server"
-import type { NextRequest } from "next/server"
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("auth-token")
+  const token = request.cookies.get('auth-token');
 
-  if (!token && request.nextUrl.pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/login", request.url))
+  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/api/:path*"]
-}
+  matcher: ['/dashboard/:path*', '/api/:path*'],
+};
 ```
 
 **Geo-Based Content Delivery**:
+
 ```typescript
 export function middleware(request: NextRequest) {
-  const country = request.geo?.country || "US"
-  const response = NextResponse.next()
+  const country = request.geo?.country || 'US';
+  const response = NextResponse.next();
 
-  response.headers.set("x-user-country", country)
+  response.headers.set('x-user-country', country);
 
-  if (country === "GB") {
-    return NextResponse.rewrite(new URL("/gb", request.url))
+  if (country === 'GB') {
+    return NextResponse.rewrite(new URL('/gb', request.url));
   }
 
-  return response
+  return response;
 }
 ```
 
 **A/B Testing at Edge**:
+
 ```typescript
 export function middleware(request: NextRequest) {
-  const bucket = Math.random() < 0.5 ? "a" : "b"
-  const response = NextResponse.next()
+  const bucket = Math.random() < 0.5 ? 'a' : 'b';
+  const response = NextResponse.next();
 
-  response.cookies.set("ab-test-bucket", bucket)
+  response.cookies.set('ab-test-bucket', bucket);
 
-  if (bucket === "b") {
-    return NextResponse.rewrite(new URL("/variant-b", request.url))
+  if (bucket === 'b') {
+    return NextResponse.rewrite(new URL('/variant-b', request.url));
   }
 
-  return response
+  return response;
 }
 ```
 
@@ -84,6 +89,7 @@ export function middleware(request: NextRequest) {
 ### Incremental Static Regeneration
 
 **Time-Based Revalidation**:
+
 ```typescript
 export const revalidate = 3600 // Revalidate every hour
 
@@ -94,30 +100,32 @@ export default async function Page() {
 ```
 
 **On-Demand Revalidation**:
+
 ```typescript
 // app/api/revalidate/route.ts
-import { revalidatePath, revalidateTag } from "next/cache"
-import { NextRequest } from "next/server"
+import { revalidatePath, revalidateTag } from 'next/cache';
+import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const tag = request.nextUrl.searchParams.get("tag")
+  const tag = request.nextUrl.searchParams.get('tag');
 
   if (tag) {
-    revalidateTag(tag)
-    return Response.json({ revalidated: true, tag })
+    revalidateTag(tag);
+    return Response.json({ revalidated: true, tag });
   }
 
-  const path = request.nextUrl.searchParams.get("path")
+  const path = request.nextUrl.searchParams.get('path');
   if (path) {
-    revalidatePath(path)
-    return Response.json({ revalidated: true, path })
+    revalidatePath(path);
+    return Response.json({ revalidated: true, path });
   }
 
-  return Response.json({ revalidated: false })
+  return Response.json({ revalidated: false });
 }
 ```
 
 **Tag-Based Cache Invalidation**:
+
 ```typescript
 export default async function Page() {
   const posts = await fetch("https://api.example.com/posts", {
@@ -134,19 +142,21 @@ await revalidateTag("posts")
 ### CDN Cache Headers
 
 **Custom Cache Control**:
+
 ```typescript
 export async function GET() {
-  const data = await fetchData()
+  const data = await fetchData();
 
   return Response.json(data, {
     headers: {
-      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400"
-    }
-  })
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
+    },
+  });
 }
 ```
 
 **Streaming with Suspense**:
+
 ```typescript
 import { Suspense } from "react"
 
@@ -220,11 +230,13 @@ export default function Page() {
 ### Environment Variables
 
 **Variable Types**:
+
 - Production: Used in production deployments
 - Preview: Used in preview deployments
 - Development: Used in local development
 
 **Setting Variables**:
+
 ```bash
 # Via CLI
 vercel env add SECRET_KEY production
@@ -234,8 +246,9 @@ vercel env add SECRET_KEY production
 ```
 
 **Accessing in Code**:
+
 ```typescript
-const apiKey = process.env.API_KEY
+const apiKey = process.env.API_KEY;
 ```
 
 ### Monorepo Setup with Turborepo
@@ -256,11 +269,13 @@ const apiKey = process.env.API_KEY
 ### Vercel Analytics Integration
 
 **Installation**:
+
 ```bash
 npm install @vercel/analytics
 ```
 
 **Setup**:
+
 ```typescript
 // app/layout.tsx
 import { Analytics } from "@vercel/analytics/react"
@@ -280,11 +295,13 @@ export default function RootLayout({ children }) {
 ### Speed Insights for Web Vitals
 
 **Installation**:
+
 ```bash
 npm install @vercel/speed-insights
 ```
 
 **Setup**:
+
 ```typescript
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -301,11 +318,12 @@ export default function RootLayout({ children }) {
 ```
 
 **Custom Performance Monitoring**:
+
 ```typescript
-import { sendToAnalytics } from "@vercel/analytics"
+import { sendToAnalytics } from '@vercel/analytics';
 
 export function reportWebVitals(metric) {
-  sendToAnalytics(metric)
+  sendToAnalytics(metric);
 }
 ```
 
@@ -316,71 +334,78 @@ export function reportWebVitals(metric) {
 ### Vercel KV (Redis)
 
 **Setup**:
+
 ```bash
 npm install @vercel/kv
 ```
 
 **Usage**:
+
 ```typescript
-import { kv } from "@vercel/kv"
+import { kv } from '@vercel/kv';
 
 // Set value
-await kv.set("user:123", { name: "John", email: "john@example.com" })
+await kv.set('user:123', { name: 'John', email: 'john@example.com' });
 
 // Get value
-const user = await kv.get("user:123")
+const user = await kv.get('user:123');
 
 // Increment counter
-await kv.incr("page-views")
+await kv.incr('page-views');
 
 // Expire key
-await kv.expire("session:abc", 3600) // 1 hour
+await kv.expire('session:abc', 3600); // 1 hour
 ```
 
 ### Vercel Blob (Object Storage)
 
 **Setup**:
+
 ```bash
 npm install @vercel/blob
 ```
 
 **Upload**:
+
 ```typescript
-import { put } from "@vercel/blob"
+import { put } from '@vercel/blob';
 
 export async function POST(request: Request) {
-  const file = await request.blob()
-  const blob = await put("avatar.png", file, { access: "public" })
+  const file = await request.blob();
+  const blob = await put('avatar.png', file, { access: 'public' });
 
-  return Response.json({ url: blob.url })
+  return Response.json({ url: blob.url });
 }
 ```
 
 **List Files**:
-```typescript
-import { list } from "@vercel/blob"
 
-const { blobs } = await list({ prefix: "avatars/" })
+```typescript
+import { list } from '@vercel/blob';
+
+const { blobs } = await list({ prefix: 'avatars/' });
 ```
 
 ### Vercel Postgres
 
 **Setup**:
+
 ```bash
 npm install @vercel/postgres
 ```
 
 **Usage**:
-```typescript
-import { sql } from "@vercel/postgres"
 
-const users = await sql`SELECT * FROM users WHERE id = ${userId}`
+```typescript
+import { sql } from '@vercel/postgres';
+
+const users = await sql`SELECT * FROM users WHERE id = ${userId}`;
 
 // Transaction
 await sql.transaction(async (client) => {
-  await client`INSERT INTO users (name) VALUES (${name})`
-  await client`INSERT INTO profiles (user_id) VALUES (${userId})`
-})
+  await client`INSERT INTO users (name) VALUES (${name})`;
+  await client`INSERT INTO profiles (user_id) VALUES (${userId})`;
+});
 ```
 
 ---
@@ -441,6 +466,7 @@ vercel domains ls
 ### Security Headers
 
 Always configure security headers in vercel.json:
+
 - X-Frame-Options: DENY
 - X-Content-Type-Options: nosniff
 - Strict-Transport-Security: max-age=31536000
@@ -461,16 +487,19 @@ Always configure security headers in vercel.json:
 ### Common Issues
 
 **Build Failures**:
+
 - Check build logs in Vercel dashboard
 - Verify buildCommand in vercel.json
 - Ensure dependencies are in package.json
 
 **Function Timeouts**:
+
 - Increase maxDuration in vercel.json
 - Optimize database queries
 - Use streaming responses
 
 **Cache Issues**:
+
 - Clear cache with revalidatePath/revalidateTag
 - Check Cache-Control headers
 - Verify ISR configuration
@@ -484,16 +513,16 @@ For latest Vercel documentation:
 ```typescript
 // Step 1: Resolve library
 const libraries = await mcp__context7__resolve_library_id({
-  libraryName: "vercel",
-  query: "edge functions middleware"
-})
+  libraryName: 'vercel',
+  query: 'edge functions middleware',
+});
 
 // Step 2: Get documentation
 const docs = await mcp__context7__get_library_docs({
   libraryId: libraries[0].id,
-  topic: "edge-middleware",
-  maxTokens: 8000
-})
+  topic: 'edge-middleware',
+  maxTokens: 8000,
+});
 ```
 
 ---

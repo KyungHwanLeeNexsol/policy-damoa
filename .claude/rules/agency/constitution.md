@@ -9,6 +9,7 @@ Core principles governing the AI Agency creative production system. These rules 
 AI Agency is a self-evolving creative production system built on top of MoAI-ADK. It orchestrates a pipeline of specialized agents (Planner, Copywriter, Designer, Builder, Evaluator, Learner) to produce high-quality web experiences from natural language briefs.
 
 Agency is NOT a replacement for MoAI. It is a vertical specialization layer that:
+
 - Inherits MoAI's orchestration infrastructure, quality gates, and agent runtime
 - Adds creative production domain expertise (copy, design, brand, UX)
 - Maintains its own evolution loop independent of MoAI's SPEC workflow
@@ -35,8 +36,8 @@ The following elements are immutable and can only be changed by human developers
 
 The following elements can be modified through the graduation protocol:
 
-- [EVOLVABLE] Agent prompts and instructions (.claude/agents/agency/*.md body content)
-- [EVOLVABLE] Skill definitions (.claude/skills/agency-*/SKILL.md)
+- [EVOLVABLE] Agent prompts and instructions (.claude/agents/agency/\*.md body content)
+- [EVOLVABLE] Skill definitions (.claude/skills/agency-\*/SKILL.md)
 - [EVOLVABLE] Pipeline adaptation weights (.agency/config.yaml adaptation.phase_weights)
 - [EVOLVABLE] Evaluation rubric criteria (within bounds set by frozen rules)
 - [EVOLVABLE] Brief templates (.agency/templates/)
@@ -74,14 +75,14 @@ Planner -> [Copywriter, Designer] (parallel) -> Builder -> Evaluator -> Learner
 
 Each phase produces typed artifacts consumed by downstream phases:
 
-| Phase | Input | Output | Required |
-|-------|-------|--------|----------|
-| Planner | User request + brand context | BRIEF document | Always |
-| Copywriter | BRIEF + brand voice | Copy deck (all page text) | Always |
-| Designer | BRIEF + brand visuals | Design spec (layout, tokens, components) | Always |
-| Builder | Copy deck + design spec | Working code (pages, components, styles) | Always |
-| Evaluator | Built code + BRIEF | Score card + feedback | Always |
-| Learner | Score card + session history | Learning entries | When score < 1.0 |
+| Phase      | Input                        | Output                                   | Required         |
+| ---------- | ---------------------------- | ---------------------------------------- | ---------------- |
+| Planner    | User request + brand context | BRIEF document                           | Always           |
+| Copywriter | BRIEF + brand voice          | Copy deck (all page text)                | Always           |
+| Designer   | BRIEF + brand visuals        | Design spec (layout, tokens, components) | Always           |
+| Builder    | Copy deck + design spec      | Working code (pages, components, styles) | Always           |
+| Evaluator  | Built code + BRIEF           | Score card + feedback                    | Always           |
+| Learner    | Score card + session history | Learning entries                         | When score < 1.0 |
 
 ---
 
@@ -141,13 +142,13 @@ All evolution proposals require human approval when require_approval is true:
 
 Learnings progress through confidence tiers based on repeated observation:
 
-| Observations | Classification | Action |
-|-------------|---------------|--------|
-| 1x | Observation | Logged, no action taken |
-| 3x | Heuristic | Promoted to heuristic, may influence suggestions |
-| 5x | Rule | Eligible for graduation to evolvable zone |
-| 10x | High-confidence | Auto-proposed for evolution (still needs approval) |
-| 1x (critical failure) | Anti-Pattern | Immediately flagged, blocks similar patterns |
+| Observations          | Classification  | Action                                             |
+| --------------------- | --------------- | -------------------------------------------------- |
+| 1x                    | Observation     | Logged, no action taken                            |
+| 3x                    | Heuristic       | Promoted to heuristic, may influence suggestions   |
+| 5x                    | Rule            | Eligible for graduation to evolvable zone          |
+| 10x                   | High-confidence | Auto-proposed for evolution (still needs approval) |
+| 1x (critical failure) | Anti-Pattern    | Immediately flagged, blocks similar patterns       |
 
 ### Learning Entry Schema
 
@@ -156,17 +157,17 @@ Each learning entry in .agency/learnings/ contains:
 ```yaml
 id: LEARN-YYYYMMDD-NNN
 category: [copy|design|layout|ux|performance|brand|accessibility]
-observation: "Description of the pattern observed"
+observation: 'Description of the pattern observed'
 evidence:
   - project_id: BRIEF-XXX
     score_before: 0.65
     score_after: 0.82
-    context: "What changed and why it helped"
+    context: 'What changed and why it helped'
 count: 1
 confidence: 0.0
 status: observation|heuristic|rule|graduated|archived|anti-pattern
-created_at: "ISO-8601"
-updated_at: "ISO-8601"
+created_at: 'ISO-8601'
+updated_at: 'ISO-8601'
 ```
 
 ### Anti-Pattern Detection
@@ -240,11 +241,11 @@ When moai-adk-go updates (via moai update), Agency checks for upstream changes:
 
 ### Sync Policies
 
-| Policy | Behavior |
-|--------|----------|
-| auto-propose | Automatically generate merge proposal for user review |
-| manual | Notify user of upstream changes, no automatic proposal |
-| ignore | Skip sync checks for this fork |
+| Policy       | Behavior                                               |
+| ------------ | ------------------------------------------------------ |
+| auto-propose | Automatically generate merge proposal for user review  |
+| manual       | Notify user of upstream changes, no automatic proposal |
+| ignore       | Skip sync checks for this fork                         |
 
 ### Sync Process
 
@@ -270,6 +271,7 @@ The pipeline can be adapted based on project characteristics and accumulated lea
 ### Skip
 
 Remove a phase when it adds no value for the project type:
+
 - Only phases with weight < 0.30 can be skipped
 - Planner and Evaluator can NEVER be skipped (FROZEN)
 - Requires confidence_threshold >= 0.70 and min_projects_for_adaptation met
@@ -277,6 +279,7 @@ Remove a phase when it adds no value for the project type:
 ### Merge
 
 Combine two adjacent phases into a single agent execution:
+
 - Only Copywriter + Designer can be merged (they are parallel_phases)
 - Merge is triggered when project scope is small (single page, no brand requirements)
 - Merged execution uses the higher-model assignment of the two phases
@@ -284,6 +287,7 @@ Combine two adjacent phases into a single agent execution:
 ### Reorder
 
 Change the relative order of parallel phases:
+
 - Only phases listed in parallel_phases can be reordered
 - Sequential dependencies (Planner first, Learner last) are FROZEN
 - Reorder is informational only (parallel phases run simultaneously)
@@ -291,6 +295,7 @@ Change the relative order of parallel phases:
 ### Inject
 
 Add a sub-phase within an existing phase:
+
 - Example: inject "accessibility audit" sub-phase within Evaluator
 - Injected sub-phases inherit the parent phase's model assignment
 - Maximum 2 injected sub-phases per parent phase
@@ -298,6 +303,7 @@ Add a sub-phase within an existing phase:
 ### Iteration Adjust
 
 Modify the maximum iterations for a phase:
+
 - Bounded by iteration_limits in config (hard ceiling)
 - Can be reduced to 1 but never to 0
 - Adjustments require at least 3 supporting observations
@@ -320,6 +326,7 @@ The Builder-Evaluator GAN Loop is the quality assurance mechanism. It operates u
 ### Escalation
 
 After escalation_after (3) iterations without passing:
+
 - Evaluator generates a detailed failure report
 - User is notified with the report and asked to intervene
 - User may: adjust criteria, provide guidance, or force-pass
@@ -327,6 +334,7 @@ After escalation_after (3) iterations without passing:
 ### Improvement Gate
 
 If score improvement between iterations is less than improvement_threshold (0.05):
+
 - The loop is flagged as stagnating
 - Evaluator must identify a different dimension for improvement
 - If stagnation persists for 2 consecutive iterations, escalate to user
@@ -334,6 +342,7 @@ If score improvement between iterations is less than improvement_threshold (0.05
 ### Strict Mode
 
 When strict_mode is true:
+
 - All must-pass criteria require individual passing (no averaging)
 - Score inflation protection is active (see Section 12)
 - Minimum 2 iterations required even if first iteration passes
@@ -418,6 +427,7 @@ When configuration conflicts arise, the following precedence applies (highest fi
 ### Agent Failure
 
 If any pipeline agent fails during execution:
+
 - Log the error with full context
 - Attempt retry with simplified prompt (max 2 retries)
 - If retry fails, pause pipeline and notify user
@@ -426,6 +436,7 @@ If any pipeline agent fails during execution:
 ### GAN Loop Deadlock
 
 If the GAN loop reaches max_iterations without passing:
+
 - Generate comprehensive failure report
 - Present to user with three options: force-pass, adjust criteria, restart pipeline
 - Log the deadlock for learner analysis
@@ -433,6 +444,7 @@ If the GAN loop reaches max_iterations without passing:
 ### Evolution Rollback
 
 If a graduated learning causes regression:
+
 - Automatic rollback triggered when next project score drops > 0.10
 - Reverted change logged in .agency/evolution/rollbacks.log
 - Learning status changed to "rolled-back"

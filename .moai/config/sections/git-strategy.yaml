@@ -2,11 +2,11 @@
 # Workflow configuration for Manual/Personal/Team modes
 
 git_strategy:
-  mode: "manual"                # manual, personal, team
-  provider: "github"          # github, gitlab
-  github_username: ""  # GitHub username (for personal/team modes)
+  mode: 'manual' # manual, personal, team
+  provider: 'github' # github, gitlab
+  github_username: '' # GitHub username (for personal/team modes)
   gitlab:
-    instance_url: ""  # GitLab instance URL
+    instance_url: '' # GitLab instance URL
 
   # Manual Mode Settings (Local Git)
   manual:
@@ -18,8 +18,8 @@ git_strategy:
 
     # Branch creation policy
     branch_creation:
-      prompt_always: true       # Always ask before creating branch
-      auto_enabled: false       # Do not auto-create branches
+      prompt_always: true # Always ask before creating branch
+      auto_enabled: false # Do not auto-create branches
 
     # Automation settings
     automation:
@@ -30,13 +30,13 @@ git_strategy:
 
     # Git hooks policy
     hooks:
-      pre_commit: enforce       # enforce, warn, skip
+      pre_commit: enforce # enforce, warn, skip
       pre_push: warn
       commit_msg: warn
 
     # Commit message style
     commit_style:
-      format: conventional      # conventional, simple
+      format: conventional # conventional, simple
       scope_required: false
 
   # Personal Mode Settings (GitHub Individual)
@@ -45,20 +45,20 @@ git_strategy:
     environment: github
     github_integration: true
     push_to_remote: true
-    branch_prefix: "feature/SPEC-"
+    branch_prefix: 'feature/SPEC-'
     main_branch: main
 
     # Branch creation policy
     branch_creation:
-      prompt_always: true         # Ask before creating branch (default: prompt)
-      auto_enabled: false         # Do not auto-create branches (default: disabled)
+      prompt_always: true # Ask before creating branch (default: prompt)
+      auto_enabled: false # Do not auto-create branches (default: disabled)
 
     # Automation settings
     automation:
-      auto_branch: false          # Do not auto-create branches (default: disabled)
+      auto_branch: false # Do not auto-create branches (default: disabled)
       auto_commit: true
-      auto_pr: false              # Manual PR for review (default: disabled)
-      auto_push: false            # Do not auto-push (default: disabled)
+      auto_pr: false # Manual PR for review (default: disabled)
+      auto_push: false # Do not auto-push (default: disabled)
 
     # Git hooks policy
     hooks:
@@ -77,7 +77,7 @@ git_strategy:
     environment: github
     github_integration: true
     push_to_remote: true
-    branch_prefix: "feature/SPEC-"
+    branch_prefix: 'feature/SPEC-'
     main_branch: main
     draft_pr: true
     required_reviews: 1
@@ -104,4 +104,4 @@ git_strategy:
     # Commit message style
     commit_style:
       format: conventional
-      scope_required: true      # Required for team projects
+      scope_required: true # Required for team projects
