@@ -214,7 +214,7 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 | `tailwind-merge`        | ^3.3.0        | Tailwind class merge utility             |
 | `tw-animate-css`        | ^1.3.4        | Animation utilities for Tailwind v4      |
 | `openai`                | (planned)     | AI recommendations and embeddings        |
-| `@upstash/redis`        | (planned)     | Redis client (serverless-compatible)     |
+| `@upstash/redis`        | ^1.x          | Redis client (serverless-compatible, HTTP-based, added in SPEC-API-001) |
 | `zod`                   | (planned)     | Runtime schema validation                |
 | `date-fns`              | (planned)     | Date formatting and manipulation         |
 | `cheerio`               | (planned)     | HTML parsing for static site crawling    |
@@ -307,7 +307,7 @@ On every pull request:
 
 Key settings:
 
-- Cron job schedule for data collection scripts
+- Cron job schedule for data collection scripts (SPEC-API-001: `sync-public-data` and `sync-bojo24` every 6 hours, `maxDuration: 900`)
 - Function memory and timeout limits for AI recommendation endpoints (higher memory, 30s timeout)
 - Edge config for feature flags
 

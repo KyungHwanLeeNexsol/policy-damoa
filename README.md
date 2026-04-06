@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Features
+
+- Automated policy data collection from [data.go.kr](https://data.go.kr) and 보조금24 via Vercel Cron Jobs
+- Redis caching layer (Upstash) for high-performance policy search results
+- Vercel Cron Jobs for scheduled data synchronization (every 6 hours)
+- Deduplication and normalization pipeline with `externalId`-based upsert
+
 ## Getting Started
 
 First, run the development server:

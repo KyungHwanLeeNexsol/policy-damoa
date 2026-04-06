@@ -1,0 +1,22 @@
+## SPEC-API-001 Progress
+
+- Started: 2026-04-06
+- Development Mode: TDD (RED-GREEN-REFACTOR)
+- Harness Level: standard
+- Execution Mode: Full Pipeline (sub-agent, sequential milestones)
+- Language Skills: moai-lang-typescript
+- Phase 0.9 complete: TypeScript/Next.js detected (package.json with typescript)
+- Phase 0.95 complete: Full Pipeline mode (files: 15, domains: 3 — backend/DB/infra)
+- M1 complete: Foundation — DataSyncLog 모델, @upstash/redis+zod 설치, sync 타입, redis 싱글턴, CACHE_TTL 확장, .env.example 업데이트 (2 modified, 3 created, 156 tests passing)
+- AC completed: AC-001 (DataSyncLog 스키마), AC-004 부분 (Redis 초기화, TTL 상수)
+- M2 complete: data.go.kr 파이프라인 — types.ts, normalizer.ts(@MX:ANCHOR), deduplicator.ts, utils.ts(withRetry+AuthError), publicDataPortal.service.ts (6 created, 2 test files, 156 tests passing)
+- AC completed: AC-001 (정규화), AC-002 부분 (Zod 검증, 지수 백오프)
+- M3 complete: 보조금24 파이프라인 — bojo24.service.ts (AuthError 즉시 중단, 500/시간 제한) (1 created, 1 test file)
+- AC completed: AC-002 (401/403 AuthError), AC-003 (시간당 제한)
+- M4 complete: Redis 캐싱 — policy.cache.ts(@MX:NOTE), graceful degradation, TTL 6h/15m/30m (1 created, 1 test file)
+- AC completed: AC-004 (전체 캐시 레이어)
+- M5 complete: Cron Route Handlers — sync-public-data, sync-bojo24 (@MX:WARN), CRON_SECRET 인증, vercel.json (3 created, 1 test file)
+- AC completed: AC-005 (Cron 라우트, Bearer 인증)
+- M6 complete: Seed + Integration Tests — prisma/seed.ts (17 지역, 8 카테고리, 20 정책), data-pipeline.test.ts (2 created)
+- AC completed: AC-006 (시드 데이터), AC-007 (통합 테스트)
+- All milestones complete: 18 test files, 156 tests passing, 0 type errors in new files

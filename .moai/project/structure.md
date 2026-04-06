@@ -58,9 +58,15 @@ src/app/
 │   ├── notifications/          # [planned]
 │   └── profile/                # [planned]
 ├── api/                        # API route handlers (Route Handlers)
-│   └── auth/
-│       └── [...nextauth]/
-│           └── route.ts        # NextAuth.js v5 handler [implemented]
+│   ├── auth/
+│   │   └── [...nextauth]/
+│   │       └── route.ts        # NextAuth.js v5 handler [implemented]
+│   └── cron/                   # Vercel Cron Job Route Handlers (CRON_SECRET Bearer 인증) [SPEC-API-001]
+│       ├── sync-public-data/
+│       │   └── route.ts        # data.go.kr 동기화 핸들러 (@MX:WARN, 6시간마다) [implemented]
+│       ├── sync-bojo24/
+│       │   └── route.ts        # 보조금24 동기화 핸들러 (@MX:WARN, 6시간마다) [implemented]
+│       └── __tests__/          # Cron 핸들러 단위 테스트
 ├── layout.tsx                  # Root layout (HTML, metadata, providers) [implemented]
 ├── not-found.tsx               # [implemented]
 └── globals.css                 # Tailwind v4 CSS-first config (@import 'tailwindcss', @theme)
@@ -172,8 +178,8 @@ src/lib/
 ├── db.ts                       # Prisma client singleton [implemented]
 ├── auth.ts                     # NextAuth.js v5 config [implemented]
 ├── utils.ts                    # General utility functions (cn, formatDate, etc.) [implemented]
-├── constants.ts                # App-wide constants [implemented]
-├── redis.ts                    # Redis client (Upstash) [planned]
+├── constants.ts                # App-wide constants + CACHE_TTL 확장 (API_RESPONSE: 6h, POLICY_DETAIL: 30min) [implemented]
+├── redis.ts                    # Upstash Redis 싱글톤 (null-on-failure 패턴, graceful degradation) [implemented — SPEC-API-001]
 ├── openai.ts                   # OpenAI client [planned]
 └── validators/                 # [planned]
     ├── policy.validator.ts
@@ -188,14 +194,19 @@ Service layer abstracts all external API calls. Each service module has a clear 
 
 ```
 src/services/
-├── data-collection/
-│   ├── publicDataPortal.service.ts    # data.go.kr API client
-│   ├── bojo24.service.ts              # 보조금24 API client
-│   ├── crawler/
-│   │   ├── localGov.crawler.ts        # Local government site crawler
-│   │   ├── crawler.config.ts          # Crawl targets and schedules
-│   │   └── parser.ts                  # HTML parsing utilities
-│   └── index.ts                       # Unified data collection entry
+├── data-collection/                   # 외부 API 데이터 수집 서비스 (data.go.kr, 보조금24) [SPEC-API-001]
+│   ├── publicDataPortal.service.ts    # data.go.kr API client [implemented]
+│   ├── bojo24.service.ts              # 보조금24 API client (AuthError 즉시 중단, 500건/h 제한) [implemented]
+│   ├── normalizer.ts                  # 데이터 정규화 (@MX:ANCHOR, fan_in >= 3) [implemented]
+│   ├── deduplicator.ts                # externalId 기반 upsert 중복 제거 [implemented]
+│   ├── utils.ts                       # withRetry + AuthError 클래스 [implemented]
+│   ├── types.ts                       # Zod 스키마 + raw/normalized 타입 [implemented]
+│   ├── index.ts                       # barrel exports [implemented]
+│   ├── __tests__/                     # 단위 테스트 (normalizer, utils, bojo24)
+│   └── crawler/                       # [planned — SPEC-API-002]
+│       ├── localGov.crawler.ts        # Local government site crawler
+│       ├── crawler.config.ts          # Crawl targets and schedules
+│       └── parser.ts                  # HTML parsing utilities
 ├── ai/
 │   ├── recommendation.service.ts      # AI recommendation logic
 │   ├── eligibility.service.ts         # Eligibility analysis
@@ -207,7 +218,8 @@ src/services/
 │   ├── email.service.ts               # Email via Resend
 │   └── matcher.service.ts             # Policy-to-user matching engine
 └── cache/
-    └── policy.cache.ts                # Redis cache layer for policies
+    ├── policy.cache.ts                # Redis 캐싱 레이어 (Upstash Redis, @MX:NOTE) [implemented — SPEC-API-001]
+    └── __tests__/                     # 캐시 단위 테스트
 ```
 
 ---
@@ -256,6 +268,12 @@ Scheduled via Vercel Cron Jobs (or an external cron service) configured in `verc
 ## Test Organization
 
 Tests are co-located with source using Vitest. The E2E tests use Playwright with a separate config.
+
+```
+src/types/
+├── sync.ts                     # 데이터 동기화 관련 타입 정의 (SyncSource, SyncStatus, DataSyncLogResult) [implemented — SPEC-API-001]
+└── ...                         # 기타 글로벌 타입 (feature SPEC별 추가)
+```
 
 ```
 src/

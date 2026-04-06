@@ -1,0 +1,20 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/sync-public-data",
+      "schedule": "0 */6 * * *"
+    },
+    {
+      "path": "/api/cron/sync-bojo24",
+      "schedule": "30 */6 * * *"
+    }
+  ],
+  "functions": {
+    "src/app/api/cron/sync-public-data/route.ts": {
+      "maxDuration": 900
+    },
+    "src/app/api/cron/sync-bojo24/route.ts": {
+      "maxDuration": 900
+    }
+  }
+}

@@ -185,3 +185,24 @@ model NotificationLog {
   readAt    DateTime?
   status    String   @default("sent") // sent, delivered, read, failed
 }
+
+// ============================================
+// 도메인 모델 - 데이터 수집 동기화 로그
+// ============================================
+
+model DataSyncLog {
+  id           String    @id @default(cuid())
+  source       String    // 'PUBLIC_DATA_PORTAL' | 'BOJO24'
+  status       String    // 'RUNNING' | 'SUCCESS' | 'FAILED' | 'AUTH_FAILED' | 'PARTIAL'
+  totalCount   Int       @default(0)
+  upsertCount  Int       @default(0)
+  skipCount    Int       @default(0)
+  errorCount   Int       @default(0)
+  errorMessage String?
+  startedAt    DateTime  @default(now())
+  completedAt  DateTime?
+  durationMs   Int?
+
+  @@index([source, startedAt])
+  @@map("data_sync_logs")
+}

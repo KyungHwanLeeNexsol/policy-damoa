@@ -31,9 +31,10 @@ export const MAX_PAGE_SIZE = 100;
 // 캐시 TTL (seconds)
 export const CACHE_TTL = {
   POLICY_LIST: 15 * 60, // 15분
-  POLICY_DETAIL: 60 * 60, // 1시간
+  POLICY_DETAIL: 30 * 60, // 30분 (REQ-API-004)
   RECOMMENDATIONS: 60 * 60, // 1시간
   CATEGORIES: 24 * 60 * 60, // 24시간
+  API_RESPONSE: 6 * 60 * 60, // 6시간 — 외부 API 응답 캐시 (REQ-API-004)
 } as const;
 
 // 알림 설정
