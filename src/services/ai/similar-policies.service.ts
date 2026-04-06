@@ -6,10 +6,7 @@ import { prisma } from '@/lib/db';
 import gemini from '@/lib/openai';
 import { getRedis } from '@/lib/redis';
 
-import {
-  SimilarPoliciesResponseSchema,
-  similarPoliciesJsonSchema,
-} from './prompts/schemas';
+import { SimilarPoliciesResponseSchema, similarPoliciesJsonSchema } from './prompts/schemas';
 
 const CACHE_KEY = (policyId: string): string => `similar:policy:${policyId}`;
 const PREFILTER_LIMIT = 20;
@@ -32,7 +29,7 @@ export interface SimilarPolicyDTO {
  */
 export async function getSimilarPolicies(
   policyId: string,
-  limit: number = DEFAULT_RESULT_LIMIT,
+  limit: number = DEFAULT_RESULT_LIMIT
 ): Promise<SimilarPolicyDTO[]> {
   const redis = getRedis();
   const cacheKey = CACHE_KEY(policyId);
@@ -61,7 +58,9 @@ export async function getSimilarPolicies(
     return [];
   }
 
-  const sourceCategoryIds = source.categories.map((rel) => rel.categoryId);
+  const sourceCategoryIds = source.categories.map(
+    (rel: (typeof source.categories)[number]) => rel.categoryId
+  );
 
   // 3) 사전필터 후보 조회 (category OR region, 원본 제외)
   const candidates = await prisma.policy.findMany({
@@ -87,13 +86,14 @@ export async function getSimilarPolicies(
   }
 
   // 4) AI 재순위 (실패 시 폴백)
-  let orderedIds: string[] = candidates.map((c) => c.id);
+  type CandidateType = (typeof candidates)[number];
+  let orderedIds: string[] = candidates.map((c: CandidateType) => c.id);
 
   try {
     const candidateLines = candidates
       .map(
-        (c) =>
-          `- [${c.id}] ${c.title} | 지역=${c.regionId ?? '전국'} | 분류=${c.categories.map((r) => r.category.name).join(',') || '-'}`,
+        (c: CandidateType) =>
+          `- [${c.id}] ${c.title} | 지역=${c.regionId ?? '전국'} | 분류=${c.categories.map((r: CandidateType['categories'][number]) => r.category.name).join(',') || '-'}`
       )
       .join('\n');
 
@@ -129,7 +129,7 @@ export async function getSimilarPolicies(
     const parsed = JSON.parse(rawContent);
     const validated = SimilarPoliciesResponseSchema.parse(parsed);
 
-    const candidateIdSet = new Set(candidates.map((c) => c.id));
+    const candidateIdSet = new Set(candidates.map((c: CandidateType) => c.id));
     orderedIds = validated.similar
       .filter((s) => candidateIdSet.has(s.policyId))
       .sort((a, b) => a.rank - b.rank)
@@ -140,7 +140,7 @@ export async function getSimilarPolicies(
   }
 
   // 5) DTO 매핑
-  const byId = new Map(candidates.map((c) => [c.id, c]));
+  const byId = new Map(candidates.map((c: CandidateType) => [c.id, c] as const));
   const result: SimilarPolicyDTO[] = orderedIds
     .map((id) => byId.get(id))
     .filter((c): c is (typeof candidates)[number] => c !== undefined)
@@ -150,9 +150,7 @@ export async function getSimilarPolicies(
       title: c.title,
       category: c.categories[0]?.category.name ?? null,
       region: c.regionId,
-      deadline: c.applicationDeadline
-        ? c.applicationDeadline.toISOString()
-        : null,
+      deadline: c.applicationDeadline ? c.applicationDeadline.toISOString() : null,
     }));
 
   // 6) 캐시 저장 (6시간)

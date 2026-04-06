@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { profileUpsertSchema } from '@/features/user/schemas/profile';
 import type { ProfileUpsertInput } from '@/features/user/schemas/profile';
 import type { ActionResult, UserProfileData } from '@/features/user/types';

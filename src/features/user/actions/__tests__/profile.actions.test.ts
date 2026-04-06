@@ -13,7 +13,7 @@ vi.mock('@/lib/auth', () => ({
 
 // Prisma 모킹
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     userProfile: {
       upsert: vi.fn(),
       findUnique: vi.fn(),
@@ -41,7 +41,7 @@ describe('saveProfile', () => {
   });
 
   it('유효한 데이터로 프로필을 저장한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.userProfile.upsert).mockResolvedValue({
       id: 'profile-1',
       userId: 'user-1',
@@ -59,7 +59,9 @@ describe('saveProfile', () => {
 
   it('인증되지 않은 사용자는 실패를 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const result = await saveProfile(validProfileData);
 
@@ -78,7 +80,7 @@ describe('saveProfile', () => {
   });
 
   it('기존 프로필이 있으면 업데이트한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.userProfile.upsert).mockResolvedValue({
       id: 'profile-1',
       userId: 'user-1',
@@ -98,7 +100,7 @@ describe('saveProfile', () => {
 
 describe('getMyProfile', () => {
   it('현재 사용자의 프로필을 반환한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.userProfile.findUnique).mockResolvedValue({
       id: 'profile-1',
       userId: 'user-1',
@@ -116,7 +118,9 @@ describe('getMyProfile', () => {
 
   it('인증되지 않은 사용자는 null을 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const result = await getMyProfile();
     expect(result).toBeNull();

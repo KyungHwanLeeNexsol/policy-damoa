@@ -1,6 +1,6 @@
 // @MX:ANCHOR fan_in:3 이메일 알림 전송 서비스 - Cron, 매칭 엔진, API에서 호출
 import { Resend } from 'resend';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import type { EmailNotificationData, DigestEmailData } from '@/features/notifications/types';
 
 const resend = new Resend(process.env.RESEND_API_KEY);

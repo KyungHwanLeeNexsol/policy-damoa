@@ -1,6 +1,6 @@
 // @MX:ANCHOR fan_in:3 Web Push 알림 전송 서비스 - Cron, 매칭 엔진, API 라우트에서 호출
 import webPush from 'web-push';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import type { PushPayload } from '@/features/notifications/types';
 
 // VAPID 설정 초기화

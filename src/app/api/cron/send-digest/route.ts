@@ -1,5 +1,5 @@
 import { sendDigestEmail } from '@/services/notification/email.service';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 export const maxDuration = 900;
 
@@ -51,7 +51,7 @@ export async function GET(request: Request) {
       }
 
       // 정책 상세 조회
-      const policyIds = matches.map((m) => m.policyId);
+      const policyIds = matches.map((m: { policyId: string }) => m.policyId);
       const policies = await prisma.policy.findMany({
         where: { id: { in: policyIds } },
         select: { id: true, title: true, benefitAmount: true, applicationDeadline: true },
@@ -60,13 +60,20 @@ export async function GET(request: Request) {
       // 다이제스트 이메일 발송
       const result = await sendDigestEmail({
         to: pref.user.email,
-        policies: policies.map((p) => ({
-          id: p.id,
-          title: p.title,
-          benefit: p.benefitAmount,
-          deadline: p.applicationDeadline,
-          url: `${process.env.NEXT_PUBLIC_APP_URL ?? ''}/policies/${p.id}`,
-        })),
+        policies: policies.map(
+          (p: {
+            id: string;
+            title: string;
+            benefitAmount: string | null;
+            applicationDeadline: Date | null;
+          }) => ({
+            id: p.id,
+            title: p.title,
+            benefit: p.benefitAmount,
+            deadline: p.applicationDeadline,
+            url: `${process.env.NEXT_PUBLIC_APP_URL ?? ''}/policies/${p.id}`,
+          })
+        ),
       });
 
       if (result.success) {

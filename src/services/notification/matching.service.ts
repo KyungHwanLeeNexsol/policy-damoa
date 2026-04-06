@@ -1,5 +1,5 @@
 // @MX:ANCHOR fan_in:3 매칭 엔진 핵심 서비스 - Cron Job, 테스트, 향후 API에서 호출됨
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 interface EligibilityCriteria {
   ageMin?: number;
@@ -155,7 +155,7 @@ export async function matchPoliciesForUsers(options?: {
 }): Promise<{ matched: number; notified: number; skipped: number }> {
   const batchSize = options?.batchSize ?? 100;
   let matched = 0;
-  let notified = 0;
+  const notified = 0;
   let skipped = 0;
 
   // 활성 프로필 사용자 조회

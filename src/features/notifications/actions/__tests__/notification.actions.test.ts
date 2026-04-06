@@ -6,7 +6,7 @@ vi.mock('@/lib/auth', () => ({
 }));
 
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     notificationLog: {
       updateMany: vi.fn(),
     },
@@ -22,7 +22,7 @@ describe('markAsRead', () => {
   });
 
   it('알림을 읽음으로 처리한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationLog.updateMany).mockResolvedValue({ count: 1 });
 
     const result = await markAsRead('notif-1');
@@ -37,7 +37,9 @@ describe('markAsRead', () => {
 
   it('인증되지 않은 사용자는 실패를 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const result = await markAsRead('notif-1');
 
@@ -48,7 +50,7 @@ describe('markAsRead', () => {
 
 describe('markAllAsRead', () => {
   it('모든 알림을 읽음으로 처리하고 count를 반환한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationLog.updateMany).mockResolvedValue({ count: 3 });
 
     const result = await markAllAsRead();
@@ -59,7 +61,9 @@ describe('markAllAsRead', () => {
 
   it('인증되지 않은 사용자는 실패를 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const result = await markAllAsRead();
 
@@ -69,7 +73,7 @@ describe('markAllAsRead', () => {
 
 describe('saveNotificationPreferences', () => {
   it('알림 설정을 저장한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationPreference.upsert).mockResolvedValue({} as never);
 
     const result = await saveNotificationPreferences({ emailEnabled: true, pushEnabled: false });

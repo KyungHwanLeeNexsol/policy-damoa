@@ -1,4 +1,4 @@
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { sendPushNotification } from '@/services/notification/push.service';
 import { sendEmailNotification } from '@/services/notification/email.service';
 
@@ -32,9 +32,7 @@ export async function GET(request: Request) {
     for (const policy of policiesDeadlineSoon) {
       const isUrgent = policy.applicationDeadline! <= in1Day;
       const notifType = isUrgent ? 'deadline_1d' : 'deadline_7d';
-      const notifTitle = isUrgent
-        ? `[마감 임박] ${policy.title}`
-        : `[마감 7일 전] ${policy.title}`;
+      const notifTitle = isUrgent ? `[마감 임박] ${policy.title}` : `[마감 7일 전] ${policy.title}`;
 
       // 이 정책에 매칭된 사용자 목록 조회
       const matchedUsers = await prisma.matchingResult.findMany({

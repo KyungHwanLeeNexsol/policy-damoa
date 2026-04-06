@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import { pushSubscribeSchema } from '@/features/notifications/schemas/preferences';
 
 export async function POST(request: Request) {

@@ -2,7 +2,7 @@
 import { matchPoliciesForUsers } from '@/services/notification/matching.service';
 import { sendPushNotification } from '@/services/notification/push.service';
 import { sendEmailNotification } from '@/services/notification/email.service';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 export const maxDuration = 900;
 

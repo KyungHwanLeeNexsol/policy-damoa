@@ -3,7 +3,7 @@ import { matchUserToPolicy, matchPoliciesForUsers } from '../matching.service';
 
 // Prisma 모킹
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     userProfile: {
       findMany: vi.fn(),
     },
@@ -130,7 +130,7 @@ describe('matchPoliciesForUsers', () => {
   });
 
   it('사용자와 정책을 매칭하여 결과를 저장한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
 
     vi.mocked(prisma.userProfile.findMany).mockResolvedValue([
       {
@@ -163,10 +163,20 @@ describe('matchPoliciesForUsers', () => {
   });
 
   it('지역 불일치 사용자는 매칭되지 않는다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
 
     vi.mocked(prisma.userProfile.findMany).mockResolvedValue([
-      { userId: 'user-1', birthYear: null, occupation: null, incomeLevel: null, regionId: 'busan', familyStatus: null, hasChildren: false, isDisabled: false, isVeteran: false } as never,
+      {
+        userId: 'user-1',
+        birthYear: null,
+        occupation: null,
+        incomeLevel: null,
+        regionId: 'busan',
+        familyStatus: null,
+        hasChildren: false,
+        isDisabled: false,
+        isVeteran: false,
+      } as never,
     ]);
     vi.mocked(prisma.policy.findMany).mockResolvedValue([
       { id: 'policy-1', eligibilityCriteria: null, regionId: 'seoul' } as never,

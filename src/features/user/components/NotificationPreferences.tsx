@@ -23,7 +23,14 @@ export function NotificationPreferences({ initialPreferences }: NotificationPref
   );
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
   const [isPending, startTransition] = useTransition();
-  const { isSupported, isSubscribed, isLoading, subscribe, unsubscribe, error: pushError } = usePushNotifications();
+  const {
+    isSupported,
+    isSubscribed,
+    isLoading,
+    subscribe,
+    unsubscribe,
+    error: pushError,
+  } = usePushNotifications();
 
   const handleSave = () => {
     setSaveStatus('saving');
@@ -49,7 +56,9 @@ export function NotificationPreferences({ initialPreferences }: NotificationPref
       {/* Push 알림 섹션 */}
       <section>
         <h3 className="text-lg font-semibold text-gray-900">앱 푸시 알림</h3>
-        <p className="mt-1 text-sm text-gray-500">브라우저 알림으로 새 정책 매칭을 즉시 받아보세요.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          브라우저 알림으로 새 정책 매칭을 즉시 받아보세요.
+        </p>
 
         <div className="mt-4">
           {!isSupported ? (
@@ -76,9 +85,7 @@ export function NotificationPreferences({ initialPreferences }: NotificationPref
               </button>
             </label>
           )}
-          {pushError && (
-            <p className="mt-2 text-sm text-red-500">{pushError}</p>
-          )}
+          {pushError && <p className="mt-2 text-sm text-red-500">{pushError}</p>}
         </div>
       </section>
 
@@ -108,7 +115,13 @@ export function NotificationPreferences({ initialPreferences }: NotificationPref
               <label className="block text-sm font-medium text-gray-700">발송 빈도</label>
               <select
                 value={prefs.digestFrequency ?? 'daily'}
-                onChange={(e) => setPrefs((prev) => ({ ...prev, digestFrequency: e.target.value }))}
+                onChange={(e) =>
+                  setPrefs((prev) => ({
+                    ...prev,
+                    digestFrequency: e.target
+                      .value as NotificationPreferenceData['digestFrequency'],
+                  }))
+                }
                 className="mt-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
               >
                 <option value="immediate">즉시</option>
@@ -142,7 +155,9 @@ export function NotificationPreferences({ initialPreferences }: NotificationPref
             <input
               type="checkbox"
               checked={prefs.deadlineReminder ?? true}
-              onChange={(e) => setPrefs((prev) => ({ ...prev, deadlineReminder: e.target.checked }))}
+              onChange={(e) =>
+                setPrefs((prev) => ({ ...prev, deadlineReminder: e.target.checked }))
+              }
               className="h-4 w-4 rounded"
             />
             <div>

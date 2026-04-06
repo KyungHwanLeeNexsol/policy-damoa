@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth';
-import prisma from '@/lib/db';
+import { prisma } from '@/lib/db';
 import type { PaginatedNotifications, NotificationLogItem } from '@/features/notifications/types';
 
 const PAGE_SIZE = 20;

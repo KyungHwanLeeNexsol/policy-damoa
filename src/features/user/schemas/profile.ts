@@ -6,12 +6,12 @@ const currentYear = new Date().getFullYear();
 // Step 1: 기본 정보
 export const stepBasicInfoSchema = z.object({
   birthYear: z
-    .number({ required_error: '출생연도를 입력해주세요.' })
+    .number({ message: '출생연도를 입력해주세요.' })
     .int()
     .min(1900, '유효한 출생연도를 입력해주세요.')
     .max(currentYear, `출생연도는 ${currentYear}년 이하여야 합니다.`),
   gender: z.enum(['male', 'female', 'other'], {
-    required_error: '성별을 선택해주세요.',
+    message: '성별을 선택해주세요.',
   }),
 });
 
@@ -19,16 +19,16 @@ export const stepBasicInfoSchema = z.object({
 export const stepOccupationSchema = z.object({
   occupation: z.enum(
     ['employee', 'self-employed', 'student', 'unemployed', 'farmer', 'freelancer', 'other'],
-    { required_error: '직업을 선택해주세요.' }
+    { message: '직업을 선택해주세요.' }
   ),
   incomeLevel: z.enum(['below-50', '50-80', '80-100', '100-150', 'above-150'], {
-    required_error: '소득 수준을 선택해주세요.',
+    message: '소득 수준을 선택해주세요.',
   }),
 });
 
 // Step 3: 지역 선택
 export const stepRegionSchema = z.object({
-  regionId: z.string({ required_error: '거주 지역을 선택해주세요.' }).min(1, '거주 지역을 선택해주세요.'),
+  regionId: z.string({ message: '거주 지역을 선택해주세요.' }).min(1, '거주 지역을 선택해주세요.'),
   parentRegionId: z.string().min(1, '시도를 선택해주세요.'),
 });
 
@@ -36,7 +36,7 @@ export const stepRegionSchema = z.object({
 export const stepFamilySchema = z
   .object({
     familyStatus: z.enum(['single', 'married', 'single-parent', 'multicultural'], {
-      required_error: '혼인 여부를 선택해주세요.',
+      message: '혼인 여부를 선택해주세요.',
     }),
     isPregnant: z.boolean().default(false),
     hasChildren: z.boolean().default(false),
@@ -62,7 +62,13 @@ export const profileUpsertSchema = z.object({
   birthYear: z.number().int().min(1900).max(currentYear),
   gender: z.enum(['male', 'female', 'other']),
   occupation: z.enum([
-    'employee', 'self-employed', 'student', 'unemployed', 'farmer', 'freelancer', 'other',
+    'employee',
+    'self-employed',
+    'student',
+    'unemployed',
+    'farmer',
+    'freelancer',
+    'other',
   ]),
   incomeLevel: z.enum(['below-50', '50-80', '80-100', '100-150', 'above-150']),
   regionId: z.string().min(1),

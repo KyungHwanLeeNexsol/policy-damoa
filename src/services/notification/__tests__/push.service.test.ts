@@ -11,7 +11,7 @@ vi.mock('web-push', () => ({
 
 // Prisma 모킹
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     pushSubscription: {
       findMany: vi.fn(),
       updateMany: vi.fn(),
@@ -35,7 +35,7 @@ describe('sendPushNotification', () => {
   });
 
   it('활성 구독이 없으면 실패를 반환한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.pushSubscription.findMany).mockResolvedValue([]);
 
     const result = await sendPushNotification('user-1', mockPayload);
@@ -45,11 +45,20 @@ describe('sendPushNotification', () => {
   });
 
   it('Push 전송 성공 시 NotificationLog를 생성한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     const webPush = await import('web-push');
 
     vi.mocked(prisma.pushSubscription.findMany).mockResolvedValue([
-      { id: 'sub-1', userId: 'user-1', endpoint: 'https://fcm.example.com/send/abc', p256dh: 'key1', auth: 'auth1', isActive: true, createdAt: new Date(), updatedAt: new Date() },
+      {
+        id: 'sub-1',
+        userId: 'user-1',
+        endpoint: 'https://fcm.example.com/send/abc',
+        p256dh: 'key1',
+        auth: 'auth1',
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ] as never[]);
 
     vi.mocked(webPush.default.sendNotification).mockResolvedValue({ statusCode: 201 } as never);
@@ -66,15 +75,27 @@ describe('sendPushNotification', () => {
   });
 
   it('410 Gone 응답 시 구독을 비활성화한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     const webPush = await import('web-push');
 
     vi.mocked(prisma.pushSubscription.findMany).mockResolvedValue([
-      { id: 'sub-1', userId: 'user-1', endpoint: 'https://fcm.example.com/expired', p256dh: 'key1', auth: 'auth1', isActive: true, createdAt: new Date(), updatedAt: new Date() },
+      {
+        id: 'sub-1',
+        userId: 'user-1',
+        endpoint: 'https://fcm.example.com/expired',
+        p256dh: 'key1',
+        auth: 'auth1',
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ] as never[]);
 
     // 410 Gone 에러 시뮬레이션
-    vi.mocked(webPush.default.sendNotification).mockRejectedValue({ statusCode: 410, body: 'Gone' });
+    vi.mocked(webPush.default.sendNotification).mockRejectedValue({
+      statusCode: 410,
+      body: 'Gone',
+    });
     vi.mocked(prisma.pushSubscription.updateMany).mockResolvedValue({ count: 1 } as never);
     vi.mocked(prisma.notificationLog.create).mockResolvedValue({} as never);
 

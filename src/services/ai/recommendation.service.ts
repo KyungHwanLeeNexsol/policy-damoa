@@ -13,10 +13,7 @@ import {
   type PromptCandidate,
   type PromptProfile,
 } from './prompts/recommendation.prompt';
-import {
-  RecommendationsResponseSchema,
-  recommendationsJsonSchema,
-} from './prompts/schemas';
+import { RecommendationsResponseSchema, recommendationsJsonSchema } from './prompts/schemas';
 
 // 프로필 불완전 상태를 나타내는 센티널 에러 (API 라우트에서 422 로 매핑)
 export class ProfileIncompleteError extends Error {
@@ -57,9 +54,7 @@ const FALLBACK_REASON = '프로필과 일치하는 카테고리 및 지역 조�
  *   5) 실패 시 규칙 기반 폴백 + DataSyncLog 기록
  *   6) PolicyRecommendation 테이블 저장 + Redis 캐시
  */
-export async function generateRecommendations(
-  userId: string,
-): Promise<RecommendationsResult> {
+export async function generateRecommendations(userId: string): Promise<RecommendationsResult> {
   const redis = getRedis();
   const cacheKey = CACHE_KEY(userId);
 
@@ -92,16 +87,10 @@ export async function generateRecommendations(
   const candidatePolicies = await prisma.policy.findMany({
     where: {
       status: 'active',
-      OR: [
-        { applicationDeadline: null },
-        { applicationDeadline: { gt: now } },
-      ],
+      OR: [{ applicationDeadline: null }, { applicationDeadline: { gt: now } }],
       AND: [
         {
-          OR: [
-            { regionId: profile.regionId },
-            { regionId: null },
-          ],
+          OR: [{ regionId: profile.regionId }, { regionId: null }],
         },
       ],
     },
@@ -127,25 +116,23 @@ export async function generateRecommendations(
 
   const behavior = await getRecentBehavior(userId);
 
-  const promptCandidates: PromptCandidate[] = candidatePolicies.map((p) => ({
-    id: p.id,
-    title: p.title,
-    description: p.description,
-    regionId: p.regionId,
-    applicationDeadline: p.applicationDeadline,
-    categories: p.categories.map((rel) => rel.category.name),
-  }));
+  const promptCandidates: PromptCandidate[] = candidatePolicies.map(
+    (p: (typeof candidatePolicies)[number]) => ({
+      id: p.id,
+      title: p.title,
+      description: p.description,
+      regionId: p.regionId,
+      applicationDeadline: p.applicationDeadline,
+      categories: p.categories.map((rel: (typeof p.categories)[number]) => rel.category.name),
+    })
+  );
 
   let results: RecommendationResultItem[] = [];
   let usedFallback = false;
   let tokensUsed = 0;
 
   try {
-    const messages = buildRecommendationPrompt(
-      promptProfile,
-      behavior,
-      promptCandidates,
-    );
+    const messages = buildRecommendationPrompt(promptProfile, behavior, promptCandidates);
 
     const geminiResponse = await gemini.chat.completions.create({
       model: GEMINI_MODEL,
@@ -247,15 +234,11 @@ export async function generateRecommendations(
  * 규칙 기반 폴백: 후보 정책을 마감일 임박 순으로 정렬해 상위 10개 반환.
  * 모든 항목에 동일한 정적 reason 을 부여한다 (SPEC 4.6).
  */
-function buildFallbackResults(
-  candidates: PromptCandidate[],
-): RecommendationResultItem[] {
-  return candidates
-    .slice(0, MAX_RESULTS)
-    .map((c, idx) => ({
-      policyId: c.id,
-      score: Math.max(0.1, 1 - idx * 0.05),
-      rank: idx + 1,
-      reason: FALLBACK_REASON,
-    }));
+function buildFallbackResults(candidates: PromptCandidate[]): RecommendationResultItem[] {
+  return candidates.slice(0, MAX_RESULTS).map((c, idx) => ({
+    policyId: c.id,
+    score: Math.max(0.1, 1 - idx * 0.05),
+    rank: idx + 1,
+    reason: FALLBACK_REASON,
+  }));
 }

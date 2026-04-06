@@ -10,7 +10,7 @@ vi.mock('@/lib/auth', () => ({
 }));
 
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     notificationLog: {
       findMany: vi.fn(),
       count: vi.fn(),
@@ -35,7 +35,7 @@ describe('getNotifications', () => {
   });
 
   it('알림 목록을 반환한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationLog.findMany).mockResolvedValue([mockNotification] as never);
 
     const result = await getNotifications();
@@ -46,7 +46,7 @@ describe('getNotifications', () => {
   });
 
   it('21개 이상이면 hasMore가 true이고 nextCursor가 설정된다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     const items = Array.from({ length: 21 }, (_, i) => ({
       ...mockNotification,
       id: `notif-${i + 1}`,
@@ -62,7 +62,9 @@ describe('getNotifications', () => {
 
   it('인증되지 않은 사용자는 빈 목록을 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const result = await getNotifications();
 
@@ -73,7 +75,7 @@ describe('getNotifications', () => {
 
 describe('getUnreadCount', () => {
   it('읽지 않은 알림 수를 반환한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationLog.count).mockResolvedValue(5);
 
     const count = await getUnreadCount();
@@ -83,7 +85,9 @@ describe('getUnreadCount', () => {
 
   it('인증되지 않은 사용자는 0을 반환한다', async () => {
     const { auth } = await import('@/lib/auth');
-    vi.mocked(auth).mockResolvedValueOnce(null);
+    (
+      vi.mocked(auth) as unknown as { mockResolvedValueOnce: (v: unknown) => void }
+    ).mockResolvedValueOnce(null);
 
     const count = await getUnreadCount();
 

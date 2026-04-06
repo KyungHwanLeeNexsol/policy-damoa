@@ -17,7 +17,7 @@ vi.mock('resend', () => {
 
 // Prisma 모킹
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     notificationLog: {
       create: vi.fn(),
     },
@@ -83,8 +83,20 @@ describe('sendDigestEmail', () => {
     const result = await sendDigestEmail({
       to: 'user@example.com',
       policies: [
-        { id: '1', title: '청년 지원금', benefit: '월 50만원', deadline: new Date('2026-12-31'), url: '/policies/1' },
-        { id: '2', title: '창업 지원금', benefit: '최대 500만원', deadline: null, url: '/policies/2' },
+        {
+          id: '1',
+          title: '청년 지원금',
+          benefit: '월 50만원',
+          deadline: new Date('2026-12-31'),
+          url: '/policies/1',
+        },
+        {
+          id: '2',
+          title: '창업 지원금',
+          benefit: '최대 500만원',
+          deadline: null,
+          url: '/policies/2',
+        },
       ],
     });
 
@@ -103,7 +115,7 @@ describe('sendEmailNotification', () => {
   });
 
   it('이메일 전송 성공 시 sent 상태로 NotificationLog를 생성한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     vi.mocked(prisma.notificationLog.create).mockResolvedValue({} as never);
 
     await sendEmailNotification(
@@ -126,7 +138,7 @@ describe('sendEmailNotification', () => {
   });
 
   it('이메일 전송 실패 시 failed 상태로 NotificationLog를 생성한다', async () => {
-    const { default: prisma } = await import('@/lib/db');
+    const { prisma } = await import('@/lib/db');
     // 모든 재시도에서 실패하도록 설정
     mockEmailSend.mockRejectedValue(new Error('Network error'));
     vi.mocked(prisma.notificationLog.create).mockResolvedValue({} as never);

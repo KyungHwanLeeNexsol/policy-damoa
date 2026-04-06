@@ -56,9 +56,9 @@ describe('auth 설정', () => {
     expect(authModule.authConfig).toBeDefined();
     expect(authModule.authConfig.providers).toHaveLength(3);
 
-    const providerIds = authModule.authConfig.providers.map(
-      (p: { id?: string; (): { id: string } }) => (typeof p === 'function' ? p().id : p.id)
-    );
+    const providerIds = (
+      authModule.authConfig.providers as unknown as Array<{ id?: string } | (() => { id: string })>
+    ).map((p) => (typeof p === 'function' ? p().id : p.id));
     expect(providerIds).toContain('kakao');
     expect(providerIds).toContain('naver');
     expect(providerIds).toContain('google');

@@ -42,9 +42,9 @@ export function Sidebar(): React.ReactNode {
           {categories.map((category) => {
             // 현재 URL이 해당 카테고리와 일치하는지 확인
             const isActive =
-              pathname?.includes(category.href.split('?')[0]) &&
+              pathname?.includes(category.href.split('?')[0] ?? '') &&
               category.href.includes(
-                new URLSearchParams(category.href.split('?')[1]).get('category') ?? ''
+                new URLSearchParams(category.href.split('?')[1] ?? '').get('category') ?? ''
               );
 
             return (
