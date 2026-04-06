@@ -9,6 +9,48 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — SPEC-AI-001: AI 기반 맞춤 정책 추천
+
+**구현 날짜**: 2026-04-06
+
+**신규 파일 (20개)**
+
+- `src/lib/openai.ts` — Gemini 클라이언트 싱글톤 (gemini-2.0-flash, OpenAI-compatible endpoint)
+- `src/lib/cache-ttl.ts` — CACHE_TTL 상수 (RECOMMENDATIONS=3600, SIMILAR_POLICIES=21600, BEHAVIOR_RECENT=1800)
+- `src/services/ai/behavior-tracking.service.ts` — trackPolicyView, trackSearch, getRecentBehavior
+- `src/services/ai/prompts/schemas.ts` — Gemini 구조화 출력용 Zod 스키마
+- `src/services/ai/prompts/recommendation.prompt.ts` — PII 제거 프롬프트 빌더
+- `src/services/ai/recommendation.service.ts` — 핵심 추천 엔진 (캐시→Gemini→폴백)
+- `src/services/ai/similar-policies.service.ts` — 유사 정책 AI 재랭킹
+- `src/features/recommendations/types/index.ts` — 추천 관련 타입 정의
+- `src/features/recommendations/hooks/use-recommendations.ts` — TanStack Query 훅
+- `src/features/recommendations/hooks/use-recommendation-feedback.ts` — 낙관적 업데이트 뮤테이션 훅
+- `src/features/recommendations/actions/feedback.action.ts` — 피드백 Server Action
+- `src/features/recommendations/components/recommendation-card.tsx` — 추천 카드 컴포넌트
+- `src/features/recommendations/components/recommendation-feed.tsx` — 홈 피드 섹션
+- `src/features/recommendations/components/similar-policies.tsx` — 유사 정책 섹션
+- `src/features/recommendations/components/feedback-buttons.tsx` — 좋아요/싫어요 버튼
+- `src/app/(main)/recommendations/page.tsx` — 전체 추천 페이지
+- `src/app/api/recommendations/route.ts` — GET /api/recommendations (auth, 401/422/200)
+- `src/app/api/recommendations/feedback/route.ts` — POST /api/recommendations/feedback
+- `src/app/api/policies/[id]/similar/route.ts` — GET /api/policies/[id]/similar
+- `src/app/api/cron/generate-recommendations/route.ts` — POST (x-cron-secret, 배치 50, 지수 백오프)
+
+**수정 파일 (6개)**
+
+- `prisma/schema.prisma` — PolicyView, SearchLog, PolicyRecommendation, RecommendationFeedback 모델 추가
+- `src/app/(main)/page.tsx` — RecommendationFeed 섹션 추가
+- `src/app/(main)/policies/[id]/page.tsx` — SimilarPolicies, trackPolicyView 추가
+- `src/features/policies/actions/policy.actions.ts` — trackSearch 호출 추가
+- `package.json` / `pnpm-lock.yaml` — openai 패키지 추가
+- `.env.example` — GEMINI_API_KEY, CRON_SECRET 추가
+
+**테스트**: 343 / 343 통과
+
+**인수 기준**: 28 / 28 완료
+
+---
+
 ### Added — SPEC-NOTIF-001: 사용자 프로필 및 알림 시스템
 
 **구현 날짜**: 2026-04-06

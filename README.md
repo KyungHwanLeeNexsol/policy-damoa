@@ -1,43 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Policy Damoa (정책 다모아)
+
+A Korean government policy aggregation platform that uses AI to deliver personalized policy recommendations to citizens.
+
+Built with Next.js 16.2.2, TypeScript 5.9, Prisma 7.x, and Google Gemini AI.
 
 ## Features
 
+### Data Collection and Caching
 - Automated policy data collection from [data.go.kr](https://data.go.kr) and 보조금24 via Vercel Cron Jobs
 - Redis caching layer (Upstash) for high-performance policy search results
 - Vercel Cron Jobs for scheduled data synchronization (every 6 hours)
 - Deduplication and normalization pipeline with `externalId`-based upsert
 
+### AI-Powered Personalization
+- AI-powered personalized policy recommendations (Gemini AI, gemini-2.0-flash)
+- Behavior tracking (policy views, searches, saves) for recommendation improvement
+- Similar policies discovery on policy detail pages
+- Thumbs up/down feedback mechanism for recommendation quality
+- Nightly recommendation pre-computation via Vercel Cron Jobs
+- User profile matching (age, region, income, employment status)
+
+### User Experience
+- Policy list, detail, and search pages
+- User authentication via Kakao, Naver, and Google OAuth
+- Push and email notifications for matched policies
+- User profile management
+
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
+```
+
+Set up the database:
+
+```bash
+cp .env.example .env.local
+# Fill in your environment variables
+pnpm prisma db push
+```
+
+Run the development server:
+
+```bash
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in the required values.
 
-## Learn More
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | PostgreSQL connection string (Neon recommended) | Yes |
+| `NEXTAUTH_SECRET` | NextAuth.js secret key | Yes |
+| `NEXTAUTH_URL` | Application base URL | Yes |
+| `AUTH_KAKAO_ID` | Kakao OAuth client ID | Yes |
+| `AUTH_KAKAO_SECRET` | Kakao OAuth client secret | Yes |
+| `AUTH_NAVER_ID` | Naver OAuth client ID | Yes |
+| `AUTH_NAVER_SECRET` | Naver OAuth client secret | Yes |
+| `AUTH_GOOGLE_ID` | Google OAuth client ID | Yes |
+| `AUTH_GOOGLE_SECRET` | Google OAuth client secret | Yes |
+| `GEMINI_API_KEY` | Google Gemini API key (for AI recommendations) | Yes |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST URL | Yes |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST token | Yes |
+| `FCM_SERVER_KEY` | Firebase Cloud Messaging server key | Optional |
+| `RESEND_API_KEY` | Resend email service API key | Optional |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` | Web Push VAPID public key | Optional |
+| `VAPID_PRIVATE_KEY` | Web Push VAPID private key | Optional |
+| `PUBLIC_DATA_PORTAL_API_KEY` | data.go.kr API key | Yes |
+| `BOJO24_API_KEY` | 보조금24 API key | Yes |
+| `CRON_SECRET` | Cron job authorization secret | Yes |
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: Next.js 16.2.2 (App Router), React 19
+- **Language**: TypeScript 5.9
+- **Database**: PostgreSQL (Neon) + Prisma 7.x
+- **Cache**: Upstash Redis (serverless)
+- **AI**: Google Gemini API (gemini-2.0-flash via OpenAI-compatible endpoint)
+- **State Management**: TanStack Query v5
+- **UI**: shadcn/ui + Tailwind CSS v4
+- **Auth**: NextAuth v5
+- **Testing**: Vitest 4.x
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
+
+```
+src/
+├── app/              # Next.js App Router pages and API routes
+├── features/         # Feature-based modules (recommendations, policies, etc.)
+├── services/         # Business logic and external integrations
+│   └── ai/           # AI recommendation engine
+├── lib/              # Shared utilities (Redis, OpenAI client, etc.)
+└── components/       # Shared UI components
+```
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After deploying, configure Vercel Cron Jobs in `vercel.json` for:
+- Policy data sync (every 6 hours)
+- Nightly recommendation pre-computation (daily)
