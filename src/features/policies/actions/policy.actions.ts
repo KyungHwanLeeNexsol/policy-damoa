@@ -6,6 +6,7 @@
 
 import { prisma } from '@/lib/db';
 import { DEFAULT_PAGE_SIZE } from '@/lib/constants';
+import { trackSearch } from '@/services/ai/behavior-tracking.service';
 import {
   getCachedPolicyDetail,
   getCachedPolicyList,
@@ -32,6 +33,22 @@ export async function getPolicies(
   const page = filters.page ?? 1;
   const pageSize = filters.pageSize ?? DEFAULT_PAGE_SIZE;
   const cacheKey = buildCacheKey(filters, page, pageSize);
+
+  // 검색어가 있으면 비차단 검색 로그 기록 (SPEC-AI-001 REQ-AI-007)
+  if (filters.query && filters.query.trim().length > 0) {
+    const queryText = filters.query;
+    void import('@/lib/auth')
+      .then(({ auth }) => auth())
+      .then((session) =>
+        trackSearch(session?.user?.id ?? null, queryText, {
+          regionCode: filters.regionCode ?? null,
+          categoryId: filters.categoryId ?? null,
+        }),
+      )
+      .catch(() => {
+        /* fire-and-forget */
+      });
+  }
 
   // 캐시 조회
   const cached = await getCachedPolicyList<PaginatedResponse<PolicyWithCategories>>(cacheKey);
