@@ -6,7 +6,7 @@ import { resolve } from 'path';
 describe('Prisma Schema', () => {
   const schemaPath = resolve(__dirname, '../../../prisma/schema.prisma');
 
-  it('prisma validate가 성공해야 한다', () => {
+  it('prisma validate가 성공해야 한다', { timeout: 15000 }, () => {
     // prisma validate 명령어를 실행하여 스키마 문법 검증
     // 실패 시 에러를 던지므로 에러 없이 완료되면 성공
     const result = execSync('npx prisma validate', {

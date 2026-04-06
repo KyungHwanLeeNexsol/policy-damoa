@@ -7,6 +7,18 @@
     {
       "path": "/api/cron/sync-bojo24",
       "schedule": "30 */6 * * *"
+    },
+    {
+      "path": "/api/cron/match-policies",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/cron/send-digest",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/deadline-reminder",
+      "schedule": "0 9 * * *"
     }
   ],
   "functions": {
@@ -14,6 +26,15 @@
       "maxDuration": 900
     },
     "src/app/api/cron/sync-bojo24/route.ts": {
+      "maxDuration": 900
+    },
+    "src/app/api/cron/match-policies/route.ts": {
+      "maxDuration": 900
+    },
+    "src/app/api/cron/send-digest/route.ts": {
+      "maxDuration": 900
+    },
+    "src/app/api/cron/deadline-reminder/route.ts": {
       "maxDuration": 900
     }
   }

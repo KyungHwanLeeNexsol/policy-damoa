@@ -14,18 +14,20 @@ datasource db {
 // ============================================
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  profile       UserProfile?
-  savedPolicies UserSavedPolicy[]
-  notifications NotificationLog[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                     String                  @id @default(cuid())
+  name                   String?
+  email                  String?                 @unique
+  emailVerified          DateTime?
+  image                  String?
+  accounts               Account[]
+  sessions               Session[]
+  profile                UserProfile?
+  savedPolicies          UserSavedPolicy[]
+  notifications          NotificationLog[]
+  notificationPreference NotificationPreference?
+  pushSubscriptions      PushSubscription[]
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
 }
 
 model Account {
@@ -177,13 +179,63 @@ model NotificationLog {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type      String   // push, email
+  type      String   // push, email, deadline_7d, deadline_1d
   title     String
   body      String?  @db.Text
   policyId  String?
   sentAt    DateTime @default(now())
   readAt    DateTime?
   status    String   @default("sent") // sent, delivered, read, failed
+
+  @@index([userId, readAt])
+  @@index([userId, type, policyId])
+}
+
+// ============================================
+// 도메인 모델 - 알림 설정
+// ============================================
+
+// @MX:ANCHOR fan_in:3 사용자 알림 환경설정 모델
+model NotificationPreference {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pushEnabled      Boolean  @default(false)
+  emailEnabled     Boolean  @default(true)
+  digestFrequency  String   @default("daily") // immediate, daily, weekly
+  newPolicyMatch   Boolean  @default(true)
+  deadlineReminder Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// @MX:NOTE Web Push VAPID 구독 정보 저장 모델
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, isActive])
+}
+
+// @MX:ANCHOR fan_in:3 정책-사용자 매칭 결과 모델, 중복 방지 핵심
+model MatchingResult {
+  id              String   @id @default(cuid())
+  userId          String
+  policyId        String
+  matchScore      Float
+  matchedCriteria Json?    // 매칭된 조건 기록
+  notified        Boolean  @default(false)
+  matchedAt       DateTime @default(now())
+
+  @@unique([userId, policyId])
+  @@index([userId, notified])
 }
 
 // ============================================

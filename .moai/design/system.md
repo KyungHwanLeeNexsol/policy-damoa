@@ -9,22 +9,42 @@ See `.claude/skills/moai-design-craft/` for the protocol that governs this file.
 
 ## Design Intent
 
-[Add a 1–3 sentence statement of the overall product design intent here.]
+정책다모아는 정부 정책이라는 복잡하고 분산된 정보를 대한민국 시민 — 특히 20-30대 청년, 부모, 소규모 창업자 — 이 직접 발견하고, 자신에게 해당되는지 확인하고, 신청으로 이어질 수 있도록 안내하는 플랫폼이다. 경험은 신뢰롭고 따뜻해야 한다: 정부 포털처럼 공식적이지 않고, 사정을 잘 아는 친구처럼 명확하고 친근해야 한다.
 
 ## Domain Vocabulary
 
-| Term   | Definition                                                                 |
-| ------ | -------------------------------------------------------------------------- |
-| [Term] | [Domain-specific definition — use the user's language, not UI terminology] |
+| Term | Definition |
+|------|-----------|
+| 정책 (Policy) | 기간, 자격, 혜택이 정의된 정부 지원 프로그램. 기록(record)이나 항목(item)이 아닌 만료일이 있는 기회. |
+| 수급 자격 (Eligibility) | 개인의 생활 조건과 정책의 지원 조건이 교차하는 지점. "이게 나에게 해당되나?"라는 질문. |
+| D-Day | 신청 마감까지 남은 일수. 한국 마감 문화의 언어. D-7 배지는 긴박함을 전달하되 압박이 아닌 친구의 알림처럼 느껴져야 한다. |
+| 혜택 유형 (Benefit Type) | 지원의 형태: 현금, 바우처, 서비스, 대출. 사용자는 "실제로 무엇을 받는가"로 생각한다. |
+| 지역 (Region) | 정책이 적용되는 행정 범위(시도 → 시군구). MVP에서는 시도 단위. "내가 사는 곳"으로 표현. |
+| 나에게 맞는 (Personalized Match) | 사용자의 프로필(나이, 가족 상태, 직업)로 사전 필터링된 정책 상태. "이게 당신을 위해 골라졌습니다"를 전달. |
+| 자격 체크리스트 (Eligibility Checklist) | 정책 상세 페이지의 시각적 요소: 충족/미확인/미충족 조건을 체크마크로 표시. 이 플랫폼의 시그니처 요소. |
 
 ## Craft Principles
 
-[Add non-negotiable quality constraints here. Example: "All destructive actions must require explicit confirmation."]
+1. **인지 부담을 줄인 후 기능을 추가하라**: 새로운 필터나 표시 옵션을 추가하기 전에 "이것이 사용자의 결정 수를 줄이는가, 아니면 추가하는가?"를 묻는다. 모든 추가 컨트롤은 명확성 향상으로 그 가치를 증명해야 한다.
+2. **필터는 사람의 언어로 표현하라**: 정책 도구의 필터는 관료적 조건처럼 느껴질 수 있다. 정책다모아에서 필터는 인간의 삶의 언어로 표현된다 — "나이," "직업," "가족 형태." 스키마 필드명은 절대 사용하지 않는다.
+3. **개수를 일찍, 자주 전달하라**: 필터를 적용하기 전에 "이 조건을 선택하면 N개 결과가 있습니다"를 보여준다. 적용 후에는 개수가 업데이트된다. 개수는 각주가 아닌 기본 피드백 메커니즘이다.
+4. **D-Day는 감정 데이터다**: 마감 임박도는 긴박함에 비례한 시각적 처리가 필요하다. 3일 남은 정책은 amber D-3 배지를 받고, 60일 남은 정책은 조용한 회색 레이블을 받는다.
+5. **사용자를 절대 막다른 곳에 두지 마라**: 빈 상태는 막다른 길이 아니다. 모든 결과 없음 상태는 최소 하나의 실행 가능한 제안을 제공한다.
 
 ## Per-Feature Direction
 
-[Design Direction statements for specific SPECs or features are added here during /moai plan.]
+### SPEC-UI-001: Policy Search & Filtering
+
+**Direction**: 정책 목록 페이지는 잘 정리된 동네 게시판처럼 느껴져야 한다 — 정부 데이터베이스 쿼리 인터페이스가 아닌, 나를 아는 누군가가 큐레이션한 것처럼. 카테고리 사이드바가 진입점이고, 검색창이 그 안에서 세분화하며, 필터가 원하는 것을 아는 사용자를 위한 정밀도를 더한다.
+
+**Filter Panel**: 데스크탑에서 필터 패널은 왼쪽 콘텐츠 영역에 항상 표시된다 — 항상 보이고, 항상 현재 상태를 반영. 모바일에서는 하단에서 Sheet로 올라온다. 활성 필터는 기기에 상관없이 검색창 아래에 해제 가능한 배지 칩으로 표시된다.
+
+**Policy Card**: 각 카드는 세 가지 질문에 즉시 답한다: 무엇인가? 누구를 위한 것인가? 얼마나 시간이 있는가? 제목(굵게), 혜택 유형 배지, D-Day 배지가 상단에. 설명 최대 두 줄. 지역 및 카테고리 태그가 하단에.
+
+**Eligibility Checklist**: 시그니처 요소. 로그인 + 프로필이 있는 사용자에게는 체크리스트 렌더링. 익명 사용자에게는 흐릿한 체크리스트 + "로그인하면 내 자격 확인" CTA.
+
+**Pagination**: 번호 페이지 버튼, 이전/다음. 목록 위에 "전체 N개 정책" 개수 표시. 페이지당 기본 20개. 무한 스크롤 없음.
 
 ## Anti-Patterns
 
-[Patterns that were tried and failed — added during /moai review --critique.]
+(Populated during /moai review --critique)

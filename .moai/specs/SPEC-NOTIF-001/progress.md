@@ -1,0 +1,20 @@
+## SPEC-NOTIF-001 Progress
+
+- Started: 2026-04-06T00:00:00+09:00
+- Language: TypeScript (moai-lang-typescript)
+- Mode: Full Pipeline (files: 40+, domains: 5)
+- Development Mode: TDD (RED-GREEN-REFACTOR)
+- Harness Level: standard
+- Phase 1 complete: strategy analyzed, plan approved
+- Phase 1.5 complete: 29 tasks decomposed with requirement traceability
+- Phase 1.6 complete: 24 acceptance criteria registered as pending tasks
+- Phase A complete: DB schema, Types, Zod schemas (profile + notifications)
+- Phase B complete: Services (matching, push, email) with tests
+- Phase C complete: API routes (match-policies, send-digest, deadline-reminder, push/subscribe, push/unsubscribe)
+- Phase D complete: Server actions (profile.actions, notification.actions, notification.queries) with tests
+- Phase D2 complete: React components (NotificationList, NotificationItem, NotificationBadge, NotificationEmptyState, wizard steps, ProfileWizard, NotificationPreferences)
+- Phase D3 complete: Hooks (use-profile-wizard, use-notifications)
+- Phase E complete: Pages (profile/setup, profile/notifications, profile, notifications)
+- Phase F complete: Service Worker (public/sw.js)
+- Config complete: vercel.json (3 new crons), .env.example (VAPID keys, RESEND_FROM_EMAIL), NotificationBell layout component
+- Sync complete: CHANGELOG.md updated, spec.md status=completed, git commit created (2026-04-06)

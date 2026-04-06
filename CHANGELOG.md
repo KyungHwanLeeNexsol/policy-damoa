@@ -9,6 +9,72 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added — SPEC-NOTIF-001: 사용자 프로필 및 알림 시스템
+
+**구현 날짜**: 2026-04-06
+
+**신규 파일 (40+개)**
+
+- `src/features/user/schemas/profile.ts` — Zod 프로필 스키마
+- `src/features/user/types/index.ts` — TypeScript 타입 정의
+- `src/features/user/actions/profile.actions.ts` — Server Actions (saveProfile, getMyProfile)
+- `src/features/user/actions/__tests__/profile.actions.test.ts` — 프로필 액션 테스트
+- `src/features/user/hooks/use-profile-wizard.ts` — 위자드 상태 훅
+- `src/features/user/components/ProfileWizard.tsx` — 6단계 위자드 루트 컴포넌트
+- `src/features/user/components/wizard/StepBasicInfo.tsx` — Step 1: 기본 정보
+- `src/features/user/components/wizard/StepOccupation.tsx` — Step 2: 직업·소득
+- `src/features/user/components/wizard/StepRegion.tsx` — Step 3: 지역 선택
+- `src/features/user/components/wizard/StepFamily.tsx` — Step 4: 가구 상황
+- `src/features/user/components/wizard/StepSpecialConditions.tsx` — Step 5: 특수 조건
+- `src/features/user/components/wizard/StepConfirmation.tsx` — Step 6: 확인·완료
+- `src/features/user/components/wizard/WizardProgress.tsx` — 진행률 표시 컴포넌트
+- `src/features/user/components/NotificationPreferences.tsx` — Push·이메일 설정 UI
+- `src/features/notifications/schemas/preferences.ts` — Zod 알림 설정 스키마
+- `src/features/notifications/types/index.ts` — 알림 관련 타입 정의
+- `src/features/notifications/actions/notification.actions.ts` — markAsRead, markAllAsRead, saveNotificationPreferences
+- `src/features/notifications/actions/notification.queries.ts` — 커서 페이지네이션 (PAGE_SIZE=20)
+- `src/features/notifications/actions/__tests__/notification.actions.test.ts` — 액션 테스트
+- `src/features/notifications/actions/__tests__/notification.queries.test.ts` — 쿼리 테스트
+- `src/features/notifications/components/NotificationBadge.tsx` — 안읽음 배지 컴포넌트
+- `src/features/notifications/components/NotificationList.tsx` — 알림 목록 컴포넌트
+- `src/features/notifications/components/NotificationItem.tsx` — 알림 아이템 컴포넌트
+- `src/features/notifications/components/NotificationEmptyState.tsx` — 빈 상태 컴포넌트
+- `src/features/notifications/components/__tests__/` — 컴포넌트 테스트
+- `src/features/notifications/hooks/use-notifications.ts` — usePushNotifications 훅
+- `src/services/notification/matching.service.ts` — 배치 매칭 엔진 (50% 임계값)
+- `src/services/notification/email.service.ts` — sendMatchEmail, sendDigestEmail, sendEmailNotification (재시도: 3회, 1s/2s/4s)
+- `src/services/notification/push.service.ts` — sendPushNotification (VAPID)
+- `src/services/notification/__tests__/matching.service.test.ts` — 매칭 서비스 테스트
+- `src/services/notification/__tests__/email.service.test.ts` — 이메일 서비스 테스트
+- `src/services/notification/__tests__/push.service.test.ts` — Push 서비스 테스트
+- `src/app/(main)/profile/setup/page.tsx` — 프로필 위자드 페이지
+- `src/app/(main)/profile/notifications/page.tsx` — 알림 설정 페이지
+- `src/app/(main)/profile/page.tsx` — 프로필 리다이렉트
+- `src/app/(main)/notifications/page.tsx` — 알림 히스토리 페이지
+- `src/app/api/cron/match-policies/route.ts` — Cron: 매시간 정책 매칭
+- `src/app/api/cron/send-digest/route.ts` — Cron: 매일 오전 8시 KST 다이제스트
+- `src/app/api/cron/deadline-reminder/route.ts` — Cron: 매일 오전 9시 KST 마감 알림
+- `src/app/api/push/subscribe/route.ts` — Push 구독 엔드포인트
+- `src/app/api/push/unsubscribe/route.ts` — Push 구독 취소 엔드포인트
+- `src/components/layout/NotificationBell.tsx` — 벨 아이콘 + 배지 레이아웃 컴포넌트
+- `public/sw.js` — Service Worker (push 이벤트, notificationclick)
+
+**수정 파일 (7개)**
+
+- `prisma/schema.prisma` — NotificationPreference, PushSubscription, MatchingResult 모델 추가; NotificationLog 모델 확장 (type, status, policyId, readAt, metadata)
+- `vercel.json` — 3개 Cron Job 추가 (match-policies, send-digest, deadline-reminder) + maxDuration:900
+- `.env.example` — RESEND_FROM_EMAIL, NEXT_PUBLIC_VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT 추가
+- `package.json` — web-push, @types/web-push, resend 의존성 추가
+- `pnpm-lock.yaml` — 의존성 잠금 파일 업데이트
+- `tsconfig.json` — 소폭 조정
+- `tests/unit/prisma/schema.test.ts` — timeout:15000 추가
+
+**테스트**: 303 / 303 통과
+
+**인수 기준**: 24 / 24 완료
+
+---
+
 ### Added — SPEC-UI-001: 정책 검색·필터링 UI
 
 **구현 날짜**: 2026-04-06
