@@ -17,3 +17,4 @@
 - Phase 2.9: @MX 태그 완료
 - Phase 2.10: Simplify pass 완료 (manager-tdd 내부 처리)
 - AC 상태: 10/10 완료
+- Phase 3 (Sync) 완료: 린트 수정(PolicySearch.tsx), 문서 동기화(structure.md, CHANGELOG.md)

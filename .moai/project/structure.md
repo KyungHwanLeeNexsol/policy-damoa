@@ -53,7 +53,12 @@ src/app/
 │   ├── layout.tsx              # Main layout with header, sidebar [implemented]
 │   ├── page.tsx                # Home / landing page [implemented]
 │   ├── policies/
-│   │   └── loading.tsx         # [implemented; page.tsx planned]
+│   │   ├── page.tsx            # 정책 목록 페이지 (Server Component, REQ-UI-001~006) [SPEC-UI-001]
+│   │   ├── loading.tsx         # 목록 스켈레톤 로딩 [implemented]
+│   │   ├── error.tsx           # 에러 바운더리 [SPEC-UI-001]
+│   │   └── [id]/
+│   │       ├── page.tsx        # 정책 상세 페이지 (Server Component, REQ-UI-007~011) [SPEC-UI-001]
+│   │       └── loading.tsx     # 상세 스켈레톤 로딩 [SPEC-UI-001]
 │   ├── recommendations/        # [planned]
 │   ├── notifications/          # [planned]
 │   └── profile/                # [planned]
@@ -81,15 +86,34 @@ src/app/
 Each feature module is self-contained and owns its own components, hooks, actions, and types. This approach follows the vertical slice architecture pattern, keeping related code co-located.
 
 > **SPEC-INFRA-001 status**: All feature directories were created with `.gitkeep` placeholders. Individual components, hooks, actions, and types are populated per feature SPEC.
+> **SPEC-UI-001 status**: `policies/` feature module fully implemented (TDD, 91 tests passing).
 
 ```
 src/features/
-├── policies/
-│   ├── components/             # [.gitkeep — pending feature SPEC]
-│   ├── hooks/                  # [.gitkeep — pending feature SPEC]
-│   ├── actions/                # [.gitkeep — pending feature SPEC]
-│   ├── schemas/                # [.gitkeep — pending feature SPEC]
-│   └── types/                  # [.gitkeep — pending feature SPEC]
+├── policies/                   # 정책 검색·필터링 UI [SPEC-UI-001 완료]
+│   ├── actions/
+│   │   ├── policy.actions.ts   # getPolicies, getPolicyById, getRegions, getCategories (@MX:ANCHOR)
+│   │   ├── policy.queries.ts   # buildPolicyWhere, buildCacheKey, buildOrderBy (@MX:ANCHOR)
+│   │   └── __tests__/          # actions 단위 테스트 (91개 중 일부)
+│   ├── components/
+│   │   ├── ActiveFilterBadges.tsx  # 활성 필터 배지 (@MX:NOTE)
+│   │   ├── EligibilityChecklist.tsx # 자격 체크리스트 (비로그인 CTA)
+│   │   ├── PolicyCard.tsx       # 정책 카드 (D-Day 배지, urgency 변형)
+│   │   ├── PolicyDetail.tsx     # 정책 상세 뷰 (Server Component)
+│   │   ├── PolicyEmptyState.tsx # 빈 상태 컴포넌트
+│   │   ├── PolicyFilter.tsx     # 필터 패널 (데스크탑 인라인 + 모바일 Sheet)
+│   │   ├── PolicyList.tsx       # 정책 목록 (Server Component)
+│   │   ├── PolicyPagination.tsx # 페이지네이션
+│   │   ├── PolicySearch.tsx     # 검색 입력 (300ms 디바운스)
+│   │   └── __tests__/           # 컴포넌트 단위 테스트
+│   ├── schemas/
+│   │   ├── search.ts            # Zod searchParamsSchema, parseSearchParams()
+│   │   └── __tests__/
+│   ├── types/
+│   │   └── index.ts             # @/types 재수출
+│   └── utils/
+│       ├── eligibility.ts       # matchEligibility() (@MX:WARN JSONB 가변성)
+│       └── __tests__/
 │
 ├── notifications/
 │   ├── components/             # [.gitkeep — pending feature SPEC]
@@ -108,28 +132,6 @@ src/features/
     ├── hooks/                  # [.gitkeep — pending feature SPEC]
     ├── actions/                # [.gitkeep — pending feature SPEC]
     └── types/                  # [.gitkeep — pending feature SPEC]
-```
-
-### Planned component structure (per feature SPEC)
-
-```
-src/features/policies/
-│   ├── components/
-│   │   ├── PolicyCard.tsx          # Summary card for policy listing
-│   │   ├── PolicyDetail.tsx        # Full policy detail view
-│   │   ├── PolicyFilter.tsx        # Filter sidebar/panel
-│   │   ├── PolicySearchBar.tsx     # Search input with suggestions
-│   │   └── PolicyList.tsx          # List with pagination
-│   ├── hooks/
-│   │   ├── usePolicies.ts
-│   │   └── usePolicyDetail.ts
-│   ├── actions/
-│   │   ├── searchPolicies.ts
-│   │   └── getPolicyById.ts
-│   ├── schemas/
-│   │   └── policy.schema.ts
-│   └── types/
-│       └── policy.types.ts
 ```
 
 ---

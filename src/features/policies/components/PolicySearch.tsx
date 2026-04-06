@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { startTransition, useCallback, useEffect, useRef, useState } from 'react';
+import { startTransition, useCallback, useRef, useState } from 'react';
 
 import { Input } from '@/components/ui/input';
 
@@ -12,14 +12,16 @@ import { Input } from '@/components/ui/input';
 export function PolicySearch(): React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialQuery = searchParams.get('q') ?? '';
-  const [value, setValue] = useState(initialQuery);
+  const urlQuery = searchParams.get('q') ?? '';
+  const [value, setValue] = useState(urlQuery);
+  // URL이 외부에서 변경된 경우(뒤로가기 등) 렌더 중 state 동기화
+  // React 권장 패턴: https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery);
+  if (prevUrlQuery !== urlQuery) {
+    setPrevUrlQuery(urlQuery);
+    setValue(urlQuery);
+  }
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // searchParams가 변경되면 입력값 동기화
-  useEffect(() => {
-    setValue(searchParams.get('q') ?? '');
-  }, [searchParams]);
 
   const updateUrl = useCallback(
     (query: string) => {
