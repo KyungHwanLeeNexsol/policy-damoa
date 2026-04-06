@@ -69,4 +69,16 @@ export interface PolicySearchFilters {
   benefitType?: string;
   status?: 'active' | 'expired' | 'upcoming';
   sortBy?: 'newest' | 'deadline' | 'relevance';
+  occupation?: string;
+  familyStatus?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+// 카테고리 관계를 포함한 정책 타입
+export interface PolicyWithCategories extends Policy {
+  categories: Array<{
+    category: PolicyCategory;
+  }>;
+  region?: Region | null;
 }
