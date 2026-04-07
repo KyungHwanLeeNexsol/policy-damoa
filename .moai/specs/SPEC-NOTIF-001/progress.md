@@ -18,3 +18,4 @@
 - Phase F complete: Service Worker (public/sw.js)
 - Config complete: vercel.json (3 new crons), .env.example (VAPID keys, RESEND_FROM_EMAIL), NotificationBell layout component
 - Sync complete: CHANGELOG.md updated, spec.md status=completed, git commit created (2026-04-06)
+- Post-fix (2026-04-07): TypeScript 타입 정합성 수정 — NotificationLog.sentAt, UserProfileData nullable, digestFrequency 캐스팅, 빈 include 제거

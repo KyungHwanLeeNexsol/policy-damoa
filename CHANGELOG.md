@@ -51,6 +51,18 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+### Fixed — TypeScript 타입 정합성 수정
+
+**수정 날짜**: 2026-04-07
+
+- `fix(types)`: `NotificationLog` Prisma 모델 필드 수정 — `createdAt` → `sentAt` (스키마 실제 컬럼명 반영)
+- `fix(types)`: `UserProfileData` 인터페이스 nullable 필드 반영 — `birthYear`, `gender`, `occupation` 등을 `T | null`로 수정
+- `fix(types)`: `getNotificationPreferences()` 반환 타입에 `DigestFrequency` 캐스팅 추가
+- `fix(query)`: cron 라우트 빈 `include: {}` 객체 제거 (`match-policies`, `send-digest`)
+- `fix(ui)`: `NotificationItem` 컴포넌트 날짜 필드 `createdAt` → `sentAt` 수정
+
+---
+
 ### Fixed — TypeScript CI 오류 수정 (abfec31)
 
 **수정 날짜**: 2026-04-07

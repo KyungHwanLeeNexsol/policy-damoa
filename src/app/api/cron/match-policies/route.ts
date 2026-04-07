@@ -20,9 +20,6 @@ export async function GET(request: Request) {
     // 2단계: 미알림 매칭 결과 조회 (알림 설정에 따라 발송)
     const unnotifiedMatches = await prisma.matchingResult.findMany({
       where: { notified: false },
-      include: {
-        // 관련 사용자 정보 조회를 위해 직접 쿼리
-      },
       take: 500, // 1회 실행당 최대 500건
     });
 

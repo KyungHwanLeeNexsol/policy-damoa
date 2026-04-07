@@ -40,9 +40,6 @@ export async function GET(request: Request) {
           userId: pref.user.id,
           notified: false,
         },
-        include: {
-          // 정책 정보는 별도 쿼리
-        },
       });
 
       if (matches.length === 0) {

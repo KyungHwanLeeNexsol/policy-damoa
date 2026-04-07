@@ -15,7 +15,7 @@ export async function getNotifications(cursor?: string): Promise<PaginatedNotifi
 
   const items = await prisma.notificationLog.findMany({
     where: { userId: session.user.id },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { sentAt: 'desc' },
     take: PAGE_SIZE + 1,
     ...(cursor
       ? {
@@ -31,13 +31,13 @@ export async function getNotifications(cursor?: string): Promise<PaginatedNotifi
       policyId: true,
       status: true,
       readAt: true,
-      createdAt: true,
+      sentAt: true,
     },
   });
 
   const hasMore = items.length > PAGE_SIZE;
   const pageItems = hasMore ? items.slice(0, PAGE_SIZE) : items;
-  const nextCursor = hasMore ? pageItems[pageItems.length - 1].id : null;
+  const nextCursor = hasMore ? (pageItems.at(-1)?.id ?? null) : null;
 
   return {
     items: pageItems as NotificationLogItem[],

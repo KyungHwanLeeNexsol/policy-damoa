@@ -67,12 +67,12 @@ export type WizardStep = 1 | 2 | 3 | 4 | 5 | 6;
 export interface UserProfileData {
   id: string;
   userId: string;
-  birthYear: number;
-  gender: string;
-  occupation: string;
-  incomeLevel: string;
-  regionId: string;
-  familyStatus: string;
+  birthYear: number | null;
+  gender: string | null;
+  occupation: string | null;
+  incomeLevel: string | null;
+  regionId: string | null;
+  familyStatus: string | null;
   isPregnant: boolean;
   hasChildren: boolean;
   childrenCount: number;

@@ -2,7 +2,7 @@
 
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
-import type { ActionResult } from '@/features/notifications/types';
+import type { ActionResult, DigestFrequency, NotificationPreferenceData } from '@/features/notifications/types';
 
 /**
  * 단일 알림 읽음 처리
@@ -94,11 +94,17 @@ export async function saveNotificationPreferences(data: {
 /**
  * 현재 사용자의 알림 설정 조회
  */
-export async function getNotificationPreferences() {
+export async function getNotificationPreferences(): Promise<NotificationPreferenceData | null> {
   const session = await auth();
   if (!session?.user?.id) return null;
 
-  return prisma.notificationPreference.findUnique({
+  const result = await prisma.notificationPreference.findUnique({
     where: { userId: session.user.id },
   });
+
+  if (!result) return null;
+  return {
+    ...result,
+    digestFrequency: result.digestFrequency as DigestFrequency,
+  };
 }

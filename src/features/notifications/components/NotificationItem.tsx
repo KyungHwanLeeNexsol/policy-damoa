@@ -38,7 +38,7 @@ export function NotificationItem({ notification }: NotificationItemProps) {
         </p>
         <p className="mt-1 text-sm text-gray-500">{notification.body}</p>
         <p className="mt-2 text-xs text-gray-400">
-          {new Date(notification.createdAt).toLocaleDateString('ko-KR', {
+          {new Date(notification.sentAt).toLocaleDateString('ko-KR', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

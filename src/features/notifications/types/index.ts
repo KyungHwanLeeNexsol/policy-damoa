@@ -21,7 +21,7 @@ export interface NotificationLogItem {
   policyId: string | null;
   readAt: Date | null;
   status: NotificationStatus;
-  createdAt: Date;
+  sentAt: Date;
 }
 
 // 알림 환경설정 타입
