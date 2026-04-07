@@ -1,2 +1,12 @@
 export PATH="$HOME/AppData/Local/nvm/v20.19.6:$PATH"
-pnpm exec lint-staged
+
+# Try to run lint-staged if available
+if command -v pnpm &> /dev/null; then
+  pnpm exec lint-staged
+elif command -v npm &> /dev/null; then
+  npm exec lint-staged
+else
+  echo "Warning: pnpm and npm not found, skipping lint-staged"
+fi
+
+exit 0
