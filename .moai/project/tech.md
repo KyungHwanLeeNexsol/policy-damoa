@@ -158,17 +158,25 @@ Policy data sources require two distinct collection strategies:
 
 ---
 
-## AI / ML: OpenAI API
+## AI / ML: Gemini API (OpenAI-Compatible Endpoint)
 
-**Choice**: OpenAI API (GPT-4o-mini for recommendations, GPT-4o for complex eligibility analysis)
+**Choice**: Google Gemini API via OpenAI-compatible endpoint (gemini-2.0-flash)
 
-**Rationale**:
+**Rationale** (updated after SPEC-AI-001 implementation):
 
-- **GPT-4o-mini** provides sufficient quality for policy-to-profile matching at low cost (~$0.15/million input tokens), making per-request AI recommendations economically viable
-- **GPT-4o** is reserved for complex eligibility analysis conversations requiring nuanced understanding of Korean government policy language
-- **Embeddings API** (text-embedding-3-small) enables semantic search as an enhancement to keyword search — policies with similar meaning to a query are surfaced even without exact keyword matches
-- The OpenAI API requires no ML infrastructure, model training, or GPU management
-- Structured output (JSON mode) ensures reliable parsing of AI responses into typed recommendation objects
+- **gemini-2.0-flash** is used via OpenAI SDK's `baseURL` pointing to `https://generativelanguage.googleapis.com/v1beta/openai/` — provides cost-effective AI recommendations with structured output support
+- **Gemini structured output** (JSON Schema mode) ensures reliable parsing of AI responses into typed recommendation objects via Zod schema validation
+- **PII removal** is enforced in prompt construction before any user data is sent to the AI model
+- **Fallback strategy**: Redis cache → Gemini API → rule-based fallback, ensuring recommendations are always available even when the AI service is unavailable
+- **Behavior tracking**: `trackPolicyView` and `trackSearch` events are stored in PostgreSQL (fire-and-forget pattern) to feed the recommendation engine
+- **Nightly batch pre-computation**: Cron job generates recommendations in batches of 50 users with exponential backoff, reducing real-time AI call latency
+
+**SPEC-AI-001 implementation details**:
+
+- Client singleton: `src/lib/openai.ts` (Gemini OpenAI-compatible, `@MX:ANCHOR`)
+- Cache TTLs: `src/lib/cache-ttl.ts` (RECOMMENDATIONS: 3600s, SIMILAR_POLICIES: 21600s, BEHAVIOR_RECENT: 1800s)
+- Recommendation engine: `src/services/ai/recommendation.service.ts`
+- Similar policy re-ranking: `src/services/ai/similar-policies.service.ts`
 
 **Future consideration**: As usage scales, a vector database (Qdrant or pgvector in PostgreSQL) can be added for embedding-based semantic search without changing the AI provider.
 
@@ -213,14 +221,15 @@ The free Hobby tier and Starter plan are sufficient for MVP launch, with clear u
 | `clsx`                  | ^2.1.1        | Class name utility                       |
 | `tailwind-merge`        | ^3.3.0        | Tailwind class merge utility             |
 | `tw-animate-css`        | ^1.3.4        | Animation utilities for Tailwind v4      |
-| `openai`                | (planned)     | AI recommendations and embeddings        |
+| `openai`                | latest        | Gemini API via OpenAI-compatible endpoint (SPEC-AI-001) |
 | `@upstash/redis`        | ^1.x          | Redis client (serverless-compatible, HTTP-based, added in SPEC-API-001) |
-| `zod`                   | (planned)     | Runtime schema validation                |
+| `zod`                   | latest        | Runtime schema validation (Gemini structured output, search params) |
 | `date-fns`              | (planned)     | Date formatting and manipulation         |
 | `cheerio`               | (planned)     | HTML parsing for static site crawling    |
 | `playwright`            | (planned)     | Browser automation for JS-rendered sites |
-| `resend`                | (planned)     | Transactional email                      |
-| `web-push`              | (planned)     | Web Push notification delivery           |
+| `resend`                | latest        | 트랜잭션 이메일 (SPEC-NOTIF-001: sendMatchEmail, sendDigestEmail) |
+| `web-push`              | latest        | Web Push 알림 VAPID 기반 전송 (SPEC-NOTIF-001) |
+| `@types/web-push`       | latest        | web-push 타입 정의 (SPEC-NOTIF-001)      |
 
 ### Development Dependencies
 
@@ -354,5 +363,5 @@ Key settings:
 
 ---
 
-Last Updated: 2026-04-05
-Version: 1.1.0 (Updated after SPEC-INFRA-001 implementation)
+Last Updated: 2026-04-07
+Version: 1.3.0 (Updated after SPEC-AI-001 + SPEC-NOTIF-001 implementation — Gemini API, web-push, resend 추가)

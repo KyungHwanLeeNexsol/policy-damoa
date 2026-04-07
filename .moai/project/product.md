@@ -239,5 +239,5 @@ Monthly subscription (~3,000-5,000 KRW) for:
 
 ---
 
-Last Updated: 2026-04-05
-Version: 1.0.0 (No changes — description matches SPEC-INFRA-001 implementation scope)
+Last Updated: 2026-04-07
+Version: 1.1.0 (모든 핵심 기능 구현 완료: SPEC-INFRA-001, SPEC-API-001, SPEC-UI-001, SPEC-NOTIF-001, SPEC-AI-001)

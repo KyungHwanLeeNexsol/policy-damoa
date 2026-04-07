@@ -51,6 +51,15 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+### Fixed — TypeScript CI 오류 수정 (abfec31)
+
+**수정 날짜**: 2026-04-07
+
+- `fix(ci)`: TypeScript strict 모드 오류 수정 (notification services, AI services, profile actions)
+- 의존성 추가: 테스트 환경에서 누락된 패키지 추가
+
+---
+
 ### Added — SPEC-NOTIF-001: 사용자 프로필 및 알림 시스템
 
 **구현 날짜**: 2026-04-06
