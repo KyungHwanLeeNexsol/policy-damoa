@@ -1,4 +1,4 @@
-// @MX:NOTE: [AUTO] 인증 미들웨어 - 보호 라우트 접근 제어
+// @MX:NOTE: [AUTO] 인증 프록시 - 보호 라우트 접근 제어
 // 인증되지 않은 사용자를 /login으로 리다이렉트
 export { auth as middleware } from '@/lib/auth';
 
