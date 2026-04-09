@@ -3,17 +3,15 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import type { NextAuthConfig } from 'next-auth';
-import Google from 'next-auth/providers/google';
 import Kakao from 'next-auth/providers/kakao';
-import Naver from 'next-auth/providers/naver';
 
 import { prisma } from '@/lib/db';
 
 // NextAuth v5 설정 객체
-// JWT 세션 전략과 Prisma Adapter를 사용한 3개 OAuth 프로바이더 구성
+// JWT 세션 전략과 Prisma Adapter를 사용한 카카오 OAuth 프로바이더 구성
 export const authConfig: NextAuthConfig = {
   adapter: PrismaAdapter(prisma),
-  providers: [Kakao, Naver, Google],
+  providers: [Kakao],
   session: {
     strategy: 'jwt',
   },

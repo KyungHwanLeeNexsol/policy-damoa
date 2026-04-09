@@ -70,9 +70,7 @@ export function StepRegion({ defaultValues, onNext, onPrev }: StepRegionProps) {
             </option>
           ))}
         </select>
-        {errors.regionId && (
-          <p className="mt-1 text-sm text-red-500">{errors.regionId.message}</p>
-        )}
+        {errors.regionId && <p className="mt-1 text-sm text-red-500">{errors.regionId.message}</p>}
       </div>
 
       {/* regionId hidden field */}

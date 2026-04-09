@@ -26,10 +26,7 @@ export default async function ProfilePage() {
         <div className="mt-6 rounded-xl bg-white p-6 shadow-sm">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">기본 정보</h2>
-            <Link
-              href="/profile/setup"
-              className="text-sm text-blue-600 hover:text-blue-800"
-            >
+            <Link href="/profile/setup" className="text-sm text-blue-600 hover:text-blue-800">
               수정
             </Link>
           </div>

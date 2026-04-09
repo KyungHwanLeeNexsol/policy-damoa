@@ -13,11 +13,7 @@ interface PolicyListProps {
  * 정책 목록 컴포넌트
  * 정책 카드 그리드 또는 비어있는 상태를 표시한다.
  */
-export function PolicyList({
-  policies,
-  total,
-  searchParams,
-}: PolicyListProps): React.ReactNode {
+export function PolicyList({ policies, total, searchParams }: PolicyListProps): React.ReactNode {
   if (total === 0) {
     return <PolicyEmptyState />;
   }
@@ -25,11 +21,7 @@ export function PolicyList({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {policies.map((policy) => (
-        <PolicyCard
-          key={policy.id}
-          policy={policy}
-          searchParams={searchParams}
-        />
+        <PolicyCard key={policy.id} policy={policy} searchParams={searchParams} />
       ))}
     </div>
   );

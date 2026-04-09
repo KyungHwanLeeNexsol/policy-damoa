@@ -19,15 +19,9 @@ export function PolicyEmptyState({
   if (activeFilters && Object.keys(activeFilters).length > 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <p className="text-muted-foreground mb-4">
-          조건을 조정하면 더 많은 정책을 볼 수 있습니다.
-        </p>
+        <p className="text-muted-foreground mb-4">조건을 조정하면 더 많은 정책을 볼 수 있습니다.</p>
         {onRelaxFilter && (
-          <button
-            type="button"
-            onClick={onRelaxFilter}
-            className="text-primary underline text-sm"
-          >
+          <button type="button" onClick={onRelaxFilter} className="text-primary underline text-sm">
             필터 초기화
           </button>
         )}
@@ -39,9 +33,7 @@ export function PolicyEmptyState({
   if (query) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <p className="text-muted-foreground">
-          &apos;{query}&apos;에 대한 검색 결과가 없습니다.
-        </p>
+        <p className="text-muted-foreground">&apos;{query}&apos;에 대한 검색 결과가 없습니다.</p>
       </div>
     );
   }

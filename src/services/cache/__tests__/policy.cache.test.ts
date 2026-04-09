@@ -57,11 +57,9 @@ describe('policy.cache — Redis 연결 성공', () => {
     const data = { items: [], totalCount: 0 };
 
     await setCachedApiResponse('PUBLIC_DATA_PORTAL', 1, data);
-    expect(mockSet).toHaveBeenCalledWith(
-      'api:PUBLIC_DATA_PORTAL:page:1',
-      data,
-      { ex: 6 * 60 * 60 },
-    );
+    expect(mockSet).toHaveBeenCalledWith('api:PUBLIC_DATA_PORTAL:page:1', data, {
+      ex: 6 * 60 * 60,
+    });
   });
 
   // 정책 목록 캐시
@@ -80,7 +78,7 @@ describe('policy.cache — Redis 연결 성공', () => {
     expect(mockSet).toHaveBeenCalledWith(
       'policy:list:filter:abc123',
       { data: [] },
-      { ex: 15 * 60 },
+      { ex: 15 * 60 }
     );
   });
 
@@ -100,7 +98,7 @@ describe('policy.cache — Redis 연결 성공', () => {
     expect(mockSet).toHaveBeenCalledWith(
       'policy:detail:pol-001',
       { title: '정책' },
-      { ex: 30 * 60 },
+      { ex: 30 * 60 }
     );
   });
 
@@ -126,9 +124,7 @@ describe('policy.cache — Redis 연결 실패 (graceful degradation)', () => {
   });
 
   it('Redis가 null이면 setCachedApiResponse는 조용히 종료해야 한다', async () => {
-    await expect(
-      setCachedApiResponse('PUBLIC_DATA_PORTAL', 1, {}),
-    ).resolves.toBeUndefined();
+    await expect(setCachedApiResponse('PUBLIC_DATA_PORTAL', 1, {})).resolves.toBeUndefined();
   });
 
   it('Redis가 null이면 getCachedPolicyList는 null을 반환해야 한다', async () => {
@@ -164,9 +160,7 @@ describe('policy.cache — Redis 오류 처리', () => {
   });
 
   it('set 에러 시 조용히 종료해야 한다', async () => {
-    await expect(
-      setCachedApiResponse('PUBLIC_DATA_PORTAL', 1, {}),
-    ).resolves.toBeUndefined();
+    await expect(setCachedApiResponse('PUBLIC_DATA_PORTAL', 1, {})).resolves.toBeUndefined();
   });
 
   it('invalidate 에러 시 조용히 종료해야 한다', async () => {

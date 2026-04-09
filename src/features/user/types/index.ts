@@ -7,20 +7,20 @@ export type FamilyStatus = 'single' | 'married' | 'single-parent' | 'multicultur
 export type Gender = 'male' | 'female' | 'other';
 
 export type OccupationType =
-  | 'employee'      // 직장인
+  | 'employee' // 직장인
   | 'self-employed' // 자영업자
-  | 'student'       // 학생
-  | 'unemployed'    // 미취업
-  | 'farmer'        // 농업/어업
-  | 'freelancer'    // 프리랜서
-  | 'other';        // 기타
+  | 'student' // 학생
+  | 'unemployed' // 미취업
+  | 'farmer' // 농업/어업
+  | 'freelancer' // 프리랜서
+  | 'other'; // 기타
 
 // 중위소득 기준 소득 수준
 export type IncomeLevel =
-  | 'below-50'  // 중위소득 50% 이하
-  | '50-80'     // 중위소득 50~80%
-  | '80-100'    // 중위소득 80~100%
-  | '100-150'   // 중위소득 100~150%
+  | 'below-50' // 중위소득 50% 이하
+  | '50-80' // 중위소득 50~80%
+  | '80-100' // 중위소득 80~100%
+  | '100-150' // 중위소득 100~150%
   | 'above-150'; // 중위소득 150% 초과
 
 // 위자드 각 단계 데이터 타입

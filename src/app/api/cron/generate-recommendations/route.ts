@@ -109,8 +109,5 @@ export async function POST(request: Request): Promise<Response> {
     console.error('[cron/generate-recommendations] DataSyncLog 저장 실패', logErr);
   }
 
-  return Response.json(
-    { totalCount, upsertCount, errorCount, durationMs },
-    { status: 200 },
-  );
+  return Response.json({ totalCount, upsertCount, errorCount, durationMs }, { status: 200 });
 }

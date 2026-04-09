@@ -23,24 +23,33 @@ describe('RecommendationItemSchema', () => {
   it('score 가 0-1 범위를 벗어나면 거부해야 한다', () => {
     expect(() =>
       RecommendationItemSchema.parse({
-        policyId: 'p', score: 1.2, rank: 1, reason: 'r',
-      }),
+        policyId: 'p',
+        score: 1.2,
+        rank: 1,
+        reason: 'r',
+      })
     ).toThrow();
   });
 
   it('reason 200자 초과 시 거부해야 한다', () => {
     expect(() =>
       RecommendationItemSchema.parse({
-        policyId: 'p', score: 0.5, rank: 1, reason: 'a'.repeat(201),
-      }),
+        policyId: 'p',
+        score: 0.5,
+        rank: 1,
+        reason: 'a'.repeat(201),
+      })
     ).toThrow();
   });
 
   it('policyId 가 빈 문자열이면 거부해야 한다', () => {
     expect(() =>
       RecommendationItemSchema.parse({
-        policyId: '', score: 0.5, rank: 1, reason: 'r',
-      }),
+        policyId: '',
+        score: 0.5,
+        rank: 1,
+        reason: 'r',
+      })
     ).toThrow();
   });
 });
@@ -48,9 +57,7 @@ describe('RecommendationItemSchema', () => {
 describe('RecommendationsResponseSchema', () => {
   it('recommendations 배열을 가진 응답을 통과시켜야 한다', () => {
     const valid = {
-      recommendations: [
-        { policyId: 'p1', score: 0.9, rank: 1, reason: '매칭' },
-      ],
+      recommendations: [{ policyId: 'p1', score: 0.9, rank: 1, reason: '매칭' }],
     };
     expect(() => RecommendationsResponseSchema.parse(valid)).not.toThrow();
   });
@@ -60,9 +67,7 @@ describe('RecommendationsResponseSchema', () => {
   });
 
   it('빈 배열도 유효로 취급해야 한다', () => {
-    expect(() =>
-      RecommendationsResponseSchema.parse({ recommendations: [] }),
-    ).not.toThrow();
+    expect(() => RecommendationsResponseSchema.parse({ recommendations: [] })).not.toThrow();
   });
 });
 

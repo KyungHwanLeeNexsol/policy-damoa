@@ -36,9 +36,7 @@ describe('withRetry', () => {
   it('최대 재시도 횟수를 초과하면 마지막 에러를 던져야 한다', async () => {
     const fn = vi.fn().mockRejectedValue(new Error('계속 실패'));
 
-    await expect(
-      withRetry(fn, { maxRetries: 2, baseDelay: 1 }),
-    ).rejects.toThrow('계속 실패');
+    await expect(withRetry(fn, { maxRetries: 2, baseDelay: 1 })).rejects.toThrow('계속 실패');
     // 초기 1회 + 재시도 2회 = 총 3회
     expect(fn).toHaveBeenCalledTimes(3);
   });
@@ -47,9 +45,7 @@ describe('withRetry', () => {
     const authError = new AuthError('인증 만료', 401);
     const fn = vi.fn().mockRejectedValue(authError);
 
-    await expect(withRetry(fn, { maxRetries: 3, baseDelay: 1 })).rejects.toThrow(
-      authError,
-    );
+    await expect(withRetry(fn, { maxRetries: 3, baseDelay: 1 })).rejects.toThrow(authError);
     // AuthError는 재시도 없이 즉시 실패
     expect(fn).toHaveBeenCalledTimes(1);
   });
@@ -58,9 +54,7 @@ describe('withRetry', () => {
     const authError = new AuthError('접근 금지', 403);
     const fn = vi.fn().mockRejectedValue(authError);
 
-    await expect(withRetry(fn, { maxRetries: 3, baseDelay: 1 })).rejects.toThrow(
-      authError,
-    );
+    await expect(withRetry(fn, { maxRetries: 3, baseDelay: 1 })).rejects.toThrow(authError);
     expect(fn).toHaveBeenCalledTimes(1);
   });
 

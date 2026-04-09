@@ -18,9 +18,7 @@ interface PolicyCardProps {
  */
 export function PolicyCard({ policy, searchParams }: PolicyCardProps): React.ReactNode {
   // 상세 페이지 링크 생성 (필터 상태 보존)
-  const queryString = searchParams
-    ? '?' + new URLSearchParams(searchParams).toString()
-    : '';
+  const queryString = searchParams ? '?' + new URLSearchParams(searchParams).toString() : '';
   const href = `/policies/${policy.id}${queryString}`;
 
   // D-Day 계산
@@ -49,9 +47,7 @@ export function PolicyCard({ policy, searchParams }: PolicyCardProps): React.Rea
               </Badge>
             ))}
             {/* 혜택 유형 배지 */}
-            {policy.benefitType && (
-              <Badge variant="outline">{policy.benefitType}</Badge>
-            )}
+            {policy.benefitType && <Badge variant="outline">{policy.benefitType}</Badge>}
           </div>
           <h3 className="font-semibold text-base line-clamp-2">{policy.title}</h3>
         </CardHeader>
@@ -63,11 +59,7 @@ export function PolicyCard({ policy, searchParams }: PolicyCardProps): React.Rea
             </p>
           )}
           {/* D-Day 배지 */}
-          {dday && (
-            <Badge className={cn('text-xs', getDdayVariant(dday))}>
-              {dday}
-            </Badge>
-          )}
+          {dday && <Badge className={cn('text-xs', getDdayVariant(dday))}>{dday}</Badge>}
         </CardContent>
       </Card>
     </Link>

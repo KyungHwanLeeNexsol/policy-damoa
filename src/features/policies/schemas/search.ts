@@ -38,7 +38,20 @@ export function parseSearchParams(
     return { page: 1, pageSize: DEFAULT_PAGE_SIZE };
   }
 
-  const { q, category, region, benefit, status, sort, age_min, age_max, occupation, family, page, pageSize } = parsed.data;
+  const {
+    q,
+    category,
+    region,
+    benefit,
+    status,
+    sort,
+    age_min,
+    age_max,
+    occupation,
+    family,
+    page,
+    pageSize,
+  } = parsed.data;
 
   const filters: PolicySearchFilters = {
     page,

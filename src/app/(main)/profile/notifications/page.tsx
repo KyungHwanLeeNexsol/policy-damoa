@@ -1,8 +1,6 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
-import {
-  getNotificationPreferences,
-} from '@/features/notifications/actions/notification.actions';
+import { getNotificationPreferences } from '@/features/notifications/actions/notification.actions';
 import { NotificationPreferences } from '@/features/user/components/NotificationPreferences';
 
 /**

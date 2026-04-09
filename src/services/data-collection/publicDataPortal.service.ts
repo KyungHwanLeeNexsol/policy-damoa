@@ -2,10 +2,7 @@
 // pageNo/numOfRows 페이지네이션, 3회 지수 백오프 재시도, Redis 캐시
 
 import { prisma } from '@/lib/db';
-import {
-  getCachedApiResponse,
-  setCachedApiResponse,
-} from '@/services/cache/policy.cache';
+import { getCachedApiResponse, setCachedApiResponse } from '@/services/cache/policy.cache';
 import type { SyncSource } from '@/types/sync';
 
 import { upsertPolicies } from './deduplicator';
@@ -26,7 +23,7 @@ interface PublicDataApiResponse {
 
 /** 단일 페이지 조회 (캐시 확인 → API 호출) */
 async function fetchPage(
-  pageNo: number,
+  pageNo: number
 ): Promise<{ items: RawPublicDataPolicy[]; totalCount: number }> {
   // 캐시 조회
   const cached = await getCachedApiResponse<{
@@ -85,8 +82,8 @@ export async function syncAll(): Promise<void> {
     const totalPages = Math.ceil(totalCount / NUM_OF_ROWS);
 
     // 첫 페이지 처리
-    const firstNormalized = firstPage.items.map(
-      (item): NormalizedPolicy | null => normalize(SOURCE, item),
+    const firstNormalized = firstPage.items.map((item): NormalizedPolicy | null =>
+      normalize(SOURCE, item)
     );
     const firstResult = await upsertPolicies(firstNormalized);
     upsertCount += firstResult.upsertCount;
@@ -96,8 +93,8 @@ export async function syncAll(): Promise<void> {
     // 나머지 페이지 순차 처리
     for (let page = 2; page <= totalPages; page++) {
       const pageData = await fetchPage(page);
-      const normalized = pageData.items.map(
-        (item): NormalizedPolicy | null => normalize(SOURCE, item),
+      const normalized = pageData.items.map((item): NormalizedPolicy | null =>
+        normalize(SOURCE, item)
       );
       const result = await upsertPolicies(normalized);
       upsertCount += result.upsertCount;
@@ -124,8 +121,7 @@ export async function syncAll(): Promise<void> {
   } catch (error) {
     // 실패 상태 업데이트
     const completedAt = new Date();
-    const errorMessage =
-      error instanceof Error ? error.message : String(error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
 
     await prisma.dataSyncLog.update({
       where: { id: log.id },

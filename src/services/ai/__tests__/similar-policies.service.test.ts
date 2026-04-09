@@ -3,19 +3,14 @@
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-const {
-  mockPolicyFindUnique,
-  mockPolicyFindMany,
-  mockGeminiCreate,
-  mockRedisGet,
-  mockRedisSet,
-} = vi.hoisted(() => ({
-  mockPolicyFindUnique: vi.fn(),
-  mockPolicyFindMany: vi.fn(),
-  mockGeminiCreate: vi.fn(),
-  mockRedisGet: vi.fn(),
-  mockRedisSet: vi.fn(),
-}));
+const { mockPolicyFindUnique, mockPolicyFindMany, mockGeminiCreate, mockRedisGet, mockRedisSet } =
+  vi.hoisted(() => ({
+    mockPolicyFindUnique: vi.fn(),
+    mockPolicyFindMany: vi.fn(),
+    mockGeminiCreate: vi.fn(),
+    mockRedisGet: vi.fn(),
+    mockRedisSet: vi.fn(),
+  }));
 
 vi.mock('@/lib/db', () => ({
   prisma: {
@@ -126,18 +121,20 @@ describe('getSimilarPolicies — 캐시 미스 + 사전필터 + AI 재순위 (AC
   it('6시간 TTL (21600) 로 캐시해야 한다 (AC-019)', async () => {
     mockGeminiCreate.mockResolvedValue({
       choices: [
-        { message: { content: JSON.stringify({ similar: [{ policyId: 'p0', score: 0.9, rank: 1 }] }) } },
+        {
+          message: {
+            content: JSON.stringify({ similar: [{ policyId: 'p0', score: 0.9, rank: 1 }] }),
+          },
+        },
       ],
       usage: { total_tokens: 100 },
     });
 
     await getSimilarPolicies('p-source');
 
-    expect(mockRedisSet).toHaveBeenCalledWith(
-      'similar:policy:p-source',
-      expect.any(Array),
-      { ex: 21600 },
-    );
+    expect(mockRedisSet).toHaveBeenCalledWith('similar:policy:p-source', expect.any(Array), {
+      ex: 21600,
+    });
   });
 
   it('원본 정책이 없으면 빈 배열을 반환해야 한다', async () => {

@@ -3,10 +3,7 @@
 // 시간당 500건 요청 제한
 
 import { prisma } from '@/lib/db';
-import {
-  getCachedApiResponse,
-  setCachedApiResponse,
-} from '@/services/cache/policy.cache';
+import { getCachedApiResponse, setCachedApiResponse } from '@/services/cache/policy.cache';
 import type { SyncSource } from '@/types/sync';
 
 import { upsertPolicies } from './deduplicator';
@@ -59,9 +56,7 @@ interface Bojo24ApiResponse {
 }
 
 /** 단일 페이지 조회 (캐시 확인 → API 호출) */
-async function fetchPage(
-  page: number,
-): Promise<{ items: RawBojo24Policy[]; totalCount: number }> {
+async function fetchPage(page: number): Promise<{ items: RawBojo24Policy[]; totalCount: number }> {
   // 캐시 조회
   const cached = await getCachedApiResponse<{
     items: RawBojo24Policy[];
@@ -82,10 +77,7 @@ async function fetchPage(
 
     // 401/403은 AuthError → 즉시 중단 (withRetry가 재시도하지 않음)
     if (response.status === 401 || response.status === 403) {
-      throw new AuthError(
-        `보조금24 인증 오류: ${response.status}`,
-        response.status,
-      );
+      throw new AuthError(`보조금24 인증 오류: ${response.status}`, response.status);
     }
 
     if (!response.ok) {
@@ -131,8 +123,8 @@ export async function syncAll(): Promise<void> {
     const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
     // 첫 페이지 처리
-    const firstNormalized = firstPage.items.map(
-      (item): NormalizedPolicy | null => normalize(SOURCE, item),
+    const firstNormalized = firstPage.items.map((item): NormalizedPolicy | null =>
+      normalize(SOURCE, item)
     );
     const firstResult = await upsertPolicies(firstNormalized);
     upsertCount += firstResult.upsertCount;
@@ -143,9 +135,7 @@ export async function syncAll(): Promise<void> {
     for (let page = 2; page <= totalPages; page++) {
       // 요청 제한 도달 시 중단 (나머지는 다음 동기화에서 처리)
       if (!checkRateLimit()) {
-        console.warn(
-          `[bojo24] 시간당 요청 제한 도달. ${page}/${totalPages} 페이지까지 처리.`,
-        );
+        console.warn(`[bojo24] 시간당 요청 제한 도달. ${page}/${totalPages} 페이지까지 처리.`);
         // PARTIAL 상태로 기록
         requestCount--; // checkRateLimit에서 증가한 카운터 복원
         break;
@@ -153,8 +143,8 @@ export async function syncAll(): Promise<void> {
       requestCount--; // checkRateLimit에서 증가한 카운터를 복원 (fetchPage 내에서 다시 증가)
 
       const pageData = await fetchPage(page);
-      const normalized = pageData.items.map(
-        (item): NormalizedPolicy | null => normalize(SOURCE, item),
+      const normalized = pageData.items.map((item): NormalizedPolicy | null =>
+        normalize(SOURCE, item)
       );
       const result = await upsertPolicies(normalized);
       upsertCount += result.upsertCount;
@@ -180,8 +170,7 @@ export async function syncAll(): Promise<void> {
   } catch (error) {
     const completedAt = new Date();
     const isAuthError = error instanceof AuthError;
-    const errorMessage =
-      error instanceof Error ? error.message : String(error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
 
     await prisma.dataSyncLog.update({
       where: { id: log.id },

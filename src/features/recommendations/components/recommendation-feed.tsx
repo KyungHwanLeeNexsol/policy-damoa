@@ -48,23 +48,17 @@ export function RecommendationFeed() {
         </div>
       );
     }
-    return (
-      <p className="text-sm text-muted-foreground">추천을 불러오지 못했어요.</p>
-    );
+    return <p className="text-sm text-muted-foreground">추천을 불러오지 못했어요.</p>;
   }
 
   if (!data || data.recommendations.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">추천할 정책이 없어요.</p>
-    );
+    return <p className="text-sm text-muted-foreground">추천할 정책이 없어요.</p>;
   }
 
   return (
     <div className="space-y-3">
       {data.fallback && (
-        <p className="text-xs text-muted-foreground">
-          일시적으로 간이 추천을 제공하고 있어요.
-        </p>
+        <p className="text-xs text-muted-foreground">일시적으로 간이 추천을 제공하고 있어요.</p>
       )}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data.recommendations.map((item) => (

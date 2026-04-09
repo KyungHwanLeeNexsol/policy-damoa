@@ -67,9 +67,7 @@ export default async function PoliciesPage({
       {/* 페이지 헤더 */}
       <div className="space-y-1">
         <h1 className="text-2xl font-bold tracking-tight">정책 찾기</h1>
-        <p className="text-muted-foreground text-sm">
-          전체 {result.total.toLocaleString()}개 정책
-        </p>
+        <p className="text-muted-foreground text-sm">전체 {result.total.toLocaleString()}개 정책</p>
       </div>
 
       {/* 검색 */}

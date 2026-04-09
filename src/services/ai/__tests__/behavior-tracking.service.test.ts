@@ -4,17 +4,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Prisma 모듈 목업 (vi.hoisted: vi.mock 팩토리 호이스팅보다 먼저 평가됨)
-const {
-  mockPolicyViewCreate,
-  mockSearchLogCreate,
-  mockPolicyViewFindMany,
-  mockSearchLogFindMany,
-} = vi.hoisted(() => ({
-  mockPolicyViewCreate: vi.fn(),
-  mockSearchLogCreate: vi.fn(),
-  mockPolicyViewFindMany: vi.fn(),
-  mockSearchLogFindMany: vi.fn(),
-}));
+const { mockPolicyViewCreate, mockSearchLogCreate, mockPolicyViewFindMany, mockSearchLogFindMany } =
+  vi.hoisted(() => ({
+    mockPolicyViewCreate: vi.fn(),
+    mockSearchLogCreate: vi.fn(),
+    mockPolicyViewFindMany: vi.fn(),
+    mockSearchLogFindMany: vi.fn(),
+  }));
 
 vi.mock('@/lib/db', () => ({
   prisma: {
@@ -50,11 +46,7 @@ vi.mock('@/lib/cache-ttl', () => ({
 
 import { getRedis } from '@/lib/redis';
 
-import {
-  getRecentBehavior,
-  trackPolicyView,
-  trackSearch,
-} from '../behavior-tracking.service';
+import { getRecentBehavior, trackPolicyView, trackSearch } from '../behavior-tracking.service';
 
 const mockRedis = {
   get: mockRedisGet,
@@ -89,9 +81,7 @@ describe('behavior-tracking.service — trackPolicyView', () => {
   it('DB 오류가 발생해도 예외를 던지지 않아야 한다 (AC-005)', async () => {
     mockPolicyViewCreate.mockRejectedValue(new Error('DB 다운'));
 
-    await expect(
-      trackPolicyView('user-1', 'policy-1', 'detail'),
-    ).resolves.toBeUndefined();
+    await expect(trackPolicyView('user-1', 'policy-1', 'detail')).resolves.toBeUndefined();
   });
 
   it('성공 시 최근 행동 캐시를 무효화해야 한다 (AC-003)', async () => {

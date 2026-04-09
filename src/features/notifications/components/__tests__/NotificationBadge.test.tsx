@@ -8,9 +8,8 @@ vi.mock('@/features/notifications/actions/notification.queries', () => ({
 
 describe('NotificationBadge', () => {
   it('읽지 않은 알림이 있으면 배지를 표시한다', async () => {
-    const { getUnreadCount } = await import(
-      '@/features/notifications/actions/notification.queries'
-    );
+    const { getUnreadCount } =
+      await import('@/features/notifications/actions/notification.queries');
     vi.mocked(getUnreadCount).mockResolvedValue(3);
 
     const jsx = await NotificationBadge();
@@ -20,9 +19,8 @@ describe('NotificationBadge', () => {
   });
 
   it('읽지 않은 알림이 없으면 null을 반환한다', async () => {
-    const { getUnreadCount } = await import(
-      '@/features/notifications/actions/notification.queries'
-    );
+    const { getUnreadCount } =
+      await import('@/features/notifications/actions/notification.queries');
     vi.mocked(getUnreadCount).mockResolvedValue(0);
 
     const result = await NotificationBadge();
@@ -31,9 +29,8 @@ describe('NotificationBadge', () => {
   });
 
   it('100개 이상이면 99+로 표시한다', async () => {
-    const { getUnreadCount } = await import(
-      '@/features/notifications/actions/notification.queries'
-    );
+    const { getUnreadCount } =
+      await import('@/features/notifications/actions/notification.queries');
     vi.mocked(getUnreadCount).mockResolvedValue(150);
 
     const jsx = await NotificationBadge();

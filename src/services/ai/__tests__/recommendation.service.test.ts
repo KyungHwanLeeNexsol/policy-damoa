@@ -69,10 +69,7 @@ vi.mock('@/services/ai/behavior-tracking.service', () => ({
 
 import { getRedis } from '@/lib/redis';
 
-import {
-  ProfileIncompleteError,
-  generateRecommendations,
-} from '../recommendation.service';
+import { ProfileIncompleteError, generateRecommendations } from '../recommendation.service';
 
 const mockRedis = { get: mockRedisGet, set: mockRedisSet };
 
@@ -113,7 +110,9 @@ const candidatePolicies = [
   },
 ];
 
-function geminiResponse(recs: Array<{ policyId: string; score: number; rank: number; reason: string }>) {
+function geminiResponse(
+  recs: Array<{ policyId: string; score: number; rank: number; reason: string }>
+) {
   return {
     choices: [
       {
@@ -137,9 +136,7 @@ describe('generateRecommendations — 캐시 히트 (AC-006)', () => {
 
   it('Redis 캐시가 있으면 Gemini 를 호출하지 않고 즉시 반환해야 한다', async () => {
     const cached = {
-      recommendations: [
-        { policyId: 'p1', score: 0.9, rank: 1, reason: '캐시' },
-      ],
+      recommendations: [{ policyId: 'p1', score: 0.9, rank: 1, reason: '캐시' }],
       generatedAt: new Date().toISOString(),
     };
     mockRedisGet.mockResolvedValue(cached);
@@ -171,7 +168,7 @@ describe('generateRecommendations — 캐시 미스 + Gemini 성공 (AC-007, AC-
       geminiResponse([
         { policyId: 'p1', score: 0.9, rank: 1, reason: '청년 조건 일치' },
         { policyId: 'p2', score: 0.7, rank: 2, reason: '서울 지역' },
-      ]),
+      ])
     );
 
     const result = await generateRecommendations('user-1');
@@ -180,18 +177,14 @@ describe('generateRecommendations — 캐시 미스 + Gemini 성공 (AC-007, AC-
     expect(result.recommendations).toHaveLength(2);
     expect(mockGeminiCreate).toHaveBeenCalledTimes(1);
     expect(mockPolicyRecommendationCreateMany).toHaveBeenCalled();
-    expect(mockRedisSet).toHaveBeenCalledWith(
-      'recommendations:user:user-1',
-      expect.any(Object),
-      { ex: 3600 },
-    );
+    expect(mockRedisSet).toHaveBeenCalledWith('recommendations:user:user-1', expect.any(Object), {
+      ex: 3600,
+    });
   });
 
   it('각 추천에 reason 필드가 200자 이하 한국어로 포함되어야 한다 (AC-008)', async () => {
     mockGeminiCreate.mockResolvedValue(
-      geminiResponse([
-        { policyId: 'p1', score: 0.9, rank: 1, reason: '청년 조건 일치' },
-      ]),
+      geminiResponse([{ policyId: 'p1', score: 0.9, rank: 1, reason: '청년 조건 일치' }])
     );
 
     const result = await generateRecommendations('user-1');
@@ -228,9 +221,7 @@ describe('generateRecommendations — Gemini 실패 → 폴백 (AC-009, AC-012)'
 
   it('Gemini JSON 이 Zod 검증 실패 시 폴백 사용 (AC-012)', async () => {
     mockGeminiCreate.mockResolvedValue({
-      choices: [
-        { message: { content: JSON.stringify({ wrong: 'shape' }) } },
-      ],
+      choices: [{ message: { content: JSON.stringify({ wrong: 'shape' }) } }],
       usage: { total_tokens: 100 },
     });
 
@@ -245,11 +236,9 @@ describe('generateRecommendations — Gemini 실패 → 폴백 (AC-009, AC-012)'
 
     await generateRecommendations('user-1');
 
-    expect(mockRedisSet).toHaveBeenCalledWith(
-      'recommendations:user:user-1',
-      expect.any(Object),
-      { ex: 15 * 60 },
-    );
+    expect(mockRedisSet).toHaveBeenCalledWith('recommendations:user:user-1', expect.any(Object), {
+      ex: 15 * 60,
+    });
   });
 });
 
@@ -267,9 +256,7 @@ describe('generateRecommendations — 프로필 불완전 (AC-010)', () => {
       birthYear: null,
     });
 
-    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(
-      ProfileIncompleteError,
-    );
+    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(ProfileIncompleteError);
   });
 
   it('regionId 가 없으면 ProfileIncompleteError 를 던져야 한다', async () => {
@@ -278,16 +265,12 @@ describe('generateRecommendations — 프로필 불완전 (AC-010)', () => {
       regionId: null,
     });
 
-    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(
-      ProfileIncompleteError,
-    );
+    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(ProfileIncompleteError);
   });
 
   it('UserProfile 이 없으면 ProfileIncompleteError 를 던져야 한다', async () => {
     mockUserProfileFindUnique.mockResolvedValue(null);
 
-    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(
-      ProfileIncompleteError,
-    );
+    await expect(generateRecommendations('user-1')).rejects.toBeInstanceOf(ProfileIncompleteError);
   });
 });

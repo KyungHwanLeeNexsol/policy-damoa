@@ -25,11 +25,7 @@ export function PolicyPagination({
 
   // 페이지가 1개뿐이면 렌더링하지 않음
   if (totalPages <= 1) {
-    return (
-      <p className="text-sm text-muted-foreground text-center">
-        전체 {total}개 정책
-      </p>
-    );
+    return <p className="text-sm text-muted-foreground text-center">전체 {total}개 정책</p>;
   }
 
   const goToPage = (targetPage: number): void => {
@@ -58,9 +54,7 @@ export function PolicyPagination({
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="text-sm text-muted-foreground">
-        전체 {total}개 정책
-      </p>
+      <p className="text-sm text-muted-foreground">전체 {total}개 정책</p>
       <div className="flex items-center gap-1">
         <Button
           variant="outline"
@@ -77,9 +71,7 @@ export function PolicyPagination({
             <Button variant="ghost" size="sm" onClick={() => goToPage(1)}>
               1
             </Button>
-            {pageNumbers[0]! > 2 && (
-              <span className="px-1 text-muted-foreground">...</span>
-            )}
+            {pageNumbers[0]! > 2 && <span className="px-1 text-muted-foreground">...</span>}
           </>
         )}
 

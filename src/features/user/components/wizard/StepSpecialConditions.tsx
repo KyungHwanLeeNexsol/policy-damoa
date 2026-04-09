@@ -19,10 +19,7 @@ export function StepSpecialConditions({
   onNext,
   onPrev,
 }: StepSpecialConditionsProps) {
-  const {
-    register,
-    handleSubmit,
-  } = useForm<StepSpecialConditionsData>({
+  const { register, handleSubmit } = useForm<StepSpecialConditionsData>({
     resolver: zodResolver(stepSpecialConditionsSchema),
     defaultValues: {
       isDisabled: false,

@@ -10,9 +10,7 @@ export const maxDuration = 900;
 /** 보조금24 동기화 Cron 핸들러 */
 export async function GET(request: Request): Promise<Response> {
   // CRON_SECRET Bearer 인증
-  const secret = request.headers
-    .get('Authorization')
-    ?.replace('Bearer ', '');
+  const secret = request.headers.get('Authorization')?.replace('Bearer ', '');
   if (secret !== process.env.CRON_SECRET) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -39,7 +37,7 @@ export async function GET(request: Request): Promise<Response> {
         authFailed: isAuthError,
         timestamp: new Date().toISOString(),
       },
-      { status: isAuthError ? 403 : 500 },
+      { status: isAuthError ? 403 : 500 }
     );
   }
 }

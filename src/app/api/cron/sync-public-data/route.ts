@@ -9,9 +9,7 @@ export const maxDuration = 900;
 /** 공공데이터포털 동기화 Cron 핸들러 */
 export async function GET(request: Request): Promise<Response> {
   // CRON_SECRET Bearer 인증
-  const secret = request.headers
-    .get('Authorization')
-    ?.replace('Bearer ', '');
+  const secret = request.headers.get('Authorization')?.replace('Bearer ', '');
   if (secret !== process.env.CRON_SECRET) {
     return Response.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -36,7 +34,7 @@ export async function GET(request: Request): Promise<Response> {
         error: message,
         timestamp: new Date().toISOString(),
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

@@ -41,7 +41,7 @@ const MAX_CANDIDATES = 50;
 export function buildRecommendationPrompt(
   profile: PromptProfile,
   behavior: PromptBehavior,
-  candidates: PromptCandidate[],
+  candidates: PromptCandidate[]
 ): ChatMessage[] {
   const system: ChatMessage = {
     role: 'system',

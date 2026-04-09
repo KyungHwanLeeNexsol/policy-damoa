@@ -20,9 +20,7 @@ export default function PoliciesError({ error, reset }: ErrorProps): React.React
   return (
     <div className="flex flex-col items-center justify-center py-16 gap-4 text-center">
       <p className="text-lg font-medium">정책 목록을 불러오지 못했습니다.</p>
-      <p className="text-sm text-muted-foreground">
-        잠시 후 다시 시도해 주세요.
-      </p>
+      <p className="text-sm text-muted-foreground">잠시 후 다시 시도해 주세요.</p>
       <Button onClick={reset} variant="outline">
         다시 시도
       </Button>

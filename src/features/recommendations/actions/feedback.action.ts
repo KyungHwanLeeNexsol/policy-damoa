@@ -9,7 +9,7 @@ import type { FeedbackRating } from '../types';
 
 export async function submitFeedbackAction(
   policyId: string,
-  rating: FeedbackRating,
+  rating: FeedbackRating
 ): Promise<{ success: boolean; error?: string }> {
   const session = await auth();
   if (!session?.user?.id) {

@@ -10,10 +10,7 @@ import { getRedis } from '@/lib/redis';
  * API 응답 캐시 조회 (TTL: 6시간)
  * Redis 실패 시 null 반환
  */
-export async function getCachedApiResponse<T>(
-  source: string,
-  page: number,
-): Promise<T | null> {
+export async function getCachedApiResponse<T>(source: string, page: number): Promise<T | null> {
   try {
     const redis = getRedis();
     if (!redis) return null;
@@ -34,7 +31,7 @@ export async function getCachedApiResponse<T>(
 export async function setCachedApiResponse(
   source: string,
   page: number,
-  data: unknown,
+  data: unknown
 ): Promise<void> {
   try {
     const redis = getRedis();
@@ -51,9 +48,7 @@ export async function setCachedApiResponse(
  * 정책 목록 캐시 조회 (TTL: 15분)
  * filterHash: 필터 조건의 해시값
  */
-export async function getCachedPolicyList<T>(
-  filterHash: string,
-): Promise<T | null> {
+export async function getCachedPolicyList<T>(filterHash: string): Promise<T | null> {
   try {
     const redis = getRedis();
     if (!redis) return null;
@@ -70,10 +65,7 @@ export async function getCachedPolicyList<T>(
 /**
  * 정책 목록 캐시 저장 (TTL: 15분)
  */
-export async function setCachedPolicyList(
-  filterHash: string,
-  data: unknown,
-): Promise<void> {
+export async function setCachedPolicyList(filterHash: string, data: unknown): Promise<void> {
   try {
     const redis = getRedis();
     if (!redis) return;
@@ -105,10 +97,7 @@ export async function getCachedPolicyDetail<T>(id: string): Promise<T | null> {
 /**
  * 정책 상세 캐시 저장 (TTL: 30분)
  */
-export async function setCachedPolicyDetail(
-  id: string,
-  data: unknown,
-): Promise<void> {
+export async function setCachedPolicyDetail(id: string, data: unknown): Promise<void> {
   try {
     const redis = getRedis();
     if (!redis) return;

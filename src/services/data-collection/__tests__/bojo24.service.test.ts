@@ -55,7 +55,7 @@ describe('bojo24.service — AuthError 처리', () => {
         data: expect.objectContaining({
           status: 'AUTH_FAILED',
         }),
-      }),
+      })
     );
   });
 
@@ -106,7 +106,7 @@ describe('bojo24.service — AuthError 처리', () => {
         data: expect.objectContaining({
           status: 'SUCCESS',
         }),
-      }),
+      })
     );
   });
 });

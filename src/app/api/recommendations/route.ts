@@ -20,10 +20,7 @@ export async function GET(): Promise<Response> {
     return Response.json(result, { status: 200 });
   } catch (err) {
     if (err instanceof ProfileIncompleteError) {
-      return Response.json(
-        { error: 'ProfileIncomplete', message: err.message },
-        { status: 422 },
-      );
+      return Response.json({ error: 'ProfileIncomplete', message: err.message }, { status: 422 });
     }
     console.error('[api/recommendations] 내부 오류', err);
     return Response.json({ error: 'InternalError' }, { status: 500 });

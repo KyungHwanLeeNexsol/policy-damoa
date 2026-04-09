@@ -30,9 +30,8 @@ export function NotificationList({ initialData }: NotificationListProps) {
     if (!cursor) return;
 
     startTransition(async () => {
-      const { getNotifications } = await import(
-        '@/features/notifications/actions/notification.queries'
-      );
+      const { getNotifications } =
+        await import('@/features/notifications/actions/notification.queries');
       const next = await getNotifications(cursor);
       setItems((prev) => [...prev, ...next.items]);
       setHasMore(next.hasMore);

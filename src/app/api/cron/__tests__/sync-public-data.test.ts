@@ -44,9 +44,7 @@ describe('GET /api/cron/sync-public-data', () => {
   });
 
   it('올바른 CRON_SECRET으로 동기화를 실행해야 한다', async () => {
-    const { syncAll } = await import(
-      '@/services/data-collection/publicDataPortal.service'
-    );
+    const { syncAll } = await import('@/services/data-collection/publicDataPortal.service');
     vi.mocked(syncAll).mockResolvedValue(undefined);
 
     const { GET } = await import('../sync-public-data/route');
@@ -64,9 +62,7 @@ describe('GET /api/cron/sync-public-data', () => {
   });
 
   it('동기화 실패 시 500을 반환해야 한다', async () => {
-    const { syncAll } = await import(
-      '@/services/data-collection/publicDataPortal.service'
-    );
+    const { syncAll } = await import('@/services/data-collection/publicDataPortal.service');
     vi.mocked(syncAll).mockRejectedValue(new Error('API 오류'));
 
     const { GET } = await import('../sync-public-data/route');

@@ -11,13 +11,13 @@ self.addEventListener('install', (event) => {
 // Service Worker 활성화
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
-      Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
+        )
       )
-    )
   );
   self.clients.claim();
 });
@@ -53,9 +53,7 @@ self.addEventListener('push', (event) => {
     ],
   };
 
-  event.waitUntil(
-    self.registration.showNotification(payload.title ?? '정책다모아', options)
-  );
+  event.waitUntil(self.registration.showNotification(payload.title ?? '정책다모아', options));
 });
 
 // 알림 클릭 이벤트 처리
@@ -67,19 +65,17 @@ self.addEventListener('notificationclick', (event) => {
   const url = event.notification.data?.url ?? '/';
 
   event.waitUntil(
-    clients
-      .matchAll({ type: 'window', includeUncontrolled: true })
-      .then((clientList) => {
-        // 이미 열린 탭이 있으면 포커스
-        for (const client of clientList) {
-          if (client.url === url && 'focus' in client) {
-            return client.focus();
-          }
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      // 이미 열린 탭이 있으면 포커스
+      for (const client of clientList) {
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
         }
-        // 없으면 새 탭 열기
-        if (clients.openWindow) {
-          return clients.openWindow(url);
-        }
-      })
+      }
+      // 없으면 새 탭 열기
+      if (clients.openWindow) {
+        return clients.openWindow(url);
+      }
+    })
   );
 });

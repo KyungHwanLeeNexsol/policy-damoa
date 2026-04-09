@@ -18,9 +18,7 @@ export interface UpsertResult {
  * 정규화된 정책 목록을 externalId 기준으로 upsert한다.
  * null 항목은 skipCount에 포함된다.
  */
-export async function upsertPolicies(
-  policies: (NormalizedPolicy | null)[],
-): Promise<UpsertResult> {
+export async function upsertPolicies(policies: (NormalizedPolicy | null)[]): Promise<UpsertResult> {
   let upsertCount = 0;
   let skipCount = 0;
   let errorCount = 0;
@@ -72,10 +70,7 @@ export async function upsertPolicies(
       });
       upsertCount++;
     } catch (error) {
-      console.error(
-        `[deduplicator] upsert 실패 (externalId: ${policy.externalId}):`,
-        error,
-      );
+      console.error(`[deduplicator] upsert 실패 (externalId: ${policy.externalId}):`, error);
       errorCount++;
     }
   }

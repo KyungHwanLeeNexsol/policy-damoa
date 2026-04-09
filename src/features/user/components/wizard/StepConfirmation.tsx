@@ -111,9 +111,7 @@ export function StepConfirmation({
         )}
       </div>
 
-      {error && (
-        <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600">{error}</div>
-      )}
+      {error && <div className="rounded-lg bg-red-50 p-4 text-sm text-red-600">{error}</div>}
 
       <div className="flex gap-3">
         <button

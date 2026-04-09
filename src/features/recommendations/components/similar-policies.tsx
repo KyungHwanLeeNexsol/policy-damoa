@@ -14,10 +14,7 @@ interface SimilarPoliciesProps {
   limit?: number;
 }
 
-async function fetchSimilar(
-  policyId: string,
-  limit: number,
-): Promise<SimilarPolicyItem[]> {
+async function fetchSimilar(policyId: string, limit: number): Promise<SimilarPolicyItem[]> {
   const res = await fetch(`/api/policies/${policyId}/similar?limit=${limit}`);
   if (!res.ok) throw new Error('FETCH_FAILED');
   const json = (await res.json()) as { similar: SimilarPolicyItem[] };
@@ -53,10 +50,7 @@ export function SimilarPolicies({ policyId, limit = 5 }: SimilarPoliciesProps) {
           <Card key={p.id}>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm">
-                <Link
-                  href={`/policies/${p.id}?source=similar`}
-                  className="hover:underline"
-                >
+                <Link href={`/policies/${p.id}?source=similar`} className="hover:underline">
                   {p.title}
                 </Link>
               </CardTitle>

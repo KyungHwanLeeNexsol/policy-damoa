@@ -42,9 +42,7 @@ function makeCandidate(id: string): {
 
 describe('buildRecommendationPrompt', () => {
   it('system 과 user 메시지를 반환해야 한다', () => {
-    const msgs = buildRecommendationPrompt(baseProfile, baseBehavior, [
-      makeCandidate('p1'),
-    ]);
+    const msgs = buildRecommendationPrompt(baseProfile, baseBehavior, [makeCandidate('p1')]);
 
     expect(msgs).toHaveLength(2);
     expect(msgs[0]?.role).toBe('system');
@@ -62,9 +60,7 @@ describe('buildRecommendationPrompt', () => {
       ...baseProfile,
       // 타입에는 없지만, 실수로 퍼졌을 때도 안전한지 확인
     };
-    const msgs = buildRecommendationPrompt(profileWithPII, baseBehavior, [
-      makeCandidate('p1'),
-    ]);
+    const msgs = buildRecommendationPrompt(profileWithPII, baseBehavior, [makeCandidate('p1')]);
     const full = msgs.map((m) => m.content).join('\n');
 
     expect(full).not.toMatch(/@/); // 이메일
@@ -74,9 +70,7 @@ describe('buildRecommendationPrompt', () => {
   });
 
   it('후보 정책이 50개를 넘으면 최대 50개로 절단해야 한다', () => {
-    const candidates = Array.from({ length: 80 }, (_, i) =>
-      makeCandidate(`p${i}`),
-    );
+    const candidates = Array.from({ length: 80 }, (_, i) => makeCandidate(`p${i}`));
     const msgs = buildRecommendationPrompt(baseProfile, baseBehavior, candidates);
     const user = msgs[1]?.content ?? '';
 

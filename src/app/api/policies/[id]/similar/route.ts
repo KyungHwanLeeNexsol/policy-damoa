@@ -5,14 +5,12 @@ import { getSimilarPolicies } from '@/services/ai/similar-policies.service';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ): Promise<Response> {
   const { id } = await params;
   const url = new URL(request.url);
   const rawLimit = Number(url.searchParams.get('limit') ?? '5');
-  const limit = Number.isFinite(rawLimit)
-    ? Math.min(Math.max(Math.trunc(rawLimit), 1), 10)
-    : 5;
+  const limit = Number.isFinite(rawLimit) ? Math.min(Math.max(Math.trunc(rawLimit), 1), 10) : 5;
 
   try {
     const similar = await getSimilarPolicies(id, limit);

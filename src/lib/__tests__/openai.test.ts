@@ -38,9 +38,7 @@ describe('lib/openai — Gemini 클라이언트 구성', () => {
       maxRetries?: number;
     };
     expect(opts.apiKey).toBe('test-gemini-key');
-    expect(opts.baseURL).toBe(
-      'https://generativelanguage.googleapis.com/v1beta/openai/',
-    );
+    expect(opts.baseURL).toBe('https://generativelanguage.googleapis.com/v1beta/openai/');
     expect(opts.timeout).toBe(30_000);
     expect(opts.maxRetries).toBe(2);
   });

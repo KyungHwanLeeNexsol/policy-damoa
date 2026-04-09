@@ -23,16 +23,17 @@ export function buildCacheKey(
       cleanFilters[key] = value;
     }
   }
-  const sorted = JSON.stringify({ ...cleanFilters, page, pageSize }, Object.keys({ ...cleanFilters, page: page, pageSize: pageSize }).sort());
+  const sorted = JSON.stringify(
+    { ...cleanFilters, page, pageSize },
+    Object.keys({ ...cleanFilters, page: page, pageSize: pageSize }).sort()
+  );
   return createHash('md5').update(sorted).digest('hex');
 }
 
 /**
  * PolicySearchFilters를 Prisma where 절로 변환한다.
  */
-export function buildPolicyWhere(
-  filters: PolicySearchFilters
-): Record<string, unknown> {
+export function buildPolicyWhere(filters: PolicySearchFilters): Record<string, unknown> {
   const where: Record<string, unknown> = {};
 
   // 텍스트 검색: title, description, sourceAgency OR 조건
@@ -80,9 +81,7 @@ export function buildPolicyWhere(
 /**
  * sortBy 파라미터를 Prisma orderBy 절로 변환한다.
  */
-export function buildOrderBy(
-  sortBy?: string
-): Record<string, string> {
+export function buildOrderBy(sortBy?: string): Record<string, string> {
   switch (sortBy) {
     case 'newest':
       return { createdAt: 'desc' };

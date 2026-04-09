@@ -3,10 +3,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type {
-  FeedbackPayload,
-  RecommendationsResult,
-} from '../types';
+import type { FeedbackPayload, RecommendationsResult } from '../types';
 
 async function postFeedback(payload: FeedbackPayload): Promise<void> {
   const res = await fetch('/api/recommendations/feedback', {
@@ -31,14 +28,12 @@ export function useRecommendationFeedback() {
     mutationFn: postFeedback,
     onMutate: async (payload) => {
       await queryClient.cancelQueries({ queryKey: ['recommendations'] });
-      const previous = queryClient.getQueryData<RecommendationsResult>([
-        'recommendations',
-      ]);
+      const previous = queryClient.getQueryData<RecommendationsResult>(['recommendations']);
       if (previous) {
         queryClient.setQueryData<RecommendationsResult>(['recommendations'], {
           ...previous,
           recommendations: previous.recommendations.filter(
-            (r) => !(payload.rating === 'DOWN' && r.policyId === payload.policyId),
+            (r) => !(payload.rating === 'DOWN' && r.policyId === payload.policyId)
           ),
         });
       }

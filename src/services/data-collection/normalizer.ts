@@ -4,20 +4,13 @@
 
 import type { SyncSource } from '@/types/sync';
 
-import {
-  type NormalizedPolicy,
-  RawBojo24PolicySchema,
-  RawPublicDataPolicySchema,
-} from './types';
+import { type NormalizedPolicy, RawBojo24PolicySchema, RawPublicDataPolicySchema } from './types';
 
 /**
  * 원시 데이터를 NormalizedPolicy로 변환한다.
  * Zod 유효성 검증 실패 시 null 반환 (호출자가 skipCount 증가).
  */
-export function normalize(
-  source: SyncSource,
-  raw: unknown,
-): NormalizedPolicy | null {
+export function normalize(source: SyncSource, raw: unknown): NormalizedPolicy | null {
   if (raw == null) return null;
 
   switch (source) {
@@ -41,9 +34,7 @@ function normalizePublicData(raw: unknown): NormalizedPolicy | null {
     externalId: `PUBLIC_DATA_PORTAL:${d.bizId}`,
     title: d.polyBizSjNm,
     description: d.polyItcnCn ?? null,
-    eligibilityCriteria: d.majrRqisCn
-      ? { mainRequirements: d.majrRqisCn }
-      : null,
+    eligibilityCriteria: d.majrRqisCn ? { mainRequirements: d.majrRqisCn } : null,
     additionalConditions: d.aditRscn ? { additionalInfo: d.aditRscn } : null,
     benefitType: d.polyBizTy ?? null,
     benefitAmount: d.sporCn ?? null,
@@ -67,9 +58,7 @@ function normalizeBojo24(raw: unknown): NormalizedPolicy | null {
     externalId: `BOJO24:${d.svcId}`,
     title: d.svcNm,
     description: d.svcPurpsCn ?? null,
-    eligibilityCriteria: d.sltCritCn
-      ? { selectionCriteria: d.sltCritCn }
-      : null,
+    eligibilityCriteria: d.sltCritCn ? { selectionCriteria: d.sltCritCn } : null,
     additionalConditions: null,
     benefitType: null,
     benefitAmount: d.alwServCn ?? null,

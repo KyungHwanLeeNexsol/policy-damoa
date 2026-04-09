@@ -4,16 +4,8 @@ import { buildCacheKey, buildOrderBy, buildPolicyWhere } from '../policy.queries
 
 describe('buildCacheKey', () => {
   it('동일한 필터를 다른 순서로 전달해도 동일한 해시를 반환한다', () => {
-    const key1 = buildCacheKey(
-      { query: '주거', categoryId: 'housing', status: 'active' },
-      1,
-      20
-    );
-    const key2 = buildCacheKey(
-      { status: 'active', query: '주거', categoryId: 'housing' },
-      1,
-      20
-    );
+    const key1 = buildCacheKey({ query: '주거', categoryId: 'housing', status: 'active' }, 1, 20);
+    const key2 = buildCacheKey({ status: 'active', query: '주거', categoryId: 'housing' }, 1, 20);
     expect(key1).toBe(key2);
   });
 

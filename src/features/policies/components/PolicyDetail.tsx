@@ -15,10 +15,7 @@ interface PolicyDetailProps {
  * 정책 상세 컴포넌트 (서버 컴포넌트)
  * 정책의 모든 상세 정보와 적격성 체크리스트를 렌더링한다.
  */
-export function PolicyDetail({
-  policy,
-  userProfile,
-}: PolicyDetailProps): React.ReactNode {
+export function PolicyDetail({ policy, userProfile }: PolicyDetailProps): React.ReactNode {
   return (
     <div className="space-y-8">
       {/* 정책 헤더 */}
@@ -41,15 +38,10 @@ export function PolicyDetail({
 
         {/* 메타 정보 */}
         <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-          {policy.sourceAgency && (
-            <span>주관 기관: {policy.sourceAgency}</span>
-          )}
+          {policy.sourceAgency && <span>주관 기관: {policy.sourceAgency}</span>}
           {policy.region && <span>지역: {policy.region.name}</span>}
           {policy.applicationDeadline && (
-            <span>
-              신청 마감:{' '}
-              {formatDate(policy.applicationDeadline, 'full')}
-            </span>
+            <span>신청 마감: {formatDate(policy.applicationDeadline, 'full')}</span>
           )}
           {policy.benefitType && <span>혜택 유형: {policy.benefitType}</span>}
         </div>

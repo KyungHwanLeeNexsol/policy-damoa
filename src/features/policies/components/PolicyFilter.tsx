@@ -30,10 +30,7 @@ const SORT_OPTIONS = [
  * 정책 필터 패널 컴포넌트
  * 데스크탑에서는 인라인, 모바일에서는 Sheet로 표시한다.
  */
-export function PolicyFilter({
-  regions,
-  categories,
-}: PolicyFilterProps): React.ReactNode {
+export function PolicyFilter({ regions, categories }: PolicyFilterProps): React.ReactNode {
   const router = useRouter();
   const searchParams = useSearchParams();
 

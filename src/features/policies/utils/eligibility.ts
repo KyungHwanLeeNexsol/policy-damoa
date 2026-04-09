@@ -14,24 +14,25 @@ export interface EligibilityResult {
 }
 
 // eligibilityCriteria JSONB의 기대 스키마 (방어적 파싱)
-const eligibilityCriteriaSchema = z.object({
-  occupation: z.array(z.string()).optional(),
-  ageRange: z.object({
-    min: z.number(),
-    max: z.number(),
-  }).optional(),
-  familyStatus: z.array(z.string()).optional(),
-  region: z.array(z.string()).optional(),
-}).passthrough();
+const eligibilityCriteriaSchema = z
+  .object({
+    occupation: z.array(z.string()).optional(),
+    ageRange: z
+      .object({
+        min: z.number(),
+        max: z.number(),
+      })
+      .optional(),
+    familyStatus: z.array(z.string()).optional(),
+    region: z.array(z.string()).optional(),
+  })
+  .passthrough();
 
 /**
  * 정책의 수급 자격 조건과 사용자 프로필을 비교하여 적격성을 판단한다.
  * eligibilityCriteria가 null/undefined이거나 비정형 데이터인 경우에도 에러 없이 처리한다.
  */
-export function matchEligibility(
-  policy: Policy,
-  profile: UserProfile
-): EligibilityResult[] {
+export function matchEligibility(policy: Policy, profile: UserProfile): EligibilityResult[] {
   const results: EligibilityResult[] = [];
 
   // null/undefined 방어

@@ -44,7 +44,9 @@ export function WizardProgress({ currentStep, totalSteps }: WizardProgressProps)
               >
                 {isCompleted ? '✓' : step}
               </div>
-              <span className={`mt-1 text-xs ${isCurrent ? 'text-blue-500 font-medium' : 'text-gray-400'}`}>
+              <span
+                className={`mt-1 text-xs ${isCurrent ? 'text-blue-500 font-medium' : 'text-gray-400'}`}
+              >
                 {label}
               </span>
             </div>

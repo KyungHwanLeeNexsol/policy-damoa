@@ -4,7 +4,7 @@
 export class AuthError extends Error {
   constructor(
     message: string,
-    public readonly statusCode: number,
+    public readonly statusCode: number
   ) {
     super(message);
     this.name = 'AuthError';
@@ -18,7 +18,7 @@ export class AuthError extends Error {
  */
 export async function withRetry<T>(
   fn: () => Promise<T>,
-  options: { maxRetries?: number; baseDelay?: number } = {},
+  options: { maxRetries?: number; baseDelay?: number } = {}
 ): Promise<T> {
   const { maxRetries = 3, baseDelay = 1000 } = options;
 

@@ -23,9 +23,7 @@ describe('데이터 파이프라인 통합 테스트', () => {
         null,
       ];
 
-      const results = rawItems.map((item) =>
-        normalize('PUBLIC_DATA_PORTAL', item),
-      );
+      const results = rawItems.map((item) => normalize('PUBLIC_DATA_PORTAL', item));
 
       const valid = results.filter((r) => r !== null);
       const invalid = results.filter((r) => r === null);
@@ -69,7 +67,7 @@ describe('데이터 파이프라인 통합 테스트', () => {
           if (callCount < 3) throw new Error('일시적 오류');
           return '성공';
         },
-        { maxRetries: 3, baseDelay: 1 },
+        { maxRetries: 3, baseDelay: 1 }
       );
       expect(retryResult).toBe('성공');
       expect(callCount).toBe(3);
@@ -80,8 +78,8 @@ describe('데이터 파이프라인 통합 테스트', () => {
           async () => {
             throw new AuthError('인증 만료', 401);
           },
-          { maxRetries: 3, baseDelay: 1 },
-        ),
+          { maxRetries: 3, baseDelay: 1 }
+        )
       ).rejects.toThrow(AuthError);
     });
   });

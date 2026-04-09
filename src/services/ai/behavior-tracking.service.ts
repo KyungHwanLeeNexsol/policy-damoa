@@ -24,7 +24,7 @@ function recentBehaviorKey(userId: string): string {
 export async function trackPolicyView(
   userId: string,
   policyId: string,
-  source: PolicyViewSource,
+  source: PolicyViewSource
 ): Promise<void> {
   try {
     await prisma.policyView.create({
@@ -53,7 +53,7 @@ export async function trackPolicyView(
 export async function trackSearch(
   userId: string | null,
   query: string,
-  filters: Record<string, unknown> | null | undefined,
+  filters: Record<string, unknown> | null | undefined
 ): Promise<void> {
   try {
     await prisma.searchLog.create({

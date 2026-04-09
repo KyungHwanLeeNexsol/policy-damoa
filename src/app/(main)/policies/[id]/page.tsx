@@ -17,9 +17,7 @@ interface PolicyDetailPageProps {
 /**
  * 정책 상세 페이지 메타데이터 생성
  */
-export async function generateMetadata({
-  params,
-}: PolicyDetailPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PolicyDetailPageProps): Promise<Metadata> {
   const { id } = await params;
   const policy = await getPolicyById(id);
 
@@ -41,11 +39,7 @@ export default async function PolicyDetailPage({
   params,
   searchParams,
 }: PolicyDetailPageProps): Promise<React.ReactNode> {
-  const [{ id }, { source }, session] = await Promise.all([
-    params,
-    searchParams,
-    auth(),
-  ]);
+  const [{ id }, { source }, session] = await Promise.all([params, searchParams, auth()]);
   const policy = await getPolicyById(id);
 
   if (!policy) {
@@ -64,7 +58,7 @@ export default async function PolicyDetailPage({
       void trackPolicyView(
         session.user.id,
         id,
-        (source as 'recommendation' | 'similar' | 'search' | 'detail') ?? 'detail',
+        (source as 'recommendation' | 'similar' | 'search' | 'detail') ?? 'detail'
       );
     } catch {
       // 프로필 조회 실패 시 무시 (선택 기능)
@@ -73,11 +67,7 @@ export default async function PolicyDetailPage({
 
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 space-y-8">
-      <PolicyDetail
-        policy={policy}
-        session={session}
-        userProfile={userProfile}
-      />
+      <PolicyDetail policy={policy} session={session} userProfile={userProfile} />
       <SimilarPolicies policyId={id} />
     </div>
   );

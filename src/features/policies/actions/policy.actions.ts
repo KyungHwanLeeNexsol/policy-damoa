@@ -43,7 +43,7 @@ export async function getPolicies(
         trackSearch(session?.user?.id ?? null, queryText, {
           regionCode: filters.regionCode ?? null,
           categoryId: filters.categoryId ?? null,
-        }),
+        })
       )
       .catch(() => {
         /* fire-and-forget */
@@ -97,9 +97,7 @@ export async function getPolicies(
  * ID로 정책 상세를 조회한다.
  * 캐시 우선 조회 후 Prisma 폴백.
  */
-export async function getPolicyById(
-  id: string
-): Promise<PolicyWithCategories | null> {
+export async function getPolicyById(id: string): Promise<PolicyWithCategories | null> {
   // 캐시 조회
   const cached = await getCachedPolicyDetail<PolicyWithCategories>(id);
   if (cached) {

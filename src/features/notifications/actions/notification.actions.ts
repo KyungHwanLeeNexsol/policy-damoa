@@ -2,7 +2,11 @@
 
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/db';
-import type { ActionResult, DigestFrequency, NotificationPreferenceData } from '@/features/notifications/types';
+import type {
+  ActionResult,
+  DigestFrequency,
+  NotificationPreferenceData,
+} from '@/features/notifications/types';
 
 /**
  * 단일 알림 읽음 처리
