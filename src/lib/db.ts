@@ -15,6 +15,7 @@ const globalForPrisma = globalThis as unknown as {
 function getPrismaClient(): PrismaClient {
   if (!globalForPrisma.prisma) {
     const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    // @ts-expect-error -- @neondatabase/serverless Pool과 pg.Pool 타입 불일치, 런타임 호환됨
     const adapter = new PrismaNeon(pool);
     globalForPrisma.prisma = new PrismaClient({ adapter });
   }
