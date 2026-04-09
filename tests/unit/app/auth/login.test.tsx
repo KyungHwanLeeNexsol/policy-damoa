@@ -21,10 +21,11 @@ describe('로그인 페이지', () => {
     expect(screen.getByText('카카오 계정으로 로그인')).toBeInTheDocument();
   });
 
-  it('서비스 이름이 표시되어야 한다', () => {
+  it('서비스 이름과 설명이 표시되어야 한다', () => {
     render(<LoginPage />);
 
     expect(screen.getByText('정책다모아')).toBeInTheDocument();
+    expect(screen.getByText('범정부 정책정보 통합 포털')).toBeInTheDocument();
   });
 
   it('카카오 버튼 1개가 표시되어야 한다', () => {

@@ -29,7 +29,7 @@ describe('Header', () => {
   it('네비게이션 링크를 렌더링한다', () => {
     render(<Header />);
     expect(screen.getByText('홈')).toBeInTheDocument();
-    expect(screen.getByText('정책찾기')).toBeInTheDocument();
+    expect(screen.getByText('정책검색')).toBeInTheDocument();
     expect(screen.getByText('관심정책')).toBeInTheDocument();
     expect(screen.getByText('알림설정')).toBeInTheDocument();
     expect(screen.getByText('마이페이지')).toBeInTheDocument();
@@ -40,9 +40,9 @@ describe('Header', () => {
     expect(screen.getByText('로그인')).toBeInTheDocument();
   });
 
-  it('검색 버튼이 존재한다', () => {
+  it('통합검색 버튼이 존재한다', () => {
     render(<Header />);
-    expect(screen.getByLabelText('정책 검색')).toBeInTheDocument();
+    expect(screen.getByLabelText('통합검색')).toBeInTheDocument();
   });
 
   it('알림 링크가 존재한다', () => {
