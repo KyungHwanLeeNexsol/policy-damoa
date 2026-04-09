@@ -10,17 +10,14 @@ vi.mock('next-auth/react', () => ({
   })),
 }));
 
-// next-themes 모킹
-vi.mock('next-themes', () => ({
-  useTheme: vi.fn(() => ({
-    setTheme: vi.fn(),
-    resolvedTheme: 'light',
-  })),
-}));
-
 // next/navigation 모킹
 vi.mock('next/navigation', () => ({
   usePathname: vi.fn(() => '/'),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    prefetch: vi.fn(),
+  })),
 }));
 
 describe('Header', () => {
@@ -31,9 +28,11 @@ describe('Header', () => {
 
   it('네비게이션 링크를 렌더링한다', () => {
     render(<Header />);
-    expect(screen.getByText('정책 검색')).toBeInTheDocument();
-    expect(screen.getByText('추천')).toBeInTheDocument();
-    expect(screen.getByText('알림')).toBeInTheDocument();
+    expect(screen.getByText('홈')).toBeInTheDocument();
+    expect(screen.getByText('정책찾기')).toBeInTheDocument();
+    expect(screen.getByText('관심정책')).toBeInTheDocument();
+    expect(screen.getByText('알림설정')).toBeInTheDocument();
+    expect(screen.getByText('마이페이지')).toBeInTheDocument();
   });
 
   it('비인증 상태에서 로그인 버튼을 표시한다', () => {
@@ -41,13 +40,13 @@ describe('Header', () => {
     expect(screen.getByText('로그인')).toBeInTheDocument();
   });
 
-  it('테마 전환 버튼이 존재한다', () => {
+  it('검색 버튼이 존재한다', () => {
     render(<Header />);
-    expect(screen.getByLabelText('테마 전환')).toBeInTheDocument();
+    expect(screen.getByLabelText('정책 검색')).toBeInTheDocument();
   });
 
-  it('모바일 메뉴 버튼이 존재한다', () => {
+  it('알림 링크가 존재한다', () => {
     render(<Header />);
-    expect(screen.getByLabelText('메뉴 열기')).toBeInTheDocument();
+    expect(screen.getByLabelText('알림')).toBeInTheDocument();
   });
 });
