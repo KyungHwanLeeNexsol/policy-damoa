@@ -14,9 +14,6 @@ interface PolicyDetailPageProps {
   searchParams: Promise<{ source?: string }>;
 }
 
-/**
- * 정책 상세 페이지 메타데이터 생성
- */
 export async function generateMetadata({ params }: PolicyDetailPageProps): Promise<Metadata> {
   const { id } = await params;
   const policy = await getPolicyById(id);
@@ -32,8 +29,7 @@ export async function generateMetadata({ params }: PolicyDetailPageProps): Promi
 }
 
 /**
- * 정책 상세 페이지 (서버 컴포넌트)
- * 정책 ID로 상세 정보를 조회하고 PolicyDetail 컴포넌트를 렌더링한다.
+ * 정책 상세 페이지 (Pencil 디자인 기반 2-컬럼 레이아웃)
  */
 export default async function PolicyDetailPage({
   params,
@@ -46,7 +42,6 @@ export default async function PolicyDetailPage({
     notFound();
   }
 
-  // 인증 사용자의 프로필 조회
   let userProfile: UserProfile | null = null;
   if (session?.user?.id) {
     try {
@@ -54,21 +49,42 @@ export default async function PolicyDetailPage({
         where: { userId: session.user.id },
       });
       userProfile = profile as UserProfile | null;
-      // 정책 조회 이벤트 비동기 기록 (non-blocking)
       void trackPolicyView(
         session.user.id,
         id,
         (source as 'recommendation' | 'similar' | 'search' | 'detail') ?? 'detail'
       );
     } catch {
-      // 프로필 조회 실패 시 무시 (선택 기능)
+      // 프로필 조회 실패 시 무시
     }
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-8 px-4 space-y-8">
-      <PolicyDetail policy={policy} session={session} userProfile={userProfile} />
-      <SimilarPolicies policyId={id} />
+    <div className="px-6 py-8 lg:px-[170px]">
+      <div className="flex flex-col gap-6 lg:flex-row">
+        {/* 메인 콘텐츠 */}
+        <div className="flex-1 min-w-0">
+          <div
+            className="rounded-[16px] bg-white p-6 shadow-sm"
+            style={{ border: '1px solid #F2F3F6' }}
+          >
+            <PolicyDetail policy={policy} session={session} userProfile={userProfile} />
+          </div>
+        </div>
+
+        {/* 사이드바 */}
+        <aside className="w-full lg:w-[320px] lg:shrink-0">
+          <div
+            className="rounded-[16px] bg-white p-5 shadow-sm"
+            style={{ border: '1px solid #F2F3F6' }}
+          >
+            <h3 className="text-[15px] font-bold text-[#191F28]">비슷한 정책</h3>
+            <div className="mt-4">
+              <SimilarPolicies policyId={id} />
+            </div>
+          </div>
+        </aside>
+      </div>
     </div>
   );
 }
