@@ -16,18 +16,17 @@ export default async function NotificationSettingsPage() {
 
   return (
     <div className="px-6 py-8 lg:px-[170px]">
-      <div className="mx-auto max-w-3xl">
-        {/* 타이틀 */}
-        <div className="flex items-center gap-3">
-          <div className="h-6 w-1 rounded-full bg-[#4F6EF7]" />
-          <h1 className="text-[22px] font-bold text-[#191F28]">알림 설정</h1>
-        </div>
-        <p className="mt-2 text-[14px] text-[#8B95A1]">정책 알림 수신 방법을 설정해주세요.</p>
+      {/* 타이틀 */}
+      <div className="flex items-center gap-[10px]">
+        <div className="h-6 w-1 rounded-[2px] bg-[#4F6EF7]" />
+        <h1 className="text-[22px] font-bold text-[#111111]">알림 설정</h1>
+      </div>
 
-        {/* 설정 카드 */}
+      {/* 설정 카드 */}
+      <div className="mt-5 flex flex-col gap-5">
         <div
-          className="mt-6 rounded-[16px] bg-white p-6 shadow-sm"
-          style={{ border: '1px solid #F2F3F6' }}
+          className="rounded-[16px] bg-white"
+          style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.04)' }}
         >
           <NotificationPreferences initialPreferences={preferences} />
         </div>

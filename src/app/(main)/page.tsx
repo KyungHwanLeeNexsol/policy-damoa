@@ -4,9 +4,9 @@ import { RecommendationFeed } from '@/features/recommendations/components/recomm
 const categories = [
   { key: 'all', label: '전체' },
   { key: 'housing', label: '주거' },
+  { key: 'youth', label: '청년' },
+  { key: 'child', label: '육아' },
   { key: 'startup', label: '창업' },
-  { key: 'job', label: '취업' },
-  { key: 'business', label: '상업' },
   { key: 'welfare', label: '복지' },
 ];
 

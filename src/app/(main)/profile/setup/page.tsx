@@ -17,12 +17,19 @@ export default async function ProfileSetupPage() {
   const profile = await getMyProfile();
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-2xl px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900">프로필 설정</h1>
-        <p className="mt-2 text-gray-500">맞춤 정책 추천을 위해 기본 정보를 입력해주세요.</p>
-        <ProfileWizard initialProfile={profile} />
+    <div
+      className="flex min-h-[calc(100vh-60px)] items-center justify-center px-6 py-10"
+      style={{ background: '#F7F8FA' }}
+    >
+      <div
+        className="w-full max-w-[680px] rounded-[16px] bg-white p-9"
+        style={{ boxShadow: '0 2px 16px rgba(0,0,0,0.05)' }}
+      >
+        <h1 className="text-[20px] font-bold text-[#111111]">맞춤 정책 프로필 설정</h1>
+        <div className="mt-6">
+          <ProfileWizard initialProfile={profile} />
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
