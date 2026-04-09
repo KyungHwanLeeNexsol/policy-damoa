@@ -9,6 +9,17 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Planned — SPEC-API-002: 추가 정책 수집 소스 확장
+
+**계획 날짜**: 2026-04-09
+
+- `SPEC-API-002` 작성 완료 — 복지로(BOKJIRO), 고용24(WORK24), 중소벤처기업부(SMBA) 3개 소스 추가 계획
+- Registry 패턴 + 통합 Cron(`sync-all-sources`) 아키텍처 설계 — Vercel Hobby 크론 한도 대응
+- 소스별 장애 격리, 15초 타임 버짓, 환경변수 누락 시 스킵 처리 포함
+- 수용 기준 16개 시나리오 (Given-When-Then) 정의
+
+---
+
 ### Changed — Pencil 디자인 정밀 반영 (UI/UX 개선)
 
 **수정 날짜**: 2026-04-09
