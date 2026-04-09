@@ -2,7 +2,7 @@ import { prisma } from '@/lib/db';
 import { sendPushNotification } from '@/services/notification/push.service';
 import { sendEmailNotification } from '@/services/notification/email.service';
 
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');

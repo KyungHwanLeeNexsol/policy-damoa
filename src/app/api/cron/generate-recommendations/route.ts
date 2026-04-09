@@ -4,7 +4,7 @@
 import { prisma } from '@/lib/db';
 import { generateRecommendations } from '@/services/ai/recommendation.service';
 
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 const BATCH_SIZE = 50;
 const RETRY_DELAYS_MS = [1000, 2000, 4000];

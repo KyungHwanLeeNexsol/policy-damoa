@@ -1,7 +1,7 @@
 import { sendDigestEmail } from '@/services/notification/email.service';
 import { prisma } from '@/lib/db';
 
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization');
