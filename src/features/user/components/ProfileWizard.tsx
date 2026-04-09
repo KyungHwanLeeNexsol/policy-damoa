@@ -40,14 +40,14 @@ export function ProfileWizard({ initialProfile }: ProfileWizardProps) {
     initialData: initialProfile
       ? {
           step1: {
-            birthYear: initialProfile.birthYear,
+            birthYear: initialProfile.birthYear ?? new Date().getFullYear() - 25,
             gender: initialProfile.gender as 'male' | 'female' | 'other',
           },
           step2: {
             occupation: initialProfile.occupation as 'employee' | 'self-employed' | 'student' | 'unemployed' | 'farmer' | 'freelancer' | 'other',
             incomeLevel: initialProfile.incomeLevel as 'below-50' | '50-80' | '80-100' | '100-150' | 'above-150',
           },
-          step3: { regionId: initialProfile.regionId, parentRegionId: initialProfile.regionId },
+          step3: { regionId: initialProfile.regionId ?? '', parentRegionId: initialProfile.regionId ?? '' },
           step4: {
             familyStatus: initialProfile.familyStatus as 'single' | 'married' | 'single-parent' | 'multicultural',
             isPregnant: initialProfile.isPregnant,
