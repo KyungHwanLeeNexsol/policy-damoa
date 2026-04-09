@@ -1,6 +1,6 @@
 // @MX:NOTE: [AUTO] 인증 프록시 - 보호 라우트 접근 제어
 // 인증되지 않은 사용자를 /login으로 리다이렉트
-export { auth as middleware } from '@/lib/auth';
+export { auth as proxy } from '@/lib/auth';
 
 export const config = {
   // 보호할 라우트 패턴
