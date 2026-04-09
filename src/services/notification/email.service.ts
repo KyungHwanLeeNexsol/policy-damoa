@@ -3,7 +3,10 @@ import { Resend } from 'resend';
 import { prisma } from '@/lib/db';
 import type { EmailNotificationData, DigestEmailData } from '@/features/notifications/types';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// 빌드 타임이 아닌 런타임에 인스턴스 생성 (환경변수 미설정 시 빌드 오류 방지)
+function getResend(): Resend {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? 'noreply@policy-damoa.kr';
 
 /**
@@ -36,7 +39,7 @@ export async function sendMatchEmail(
 ): Promise<{ success: boolean; error?: string }> {
   try {
     await withRetry(async () => {
-      const result = await resend.emails.send({
+      const result = await getResend().emails.send({
         from: FROM_EMAIL,
         to: data.to,
         subject: data.subject,
@@ -66,7 +69,7 @@ export async function sendDigestEmail(
 
   try {
     await withRetry(async () => {
-      const result = await resend.emails.send({
+      const result = await getResend().emails.send({
         from: FROM_EMAIL,
         to: data.to,
         subject: `[정책다모아] 매칭된 정책 ${data.policies.length}건을 확인하세요`,
