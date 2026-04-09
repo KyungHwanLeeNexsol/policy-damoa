@@ -23,19 +23,19 @@
   ],
   "functions": {
     "src/app/api/cron/sync-public-data/route.ts": {
-      "maxDuration": 900
+      "maxDuration": 300
     },
     "src/app/api/cron/sync-bojo24/route.ts": {
-      "maxDuration": 900
+      "maxDuration": 300
     },
     "src/app/api/cron/match-policies/route.ts": {
-      "maxDuration": 900
+      "maxDuration": 300
     },
     "src/app/api/cron/send-digest/route.ts": {
-      "maxDuration": 900
+      "maxDuration": 300
     },
     "src/app/api/cron/deadline-reminder/route.ts": {
-      "maxDuration": 900
+      "maxDuration": 300
     }
   }
 }

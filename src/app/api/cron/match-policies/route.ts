@@ -1,10 +1,10 @@
-// @MX:WARN Cron 900초 타임아웃 주의 - 대량 처리 시 배치 분할 필수
+// @MX:WARN Cron 300초 타임아웃 주의 - 대량 처리 시 배치 분할 필수
 import { matchPoliciesForUsers } from '@/services/notification/matching.service';
 import { sendPushNotification } from '@/services/notification/push.service';
 import { sendEmailNotification } from '@/services/notification/email.service';
 import { prisma } from '@/lib/db';
 
-export const maxDuration = 900;
+export const maxDuration = 300;
 
 export async function GET(request: Request) {
   // Cron 인증 (CRON_SECRET Bearer 토큰)

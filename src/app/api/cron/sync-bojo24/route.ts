@@ -1,11 +1,11 @@
-// @MX:WARN Vercel 900s maxDuration 제약
+// @MX:WARN Vercel 300s maxDuration 제약
 // @MX:REASON Vercel Cron 900s 하드 타임아웃; cursor 기반 페이지네이션 재시작은 @MX:TODO
 
 import { invalidatePolicyCaches } from '@/services/cache/policy.cache';
 import { syncAll } from '@/services/data-collection/bojo24.service';
 import { AuthError } from '@/services/data-collection/utils';
 
-export const maxDuration = 900;
+export const maxDuration = 300;
 
 /** 보조금24 동기화 Cron 핸들러 */
 export async function GET(request: Request): Promise<Response> {
