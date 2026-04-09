@@ -9,6 +9,19 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed — Pencil 디자인 정밀 반영 (UI/UX 개선)
+
+**수정 날짜**: 2026-04-09
+
+- `feat(design)`: 로고를 텍스트 기반에서 SVG 이미지 로고(`public/logo-icon.svg`)로 교체 — 그라디언트 레이어 아이콘(#4F6EF7→#6B8AFF)
+- `feat(ui)`: Header 네비게이션 폰트·컬러·활성 상태 개선 (활성 탭 하단 2px 보더, `#4F6EF7`)
+- `feat(ui)`: Header 검색 버튼 "통합검색" 텍스트 및 aria-label 추가
+- `feat(ui)`: 홈 카테고리 탭 비활성 배경 `#F4F5F7`로 통일 (테두리 제거)
+- `feat(ui)`: 로그인 페이지 설명 문구 및 하단 푸터 텍스트 디자인 명세 반영
+- `style(format)`: Prettier CI 통과를 위한 3개 파일 포맷 수정
+
+---
+
 ### Added — SPEC-AI-001: AI 기반 맞춤 정책 추천
 
 **구현 날짜**: 2026-04-06
