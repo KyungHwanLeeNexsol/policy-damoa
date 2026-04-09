@@ -50,17 +50,15 @@ describe('auth 설정', () => {
     expect(authModule.signOut).toBeDefined();
   });
 
-  it('authConfig에 3개의 OAuth 프로바이더가 포함되어야 한다', async () => {
+  it('authConfig에 카카오 OAuth 프로바이더가 포함되어야 한다', async () => {
     const authModule = await import('@/lib/auth');
 
     expect(authModule.authConfig).toBeDefined();
-    expect(authModule.authConfig.providers).toHaveLength(3);
+    expect(authModule.authConfig.providers).toHaveLength(1);
 
     const providerIds = (
       authModule.authConfig.providers as unknown as Array<{ id?: string } | (() => { id: string })>
     ).map((p) => (typeof p === 'function' ? p().id : p.id));
     expect(providerIds).toContain('kakao');
-    expect(providerIds).toContain('naver');
-    expect(providerIds).toContain('google');
   });
 });

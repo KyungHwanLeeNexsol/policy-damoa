@@ -15,7 +15,7 @@ vi.mock('@/services/notification/email.service', () => ({
 }));
 
 vi.mock('@/lib/db', () => ({
-  default: {
+  prisma: {
     matchingResult: {
       findMany: vi.fn().mockResolvedValue([]),
       update: vi.fn(),
