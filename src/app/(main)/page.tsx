@@ -60,9 +60,7 @@ export default function HomePage(): React.ReactNode {
               key={cat.key}
               type="button"
               className={`rounded-full px-5 py-2 text-[14px] font-medium transition-colors ${
-                idx === 0
-                  ? 'bg-[#4F6EF7] text-white'
-                  : 'bg-white text-[#8B95A1] hover:bg-[#F2F3F6]'
+                idx === 0 ? 'bg-[#4F6EF7] text-white' : 'bg-white text-[#8B95A1] hover:bg-[#F2F3F6]'
               }`}
               style={idx !== 0 ? { border: '1px solid #E5E8EB' } : undefined}
             >

@@ -72,7 +72,10 @@ export default async function PoliciesPage({
       </div>
 
       {/* 검색 */}
-      <div className="rounded-[16px] bg-white p-5 shadow-sm" style={{ border: '1px solid #F2F3F6' }}>
+      <div
+        className="rounded-[16px] bg-white p-5 shadow-sm"
+        style={{ border: '1px solid #F2F3F6' }}
+      >
         <PolicySearch />
         <div className="mt-4">
           <PolicyFilter regions={regions} categories={categories} />
@@ -93,7 +96,11 @@ export default async function PoliciesPage({
         </Suspense>
 
         {result.totalPages > 1 && (
-          <PolicyPagination page={result.page} totalPages={result.totalPages} total={result.total} />
+          <PolicyPagination
+            page={result.page}
+            totalPages={result.totalPages}
+            total={result.total}
+          />
         )}
       </div>
     </div>

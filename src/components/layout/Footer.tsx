@@ -5,9 +5,7 @@ export function Footer(): React.ReactNode {
   return (
     <footer className="bg-white" style={{ borderTop: '1px solid #E5E8EB' }} role="contentinfo">
       {/* 상단 3-컬럼 */}
-      <div
-        className="flex flex-col gap-8 px-6 py-6 md:flex-row lg:px-[170px] lg:py-8"
-      >
+      <div className="flex flex-col gap-8 px-6 py-6 md:flex-row lg:px-[170px] lg:py-8">
         {/* Col 1 */}
         <div className="flex-1">
           <p className="text-[13px] font-semibold text-[#111111]">정책다모아</p>
@@ -66,7 +64,10 @@ export function Footer(): React.ReactNode {
         <div className="flex flex-col items-start justify-between gap-2 px-6 py-4 text-[10px] text-[#999999] sm:flex-row sm:items-center lg:px-[170px]">
           <p>© 2026 정책다모아. 본 사이트는 대한민국 정부가 운영하는 정책정보 포털입니다.</p>
           <div className="flex items-center gap-3">
-            <Link href="/privacy" className="text-[11px] font-medium text-[#666666] hover:text-[#4F6EF7]">
+            <Link
+              href="/privacy"
+              className="text-[11px] font-medium text-[#666666] hover:text-[#4F6EF7]"
+            >
               개인정보처리방침
             </Link>
             <span className="text-[#999999]">|</span>
